@@ -22,49 +22,37 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 
 <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ true }}">
 <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#FFF5F5 0%,#FFFFFF 50%,#F5F3FF 100%);padding:40px 20px;box-sizing:border-box">
-<div style="width:640px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box">
+<div style="width:820px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px;display:flex;flex-direction:column;gap:22px;box-sizing:border-box">
 <img src="./assets/movewell-primary-gradient.svg" alt="MoveWell" style="height:30px;align-self:flex-start;margin-left:-8px">
-<div><h1 style="margin:0;font-size:24px;font-weight:700">Complete prototype</h1><p style="margin:4px 0 0;font-size:14px;color:#4A4540">Choose a demo. Sign out from any app to come back to this menu.</p></div>
-<div style="display:flex;gap:14px">
-<div onClick="{{ pickWeb }}" style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
-<span style="width:44px;height:44px;border-radius:12px;background:#F5F3FF;color:#5647C9;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fa-solid fa-display"></i></span>
-<span style="font-size:16px;font-weight:700">Web Portals</span>
-<span style="font-size:12.5px;color:#4A4540;line-height:1.5">Coordinator, allied health and ops mission control workspaces.</span>
-<span style="margin-top:auto;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#5647C9">Enter<i class="fa-solid fa-arrow-right"></i></span>
+<div><h1 style="margin:0;font-size:24px;font-weight:700">Complete prototype</h1><p style="margin:4px 0 0;font-size:14px;color:#4A4540">Choose a workspace or user. Sign out from any app to come back here.</p></div>
+<div style="display:flex;gap:28px">
+<div style="flex:1;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540"><i class="fa-solid fa-display" style="color:#5647C9"></i>WEB PORTALS</div>
+<sc-for list="{{ webList }}" as="w" hint-placeholder-count="3">
+<div onClick="{{ w.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 14px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
+<span style="width:40px;height:40px;border-radius:10px;background:{{ w.avBg }};color:{{ w.avFg }};display:flex;align-items:center;justify-content:center;font-size:16px;flex:none"><i class="fa-solid {{ w.icon }}"></i></span>
+<span style="flex:1"><span style="display:block;font-size:14.5px;font-weight:700">{{ w.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ w.desc }}</span></span>
+<i class="fa-solid fa-arrow-right" style="color:#E8E5E1;font-size:12px"></i>
 </div>
-<div onClick="{{ pickMobile }}" style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
-<span style="width:44px;height:44px;border-radius:12px;background:#FFF5F5;color:#E85555;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fa-solid fa-mobile-screen"></i></span>
-<span style="font-size:16px;font-weight:700">Mobile</span>
-<span style="font-size:12.5px;color:#4A4540;line-height:1.5">Rider, Supporter and Driver apps, shown on an iOS frame.</span>
-<span style="margin-top:auto;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#E85555">Enter<i class="fa-solid fa-arrow-right"></i></span>
+</sc-for>
 </div>
-</div>
-</div>
-</div>
-</sc-if>
-
-<sc-if value="{{ isWeb }}" hint-placeholder-val="{{ false }}">
-<div style="min-height:100vh;display:flex;flex-direction:column">
-
-<sc-if value="{{ isWebPicker }}" hint-placeholder-val="{{ true }}">
-<div style="flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#FFF5F5 0%,#FFFFFF 50%,#F5F3FF 100%);padding:40px 20px;box-sizing:border-box">
-<div style="width:560px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px;display:flex;flex-direction:column;gap:18px;box-sizing:border-box">
-<img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:30px;align-self:flex-start;margin-left:-8px">
-<div><h1 style="margin:0;font-size:24px;font-weight:700">Choose a workspace</h1><p style="margin:4px 0 0;font-size:14px;color:#4A4540">Sign out from the top bar to return to the main menu.</p></div>
-<div style="display:flex;flex-direction:column;gap:10px">
-<sc-for list="{{ wsList }}" as="w" hint-placeholder-count="3">
-<div onClick="{{ w.onPick }}" style="display:flex;align-items:center;gap:14px;min-height:76px;padding:12px 16px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
-<span style="width:48px;height:48px;border-radius:12px;background:{{ w.avBg }};color:{{ w.avFg }};display:flex;align-items:center;justify-content:center;font-size:19px;flex:none"><i class="fa-solid {{ w.icon }}"></i></span>
-<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">{{ w.name }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ w.desc }}</span></span>
-<i class="fa-solid fa-arrow-right" style="color:#E8E5E1"></i>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540"><i class="fa-solid fa-mobile-screen" style="color:#E85555"></i>MOBILE</div>
+<sc-for list="{{ mobList }}" as="u" hint-placeholder-count="4">
+<div onClick="{{ u.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 14px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
+<span style="width:40px;height:40px;border-radius:9999px;background:{{ u.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex:none">{{ u.init }}</span>
+<span style="flex:1"><span style="display:block;font-size:14.5px;font-weight:700">{{ u.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ u.desc }}</span></span>
+<i class="fa-solid fa-arrow-right" style="color:#E8E5E1;font-size:12px"></i>
 </div>
 </sc-for>
 </div>
 </div>
 </div>
+</div>
 </sc-if>
 
-<sc-if value="{{ isWebWs }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ isWebScreen }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100vh;display:flex;flex-direction:column">
 <div style="display:flex;align-items:center;gap:14px;height:56px;padding:0 22px;background:#fff;border-bottom:1px solid #E8E5E1;flex:none;box-sizing:border-box">
 <img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:22px">
 <span style="font-size:12px;font-weight:700;letter-spacing:0.12em;color:#4A4540;border-left:1px solid #E8E5E1;padding-left:14px">{{ wsLabel }}</span>
@@ -195,38 +183,19 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 </div>
-</sc-if>
-
 </div>
 </sc-if>
 
-<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ isMobileScreen }}" hint-placeholder-val="{{ false }}">
 <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:28px 0;box-sizing:border-box">
 <div style="display:flex;align-items:center;gap:12px">
 <img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:24px">
-<span style="font-size:13px;color:#4A4540">Mobile demo · sign out inside any app to return to the main menu</span>
+<span style="font-size:13px;color:#4A4540">Mobile demo · sign out inside the app to return to the main menu</span>
 </div>
 <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
 <div style="width:100%;height:100%">
 
-<sc-if value="{{ isMobPicker }}" hint-placeholder-val="{{ true }}">
-<div style="width:100%;height:100%;box-sizing:border-box;padding:60px 24px 28px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
-<div style="padding-top:18px"><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:30px;display:block;margin-left:-10px"></div>
-<h1 style="margin:16px 0 4px;font-size:26px;font-weight:700;line-height:1.2">Who's signing in?</h1>
-<p style="margin:0 0 18px;font-size:14px;color:#4A4540">Demo build. In production each person has their own sign-in.</p>
-<div style="display:flex;flex-direction:column;gap:10px">
-<sc-for list="{{ users }}" as="u" hint-placeholder-count="4">
-<div onClick="{{ u.onPick }}" style="display:flex;align-items:center;gap:14px;min-height:72px;padding:10px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
-<span style="width:48px;height:48px;border-radius:9999px;background:{{ u.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex:none">{{ u.init }}</span>
-<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">{{ u.name }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ u.desc }}</span></span>
-<span style="padding:4px 10px;border-radius:9999px;background:{{ u.chipBg }};color:{{ u.chipFg }};font-size:10.5px;font-weight:700">{{ u.chip }}</span>
-</div>
-</sc-for>
-</div>
-</div>
-</sc-if>
-
-<sc-if value="{{ isMaya }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ isMaya }}" hint-placeholder-val="{{ true }}">
 <dc-import name="RiderApp" on-logout="{{ logout }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
 </sc-if>
 <sc-if value="{{ isAnna }}" hint-placeholder-val="{{ false }}">
@@ -246,24 +215,23 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;startFork&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;menu&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;web&quot;,&quot;mobile&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;menu&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;leo&quot;,&quot;amy&quot;,&quot;ops&quot;,&quot;maya&quot;,&quot;anna&quot;,&quot;deb&quot;,&quot;lena&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { fork: null, ws: null, opsF: 'all', flag: 'open', tick: 0, user: null };
+  state = { screen: null, opsF: 'all', flag: 'open', tick: 0 };
   componentDidMount() { this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000); }
   componentWillUnmount() { if (this._iv) clearInterval(this._iv); }
   renderVals() {
     const S = this.state;
-    const fork = S.fork ?? (this.props.startFork && this.props.startFork !== 'menu' ? this.props.startFork : null);
-    const toMenu = () => this.setState({ fork: null, ws: null, user: null, opsF: 'all', flag: 'open' });
+    const screen = S.screen ?? (this.props.startScreen && this.props.startScreen !== 'menu' ? this.props.startScreen : null);
+    const toMenu = () => this.setState({ screen: null, opsF: 'all', flag: 'open' });
 
     // --- Web portals ---
-    const ws = S.ws;
     const wsDefs = [
       { k: 'leo', icon: 'fa-briefcase', avBg: '#FFF5F5', avFg: '#E85555', name: 'Coordinator workspace', desc: 'Leo Marsh · Northside Coordination · caseload, claims, invoicing', label: 'COORDINATOR WORKSPACE', userInit: 'LM', userName: 'Leo Marsh', userBg: '#FF6B6B' },
       { k: 'amy', icon: 'fa-user-doctor', avBg: '#F5F3FF', avFg: '#5647C9', name: 'Allied health workspace', desc: 'Dr Amy Ngo · OT · assessments, requirements, outcomes', label: 'ALLIED HEALTH', userInit: 'AN', userName: 'Dr Amy Ngo', userBg: '#6C5CE7' },
       { k: 'ops', icon: 'fa-satellite-dish', avBg: '#2D3748', avFg: '#fff', name: 'Ops mission control', desc: 'Rhea Walsh · live map, revenue, KPIs, coverage flags', label: 'OPS MISSION CONTROL', userInit: 'RW', userName: 'Rhea Walsh', userBg: '#2D3748' },
     ];
-    const cur = wsDefs.find(w => w.k === ws);
+    const cur = wsDefs.find(w => w.k === screen);
     // positions in a 1000x600 space over Adelaide tiles; kept east of ~x440 to stay on land (Gulf St Vincent is the western third)
     const drv = [
       { x: 483, y: 214, st: 'trip', dx: 487, dy: 246, pts: [[483,214],[486,228],[483,240],[487,246]], tip: 'Deb K. · Maya P. aboard · dest North Adelaide · ETA 2:41 pm' },
@@ -320,30 +288,32 @@ class Component extends DCLogic {
     const opsBars = barVals.map((v, i) => ({ h: v + '%', label: (i + 7) + ':00', color: i === 9 ? '#FF6B6B' : i >= 7 ? '#8B7EEE' : 'rgba(139,126,238,0.45)' }));
 
     // --- Mobile ---
-    const user = S.user;
     const mobDefs = [
-      { k: 'maya', init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', desc: 'Participant · books her own rides', chip: 'CLIENT APP', chipBg: '#FFF5F5', chipFg: '#E85555' },
-      { k: 'anna', init: 'AP', avBg: '#FF8E8E', name: 'Anna Patel', desc: 'Supporter · books for Maya and Sam', chip: 'CLIENT APP', chipBg: '#FFF5F5', chipFg: '#E85555' },
-      { k: 'deb', init: 'DK', avBg: '#6C5CE7', name: 'Deb Kowalski', desc: 'Contractor driver · CareDriver tier', chip: 'DRIVER APP', chipBg: '#F5F3FF', chipFg: '#5647C9' },
-      { k: 'lena', init: 'LV', avBg: '#5647C9', name: 'Lena Voss', desc: 'Employed driver · Complex tier, rostered', chip: 'DRIVER APP', chipBg: '#F5F3FF', chipFg: '#5647C9' },
+      { k: 'maya', init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', desc: 'Participant · books her own rides' },
+      { k: 'anna', init: 'AP', avBg: '#FF8E8E', name: 'Anna Patel', desc: 'Supporter · books for Maya and Sam' },
+      { k: 'deb', init: 'DK', avBg: '#6C5CE7', name: 'Deb Kowalski', desc: 'Contractor driver · CareDriver tier' },
+      { k: 'lena', init: 'LV', avBg: '#5647C9', name: 'Lena Voss', desc: 'Employed driver · Complex tier, rostered' },
     ];
 
-    return {
-      isMenu: !fork, isWeb: fork === 'web', isMobile: fork === 'mobile',
-      pickWeb: () => this.setState({ fork: 'web' }),
-      pickMobile: () => this.setState({ fork: 'mobile' }),
+    const isLeo = screen === 'leo', isAmy = screen === 'amy', isOps = screen === 'ops';
+    const isMaya = screen === 'maya', isAnna = screen === 'anna', isDeb = screen === 'deb', isLena = screen === 'lena';
 
-      isWebPicker: !ws, isWebWs: !!ws,
-      isLeo: ws === 'leo', isAmy: ws === 'amy', isOps: ws === 'ops',
-      wsList: wsDefs.map(w => ({ ...w, onPick: () => this.setState({ ws: w.k }) })),
+    return {
+      isMenu: !screen,
+      isWebScreen: isLeo || isAmy || isOps,
+      isMobileScreen: isMaya || isAnna || isDeb || isLena,
+
+      webList: wsDefs.map(w => ({ ...w, onPick: () => this.setState({ screen: w.k }) })),
+      mobList: mobDefs.map(d => ({ ...d, onPick: () => this.setState({ screen: d.k }) })),
+
+      isLeo, isAmy, isOps,
       wsLabel: cur ? cur.label : '', wsUserInit: cur ? cur.userInit : '', wsUserName: cur ? cur.userName : '', wsUserBg: cur ? cur.userBg : '#2D3748',
       opsFilters, opsKpis, opsDots, opsLines, opsDest, opsFlagPins, opsHeat, opsBars, opsTiles,
       flagOpen: S.flag === 'open', flagDone: S.flag === 'done',
       dispatchLena: () => this.setState({ flag: 'done' }),
       opsRefresh: 'refreshed ' + (T % 8 + 1) + ' s ago',
 
-      isMobPicker: !user, isMaya: user === 'maya', isAnna: user === 'anna', isDeb: user === 'deb', isLena: user === 'lena',
-      users: mobDefs.map(d => ({ ...d, onPick: () => this.setState({ user: d.k }) })),
+      isMaya, isAnna, isDeb, isLena,
 
       logout: toMenu,
     };
