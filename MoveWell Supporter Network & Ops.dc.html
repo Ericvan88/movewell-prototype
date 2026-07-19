@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#EFEDEA;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#2D3748;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:700 14px/1.2 'Atkinson Hyperlegible',sans-serif;color:#2D3748}
+.dv-notes{max-width:760px;margin:0 0 24px;font:400 12.5px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.65)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(45,55,72,.1);color:#2D3748;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.6)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#6C5CE7;color:#fff}
+</style>
+</helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">MoveWell · Supporter network, ops tools, fleet types (scope2)</span><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:22px;margin-left:auto"></div>
+<p class="dv-notes"><strong>Scope2 deltas, built deep.</strong> The role formerly called booker is now <strong>Supporter</strong> (new work only; earlier files unchanged). <a class="dv-oid" href="#1a">1a</a> is the Supporter linking flow with every state: self-add by mobile lookup (privacy-masked), request pending, confirmed, <strong>declined</strong>, plus per-participant detail showing who else has access and a two-step <strong>remove my access</strong> with a removed end-state. Nothing links silently: the participant always confirms. <a class="dv-oid" href="#1b">1b</a> coordinator add-a-Supporter (the other linking path, same confirmation rule). <a class="dv-oid" href="#1c">1c</a> admin book-on-behalf: the ops tool for riders who phone in, with identity check and audit trail. <a class="dv-oid" href="#1d">1d</a> fleet module extended to the full scope2 vehicle taxonomy (WAV, sensory-calm, bariatric, high-dependency, child-specific, EV), filterable, reads fine at 2 vehicles or 200. <a class="dv-oid" href="#1e">1e</a> plan manager and NDIA planner read-only views. SIL ops lead deferred per your call.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Supporter linking flow · iOS, all states (Anna adds Sam)</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
+<div style="width:100%;height:100%;box-sizing:border-box;padding-top:60px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isSpHome }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:14px 20px 0"><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:26px;display:block;margin-left:-10px"></div>
+<div style="padding:10px 20px 8px">
+<h1 style="margin:0;font-size:26px;font-weight:700;line-height:1.15">Your people</h1>
+<p style="margin:4px 0 0;font-size:14px;color:#4A4540">People you support on MoveWell</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div onClick="{{ goSpMaya }}" style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer" style-hover="background:#F7F6F4">
+<span style="width:44px;height:44px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">MP</span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">Maya Patel · daughter</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ spMayaScopeLine }}</span></span>
+<i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i>
+</div>
+<sc-if value="{{ spSamLinked }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">SP</span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">Sam Patel · son</span><span style="display:block;font-size:12.5px;color:#4A4540">Book and SOS alerts only · set by Sam</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">New</span>
+</div>
+</sc-if>
+<sc-if value="{{ spSamPending }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px dashed #ADA8A2;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#F7F6F4;color:#ADA8A2;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">S</span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Request sent · 0412 887 ***</span><span style="display:block;font-size:12.5px;color:#4A4540">Waiting for them to confirm in their app</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Pending</span>
+</div>
+<div style="display:flex;gap:8px">
+<button onClick="{{ spSamConfirm }}" style="flex:1;height:40px;border:1px dashed #ADA8A2;background:transparent;color:#4A4540;border-radius:10px;font-family:inherit;font-size:12px;cursor:pointer"><i class="fa-solid fa-forward" style="margin-right:6px"></i>Demo: Sam confirms</button>
+<button onClick="{{ spSamDecline }}" style="flex:1;height:40px;border:1px dashed #ADA8A2;background:transparent;color:#4A4540;border-radius:10px;font-family:inherit;font-size:12px;cursor:pointer"><i class="fa-solid fa-forward" style="margin-right:6px"></i>Demo: Sam declines</button>
+</div>
+</sc-if>
+<sc-if value="{{ spSamDeclined }}" hint-placeholder-val="{{ false }}">
+<div style="background:rgba(232,85,85,0.06);border:1px solid #E85555;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#C43F3F"><i class="fa-solid fa-circle-xmark"></i>Request declined</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">The person at 0412 887 *** chose not to link accounts. They weren't told anything else about you, and you can't see anything of theirs.</div>
+<button onClick="{{ spSamReset }}" style="align-self:flex-start;border:0;background:transparent;color:#6C5CE7;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:6px 0">Dismiss</button>
+</div>
+</sc-if>
+<sc-if value="{{ spSamNone }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ goSpAdd }}" style="height:56px;border:1px dashed #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#FFF5F5"><i class="fa-solid fa-plus" style="margin-right:9px"></i>Add someone you support</button>
+</sc-if>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px"><i class="fa-solid fa-shield-heart" style="color:#6C5CE7;margin-right:7px"></i>Linking always needs the other person's confirmation. Nobody is added silently.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSpAdd }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goSpHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Add someone</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="font-size:14px;color:#4A4540;line-height:1.5">Enter their mobile number. We'll send them a request; you're linked only when they confirm.</div>
+<div style="display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;background:#fff;border:2px solid #FF6B6B;border-radius:12px;font-size:18px;font-weight:700;font-variant-numeric:tabular-nums"><i class="fa-solid fa-mobile-screen" style="color:#FF6B6B"></i>0412 887 304</div>
+<sc-if value="{{ spLookupFound }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#F7F6F4;color:#4A4540;display:flex;align-items:center;justify-content:center;font-weight:700">S···</span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">S··· P··· · MoveWell member</span><span style="display:block;font-size:12px;color:#4A4540">Name shown in full only after they confirm</span></span>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span style="font-size:13px;font-weight:700">Your relationship</span>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:0 16px;background:#fff;border:2px solid #FF6B6B;border-radius:12px;font-size:15px;font-weight:700"><i class="fa-solid fa-circle-check" style="color:#FF6B6B"></i>Family</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:0 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;font-size:15px;color:#4A4540">Support worker or carer</div>
+</div>
+</sc-if>
+<sc-if value="{{ spLookupIdle }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ spLookup }}" style="height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Look up this number</button>
+</sc-if>
+</div>
+<sc-if value="{{ spLookupFound }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ spSendRequest }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-paper-plane" style="margin-right:9px"></i>Send request</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSpMaya }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goSpHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Maya Patel</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<sc-if value="{{ spMayaLinked }}" hint-placeholder-val="{{ true }}">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">MAYA SHARES WITH YOU</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:18px"></i>Book, track live, pickup and drop-off alerts</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:18px"></i>Receipts and claim status</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px;color:#4A4540"><i class="fa-solid fa-circle-xmark" style="color:#ADA8A2;width:18px"></i>Plan budget balance · not shared</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">WHO ELSE SUPPORTS MAYA</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">AP</span>
+<span style="flex:1"><span style="display:block;font-size:14px;font-weight:700">You · family</span><span style="display:block;font-size:12px;color:#4A4540">Linked 03/2025 · self-requested</span></span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">LM</span>
+<span style="flex:1"><span style="display:block;font-size:14px;font-weight:700">Leo Marsh · support coordinator</span><span style="display:block;font-size:12px;color:#4A4540">Northside Coordination · added by organisation</span></span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F7F6F4;color:#ADA8A2;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">R···</span>
+<span style="flex:1"><span style="display:block;font-size:14px;font-weight:700;color:#4A4540">R··· T··· · support worker</span><span style="display:block;font-size:12px;color:#4A4540">Requested by Leo · waiting for Maya to confirm</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Pending</span>
+</div>
+</div>
+<sc-if value="{{ spNotConfirmingRemove }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ spAskRemove }}" style="height:52px;border:1px solid #E85555;background:#fff;color:#C43F3F;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-user-minus" style="margin-right:8px"></i>Remove my access to Maya's account</button>
+</sc-if>
+<sc-if value="{{ spConfirmingRemove }}" hint-placeholder-val="{{ false }}">
+<div style="background:rgba(232,85,85,0.06);border:1px solid #E85555;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:15px;font-weight:700;color:#C43F3F">Remove your access?</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">You'll stop seeing Maya's trips and alerts immediately. Maya will be told. You can request access again later.</div>
+<div style="display:flex;gap:10px">
+<button onClick="{{ spCancelRemove }}" style="flex:1;height:48px;border:1px solid #E8E5E1;background:#fff;color:#4A4540;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Keep access</button>
+<button onClick="{{ spDoRemove }}" style="flex:1;height:48px;border:0;background:#E85555;color:#fff;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Yes, remove</button>
+</div>
+</div>
+</sc-if>
+</sc-if>
+<sc-if value="{{ spMayaRemoved }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
+<span style="width:56px;height:56px;border-radius:9999px;background:#F7F6F4;color:#ADA8A2;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="fa-solid fa-user-slash"></i></span>
+<span style="font-size:16px;font-weight:700">Access removed.</span>
+<span style="font-size:13px;color:#4A4540;line-height:1.5">Maya has been notified. Her trips, alerts and receipts are no longer visible to you.</span>
+<button onClick="{{ spUndoRemove }}" style="border:0;background:transparent;color:#6C5CE7;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:6px 0"><i class="fa-solid fa-rotate-left" style="margin-right:7px"></i>Demo: restore access</button>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Coordinator adds a Supporter · web, interactive (Leo, for Maya)</div>
+<div class="dv-card" style="width:640px;padding:24px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;font-size:14px">
+<div style="display:flex;align-items:center;gap:12px">
+<span style="width:40px;height:40px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">MP</span>
+<div><div style="font-size:17px;font-weight:700">Maya Patel · Supporters</div><div style="font-size:12px;color:#4A4540">Coordinator workspace · participant detail panel</div></div>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px"><span style="width:32px;height:32px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">AP</span><span style="flex:1"><span style="display:block;font-size:13.5px;font-weight:700">Anna Patel · family</span><span style="display:block;font-size:11.5px;color:#4A4540">Full access · linked 03/2025</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:10.5px;font-weight:700">Active</span></div>
+<sc-if value="{{ cwAddPending }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><span style="width:32px;height:32px;border-radius:9999px;background:#F7F6F4;color:#ADA8A2;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">RT</span><span style="flex:1"><span style="display:block;font-size:13.5px;font-weight:700">Rosa Tran · support worker</span><span style="display:block;font-size:11.5px;color:#4A4540">Requested by you just now · Maya must confirm</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:10.5px;font-weight:700">Pending</span></div>
+</sc-if>
+</div>
+<sc-if value="{{ cwAddIdle }}" hint-placeholder-val="{{ true }}">
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;background:#FAFAF9">
+<div style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#4A4540">ADD A SUPPORTER TO MAYA'S ACCOUNT</div>
+<div style="display:flex;gap:10px">
+<div style="flex:1.2;display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:10px;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums"><i class="fa-solid fa-mobile-screen" style="color:#FF6B6B"></i>0455 210 668</div>
+<div style="flex:1;display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:10px;font-size:13.5px"><i class="fa-solid fa-user-tag" style="color:#FF6B6B"></i>Support worker</div>
+</div>
+<button onClick="{{ cwSendAdd }}" style="align-self:flex-start;height:46px;padding:0 20px;border:0;border-radius:10px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-paper-plane" style="margin-right:8px"></i>Send confirmation request to Maya</button>
+</div>
+</sc-if>
+<sc-if value="{{ cwAddPending }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:10px;font-size:13px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i><span style="flex:1">Request sent. Maya (or Anna, her account holder) confirms in the Client App before Rosa gets any access.</span><button onClick="{{ cwResetAdd }}" style="border:0;background:transparent;color:#6C5CE7;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">Demo: reset</button></div>
+</sc-if>
+<div style="font-size:12px;color:#4A4540;line-height:1.5">Same rule as self-add: coordinators can initiate a link, never complete one. Every grant is participant-confirmed and logged.</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Admin book-on-behalf · web ops tool, interactive (call-in rider)</div>
+<div class="dv-card" style="width:760px;box-sizing:border-box;display:flex;flex-direction:column;font-size:14px">
+<div style="display:flex;align-items:center;gap:12px;padding:16px 24px;background:#2D3748;color:#fff">
+<i class="fa-solid fa-headset"></i><span style="font-size:14px;font-weight:700">Book on behalf · phone booking</span>
+<span style="margin-left:auto;font-size:12px;color:rgba(255,255,255,0.6)">Agent: Rhea · ops desk · call 04:12</span>
+</div>
+<div style="display:flex;gap:0;padding:16px 24px 0">
+<sc-for list="{{ boSteps }}" as="s" hint-placeholder-count="3">
+<div style="flex:1;display:flex;align-items:center;gap:9px">
+<span style="width:26px;height:26px;border-radius:9999px;background:{{ s.dotBg }};color:{{ s.dotFg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:none">{{ s.n }}</span>
+<span style="font-size:12.5px;font-weight:{{ s.fw }};color:{{ s.fg }}">{{ s.label }}</span>
+</div>
+</sc-for>
+</div>
+<div style="padding:18px 24px 24px;display:flex;flex-direction:column;gap:14px">
+<sc-if value="{{ isBo0 }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;gap:10px;height:48px;padding:0 16px;background:#fff;border:2px solid #6C5CE7;border-radius:10px;font-size:14.5px"><i class="fa-solid fa-magnifying-glass" style="color:#6C5CE7"></i>Maya Patel · 0401 336 ···</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px">
+<span style="width:40px;height:40px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">MP</span>
+<span style="flex:1"><span style="display:block;font-weight:700">Maya Patel · NDIS ···· ··· 87</span><span style="display:block;font-size:12px;color:#4A4540">Prospect SA · plan managed · phone bookings consented 03/2026</span></span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,217,61,0.18);border:1px solid #FFD93D;border-radius:10px;font-size:13px"><i class="fa-solid fa-shield-halved" style="color:#B8860B"></i><span style="flex:1"><strong>Identity check:</strong> confirm full name, suburb, and date of birth before booking.</span></div>
+<button onClick="{{ boNext }}" style="align-self:flex-start;height:48px;padding:0 22px;border:0;border-radius:10px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Identity confirmed · book a trip</button>
+</sc-if>
+<sc-if value="{{ isBo1 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:12px">
+<div style="flex:1;display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:10px;font-size:13.5px"><span style="width:9px;height:9px;border-radius:9999px;background:#6C5CE7"></span>Home · 12 Olive St, Prospect</div>
+<div style="flex:1;display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;background:#fff;border:2px solid #6C5CE7;border-radius:10px;font-size:13.5px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B"></i>Physio · North Adelaide</div>
+</div>
+<div style="display:flex;gap:12px">
+<div style="flex:1;display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:10px;font-size:13.5px"><i class="fa-solid fa-calendar" style="color:#6C5CE7"></i>Tomorrow · 2:15 pm</div>
+<div style="flex:1;display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:10px;font-size:13.5px"><i class="fa-solid fa-car" style="color:#6C5CE7"></i>Standard sedan · from her profile</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:10px;font-size:13px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i>Eligible · Core budget · est. claim $38.50 · profile requirements applied automatically</div>
+<button onClick="{{ boNext }}" style="align-self:flex-start;height:48px;padding:0 22px;border:0;border-radius:10px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Confirm booking for Maya</button>
+</sc-if>
+<sc-if value="{{ isBo2 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px;padding:16px;background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:rgba(45,167,72,0.18);color:#1F7A33;display:flex;align-items:center;justify-content:center;font-size:19px"><i class="fa-solid fa-check"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Booked. Maya gets an SMS confirmation; Anna gets her usual alerts.</span><span style="display:block;font-size:12.5px;color:#4A4540">Trip T-90412 · tomorrow 2:15 pm · Standard sedan</span></span>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:#4A4540">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">AUDIT LOG</span>
+<span><i class="fa-solid fa-file-lines" style="margin-right:8px;color:#6C5CE7"></i>Booked by ops agent Rhea W. · channel: phone · identity verified (name, suburb, DOB) · 16/07 11:42 am</span>
+<span><i class="fa-solid fa-eye" style="margin-right:8px;color:#6C5CE7"></i>Visible to Maya, Anna and Leo per existing consents. Logged in the privacy access register.</span>
+</div>
+<button onClick="{{ boReset }}" style="align-self:flex-start;height:40px;padding:0 16px;border:1px dashed #ADA8A2;background:transparent;color:#4A4540;border-radius:10px;font-family:inherit;font-size:12px;cursor:pointer"><i class="fa-solid fa-rotate-left" style="margin-right:7px"></i>Demo: restart call</button>
+</sc-if>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Fleet module · scope2 vehicle taxonomy, filterable</div>
+<div class="dv-card" style="width:760px;padding:24px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;font-size:14px">
+<div style="display:flex;align-items:baseline;gap:12px"><div style="font-size:17px;font-weight:700">Fleet · owned vehicles</div><span style="font-size:12px;color:#4A4540">Demand-led: added where the market won't supply · {{ flCountLine }}</span></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<sc-for list="{{ flFilters }}" as="f" hint-placeholder-count="7">
+<button onClick="{{ f.onPick }}" style="height:36px;padding:0 14px;border-radius:9999px;border:{{ f.border }};background:{{ f.bg }};color:{{ f.fg }};font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer">{{ f.label }}</button>
+</sc-for>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.5fr 1.4fr 1.2fr 1fr;gap:10px;padding:11px 16px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>VEHICLE</span><span>CONFIGURATION</span><span>ASSIGNED</span><span>COMPLIANCE</span></div>
+<sc-for list="{{ flRows }}" as="v" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:1.5fr 1.4fr 1.2fr 1fr;gap:10px;align-items:center;min-height:52px;padding:6px 16px;border-bottom:1px solid #F7F6F4">
+<span style="display:flex;align-items:center;gap:10px"><span style="width:32px;height:32px;border-radius:8px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid {{ v.icon }}"></i></span><span><span style="display:block;font-weight:700;font-size:13.5px">{{ v.id }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ v.model }}</span></span></span>
+<span style="font-size:12.5px">{{ v.config }}</span>
+<span style="font-size:12.5px">{{ v.assigned }}</span>
+<span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ v.stBg }};color:{{ v.stFg }};font-size:10.5px;font-weight:700"><i class="fa-solid {{ v.stIcon }}"></i>{{ v.status }}</span>
+</div>
+</sc-for>
+<sc-if value="{{ flEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:28px;text-align:center">
+<span style="width:48px;height:48px;border-radius:9999px;background:#F7F6F4;color:#ADA8A2;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fa-solid fa-van-shuttle"></i></span>
+<span style="font-size:14px;font-weight:700">No owned vehicles of this type yet.</span>
+<span style="font-size:12.5px;color:#4A4540;max-width:380px;line-height:1.5">Fleet grows demand-led. Unmet demand for this type appears in the outcomes console and triggers a fleet review.</span>
+</div>
+</sc-if>
+</div>
+<div style="font-size:12px;color:#4A4540">Devices, restraints, AAC kit and credentials are tracked as assets against each vehicle and driver, expiry-linked. The layout reads the same at 2 vehicles or 200.</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1e">
+<div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Plan manager and NDIA planner · read-only views</div>
+<div class="dv-card" style="width:760px;box-sizing:border-box;display:flex;flex-direction:column;font-size:14px">
+<div style="display:flex;gap:4px;padding:14px 24px 0;border-bottom:1px solid #E8E5E1">
+<div onClick="{{ goPmTab }}" style="padding:11px 16px;font-size:13.5px;font-weight:700;color:{{ pmTabFg }};border-bottom:3px solid {{ pmTabAccent }};cursor:pointer">Plan manager · Leap in!</div>
+<div onClick="{{ goNdiaTab }}" style="padding:11px 16px;font-size:13.5px;font-weight:700;color:{{ ndiaTabFg }};border-bottom:3px solid {{ ndiaTabAccent }};cursor:pointer">NDIA planner / LAC</div>
+</div>
+<div style="padding:20px 24px 24px;display:flex;flex-direction:column;gap:14px">
+<sc-if value="{{ isPmTab }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:10px;font-size:12.5px;color:#5647C9"><i class="fa-solid fa-eye"></i>Read and export only. Plan managers approve spend in their own systems; MoveWell supplies evidence-rich invoices.</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.4fr 1.6fr 1fr 1fr;gap:10px;padding:11px 16px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>INVOICE</span><span>PARTICIPANT · PERIOD</span><span>AMOUNT</span><span>EVIDENCE</span></div>
+<div style="display:grid;grid-template-columns:1.4fr 1.6fr 1fr 1fr;gap:10px;align-items:center;min-height:50px;padding:6px 16px;border-bottom:1px solid #F7F6F4"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px">INV-2607-114</span><span style="font-size:13px"><strong>Maya Patel</strong> · July, 9 trips</span><span style="font-weight:700;font-variant-numeric:tabular-nums">$364.20</span><span style="font-size:12px;color:#6C5CE7;font-weight:700;cursor:pointer"><i class="fa-solid fa-paperclip" style="margin-right:6px"></i>GPS + 2FA per line</span></div>
+<div style="display:grid;grid-template-columns:1.4fr 1.6fr 1fr 1fr;gap:10px;align-items:center;min-height:50px;padding:6px 16px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px">INV-2607-115</span><span style="font-size:13px"><strong>Iris Kaur</strong> · July, 14 trips</span><span style="font-weight:700;font-variant-numeric:tabular-nums">$671.60</span><span style="font-size:12px;color:#6C5CE7;font-weight:700;cursor:pointer"><i class="fa-solid fa-paperclip" style="margin-right:6px"></i>GPS + 2FA per line</span></div>
+</div>
+<div style="display:flex;gap:10px">
+<button style="height:44px;padding:0 18px;border:0;border-radius:10px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer"><i class="fa-solid fa-file-csv" style="margin-right:8px"></i>Export CSV</button>
+<button style="height:44px;padding:0 18px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer"><i class="fa-solid fa-file-pdf" style="margin-right:8px"></i>Export PDF</button>
+</div>
+</sc-if>
+<sc-if value="{{ isNdiaTab }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:10px;font-size:12.5px;color:#5647C9"><i class="fa-solid fa-lock"></i>Read-only, consented, for plan reviews. No booking, no editing, no live tracking.</div>
+<div style="display:flex;gap:12px">
+<div style="flex:1;border:1px solid #E8E5E1;border-radius:12px;padding:14px"><div style="font-size:12px;color:#4A4540">Appointment attendance</div><div style="font-size:22px;font-weight:700">96%</div><div style="font-size:11.5px;color:#4A4540">quarter to date</div></div>
+<div style="flex:1;border:1px solid #E8E5E1;border-radius:12px;padding:14px"><div style="font-size:12px;color:#4A4540">Transport spend vs plan</div><div style="font-size:22px;font-weight:700">54%</div><div style="font-size:11.5px;color:#4A4540">tracking to plan end</div></div>
+<div style="flex:1;border:1px solid #E8E5E1;border-radius:12px;padding:14px"><div style="font-size:12px;color:#4A4540">Goal-linked outings</div><div style="font-size:22px;font-weight:700">41</div><div style="font-size:11.5px;color:#4A4540">up 9 on last quarter</div></div>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px;font-size:13px;color:#4A4540;line-height:1.55">Outcome summaries are participant-consented and aggregated per plan period. Individual trip locations and support notes are never included in the NDIA view.</div>
+</sc-if>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "build the SIL group-home ops surface" · "show Maya's side of confirming a Supporter request" · "adopt Supporter naming across the older files"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;samStartState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;none&quot;,&quot;options&quot;:[&quot;none&quot;,&quot;pending&quot;,&quot;linked&quot;,&quot;declined&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo · Supporter link states&quot;}}">
+class Component extends DCLogic {
+  state = { sp: 'home', sam: null, mayaAccess: 'linked', removeAsk: false, cwAdd: 'idle', bo: 0, fl: 'all', pm: 'pm', spLook: 'idle' };
+  renderVals() {
+    const S = { ...this.state, sam: this.state.sam ?? (this.props.samStartState ?? 'none') };
+    const flVehicles = [
+      { id: 'WAV-04', model: 'Toyota Hiace Commuter', type: 'wav', icon: 'fa-van-shuttle', config: 'Hoist · 2 anchor points', assigned: 'Lena V. · today', status: 'Compliant', ok: true },
+      { id: 'WAV-02', model: 'VW Caddy Maxi', type: 'wav', icon: 'fa-van-shuttle', config: 'Ramp · 1 anchor point', assigned: 'Pool · Fri roster', status: 'Compliant', ok: true },
+      { id: 'SEN-01', model: 'Kia Carnival', type: 'sensory', icon: 'fa-volume-xmark', config: 'Low light · acoustic lining', assigned: 'Pool', status: 'Compliant', ok: true },
+      { id: 'HD-01', model: 'Mercedes Sprinter', type: 'highdep', icon: 'fa-truck-medical', config: 'Stretcher-capable · O2 mount', assigned: 'Employed roster only', status: 'Inspection due', ok: false },
+      { id: 'CHD-01', model: 'Toyota Kluger', type: 'child', icon: 'fa-child-reaching', config: '3 child restraints · booster stock', assigned: 'Pool', status: 'Compliant', ok: true },
+      { id: 'EV-01', model: 'BYD Atto 3', type: 'ev', icon: 'fa-bolt', config: 'Standard sedan config · EV', assigned: 'Deb K. · trial', status: 'Compliant', ok: true },
+    ];
+    const flDefs = [
+      { k: 'all', label: 'All types' }, { k: 'wav', label: 'WAV' }, { k: 'sensory', label: 'Sensory-calm' },
+      { k: 'bariatric', label: 'High-capacity' }, { k: 'highdep', label: 'High-dependency' }, { k: 'child', label: 'Child restraint' }, { k: 'ev', label: 'Electric' },
+    ];
+    const flFilters = flDefs.map(f => { const on = S.fl === f.k; return { ...f,
+      bg: on ? '#6C5CE7' : '#fff', fg: on ? '#fff' : '#4A4540', border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1',
+      onPick: () => this.setState({ fl: f.k }) }; });
+    const flRows = flVehicles.filter(v => S.fl === 'all' || v.type === S.fl).map(v => ({ ...v,
+      stBg: v.ok ? 'rgba(45,167,72,0.14)' : 'rgba(255,217,61,0.25)', stFg: v.ok ? '#1F7A33' : '#8A6800',
+      stIcon: v.ok ? 'fa-circle-check' : 'fa-triangle-exclamation' }));
+    const boLabels = ['Find and verify', 'Book with profile', 'Confirm and log'];
+    const boSteps = boLabels.map((l, i) => ({ label: l, n: i + 1,
+      dotBg: i < S.bo ? 'rgba(45,167,72,0.18)' : i === S.bo ? '#6C5CE7' : '#F0EEEA',
+      dotFg: i < S.bo ? '#1F7A33' : i === S.bo ? '#fff' : '#ADA8A2',
+      fw: i === S.bo ? '700' : '400', fg: i === S.bo ? '#2D3748' : '#4A4540' }));
+    return {
+      isSpHome: S.sp === 'home', isSpAdd: S.sp === 'add', isSpMaya: S.sp === 'maya',
+      goSpHome: () => this.setState({ sp: 'home' }),
+      goSpAdd: () => this.setState({ sp: 'add', spLook: 'idle' }),
+      goSpMaya: () => this.setState({ sp: 'maya', removeAsk: false }),
+      spMayaScopeLine: S.mayaAccess === 'removed' ? 'Access removed · Maya notified' : 'Full access · book, track live, receipts',
+      spSamNone: S.sam === 'none', spSamPending: S.sam === 'pending', spSamLinked: S.sam === 'linked', spSamDeclined: S.sam === 'declined',
+      spLookupIdle: S.spLook === 'idle', spLookupFound: S.spLook === 'found',
+      spLookup: () => this.setState({ spLook: 'found' }),
+      spSendRequest: () => this.setState({ sam: 'pending', sp: 'home' }),
+      spSamConfirm: () => this.setState({ sam: 'linked' }),
+      spSamDecline: () => this.setState({ sam: 'declined' }),
+      spSamReset: () => this.setState({ sam: 'none' }),
+      spMayaLinked: S.mayaAccess === 'linked', spMayaRemoved: S.mayaAccess === 'removed',
+      spNotConfirmingRemove: !S.removeAsk, spConfirmingRemove: S.removeAsk,
+      spAskRemove: () => this.setState({ removeAsk: true }),
+      spCancelRemove: () => this.setState({ removeAsk: false }),
+      spDoRemove: () => this.setState({ mayaAccess: 'removed', removeAsk: false }),
+      spUndoRemove: () => this.setState({ mayaAccess: 'linked' }),
+      cwAddIdle: S.cwAdd === 'idle', cwAddPending: S.cwAdd === 'pending',
+      cwSendAdd: () => this.setState({ cwAdd: 'pending' }),
+      cwResetAdd: () => this.setState({ cwAdd: 'idle' }),
+      boSteps, isBo0: S.bo === 0, isBo1: S.bo === 1, isBo2: S.bo === 2,
+      boNext: () => this.setState(s => ({ bo: Math.min(2, s.bo + 1) })),
+      boReset: () => this.setState({ bo: 0 }),
+      flFilters, flRows, flEmpty: flRows.length === 0,
+      flCountLine: (S.fl === 'all' ? flVehicles.length : flRows.length) + ' of ' + flVehicles.length + ' vehicles shown',
+      isPmTab: S.pm === 'pm', isNdiaTab: S.pm === 'ndia',
+      goPmTab: () => this.setState({ pm: 'pm' }), goNdiaTab: () => this.setState({ pm: 'ndia' }),
+      pmTabFg: S.pm === 'pm' ? '#E85555' : '#4A4540', pmTabAccent: S.pm === 'pm' ? '#FF6B6B' : 'transparent',
+      ndiaTabFg: S.pm === 'ndia' ? '#E85555' : '#4A4540', ndiaTabAccent: S.pm === 'ndia' ? '#FF6B6B' : 'transparent',
+    };
+  }
+}
+</script>
+</body>
+</html>

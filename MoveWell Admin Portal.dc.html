@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#EFEDEA;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#2D3748;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:700 14px/1.2 'Atkinson Hyperlegible',sans-serif;color:#2D3748}
+.dv-notes{max-width:900px;margin:0 0 24px;font:400 12.5px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.65)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(45,55,72,.1);color:#2D3748;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.6)}
+.dv-opt:target .dv-oid{background:#6C5CE7;color:#fff}
+.dv-next{margin:26px 0 0;font:12px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.5)}
+</style>
+</helmet>
+<section class="dv-turn" id="t1" data-screen-label="Admin Portal">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">MoveWell Admin Portal · ops shell</span><img src="./assets/movewell-admin-purplegrad.svg" alt="MoveWell" style="height:22px;margin-left:auto"></div>
+<p class="dv-notes"><strong>Per scope + your answers:</strong> light MoveWell-native shell (no dark sidebar), admin purple-gradient mark, all 15 areas + the embedded Fleet/Asset module in the nav. Three areas fully built and clickable: <strong>Dispatch &amp; rostering</strong> (unassigned jobs with requirement chips, Assign action, 06:00-18:00 roster board · employed shifts solid, contractor online windows dashed), <strong>Drivers register</strong> (contractor/employed flag, credential status, Suspend/Reinstate toggles live), <strong>Onboarding queue</strong> (stage pipeline, fast-track flags; Amir's insurance can be approved). Fleet shows 18 vehicles, demand-led. Normal steady day. Others are nav stubs. Continuity: Deb Kaur, Amir Hassan and the 21-day first-aid expiry recur from the app prototypes.</p>
+<div class="dv-opts">
+<div class="dv-opt" id="1a" data-screen-label="1a Admin portal · interactive">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Interactive · dispatch · drivers · onboarding, shared shell</div>
+<x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" url="ops.movewell.com.au" width="{{ 1360 }}" height="{{ 820 }}" hint-size="1360px,820px">
+<div style="width:100%;height:100%;display:flex;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748;font-size:13.5px">
+
+<div style="flex:none;width:236px;background:#fff;border-right:1px solid #E8E5E1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:16px 18px 10px"><img src="./assets/movewell-admin-purplegrad.svg" alt="MoveWell" style="height:26px;margin-left:-9px;display:block"><span style="display:block;margin-top:2px;font-size:10px;font-weight:700;letter-spacing:0.14em;color:#4A4540">ADMIN PORTAL</span></div>
+<sc-for list="{{ navGroups }}" as="g" hint-placeholder-count="5">
+<div style="padding:10px 10px 2px">
+<div style="padding:0 10px 6px;font-size:10px;font-weight:700;letter-spacing:0.16em;color:#4A4540">{{ g.label }}</div>
+<sc-for list="{{ g.items }}" as="n" hint-placeholder-count="4">
+<div onClick="{{ n.onNav }}" style="display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:12px;background:{{ n.bg }};color:{{ n.fg }};cursor:{{ n.cursor }};font-weight:{{ n.fw }}">
+<i class="fa-solid {{ n.icon }}" style="width:16px;font-size:12.5px;text-align:center"></i>
+<span style="flex:1;font-size:13px">{{ n.name }}</span>
+<sc-if value="{{ n.badge }}" hint-placeholder-val="{{ false }}"><span style="padding:1px 8px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ n.badge }}</span></sc-if>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<div style="margin-top:auto;padding:14px 18px;border-top:1px solid #E8E5E1;display:flex;align-items:center;gap:10px">
+<span style="width:32px;height:32px;border-radius:9999px;background:linear-gradient(135deg,#6C5CE7,#8B7EEE);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">PN</span>
+<span><span style="display:block;font-size:12.5px;font-weight:700">Priya Narayan</span><span style="display:block;font-size:11px;color:#4A4540">Operations lead</span></span>
+</div>
+</div>
+
+<div style="flex:1;display:flex;flex-direction:column;min-width:0">
+<div style="flex:none;display:flex;align-items:center;gap:12px;height:58px;padding:0 28px;background:#fff;border-bottom:1px solid #E8E5E1">
+<span style="font-size:12.5px;color:#4A4540">MoveWell Ops</span><i class="fa-solid fa-chevron-right" style="font-size:9px;color:#ADA8A2"></i><span style="font-size:14px;font-weight:700">{{ sectionTitle }}</span>
+<span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(45,167,72,0.1);color:#1F7A33;font-size:12px;font-weight:700"><span style="width:7px;height:7px;border-radius:9999px;background:#1F7A33"></span>All zones normal</span>
+<span style="font-size:12px;color:#4A4540">Wed 16 July · 2:38 pm ACST</span>
+</div>
+<div style="flex:1;overflow-y:auto;padding:22px 28px;display:flex;flex-direction:column;gap:16px">
+
+<sc-if value="{{ isDispatch }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;gap:20px;align-items:flex-start">
+<div style="flex:none;width:360px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:baseline;gap:8px"><h2 style="margin:0;font-size:17px;font-weight:700">Needs assignment</h2><span style="font-size:12.5px;color:#4A4540">{{ unassignedCount }} trips</span></div>
+<sc-for list="{{ jobs }}" as="j" hint-placeholder-count="3">
+<div style="background:#fff;border:1px solid {{ j.border }};border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:700">{{ j.time }}</span><span style="flex:1;font-size:13px">{{ j.route }}</span></div>
+<div style="font-size:12.5px;color:#4A4540">{{ j.participant }}</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<sc-for list="{{ j.chips }}" as="c" hint-placeholder-count="2"><span style="padding:3px 9px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ c }}</span></sc-for>
+</div>
+<sc-if value="{{ j.assigned }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:8px;border-top:1px solid #F7F6F4;padding-top:9px;font-size:12.5px;color:#1F7A33;font-weight:700"><i class="fa-solid fa-circle-check"></i>Assigned to {{ j.suggested }}</div>
+</sc-if>
+<sc-if value="{{ j.unassigned }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;gap:8px;border-top:1px solid #F7F6F4;padding-top:9px">
+<span style="flex:1;font-size:12px;color:#4A4540">Suggested: <strong style="color:#2D3748">{{ j.suggested }}</strong> · {{ j.why }}</span>
+<button onClick="{{ j.onAssign }}" style="height:34px;padding:0 14px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Assign</button>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:baseline;gap:10px"><h2 style="margin:0;font-size:17px;font-weight:700">Today's roster</h2><span style="font-size:12.5px;color:#4A4540">06:00-18:00 · Adelaide metro</span><span style="margin-left:auto;display:inline-flex;gap:14px;font-size:11.5px;color:#4A4540"><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#8B7EEE;margin-right:5px;vertical-align:-1px"></span>Employed shift</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;border:1.5px dashed #8B7EEE;margin-right:5px;vertical-align:-1px;box-sizing:border-box"></span>Contractor online</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#6C5CE7;margin-right:5px;vertical-align:-1px"></span>Booked trip</span></span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;border-bottom:1px solid #E8E5E1;background:#F7F6F4">
+<span style="flex:none;width:190px;padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">DRIVER</span>
+<div style="flex:1;display:flex">
+<sc-for list="{{ hours }}" as="h" hint-placeholder-count="12"><span style="flex:1;padding:8px 0;font-size:10.5px;color:#4A4540;border-left:1px solid #E8E5E1;padding-left:6px">{{ h }}</span></sc-for>
+</div>
+</div>
+<sc-for list="{{ roster }}" as="r" hint-placeholder-count="6">
+<div style="display:flex;border-top:1px solid #F7F6F4;min-height:52px">
+<span style="flex:none;width:190px;padding:8px 16px;display:flex;flex-direction:column;justify-content:center;gap:2px"><span style="font-size:13px;font-weight:700">{{ r.name }}</span><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#4A4540"><span style="padding:1px 7px;border-radius:9999px;background:{{ r.flagBg }};color:{{ r.flagFg }};font-weight:700">{{ r.flag }}</span>{{ r.sub }}</span></span>
+<div style="flex:1;position:relative;background:repeating-linear-gradient(90deg,#F7F6F4 0 1px,transparent 1px 8.333%)">
+<sc-for list="{{ r.bars }}" as="b" hint-placeholder-count="2">
+<span style="position:absolute;top:{{ b.top }};left:{{ b.left }};width:{{ b.width }};height:{{ b.height }};border-radius:6px;background:{{ b.bg }};border:{{ b.border }};box-sizing:border-box;display:flex;align-items:center;padding:0 8px;overflow:hidden;color:{{ b.fg }};font-size:10.5px;font-weight:700;white-space:nowrap">{{ b.label }}</span>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Employed drivers carry the complex/high-dependency work; contractors take offer-based trips. Drag-to-reassign is out of scope for this pass · use Assign on the left.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDrivers }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px">
+<h2 style="margin:0;font-size:17px;font-weight:700">Drivers register</h2>
+<span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;color:#4A4540;font-size:13px;width:240px"><i class="fa-solid fa-magnifying-glass" style="font-size:12px"></i>Search name, licence, zone</span>
+</div>
+<div style="display:flex;gap:8px">
+<sc-for list="{{ driverFilters }}" as="f" hint-placeholder-count="4"><span style="padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:2.1fr 1.1fr 1fr 1.4fr 0.7fr 1fr 1fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">
+<span>DRIVER</span><span>TIER</span><span>ENGAGEMENT</span><span>CREDENTIALS</span><span>RATING</span><span>ZONE</span><span>STATUS</span><span></span>
+</div>
+<sc-for list="{{ drivers }}" as="d" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:2.1fr 1.1fr 1fr 1.4fr 0.7fr 1fr 1fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9">
+<span style="display:flex;align-items:center;gap:10px;min-width:0"><span style="width:30px;height:30px;border-radius:9999px;background:#F5F3FF;color:#5647C9;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">{{ d.initials }}</span><span style="min-width:0"><span style="display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ d.id }}</span></span></span>
+<span>{{ d.tier }}</span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ d.engBg }};color:{{ d.engFg }};font-size:11px;font-weight:700">{{ d.eng }}</span></span>
+<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:{{ d.credFg }};font-weight:700"><i class="fa-solid {{ d.credIcon }}"></i>{{ d.cred }}</span>
+<span style="font-variant-numeric:tabular-nums">{{ d.rating }}</span>
+<span style="font-size:12.5px;color:#4A4540">{{ d.zone }}</span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ d.stBg }};color:{{ d.stFg }};font-size:11px;font-weight:700">{{ d.status }}</span></span>
+<span style="text-align:right"><button onClick="{{ d.onAction }}" style="height:30px;padding:0 12px;border:1px solid {{ d.actBorder }};border-radius:9999px;background:#fff;color:{{ d.actFg }};font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer">{{ d.action }}</button></span>
+</div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">214 drivers · 196 contractors · 18 employed. Suspension takes effect immediately and pauses offers; the driver is notified with the reason and review date.</div>
+</sc-if>
+
+<sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Onboarding queue</h2><span style="font-size:12.5px;color:#4A4540">12 applicants · avg 4.2 days to activation</span></div>
+<div style="display:flex;gap:12px">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">IN QUEUE</span><span style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">12</span></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#5647C9">FAST-TRACKED (SCREENING PORTED)</span><span style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">4</span></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">AWAITING REVIEW TODAY</span><span style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">{{ reviewCount }}</span></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:2fr 2.2fr 1.3fr 1fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">
+<span>APPLICANT</span><span>PIPELINE</span><span>SCREENING</span><span>WAITING</span><span>STATUS</span><span></span>
+</div>
+<sc-for list="{{ queue }}" as="q" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:2fr 2.2fr 1.3fr 1fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:11px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9">
+<span style="min-width:0"><span style="display:block;font-weight:700">{{ q.name }}</span><span style="display:block;font-size:11px;color:#4A4540">Applied {{ q.applied }} · {{ q.zone }}</span></span>
+<span style="display:flex;align-items:center;gap:4px">
+<sc-for list="{{ q.steps }}" as="s" hint-placeholder-count="5"><span title="{{ s.name }}" style="flex:1;height:6px;border-radius:9999px;background:{{ s.bg }}"></span></sc-for>
+<span style="flex:none;font-size:11px;color:#4A4540;margin-left:6px;white-space:nowrap">{{ q.stage }}</span>
+</span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ q.scrBg }};color:{{ q.scrFg }};font-size:11px;font-weight:700">{{ q.screening }}</span></span>
+<span style="font-size:12.5px;color:{{ q.waitFg }};font-weight:{{ q.waitFw }}">{{ q.waiting }}</span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ q.stBg }};color:{{ q.stFg }};font-size:11px;font-weight:700">{{ q.status }}</span></span>
+<span style="text-align:right"><sc-if value="{{ q.actionable }}" hint-placeholder-val="{{ false }}"><button onClick="{{ q.onAction }}" style="height:30px;padding:0 14px;border:0;border-radius:9999px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">{{ q.action }}</button></sc-if></span>
+</div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Pipeline stages: identity → screening → credentials → training → review. Ported NDIS Worker Screenings skip the screening stage entirely.</div>
+</sc-if>
+
+</div>
+</div>
+</div>
+</x-import>
+</div>
+</div>
+<p class="dv-next">Try next: "build the live ops dashboard" · "open the Fleet assignment view (18 vehicles)" · "add the incident management workflow"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startSection&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dispatch&quot;,&quot;options&quot;:[&quot;dispatch&quot;,&quot;drivers&quot;,&quot;onboarding&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = { section: null, assigned: {}, suspended: { s1: true }, approved: {} };
+  renderVals() {
+    const sec = this.state.section ?? (this.props.startSection ?? 'dispatch');
+    const nav = k => () => this.setState({ section: k });
+    const P = '#6C5CE7', PD = '#5647C9', SOFT = '#F5F3FF', G = '#1F7A33', GBG = 'rgba(45,167,72,0.14)', Y = 'rgba(255,217,61,0.25)', YFG = '#8A6800', R = '#C43F3F', RBG = 'rgba(232,85,85,0.12)';
+    const mk = (name, icon, key, badge) => ({ name, icon, badge: badge || false,
+      bg: key === sec ? SOFT : 'transparent', fg: key === sec ? PD : (key ? '#2D3748' : 'rgba(45,55,72,0.45)'),
+      fw: key === sec ? 700 : 400, cursor: key ? 'pointer' : 'default', onNav: key ? nav(key) : () => {} });
+    const navGroups = [
+      { label: 'OPERATIONS', items: [mk('Live ops', 'fa-tower-observation'), mk('Dispatch & rostering', 'fa-route', 'dispatch', '3'), mk('Trip search', 'fa-magnifying-glass'), mk('Riders', 'fa-users'), mk('Drivers', 'fa-id-card', 'drivers'), mk('Onboarding queue', 'fa-user-plus', 'onboarding', '12')] },
+      { label: 'COMPLIANCE', items: [mk('Compliance hub', 'fa-clipboard-check'), mk('Incident management', 'fa-file-circle-exclamation'), mk('Privacy & access logs', 'fa-eye')] },
+      { label: 'FINANCE', items: [mk('Claims monitor', 'fa-file-invoice-dollar'), mk('Pricing & line items', 'fa-tags'), mk('Plan managers & providers', 'fa-building')] },
+      { label: 'FLEET & ASSETS', items: [mk('Vehicles', 'fa-van-shuttle', null, '18'), mk('Equipment', 'fa-wheelchair'), mk('Credential register', 'fa-certificate'), mk('Assignment view', 'fa-diagram-project')] },
+      { label: 'PLATFORM', items: [mk('Outcomes console', 'fa-chart-line'), mk('Configuration & flags', 'fa-sliders'), mk('Users & RBAC', 'fa-user-lock')] },
+    ];
+    const titles = { dispatch: 'Dispatch & rostering', drivers: 'Drivers', onboarding: 'Onboarding queue' };
+    // dispatch
+    const jobsBase = [
+      { k: 'j1', time: '3:20 pm', route: 'Norwood to Modbury Hospital', participant: 'Theo R. · WAV · hoist transfer', chips: ['WAV', 'Hoist', '2FA pickup'], suggested: 'Marcus Field (WAV)', why: 'WAV-audited, 1.8 km away at 3:05' },
+      { k: 'j2', time: '4:10 pm', route: 'Salisbury to Elizabeth SIL house', participant: 'Recurring · Aisha B. · sensory-calm vehicle', chips: ['Sensory-calm', 'Recurring', 'Employed only'], suggested: 'Lena Voss (employed)', why: 'complex-tier, on shift to 6 pm' },
+      { k: 'j3', time: '5:35 pm', route: 'Glenelg to Prospect', participant: 'Sam W. · standard sedan', chips: ['Standard', '2FA pickup'], suggested: 'Deb Kaur', why: 'online, ends nearby at 5:10' },
+    ];
+    const jobs = jobsBase.map(j => ({ ...j, assigned: !!this.state.assigned[j.k], unassigned: !this.state.assigned[j.k],
+      border: this.state.assigned[j.k] ? '#E8E5E1' : '#8B7EEE',
+      onAssign: () => this.setState(s => ({ assigned: { ...s.assigned, [j.k]: true } })) }));
+    const unassignedCount = jobs.filter(j => !j.assigned).length;
+    const hours = ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17'];
+    const pos = (h0, h1) => ({ left: ((h0 - 6) / 12 * 100).toFixed(2) + '%', width: ((h1 - h0) / 12 * 100).toFixed(2) + '%' });
+    const shift = (h0, h1, label) => ({ ...pos(h0, h1), top: '8px', height: '16px', bg: 'rgba(139,126,238,0.35)', border: '0', fg: PD, label });
+    const online = (h0, h1) => ({ ...pos(h0, h1), top: '8px', height: '16px', bg: 'transparent', border: '1.5px dashed #8B7EEE', fg: PD, label: '' });
+    const trip = (h0, h1, label) => ({ ...pos(h0, h1), top: '28px', height: '16px', bg: P, border: '0', fg: '#fff', label });
+    const emp = { flag: 'Employed', flagBg: SOFT, flagFg: PD };
+    const con = { flag: 'Contractor', flagBg: '#F7F6F4', flagFg: '#4A4540' };
+    const roster = [
+      { name: 'Lena Voss', ...emp, sub: 'Complex · WAV-04', bars: [shift(7, 15, 'Shift 07:00-15:00'), trip(8, 9.5, 'High-dep'), trip(11, 12, 'WAV'), trip(13.5, 15, 'WAV')] },
+      { name: 'Marcus Field', ...emp, sub: 'Specialist · WAV-02', bars: [shift(9, 17, 'Shift 09:00-17:00'), trip(10, 11, 'WAV'), trip(14, 15.5, 'Hoist')] },
+      { name: 'Deb Kaur', ...con, sub: 'CareDriver · own sedan', bars: [online(13, 18), trip(14.25, 15, 'Standard'), trip(16.6, 17.4, 'Standard')] },
+      { name: 'Jo Tran', ...con, sub: 'Specialist · own WAV', bars: [online(6, 12), trip(7, 8, 'WAV'), trip(9.5, 11, 'WAV')] },
+      { name: 'Harpreet Gill', ...con, sub: 'CareDriver · own sedan', bars: [online(8, 16), trip(9, 9.8, 'Standard'), trip(12, 13, 'Standard'), trip(15, 15.8, 'Standard')] },
+      { name: 'Rosa Amato', ...emp, sub: 'Complex · SC-01 sensory-calm', bars: [shift(10, 18, 'Shift 10:00-18:00'), trip(11.5, 13, 'Sensory-calm'), trip(16, 17.5, 'Sensory-calm')] },
+    ];
+    // drivers register
+    const driverFilters = [
+      { label: 'All · 214', bg: '#2D3748', fg: '#fff', border: '#2D3748' },
+      { label: 'Contractor · 196', bg: '#fff', fg: '#4A4540', border: '#E8E5E1' },
+      { label: 'Employed · 18', bg: '#fff', fg: '#4A4540', border: '#E8E5E1' },
+      { label: 'Suspended · 3', bg: '#fff', fg: R, border: '#E8E5E1' },
+      { label: 'Credentials expiring · 5', bg: '#fff', fg: YFG, border: '#E8E5E1' },
+    ];
+    const credOk = { cred: 'All valid', credFg: G, credIcon: 'fa-circle-check' };
+    const dBase = [
+      { k: 'd1', name: 'Lena Voss', id: 'DR-0141 · employed', initials: 'LV', tier: 'Complex', e: emp, ...credOk, rating: '4.98', zone: 'Metro-wide' },
+      { k: 'd2', name: 'Deb Kaur', id: 'DR-0387 · contractor', initials: 'DK', tier: 'CareDriver', e: con, cred: 'First aid · 21 days', credFg: YFG, credIcon: 'fa-triangle-exclamation', rating: '4.92', zone: 'Adelaide north' },
+      { k: 'd3', name: 'Marcus Field', id: 'DR-0119 · employed', initials: 'MF', tier: 'Specialist', e: emp, ...credOk, rating: '4.95', zone: 'Metro-wide' },
+      { k: 'd4', name: 'Jo Tran', id: 'DR-0298 · contractor', initials: 'JT', tier: 'Specialist', e: con, ...credOk, rating: '4.89', zone: 'Adelaide west' },
+      { k: 's1', name: 'Callum Reid', id: 'DR-0412 · contractor', initials: 'CR', tier: 'CareDriver', e: con, cred: 'Insurance lapsed', credFg: R, credIcon: 'fa-circle-xmark', rating: '4.61', zone: 'Adelaide south' },
+      { k: 'd6', name: 'Harpreet Gill', id: 'DR-0355 · contractor', initials: 'HG', tier: 'CareDriver', e: con, ...credOk, rating: '4.90', zone: 'Adelaide north' },
+      { k: 'd7', name: 'Rosa Amato', id: 'DR-0102 · employed', initials: 'RA', tier: 'Complex', e: emp, ...credOk, rating: '4.97', zone: 'Metro-wide' },
+      { k: 'd8', name: 'Nick Papas', id: 'DR-0433 · contractor', initials: 'NP', tier: 'Specialist', e: con, ...credOk, rating: '4.85', zone: 'Adelaide east' },
+    ];
+    const drivers = dBase.map(d => { const sus = !!this.state.suspended[d.k]; return { ...d,
+      eng: d.e.flag, engBg: d.e.flagBg, engFg: d.e.flagFg,
+      status: sus ? 'Suspended' : 'Active', stBg: sus ? RBG : GBG, stFg: sus ? R : G,
+      action: sus ? 'Reinstate' : 'Suspend', actFg: sus ? PD : R, actBorder: sus ? '#8B7EEE' : '#E8E5E1',
+      onAction: () => this.setState(s => ({ suspended: { ...s.suspended, [d.k]: !s.suspended[d.k] } })) }; });
+    // onboarding queue
+    const stageNames = ['Identity', 'Screening', 'Credentials', 'Training', 'Review'];
+    const steps = (done, skipScreen) => stageNames.map((name, i) => ({ name,
+      bg: i < done ? P : (skipScreen && i === 1 ? 'rgba(139,126,238,0.4)' : '#E8E5E1') }));
+    const ported = { screening: 'Ported', scrBg: SOFT, scrFg: PD };
+    const newchk = { screening: 'New check', scrBg: '#F7F6F4', scrFg: '#4A4540' };
+    const qBase = [
+      { k: 'q1', name: 'Amir Hassan', applied: '10/07', zone: 'Adelaide north', done: 4, ...ported, stage: 'Review', waiting: '1.1 days', hot: true, action: 'Approve insurance', actionable: true },
+      { k: 'q2', name: 'Grace Okafor', applied: '11/07', zone: 'Adelaide west', done: 4, ...newchk, stage: 'Review', waiting: '0.4 days', hot: false, action: 'Review', actionable: true },
+      { k: 'q3', name: 'Tom Brennan', applied: '13/07', zone: 'Adelaide south', done: 3, ...ported, stage: 'Training', waiting: '\u2014', hot: false, actionable: false },
+      { k: 'q4', name: 'Mei Lin', applied: '14/07', zone: 'Adelaide east', done: 2, ...newchk, stage: 'Credentials', waiting: '\u2014', hot: false, actionable: false },
+      { k: 'q5', name: 'Sofia Marino', applied: '15/07', zone: 'Adelaide north', done: 1, ...newchk, stage: 'Screening', waiting: '2.0 days', hot: false, actionable: false },
+      { k: 'q6', name: 'Dave Ngata', applied: '16/07', zone: 'Adelaide west', done: 1, ...ported, stage: 'Credentials', waiting: '\u2014', hot: false, actionable: false },
+    ];
+    const queue = qBase.map(q => { const ok = !!this.state.approved[q.k]; return { ...q,
+      steps: steps(ok ? 5 : q.done, q.screening === 'Ported'),
+      stage: ok ? 'Done' : q.stage,
+      status: ok ? 'Activated' : (q.done >= 4 ? 'Awaiting review' : 'In progress'),
+      stBg: ok ? GBG : (q.done >= 4 ? Y : '#F7F6F4'), stFg: ok ? G : (q.done >= 4 ? YFG : '#4A4540'),
+      actionable: q.actionable && !ok,
+      waitFg: q.hot && !ok ? YFG : '#4A4540', waitFw: q.hot && !ok ? 700 : 400,
+      onAction: () => this.setState(s => ({ approved: { ...s.approved, [q.k]: true } })) }; });
+    const reviewCount = queue.filter(q => q.status === 'Awaiting review').length;
+    return {
+      isDispatch: sec === 'dispatch', isDrivers: sec === 'drivers', isOnboarding: sec === 'onboarding',
+      sectionTitle: titles[sec], navGroups,
+      jobs, unassignedCount, hours, roster,
+      driverFilters, drivers,
+      queue, reviewCount,
+    };
+  }
+}
+</script>
+</body>
+</html>

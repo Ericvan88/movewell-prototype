@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#EFEDEA;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#2D3748;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:700 14px/1.2 'Atkinson Hyperlegible',sans-serif;color:#2D3748}
+.dv-notes{max-width:760px;margin:0 0 24px;font:400 12.5px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.65)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(45,55,72,.1);color:#2D3748;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.6)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#6C5CE7;color:#fff}
+.dv-next{margin:26px 0 0;font:12px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.5)}
+[data-hc="on"] [style*="4A4540"]{color:#1A202C!important}
+[data-hc="on"] [style*="ADA8A2"]{color:#4A4540!important}
+[data-hc="on"] [style*="color:#E8E5E1"]{color:#6B6560!important}
+[data-hc="on"] [style*="E8E5E1"]{border-color:#57534E!important}
+[data-lt="on"]{zoom:1.12}
+</style>
+</helmet>
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Client App · booker, coordinator and allied-health roles</span><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:22px;margin-left:auto"></div>
+<p class="dv-notes"><strong>Role model:</strong> one MoveWell sign-in; roles are grants (participant consent for bookers, organisation for coordinators and allied health). No separate accounts · the <strong>Account → "How you use MoveWell"</strong> sheet (<a class="dv-oid" href="#2a">2a</a>, Account tab) lists every role you hold and switches between them; a parent who is booker for two children and coordinator for a sibling sees both. Coordinator and allied-health entries on the phone hand off to the <strong>web workspace</strong> (<a class="dv-oid" href="#2b">2b</a>, <a class="dv-oid" href="#2c">2c</a>) · desktop-first layouts, not scaled-up mobile. <strong>Booker</strong> (<a class="dv-oid" href="#2a">2a</a>, "Anna", Maya's mum): all rider flows acting for someone else · managed-participants list, consent-scoped visibility (Maya shares everything; Sam shares booking + SOS only), per-participant alert routing. Booking on Maya's behalf reuses the rider flow in <a class="dv-oid" href="#1a">1a</a> with the acting-for banner. <strong>Coordinator</strong> (<a class="dv-oid" href="#2b">2b</a>, interactive left nav): caseload dashboard with budget burn-down, participant detail, recurring trip planner, claims pipeline, plan-manager invoice export, compliance, outcome reports, team &amp; permissions, integrations · cross-provider, not MoveWell-only. <strong>Allied health</strong> (<a class="dv-oid" href="#2c">2c</a>, interactive tabs): transport assessment, requirements that feed vehicle-tier matching, appointment sync, consented outcomes. Coral client identity and the same accessibility bar throughout · icon + text pairing, no colour-only meaning, ≥44px targets.</p>
+<div class="dv-opts">
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Booker mode · mobile, interactive (Anna, booking for Maya and Sam)</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
+<div style="width:100%;height:100%;box-sizing:border-box;padding-top:60px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isBkPeople }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:14px 20px 0"><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:26px;display:block;margin-left:-10px"></div>
+<div style="padding:10px 20px 8px">
+<h1 style="margin:0;font-size:26px;font-weight:700;line-height:1.15">G'day, Anna.</h1>
+<p style="margin:4px 0 0;font-size:14px;color:#4A4540">Booking for the people you support</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div onClick="{{ goBkMaya }}" style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer" style-hover="background:#F7F6F4">
+<div style="display:flex;align-items:center;gap:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">MP</span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">Maya Patel · daughter</span><span style="display:block;font-size:12.5px;color:#4A4540">Full access · book, track live, receipts</span></span>
+<i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i>
+</div>
+<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:#F7F6F4;border-radius:10px;font-size:13px"><i class="fa-solid fa-calendar-check" style="color:#1F7A33"></i><span style="flex:1">Next: Physio · Thu 18/07 · 2:15 pm</span><span style="font-size:11px;font-weight:700;color:#1F7A33">Confirmed</span></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">SP</span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">Sam Patel · son</span><span style="display:block;font-size:12.5px;color:#4A4540">Book and SOS alerts only · Sam manages his own trips</span></span>
+</div>
+<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:#F7F6F4;border-radius:10px;font-size:13px;color:#4A4540"><i class="fa-solid fa-lock" style="color:#ADA8A2"></i>Trip history and receipts · not shared with you</div>
+<button onClick="{{ bkNoop }}" style="height:48px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Book a ride for Sam</button>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px"><i class="fa-solid fa-eye" style="color:#6C5CE7;margin-right:7px"></i>What you can see is set by each person's consent. They can change it any time.</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-user-group" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">People</span></div>
+<div onClick="{{ goBkAlerts }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-bell" style="font-size:18px"></i><span style="font-size:11px">Alerts</span></div>
+<div onClick="{{ goBkRoles }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px">Account</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBkMaya }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:10px;padding:12px 20px;background:#FF6B6B;color:#fff">
+<i class="fa-solid fa-user-pen"></i>
+<span style="flex:1;font-size:14px;font-weight:700">Acting for Maya Patel</span>
+<span onClick="{{ goBkPeople }}" style="font-size:13px;font-weight:700;text-decoration:underline;cursor:pointer">Switch</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:16px 20px">
+<button onClick="{{ bkNoop }}" style="display:flex;align-items:center;justify-content:center;gap:10px;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 4px 8px rgba(232,85,85,0.25)" style-hover="background:#E85555"><i class="fa-solid fa-car"></i>Book a ride for Maya</button>
+<div style="font-size:12.5px;color:#4A4540;text-align:center;margin-top:-4px">Same booking steps as Maya's own app · her accessibility profile applies.</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">MAYA'S NEXT RIDE</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Confirmed</span>
+</div>
+<div style="font-size:17px;font-weight:700">Physio · North Adelaide</div>
+<div style="font-size:14px;color:#4A4540">Thu 18/07 · 2:15 pm · Standard sedan</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">HER PROFILE · SHOWN TO DRIVERS</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-person-walking-with-cane"></i>Walking frame</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-volume-xmark"></i>No radio</span>
+</div>
+<div style="font-size:12.5px;color:#4A4540">Only Maya can edit her accessibility profile.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">MAYA SHARES WITH YOU</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:18px"></i>Bookings and live trip tracking</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:18px"></i>Receipts and claim status</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px;color:#4A4540"><i class="fa-solid fa-circle-xmark" style="color:#ADA8A2;width:18px"></i>Plan budget balance · not shared</div>
+</div>
+</div>
+<div style="margin-top:auto;padding:12px 20px 20px">
+<button onClick="{{ goBkPeople }}" style="width:100%;height:48px;border:1px solid #E8E5E1;background:#fff;color:#4A4540;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-chevron-left" style="margin-right:8px"></i>Back to your people</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBkAlerts }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px"><h2 style="margin:0;font-size:24px;font-weight:700">Alerts</h2><p style="margin:4px 0 0;font-size:13px;color:#4A4540">Which trip messages come to your phone, per person.</p></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:4px 16px 8px">
+<div style="padding:12px 0 4px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">MAYA PATEL</div>
+<sc-for list="{{ bkMayaAlerts }}" as="a" hint-placeholder-count="3">
+<div onClick="{{ a.onFlip }}" style="display:flex;align-items:center;gap:12px;min-height:56px;border-top:1px solid #F7F6F4;cursor:pointer">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ a.label }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ a.desc }}</span></span>
+<span style="width:48px;height:28px;border-radius:9999px;background:{{ a.bg }};position:relative;flex:none"><span style="position:absolute;top:3px;left:{{ a.left }};width:22px;height:22px;border-radius:9999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.2);transition:left 180ms"></span></span>
+</div>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:4px 16px 12px">
+<div style="padding:12px 0 4px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">SAM PATEL</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;border-top:1px solid #F7F6F4">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">SOS and incidents</span><span style="display:block;font-size:12px;color:#4A4540">Always on · safety alerts can't be turned off by consent</span></span>
+<span style="width:48px;height:28px;border-radius:9999px;background:#FF6B6B;position:relative;flex:none"><span style="position:absolute;top:3px;left:23px;width:22px;height:22px;border-radius:9999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.2)"></span></span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F7F6F4;border-radius:10px;font-size:12.5px;color:#4A4540"><i class="fa-solid fa-lock" style="color:#ADA8A2"></i>Pickup, drop-off and live-trip alerts · Sam hasn't shared these.</div>
+</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div onClick="{{ goBkPeople }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-user-group" style="font-size:18px"></i><span style="font-size:11px">People</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-bell" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Alerts</span></div>
+<div onClick="{{ goBkRoles }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px">Account</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBkRoles }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px"><h2 style="margin:0;font-size:24px;font-weight:700">Account</h2></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px">
+<span style="width:52px;height:52px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700">AP</span>
+<span><span style="display:block;font-size:17px;font-weight:700">Anna Patel</span><span style="display:block;font-size:13px;color:#4A4540">One sign-in for everything you do on MoveWell</span></span>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">HOW YOU USE MOVEWELL</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;background:#FFF5F5">
+<span style="width:40px;height:40px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-user-group"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Booker · Maya and Sam</span><span style="display:block;font-size:12px;color:#4A4540">Granted by each person's consent</span></span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Active now</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-briefcase"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Coordinator · for Priya (sister)</span><span style="display:block;font-size:12px;color:#4A4540">Workspace designed for bigger screens</span></span>
+<a href="#2b" style="display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:9999px;border:1px solid #6C5CE7;color:#6C5CE7;font-size:12px;font-weight:700;text-decoration:none"><i class="fa-solid fa-arrow-up-right-from-square"></i>Open on web</a>
+</div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">One sign-in, different views. Roles are granted by each participant's consent or by your organisation · no second account, no separate password.</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div onClick="{{ goBkPeople }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-user-group" style="font-size:18px"></i><span style="font-size:11px">People</span></div>
+<div onClick="{{ goBkAlerts }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-bell" style="font-size:18px"></i><span style="font-size:11px">Alerts</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Account</span></div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Coordinator workspace · web, interactive left nav (Leo, 14 participants across 5 providers)</div>
+<x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" url="coordinate.movewell.com.au" width="{{ 1280 }}" height="{{ 800 }}" hint-size="1280px,800px">
+<div style="width:100%;height:100%;display:flex;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748;font-size:14px">
+<div style="width:224px;flex:none;background:#fff;border-right:1px solid #E8E5E1;display:flex;flex-direction:column">
+<div style="padding:18px 18px 10px"><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:24px;display:block;margin-left:-8px"><div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540;margin-top:6px">COORDINATOR</div></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:2px;padding:6px 10px;overflow-y:auto">
+<sc-for list="{{ cwNav }}" as="n" hint-placeholder-count="9">
+<div onClick="{{ n.onPick }}" style="display:flex;align-items:center;gap:11px;min-height:44px;padding:0 12px;border-radius:10px;background:{{ n.bg }};color:{{ n.fg }};font-weight:{{ n.fw }};cursor:pointer" style-hover="background:#F7F6F4"><i class="fa-solid {{ n.icon }}" style="width:18px;text-align:center"></i>{{ n.label }}</div>
+</sc-for>
+</div>
+<div style="padding:14px 18px;border-top:1px solid #F7F6F4;display:flex;align-items:center;gap:10px">
+<span style="width:36px;height:36px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">LM</span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:13px;font-weight:700">Leo Marsh</span><span style="display:block;font-size:11px;color:#4A4540">Northside Coordination</span></span>
+</div>
+</div>
+<div style="flex:1;overflow-y:auto;padding:26px 30px;box-sizing:border-box">
+
+<sc-if value="{{ isCwDash }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Caseload</h2><span style="font-size:13px;color:#4A4540">14 participants · 5 transport providers · July 2026</span></div>
+<div style="display:flex;gap:16px;margin-bottom:18px">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Core transport committed</div><div style="font-size:26px;font-weight:700;font-variant-numeric:tabular-nums">$18,940</div><div style="font-size:12px;color:#4A4540">of $31,200 across caseload</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Claims awaiting action</div><div style="font-size:26px;font-weight:700;color:#B8860B">7</div><div style="font-size:12px;color:#4A4540">3 with plan managers &gt; 14 days</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Consents expiring in 60 days</div><div style="font-size:26px;font-weight:700;color:#C43F3F">2</div><div style="font-size:12px;color:#4A4540">Renew before they lapse</div></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:2fr 1.3fr 2.2fr 1.2fr 1.6fr;gap:12px;padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1">
+<span>PARTICIPANT</span><span>PROVIDERS</span><span>TRANSPORT BUDGET BURN</span><span>CLAIMS</span><span>NEXT TRIP</span>
+</div>
+<sc-for list="{{ cwRows }}" as="r" hint-placeholder-count="5">
+<div onClick="{{ r.onPick }}" style="display:grid;grid-template-columns:2fr 1.3fr 2.2fr 1.2fr 1.6fr;gap:12px;align-items:center;min-height:56px;padding:6px 18px;border-bottom:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4">
+<span style="display:flex;align-items:center;gap:10px"><span style="width:32px;height:32px;border-radius:9999px;background:{{ r.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">{{ r.init }}</span><span><span style="display:block;font-weight:700">{{ r.name }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ r.plan }}</span></span></span>
+<span style="font-size:12.5px;color:#4A4540">{{ r.providers }}</span>
+<span><span style="display:block;height:8px;border-radius:9999px;background:#F0EEEA;overflow:hidden"><span style="display:block;width:{{ r.pct }};height:100%;background:{{ r.barColor }};border-radius:9999px"></span></span><span style="display:block;font-size:11.5px;color:#4A4540;margin-top:4px">{{ r.burn }}</span></span>
+<span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:{{ r.clBg }};color:{{ r.clFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ r.clIcon }}"></i>{{ r.claims }}</span>
+<span style="font-size:12.5px">{{ r.next }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCwParticipant }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+<span style="width:48px;height:48px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">MP</span>
+<div><h2 style="margin:0;font-size:24px;font-weight:700">Maya Patel</h2><div style="font-size:13px;color:#4A4540">Plan managed by Leap in! · consent to coordinate valid to 01/2027</div></div>
+<span style="margin-left:auto;display:inline-flex;gap:8px;flex-wrap:wrap"><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Walking frame</span><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">No radio</span></span>
+</div>
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.4;display:flex;flex-direction:column;gap:16px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;margin-bottom:10px">CORE TRANSPORT · BURN-DOWN</div>
+<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Used $1,394.35</span><strong>Remaining $1,205.65</strong></div>
+<div style="height:12px;border-radius:9999px;background:#F0EEEA;overflow:hidden"><span style="display:block;width:54%;height:100%;background:#FF6B6B;border-radius:9999px"></span></div>
+<div style="font-size:12px;color:#4A4540;margin-top:8px">On current usage the budget lasts to plan end (03/2027). No action needed.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">RECENT TRIPS · ALL PROVIDERS</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4"><span style="flex:1">Physio · North Adelaide · MoveWell</span><span style="color:#4A4540;font-size:12.5px">16/07 · $38.50</span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Claimed</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4"><span style="flex:1">Day program · Mile End · MoveWell</span><span style="color:#4A4540;font-size:12.5px">14/07 · $41.20</span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Claimed</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4"><span style="flex:1">Hydrotherapy · AccessGo Transport</span><span style="color:#4A4540;font-size:12.5px">11/07 · $47.90</span><span style="padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Submitted</span></div>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TRANSPORT PROVIDERS</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span>MoveWell · 2 recurring schedules</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:8px;height:8px;border-radius:9999px;background:#ADA8A2"></span>AccessGo Transport · ad hoc</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">MAYA'S CONSENT TO YOU</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i>Book, view trips, view claims</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#4A4540"><i class="fa-solid fa-circle-xmark" style="color:#ADA8A2"></i>Live trip tracking · not shared</div>
+<div style="font-size:12px;color:#4A4540">Scope is set by Maya in her app.</div>
+</div>
+<button onClick="{{ goCwRecurring }}" style="height:48px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-repeat" style="margin-right:8px"></i>Plan recurring trips</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCwRecurring }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Recurring trips</h2><span style="font-size:13px;color:#4A4540">Standing schedules across your caseload</span><button style="margin-left:auto;height:44px;padding:0 18px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-plus" style="margin-right:8px"></i>New recurring trip</button></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>PARTICIPANT</span><span>ROUTE</span><span>SCHEDULE</span><span>VEHICLE</span><span>STATUS</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Maya Patel</span><span style="font-size:13px">Home → Day program, Mile End</span><span style="font-size:13px">Every Mon · 9:00 am</span><span style="font-size:13px">Standard sedan</span><span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Maya Patel</span><span style="font-size:13px">Home → Physio, North Adelaide</span><span style="font-size:13px">Every Thu · 2:15 pm</span><span style="font-size:13px">Standard sedan</span><span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Theo Rossi</span><span style="font-size:13px">Home → Day program, Regency Park</span><span style="font-size:13px">Mon-Fri · 8:40 am</span><span style="font-size:13px">WAV · sensory-calm</span><span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px"><span style="font-weight:700">Iris Kaur</span><span style="font-size:13px">Home → Hydrotherapy, Adelaide</span><span style="font-size:13px">Every Wed · 10:30 am</span><span style="font-size:13px">WAV hoist</span><span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Paused</span></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;margin-top:12px">Schedules book automatically 7 days ahead. Participants and bookers are notified of every generated booking.</div>
+</sc-if>
+
+<sc-if value="{{ isCwClaims }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Claims pipeline</h2><span style="font-size:13px;color:#4A4540">All providers · July 2026</span></div>
+<div style="display:flex;gap:16px;align-items:flex-start">
+<sc-for list="{{ cwClaimCols }}" as="col" hint-placeholder-count="4">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:2px solid {{ col.accent }}"><span style="font-size:12px;font-weight:700;letter-spacing:0.08em">{{ col.label }}</span><span style="margin-left:auto;min-width:22px;text-align:center;padding:2px 7px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">{{ col.count }}</span></div>
+<div style="padding:10px 14px;border-bottom:1px solid #F7F6F4"><div style="font-size:13px;font-weight:700">{{ col.aWho }}</div><div style="font-size:12px;color:#4A4540">{{ col.aWhat }}</div><div style="font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px">{{ col.aAmt }}</div></div>
+<div style="padding:10px 14px;border-bottom:1px solid #F7F6F4"><div style="font-size:13px;font-weight:700">{{ col.bWho }}</div><div style="font-size:12px;color:#4A4540">{{ col.bWhat }}</div><div style="font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px">{{ col.bAmt }}</div></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 16px;background:rgba(255,217,61,0.18);border:1px solid #FFD93D;border-radius:12px;font-size:13px"><i class="fa-solid fa-triangle-exclamation" style="color:#B8860B"></i>3 claims have been with plan managers for more than 14 days · chase from the invoice export screen.</div>
+</sc-if>
+
+<sc-if value="{{ isCwInvoices }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Invoice export</h2><span style="font-size:13px;color:#4A4540">Bundle claims per plan manager</span></div>
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.2;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px">
+<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">Period</div><div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9"><i class="fa-solid fa-calendar" style="color:#FF6B6B"></i>1 to 31 July 2026</div></div>
+<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">Group by</div><div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9"><i class="fa-solid fa-layer-group" style="color:#FF6B6B"></i>Plan manager</div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i><span style="flex:1;font-size:13.5px">Leap in! · 5 participants · 23 line items</span><strong style="font-variant-numeric:tabular-nums">$1,912.40</strong></div>
+<div style="display:flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i><span style="flex:1;font-size:13.5px">My Plan Manager · 3 participants · 11 line items</span><strong style="font-variant-numeric:tabular-nums">$864.10</strong></div>
+</div>
+<div style="display:flex;gap:10px">
+<button style="flex:1;height:48px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-file-csv" style="margin-right:8px"></i>Export CSV</button>
+<button style="flex:1;height:48px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-file-pdf" style="margin-right:8px"></i>Export PDF invoices</button>
+</div>
+<div style="font-size:12px;color:#4A4540">Line items carry the NDIS support number (04_590_0125_6_1) and trip evidence.</div>
+</div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">PAST EXPORTS</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4;font-size:13px"><i class="fa-solid fa-file-arrow-down" style="color:#FF6B6B"></i><span style="flex:1">June 2026 · Leap in!</span><span style="color:#4A4540;font-size:12px">02/07</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4;font-size:13px"><i class="fa-solid fa-file-arrow-down" style="color:#FF6B6B"></i><span style="flex:1">June 2026 · My Plan Manager</span><span style="color:#4A4540;font-size:12px">02/07</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCwCompliance }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Compliance</h2><span style="font-size:13px;color:#4A4540">Provider credentials touching your caseload</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>CREDENTIAL</span><span>PROVIDER</span><span>EXPIRES</span><span>STATUS</span></div>
+<div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">NDIS registration</span><span style="font-size:13px">MoveWell</span><span style="font-size:13px">11/2027</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Valid</span></div>
+<div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Worker screening · assigned drivers</span><span style="font-size:13px">MoveWell · 6 drivers</span><span style="font-size:13px">Earliest 03/2027</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Valid</span></div>
+<div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Public liability insurance</span><span style="font-size:13px">AccessGo Transport</span><span style="font-size:13px">08/2026</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>42 days</span></div>
+<div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px"><span style="font-weight:700">Consent to coordinate · Iris Kaur</span><span style="font-size:13px">Your organisation</span><span style="font-size:13px">29/08/2026</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(232,85,85,0.12);color:#C43F3F;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>Renew</span></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCwOutcomes }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Outcome reports</h2><span style="font-size:13px;color:#4A4540">Transport as it relates to plan goals · quarter to date</span></div>
+<div style="display:flex;gap:16px;margin-bottom:16px">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Appointment attendance</div><div style="font-size:26px;font-weight:700">96%</div><div style="font-size:12px;color:#1F7A33;font-weight:700">▲ 4 pts vs last quarter</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Trips missed · transport cause</div><div style="font-size:26px;font-weight:700">3</div><div style="font-size:12px;color:#4A4540">of 214 trips</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Goal-linked community outings</div><div style="font-size:26px;font-weight:700">41</div><div style="font-size:12px;color:#1F7A33;font-weight:700">▲ 9 vs last quarter</div></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;margin-bottom:14px">ON-TIME PICKUPS BY MONTH</div>
+<div style="display:flex;align-items:flex-end;gap:26px;height:120px;padding:0 6px">
+<sc-for list="{{ cwBars }}" as="b" hint-placeholder-count="6">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:700">{{ b.val }}</span><span style="display:block;width:100%;height:{{ b.h }};background:{{ b.color }};border-radius:6px 6px 0 0"></span><span style="font-size:11px;color:#4A4540">{{ b.label }}</span></div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCwTeam }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Team &amp; permissions</h2><span style="font-size:13px;color:#4A4540">Northside Coordination</span><button style="margin-left:auto;height:44px;padding:0 18px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-plus" style="margin-right:8px"></i>Invite team member</button></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:14px;min-height:60px;padding:8px 18px;border-bottom:1px solid #F7F6F4"><span style="width:36px;height:36px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">LM</span><span style="flex:1"><span style="display:block;font-weight:700">Leo Marsh · you</span><span style="display:block;font-size:12px;color:#4A4540">14 participants</span></span><span style="display:flex;gap:6px"><span style="padding:4px 10px;border-radius:9999px;background:#FFF5F5;color:#E85555;font-size:11px;font-weight:700">Admin</span><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Book</span><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Claims</span></span></div>
+<div style="display:flex;align-items:center;gap:14px;min-height:60px;padding:8px 18px;border-bottom:1px solid #F7F6F4"><span style="width:36px;height:36px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">RW</span><span style="flex:1"><span style="display:block;font-weight:700">Ruth Whitton</span><span style="display:block;font-size:12px;color:#4A4540">8 participants</span></span><span style="display:flex;gap:6px"><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Book</span><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Claims</span></span></div>
+<div style="display:flex;align-items:center;gap:14px;min-height:60px;padding:8px 18px"><span style="width:36px;height:36px;border-radius:9999px;background:#2D3748;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">JB</span><span style="flex:1"><span style="display:block;font-weight:700">Jo Bennett</span><span style="display:block;font-size:12px;color:#4A4540">Intake · 3 participants</span></span><span style="display:flex;gap:6px"><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">View only</span></span></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;margin-top:12px">Permissions apply per participant · a team member only ever sees participants assigned to them, within each participant's consent.</div>
+</sc-if>
+
+<sc-if value="{{ isCwIntegrations }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Integrations</h2></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:860px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-building-columns"></i></span><span style="flex:1;font-weight:700">Plan managers</span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Connected</span></div><div style="font-size:13px;color:#4A4540">Leap in!, My Plan Manager · claims flow straight through.</div></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-calendar-days"></i></span><span style="flex:1;font-weight:700">Calendar</span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Connected</span></div><div style="font-size:13px;color:#4A4540">Outlook · recurring trips appear in your work calendar.</div></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-van-shuttle"></i></span><span style="flex:1;font-weight:700">Other transport providers</span><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">1 of 4</span></div><div style="font-size:13px;color:#4A4540">AccessGo connected. Invite others so trips and claims land in one caseload view.</div></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-export"></i></span><span style="flex:1;font-weight:700">NDIA portal (PACE)</span><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Export only</span></div><div style="font-size:13px;color:#4A4540">Formatted exports for agency-managed participants.</div></div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-import>
+</div>
+<div class="dv-opt" id="2c">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Allied health · web, interactive tabs (Dr Amy Ngo, OT · MoveWell-specific)</div>
+<x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" url="clinic.movewell.com.au/participants/maya-patel" width="{{ 1100 }}" height="{{ 760 }}" hint-size="1100px,760px">
+<div style="width:100%;height:100%;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748;font-size:14px">
+<div style="display:flex;align-items:center;gap:14px;padding:16px 28px;background:#fff;border-bottom:1px solid #E8E5E1">
+<img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:22px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540;border-left:1px solid #E8E5E1;padding-left:14px">ALLIED HEALTH</span>
+<span style="margin-left:auto;display:flex;align-items:center;gap:10px"><span style="width:34px;height:34px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">AN</span><span style="font-size:13px"><strong>Dr Amy Ngo</strong> · OT, Northcare Therapy</span></span>
+</div>
+<div style="display:flex;align-items:center;gap:14px;padding:18px 28px 0">
+<span style="width:44px;height:44px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">MP</span>
+<div><div style="font-size:20px;font-weight:700">Maya Patel</div><div style="font-size:12.5px;color:#4A4540">Consent to assess and view transport outcomes · valid to 01/2027</div></div>
+</div>
+<div style="display:flex;gap:4px;padding:14px 28px 0;border-bottom:1px solid #E8E5E1">
+<sc-for list="{{ ahTabs }}" as="t" hint-placeholder-count="4">
+<div onClick="{{ t.onPick }}" style="padding:11px 16px;font-size:13.5px;font-weight:700;color:{{ t.fg }};border-bottom:3px solid {{ t.accent }};cursor:pointer;min-height:44px;box-sizing:border-box">{{ t.label }}</div>
+</sc-for>
+</div>
+<div style="flex:1;overflow-y:auto;padding:22px 28px;box-sizing:border-box">
+
+<sc-if value="{{ isAhAssess }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.5;display:flex;flex-direction:column;gap:14px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TRANSFERS</div>
+<div style="display:flex;gap:8px">
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Independent with aid</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Standby assist</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Hoist transfer</span>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SEATING &amp; POSITIONING</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Standard seat, front preferred</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Travels in own wheelchair</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Postural support required</span>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">EQUIPMENT CARRIED</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Walking frame · boot stowage</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Oxygen</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">AAC device</span>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SENSORY &amp; COMMUNICATION</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Quiet environment · no radio</span>
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Verbal, speaks softly</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Auslan</span>
+</div>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px">
+<div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:13.5px;font-weight:700;color:#5647C9"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right:8px"></i>Feeds vehicle matching</div>
+<div style="font-size:13px;line-height:1.55">Your selections set Maya's <strong>vehicle-tier requirements</strong>. Right now they resolve to: <strong>Standard sedan</strong>, walking-frame stowage, <strong>sensory-calm recommended</strong>. Bookings that don't meet them are flagged before confirm.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">REVIEW</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Last assessed 14/02/2026 by you. Review due after Maya's next plan reassessment or on referral.</div>
+</div>
+<button onClick="{{ goAhReqs }}" style="height:52px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-floppy-disk" style="margin-right:9px"></i>Save · update transport requirements</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAhReqs }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.4;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:16px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">ON MAYA'S PROFILE · WHAT BOOKING USES</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-car" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Vehicle tier · Standard sedan</span><span style="display:block;font-size:12px;color:#4A4540">WAV not required · front seat preferred</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-person-walking-with-cane" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Walking frame · boot stowage</span><span style="display:block;font-size:12px;color:#4A4540">Driver allows extra time at the door</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-volume-xmark" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Sensory-calm · recommended</span><span style="display:block;font-size:12px;color:#4A4540">Suggested at tier selection, not mandatory</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Advisory</span></div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">WHO SEES WHAT</div>
+<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-car" style="color:#6C5CE7;margin-top:2px"></i>Drivers see the practical requirements only · never your clinical notes or Maya's diagnosis.</div>
+<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-user-pen" style="color:#6C5CE7;margin-top:2px"></i>Maya sees these on her profile and can raise a review with you.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">CHANGE HISTORY</div>
+<div style="font-size:13px;color:#4A4540">14/02/2026 · sensory-calm added (you)</div>
+<div style="font-size:13px;color:#4A4540">03/09/2025 · initial assessment (you)</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAhAppts }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;font-size:13px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i><span style="flex:1"><strong>Clinic calendar connected</strong> · Northcare Therapy (Cliniko). New appointments suggest a MoveWell booking automatically.</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>APPOINTMENT</span><span>WHEN</span><span>TRANSPORT</span><span>ACTION</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;align-items:center;min-height:54px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">OT review · Dr Ngo</span><span style="font-size:13px">Thu 18/07 · 2:30 pm</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Ride booked</span><span style="font-size:12.5px;color:#4A4540">Arrives 2:15 pm · buffer OK</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;align-items:center;min-height:54px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Hydrotherapy</span><span style="font-size:13px">Wed 23/07 · 10:30 am</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>No ride yet</span><button style="justify-self:start;height:36px;padding:0 14px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:9999px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">Suggest booking</button></div>
+<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;align-items:center;min-height:54px;padding:6px 18px"><span style="font-weight:700">Physio · strength program</span><span style="font-size:13px">Thu 25/07 · 2:15 pm</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-repeat"></i>Recurring</span><span style="font-size:12.5px;color:#4A4540">Covered by Thursday schedule</span></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;margin-top:12px">"Suggest booking" sends the trip to Maya (and her booker) to confirm · you never book on her behalf.</div>
+</sc-if>
+
+<sc-if value="{{ isAhOutcomes }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;font-size:13px;color:#5647C9"><i class="fa-solid fa-eye"></i><span style="flex:1"><strong>Consented view</strong> · Maya shares attendance and punctuality with you. She does not share fares, claims or trip locations beyond your clinic.</span></div>
+<div style="display:flex;gap:16px;margin-bottom:16px">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Therapy attendance · 12 weeks</div><div style="font-size:26px;font-weight:700">11 of 12</div><div style="font-size:12px;color:#1F7A33;font-weight:700">1 missed · illness, not transport</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Arrived on time</div><div style="font-size:26px;font-weight:700">100%</div><div style="font-size:12px;color:#4A4540">of attended sessions</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Avg arrival buffer</div><div style="font-size:26px;font-weight:700">14 min</div><div style="font-size:12px;color:#4A4540">before session start</div></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">CLINICAL NOTE</div>
+<div style="font-size:13.5px;line-height:1.55;color:#2D3748">Consistent, low-stress transport is supporting program adherence. Sensory-calm recommendation appears effective · no pre-session dysregulation reported since February. Keep current requirements at next review.</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-import>
+</div>
+</div>
+<p class="dv-next">Try next: "wire booker booking into the full rider flow" · "add the coordinator's recurring-trip editor" · "add a second allied-health participant"</p>
+</section>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">MoveWell Client App · rider book-a-ride flow</span><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:22px;margin-left:auto"></div>
+<p class="dv-notes"><strong>Reconciled against the Client App scope:</strong> full rider mode · home, book-a-ride (where → when → tier → NDIS eligibility before confirm → confirm), tracking, 2FA pickup (code <strong>or QR</strong>, no speech needed), in-trip + SOS, rating, receipt/claim, <strong>bookings history</strong>, <strong>profile</strong> (accessibility profile shared with drivers, support-contact consent toggles), <strong>help/complaints</strong> (Commission pathway, plain English). Accessibility modes are live: <strong>high contrast</strong> and <strong>large text</strong> actually restyle the app (Profile → Accessibility settings); voice prompts and switch access are declared toggles. Person-first copy, icon + text pairing, no colour-only meaning, ≥44px targets (56px on booking/SOS). Rider "Maya"; her profile drives tier suggestion (prefersWAV tweak). Dashed buttons simulate driver-side events. <a class="dv-oid" href="#1b">1b</a>-<a class="dv-oid" href="#1d">1d</a> are static layout variations.</p>
+<div class="dv-opts">
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Interactive prototype · full flow</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
+<div data-hc="{{ hcAttr }}" data-lt="{{ ltAttr }}" style="width:100%;height:100%;box-sizing:border-box;padding-top:60px;display:flex;flex-direction:column;background:{{ rootBg }};font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:14px 20px 0"><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:26px;display:block;margin-left:-10px"></div>
+<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 20px 8px">
+<div style="flex:1">
+<h1 style="margin:0;font-size:26px;font-weight:700;line-height:1.15">Good afternoon, Maya.</h1>
+<p style="margin:4px 0 0;font-size:14px;color:#4A4540">Prospect, SA</p>
+</div>
+<button onClick="{{ goA11y }}" style="width:44px;height:44px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#6C5CE7;font-size:17px;cursor:pointer"><i class="fa-solid fa-universal-access"></i></button>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;padding:16px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">NEXT RIDE</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Confirmed</span>
+</div>
+<div style="font-size:17px;font-weight:700">Physio · North Adelaide</div>
+<div style="font-size:14px;color:#4A4540">Thu 18/07 · 2:15 pm · Standard sedan</div>
+</div>
+<button onClick="{{ goWhere }}" style="display:flex;align-items:center;justify-content:center;gap:10px;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 4px 8px rgba(232,85,85,0.25)" style-hover="background:#E85555"><i class="fa-solid fa-car"></i>Book a ride</button>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">SAVED PLACES</div>
+<sc-for list="{{ dests }}" as="d" hint-placeholder-count="3">
+<div onClick="{{ d.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;cursor:pointer;border-top:1px solid #F7F6F4" style-hover="background:#F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:14px"><i class="fa-solid {{ d.icon }}"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">{{ d.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ d.addr }}</span></span>
+<i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-house" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Home</span></div>
+<div onClick="{{ goBookings }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-calendar-days" style="font-size:18px"></i><span style="font-size:11px">Bookings</span></div>
+<div onClick="{{ goProfile }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px">Profile</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isWhere }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Where to?</h2>
+<span style="margin-left:auto;display:flex;gap:5px;padding-right:8px"><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#E8E5E1"></span><span style="width:8px;height:8px;border-radius:9999px;background:#E8E5E1"></span><span style="width:8px;height:8px;border-radius:9999px;background:#E8E5E1"></span></span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;background:#F7F6F4;border:1px solid #E8E5E1;border-radius:12px">
+<span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7"></span>
+<span style="font-size:15px;color:#4A4540">From: <strong style="color:#2D3748">Home · 12 Olive St, Prospect</strong></span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;background:#fff;border:2px solid #6C5CE7;border-radius:12px">
+<i class="fa-solid fa-magnifying-glass" style="color:#6C5CE7"></i>
+<span style="font-size:15px;color:#ADA8A2">Search destination</span>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">SAVED PLACES</div>
+<sc-for list="{{ dests }}" as="d" hint-placeholder-count="3">
+<div onClick="{{ d.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;cursor:pointer;border-top:1px solid #F7F6F4" style-hover="background:#F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:14px"><i class="fa-solid {{ d.icon }}"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">{{ d.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ d.addr }}</span></span>
+<i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isWhen }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goWhere }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">When?</h2>
+<span style="margin-left:auto;display:flex;gap:5px;padding-right:8px"><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#E8E5E1"></span><span style="width:8px;height:8px;border-radius:9999px;background:#E8E5E1"></span></span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="display:flex;align-items:center;gap:8px;font-size:14px;color:#4A4540;padding:0 2px"><i class="fa-solid fa-location-dot" style="color:#6C5CE7"></i>To: <strong style="color:#2D3748">{{ dest.name }}</strong></div>
+<sc-for list="{{ whenModes }}" as="m" hint-placeholder-count="2">
+<div onClick="{{ m.onPick }}" style="display:flex;align-items:center;gap:14px;padding:{{ m.pad }};background:#fff;border:{{ m.border }};border-radius:12px;cursor:pointer;min-height:56px;box-sizing:border-box">
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">{{ m.label }}</span><span style="display:block;font-size:13px;color:#4A4540">{{ m.desc }}</span></span>
+<sc-if value="{{ m.sel }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-circle-check" style="color:#6C5CE7;font-size:20px"></i></sc-if>
+</div>
+</sc-for>
+<sc-if value="{{ isLater }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:12px">
+<div style="flex:1;display:flex;align-items:center;gap:10px;height:52px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px"><i class="fa-solid fa-calendar" style="color:#6C5CE7"></i><span style="font-size:15px;font-weight:700">Thu 18/07/2026</span></div>
+<div style="flex:1;display:flex;align-items:center;gap:10px;height:52px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px"><i class="fa-solid fa-clock" style="color:#6C5CE7"></i><span style="font-size:15px;font-weight:700">2:15 pm</span></div>
+</div>
+</sc-if>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ goTier }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Continue</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTier }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goWhen }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Vehicle</h2>
+<span style="margin-left:auto;display:flex;gap:5px;padding-right:8px"><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#E8E5E1"></span></span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F5F3FF;border-radius:12px;font-size:13px;color:#5647C9"><i class="fa-solid fa-wand-magic-sparkles"></i>Suggested from your accessibility profile</div>
+<sc-for list="{{ tiers }}" as="t" hint-placeholder-count="3">
+<div onClick="{{ t.onPick }}" style="display:flex;align-items:center;gap:14px;padding:{{ t.pad }};background:#fff;border:{{ t.border }};border-radius:12px;cursor:pointer;box-sizing:border-box">
+<span style="width:44px;height:44px;border-radius:12px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fa-solid {{ t.icon }}"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:16px;font-weight:700">{{ t.name }}</span><span style="display:block;font-size:13px;color:#4A4540">{{ t.desc }}</span></span>
+<span style="text-align:right"><span style="display:block;font-size:15px;font-weight:700">{{ t.fare }}</span><span style="display:block;font-size:11px;color:#4A4540">est. claim</span></span>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ goReview }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Continue</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goTier }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Check and confirm</h2>
+<span style="margin-left:auto;display:flex;gap:5px;padding-right:8px"><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span></span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7;flex:none"></span>Home · 12 Olive St, Prospect</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:10px"></i>{{ dest.name }}</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:2px">
+<span style="padding:5px 12px;border-radius:9999px;background:#F7F6F4;border:1px solid #E8E5E1;font-size:12px">{{ whenLabel }}</span>
+<span style="padding:5px 12px;border-radius:9999px;background:#F7F6F4;border:1px solid #E8E5E1;font-size:12px">{{ tierName }}</span>
+</div>
+</div>
+<div style="background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#1F7A33"><i class="fa-solid fa-circle-check"></i>Eligible · Core budget</div>
+<div style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">04_590_0125_6_1 · Activity based transport</div>
+<div style="display:flex;justify-content:space-between;font-size:14px"><span>Estimated claim</span><strong>{{ fare }}</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:14px"><span>Core transport remaining</span><strong>$1,205.65</strong></div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.45">You never pay in the vehicle. The claim goes to your plan manager after the trip.</div>
+</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px;display:flex;flex-direction:column;gap:8px">
+<button onClick="{{ goTracking }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Confirm booking</button>
+<div style="text-align:center;font-size:12px;color:#4A4540">Free to cancel up to 2 hours before pickup.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTracking }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="position:relative;height:270px;flex:none;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
+<span style="position:absolute;left:60px;top:180px;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
+<span style="position:absolute;right:80px;top:60px;width:14px;height:14px;border-radius:9999px;background:#FF6B6B;box-shadow:0 0 0 5px rgba(255,107,107,0.25)"></span>
+<span style="position:absolute;left:50%;top:16px;transform:translateX(-50%);padding:8px 16px;border-radius:9999px;background:#2D3748;color:#fff;font-size:13px;font-weight:700">Deb is 6 min away</span>
+<span style="position:absolute;left:12px;bottom:12px;font-size:11px;color:#ADA8A2">Live map</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:16px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:12px">
+<span style="width:48px;height:48px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700">DK</span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">Deb Kowalski</span><span style="display:block;font-size:13px;color:#4A4540">CareDriver · <i class="fa-solid fa-star" style="color:#FFD93D;font-size:11px"></i> 4.9</span></span>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700"><i class="fa-solid fa-certificate"></i>Disability awareness</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700"><i class="fa-solid fa-kit-medical"></i>First aid</span>
+</div>
+<div style="font-size:14px;color:#4A4540"><i class="fa-solid fa-car" style="color:#6C5CE7;margin-right:8px"></i>{{ vehicleLine }}</div>
+</div>
+<div style="display:flex;gap:10px">
+<button style="flex:1;height:48px;border:1px solid #6C5CE7;background:#fff;color:#6C5CE7;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-message" style="margin-right:7px"></i>Contact</button>
+<button style="flex:1;height:48px;border:1px solid #6C5CE7;background:#fff;color:#6C5CE7;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-share-nodes" style="margin-right:7px"></i>Share trip</button>
+</div>
+<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#4A4540;padding:0 2px"><i class="fa-solid fa-eye" style="color:#6C5CE7"></i>Mum can see this trip live (consent on)</div>
+</div>
+<div style="margin-top:auto;padding:12px 20px 20px">
+<button onClick="{{ goPickup }}" style="width:100%;height:44px;border:1px dashed #ADA8A2;background:transparent;color:#4A4540;border-radius:12px;font-family:inherit;font-size:13px;cursor:pointer"><i class="fa-solid fa-forward" style="margin-right:7px"></i>Demo: driver arrives</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPickup }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:24px 20px 8px">
+<h2 style="margin:0;font-size:24px;font-weight:700">Deb has arrived.</h2>
+<p style="margin:6px 0 0;font-size:14px;color:#4A4540">{{ vehicleLine }} · out the front.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">YOUR PICKUP CODE</span>
+<sc-if value="{{ pickupIsCode }}" hint-placeholder-val="{{ true }}">
+<span style="display:flex;gap:10px">
+<span style="width:52px;height:64px;border-radius:12px;background:#FFF7D6;border:1px solid #FFD93D;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700">4</span>
+<span style="width:52px;height:64px;border-radius:12px;background:#FFF7D6;border:1px solid #FFD93D;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700">8</span>
+<span style="width:52px;height:64px;border-radius:12px;background:#FFF7D6;border:1px solid #FFD93D;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700">2</span>
+<span style="width:52px;height:64px;border-radius:12px;background:#FFF7D6;border:1px solid #FFD93D;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700">7</span>
+</span>
+<span style="font-size:13px;color:#4A4540;text-align:center;line-height:1.45">Deb types this code into her app.<br>You don't need to say anything.</span>
+</sc-if>
+<sc-if value="{{ pickupIsQr }}" hint-placeholder-val="{{ false }}">
+<span style="width:180px;height:180px;border-radius:12px;border:1px solid #E8E5E1;background:repeating-linear-gradient(45deg,#2D3748 0 5px,#fff 5px 10px)"></span>
+<span style="font-size:13px;color:#4A4540;text-align:center;line-height:1.45">Deb scans this with her phone.<br>You don't need to say anything.</span>
+</sc-if>
+<button onClick="{{ onPickupToggle }}" style="width:100%;height:48px;border:1px solid #6C5CE7;background:#fff;color:#6C5CE7;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#F5F3FF">{{ pickupToggleLabel }}</button>
+</div>
+</div>
+<div style="margin-top:auto;padding:12px 20px 20px">
+<button onClick="{{ goInTrip }}" style="width:100%;height:44px;border:1px dashed #ADA8A2;background:transparent;color:#4A4540;border-radius:12px;font-family:inherit;font-size:13px;cursor:pointer"><i class="fa-solid fa-forward" style="margin-right:7px"></i>Demo: code verified, trip starts</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isInTrip }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="position:relative;height:230px;flex:none;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
+<span style="position:absolute;left:40%;top:45%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
+<span style="position:absolute;left:50%;top:16px;transform:translateX(-50%);padding:8px 16px;border-radius:9999px;background:#2D3748;color:#fff;font-size:13px;font-weight:700">Arriving 2:41 pm · 12 min</span>
+<span style="position:absolute;left:12px;bottom:12px;font-size:11px;color:#ADA8A2">Live map</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:16px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#4A4540"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i><s style="text-decoration-color:#ADA8A2">Home · 12 Olive St, Prospect</s></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B"></i>{{ dest.name }}</div>
+</div>
+<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#4A4540;padding:0 2px"><i class="fa-solid fa-eye" style="color:#6C5CE7"></i>Your support network can see this trip live</div>
+<sc-if value="{{ sos }}" hint-placeholder-val="{{ false }}">
+<div style="background:rgba(232,85,85,0.1);border:1px solid #E85555;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#C43F3F"><i class="fa-solid fa-tower-broadcast"></i>Ops desk notified</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.45">Someone will call you within 60 seconds. Deb has also been alerted.</div>
+<button onClick="{{ onSosCancel }}" style="align-self:flex-start;border:0;background:transparent;color:#6C5CE7;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:6px 0">Cancel · I'm OK</button>
+</div>
+</sc-if>
+<sc-if value="{{ sosOff }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ onSos }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#E85555;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer"><i class="fa-solid fa-tower-broadcast" style="margin-right:9px"></i>SOS · contact ops desk</button>
+</sc-if>
+</div>
+<div style="margin-top:auto;padding:12px 20px 20px">
+<button onClick="{{ goComplete }}" style="width:100%;height:44px;border:1px dashed #ADA8A2;background:transparent;color:#4A4540;border-radius:12px;font-family:inherit;font-size:13px;cursor:pointer"><i class="fa-solid fa-forward" style="margin-right:7px"></i>Demo: arrive at destination</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isComplete }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:36px 20px 8px;text-align:center">
+<span style="width:72px;height:72px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center;font-size:32px"><i class="fa-solid fa-check"></i></span>
+<h2 style="margin:0;font-size:26px;font-weight:700">You've arrived.</h2>
+<p style="margin:0;font-size:14px;color:#4A4540">{{ dest.name }} · 2:43 pm</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;padding:16px 20px;align-items:center">
+<div style="font-size:15px;font-weight:700">How was your trip with Deb?</div>
+<div style="display:flex;gap:6px">
+<sc-for list="{{ stars }}" as="s" hint-placeholder-count="5">
+<button onClick="{{ s.onPick }}" style="width:48px;height:48px;border:0;background:transparent;cursor:pointer;font-size:32px;color:{{ s.color }};padding:0"><i class="fa-solid fa-star"></i></button>
+</sc-for>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+<sc-for list="{{ comps }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.onPick }}" style="height:40px;padding:0 16px;border-radius:9999px;border:{{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">{{ c.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ goReceipt }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Done</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isReceipt }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:24px 20px 8px">
+<h2 style="margin:0;font-size:24px;font-weight:700">Receipt and claim</h2>
+<p style="margin:6px 0 0;font-size:14px;color:#4A4540">Wed 16/07/2026 · 2:43 pm</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7;flex:none"></span>Home · 12 Olive St, Prospect</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:10px"></i>{{ dest.name }}</div>
+<div style="border-top:1px solid #F7F6F4;padding-top:10px;display:flex;justify-content:space-between;font-size:15px"><span>{{ tierName }}</span><strong>{{ fare }}</strong></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Claim submitted</span>
+<div style="font-size:14px">Sent to your plan manager (Leap in!)</div>
+<div style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">04_590_0125_6_1 · Activity based transport</div>
+<div style="font-size:12.5px;color:#4A4540">No payment needed from you.</div>
+</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ goHome }}" style="width:100%;height:56px;border:1px solid #6C5CE7;border-radius:12px;background:#fff;color:#6C5CE7;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#F5F3FF">Back to home</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBookings }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px"><h2 style="margin:0;font-size:24px;font-weight:700">Bookings</h2></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">UPCOMING</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-house-medical"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">Physio · North Adelaide</span><span style="display:block;font-size:12px;color:#4A4540">Thu 18/07 · 2:15 pm · Standard sedan</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Confirmed</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-people-group"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">Day program · Mile End</span><span style="display:block;font-size:12px;color:#4A4540">Mon 21/07 · 9:00 am · repeats every Monday</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Scheduled</span>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">PAST</div>
+<div onClick="{{ goReceipt }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4">
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">Physio · North Adelaide</span><span style="display:block;font-size:12px;color:#4A4540">Today · 2:43 pm · $38.50</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Claim submitted</span>
+<i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">Adelaide Aquatic Centre</span><span style="display:block;font-size:12px;color:#4A4540">Wed 09/07 · $45.10</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Claim paid</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">Physio · North Adelaide</span><span style="display:block;font-size:12px;color:#4A4540">Wed 02/07 · $38.50</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Claim paid</span>
+</div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;padding:0 4px">Tap a past trip to see its receipt and claim.</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div onClick="{{ goHome }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-house" style="font-size:18px"></i><span style="font-size:11px">Home</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-calendar-days" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Bookings</span></div>
+<div onClick="{{ goProfile }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px">Profile</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px"><h2 style="margin:0;font-size:24px;font-weight:700">Profile</h2></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px">
+<span style="width:52px;height:52px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700">MP</span>
+<span><span style="display:block;font-size:17px;font-weight:700">Maya Patel</span><span style="display:block;font-size:13px;color:#4A4540">Prospect SA · plan managed by Leap in!</span></span>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">MY ACCESSIBILITY PROFILE</span><span style="font-size:13px;font-weight:700;color:#6C5CE7;cursor:pointer">Edit</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-person-walking-with-cane"></i>Walking frame</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-volume-xmark"></i>No radio</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-comment"></i>Speaks softly</span>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5">Your driver sees this before pickup so they know how to support you. They never see your diagnosis or plan details.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540;padding-bottom:8px">SUPPORT CONTACTS · WHAT THEY CAN SEE</span>
+<sc-for list="{{ contacts }}" as="c" hint-placeholder-count="2">
+<div onClick="{{ c.onFlip }}" style="display:flex;align-items:center;gap:12px;min-height:64px;border-top:1px solid #F7F6F4;cursor:pointer">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ c.name }} · {{ c.rel }}</span><span style="display:block;font-size:12.5px;color:#4A4540;line-height:1.4">{{ c.desc }}</span></span>
+<span style="width:48px;height:28px;border-radius:9999px;background:{{ c.bg }};position:relative;flex:none"><span style="position:absolute;top:3px;left:{{ c.left }};width:22px;height:22px;border-radius:9999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.2);transition:left 180ms"></span></span>
+</div>
+</sc-for>
+<div style="font-size:12.5px;color:#4A4540;border-top:1px solid #F7F6F4;padding-top:10px">You choose what each person can see. Change it any time.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div onClick="{{ goA11y }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;cursor:pointer" style-hover="background:#F7F6F4"><i class="fa-solid fa-universal-access" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Accessibility settings</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div onClick="{{ goHelp }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><i class="fa-solid fa-circle-question" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Help and complaints</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div onClick="{{ goHome }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-house" style="font-size:18px"></i><span style="font-size:11px">Home</span></div>
+<div onClick="{{ goBookings }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-calendar-days" style="font-size:18px"></i><span style="font-size:11px">Bookings</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Profile</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHelp }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goProfile }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Help</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-phone"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Call us</span><span style="display:block;font-size:12.5px;color:#4A4540">Speak to a person, any time, day or night</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-car-burst"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Report a problem with a trip</span><span style="display:block;font-size:12.5px;color:#4A4540">Tell us what happened · we follow up within 1 business day</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-pen"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Make a complaint</span><span style="display:block;font-size:12.5px;color:#4A4540">In writing, by voice message, or with someone helping you</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+</div>
+<div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px">
+<span style="font-size:14px;font-weight:700;color:#5647C9"><i class="fa-solid fa-shield-heart" style="margin-right:8px"></i>Complaints are safe</span>
+<span style="font-size:13px;color:#2D3748;line-height:1.5">Complaining is free and will never affect your rides. You can also complain to the NDIS Quality and Safeguards Commission · we'll help you do it.</span>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isA11y }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Accessibility</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<sc-for list="{{ a11yModes }}" as="m" hint-placeholder-count="4">
+<div onClick="{{ m.onFlip }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 16px;border-top:{{ m.bt }};cursor:pointer">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ m.label }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ m.desc }}</span></span>
+<span style="width:48px;height:28px;border-radius:9999px;background:{{ m.bg }};position:relative;flex:none"><span style="position:absolute;top:3px;left:{{ m.left }};width:22px;height:22px;border-radius:9999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.2);transition:left 180ms"></span></span>
+</div>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div onClick="{{ goProfile }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;cursor:pointer" style-hover="background:#F7F6F4"><i class="fa-solid fa-user-group" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Support contacts</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><i class="fa-solid fa-id-card" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">My accessibility profile</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">These settings change how the app looks and sounds. Your accessibility profile is separate · it tells drivers how to support you.</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Home variation · map-first (Uber-style)</div>
+<div class="dv-card" style="width:393px;height:640px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',sans-serif;color:#2D3748">
+<div style="position:relative;flex:1;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
+<span style="position:absolute;left:16px;top:16px;padding:9px 16px;border-radius:9999px;background:#fff;border:1px solid #E8E5E1;font-size:14px;font-weight:700;box-shadow:0 4px 8px rgba(0,0,0,0.05)">Good afternoon, Maya.</span>
+<button style="position:absolute;right:16px;top:12px;width:44px;height:44px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#6C5CE7;font-size:17px">​<i class="fa-solid fa-universal-access"></i></button>
+<span style="position:absolute;left:45%;top:55%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
+<span style="position:absolute;left:12px;bottom:12px;font-size:11px;color:#ADA8A2">Map · you are here</span>
+</div>
+<div style="flex:none;background:#fff;border-top:1px solid #E8E5E1;border-radius:20px 20px 0 0;margin-top:-16px;position:relative;padding:14px 20px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 -4px 12px rgba(0,0,0,0.06)">
+<span style="align-self:center;width:36px;height:4px;border-radius:9999px;background:#E8E5E1"></span>
+<div style="display:flex;align-items:center;gap:10px;height:56px;padding:0 16px;background:#F7F6F4;border:1px solid #E8E5E1;border-radius:12px"><i class="fa-solid fa-magnifying-glass" style="color:#FF6B6B"></i><span style="font-size:16px;font-weight:700">Where to?</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-calendar-check"></i></span>
+<span style="flex:1"><span style="display:block;font-size:14px;font-weight:700">Next: Physio · Thu 2:15 pm</span><span style="display:block;font-size:12px;color:#4A4540">Standard sedan · confirmed</span></span>
+<i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i>
+</div>
+<div style="display:flex;gap:8px">
+<span style="display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:9999px;background:#F7F6F4;border:1px solid #E8E5E1;font-size:13px"><i class="fa-solid fa-house-medical" style="color:#6C5CE7"></i>Physio</span>
+<span style="display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:9999px;background:#F7F6F4;border:1px solid #E8E5E1;font-size:13px"><i class="fa-solid fa-people-group" style="color:#6C5CE7"></i>Day program</span>
+<span style="display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:9999px;background:#F7F6F4;border:1px solid #E8E5E1;font-size:13px"><i class="fa-solid fa-person-swimming" style="color:#6C5CE7"></i>Pool</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Home variation · large-text, no map (AAC-friendly)</div>
+<div class="dv-card" style="width:393px;height:640px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',sans-serif;color:#2D3748;padding:28px 20px;box-sizing:border-box;gap:18px">
+<h1 style="margin:0;font-size:32px;font-weight:700;line-height:1.15">Hi Maya.</h1>
+<button style="display:flex;align-items:center;gap:16px;min-height:96px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:24px;font-weight:700;padding:0 24px;text-align:left"><i class="fa-solid fa-car" style="font-size:28px"></i>Book a ride</button>
+<button style="display:flex;align-items:center;gap:16px;min-height:96px;border:2px solid #6C5CE7;border-radius:12px;background:#fff;color:#6C5CE7;font-family:inherit;font-size:24px;font-weight:700;padding:0 24px;text-align:left"><i class="fa-solid fa-calendar-days" style="font-size:28px"></i>My bookings</button>
+<button style="display:flex;align-items:center;gap:16px;min-height:96px;border:2px solid #E8E5E1;border-radius:12px;background:#fff;color:#2D3748;font-family:inherit;font-size:24px;font-weight:700;padding:0 24px;text-align:left"><i class="fa-solid fa-phone" style="font-size:28px;color:#6C5CE7"></i>Call for help</button>
+<div style="margin-top:auto;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<span style="font-size:13px;font-weight:700;letter-spacing:0.1em;color:#6C5CE7">NEXT RIDE</span>
+<span style="font-size:20px;font-weight:700">Physio, Thursday 2:15 pm</span>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Confirm variation · single-card summary with edit links</div>
+<div class="dv-card" style="width:393px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',sans-serif;color:#2D3748;padding:24px 20px;box-sizing:border-box;gap:14px">
+<h2 style="margin:0;font-size:24px;font-weight:700">Confirm your ride</h2>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;font-size:13.5px;color:#1F7A33;font-weight:700"><i class="fa-solid fa-circle-check"></i>NDIS eligible · claim goes to your plan manager</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px"><span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7;flex:none"></span><span style="flex:1"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">FROM</span><span style="display:block;font-size:15px;font-weight:700">Home · Prospect</span></span><a href="#1d" style="font-size:13px;font-weight:700;color:#6C5CE7;text-decoration:none">Edit</a></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:10px"></i><span style="flex:1"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TO</span><span style="display:block;font-size:15px;font-weight:700">Physio · North Adelaide</span></span><a href="#1d" style="font-size:13px;font-weight:700;color:#6C5CE7;text-decoration:none">Edit</a></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-clock" style="color:#6C5CE7;width:10px"></i><span style="flex:1"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">WHEN</span><span style="display:block;font-size:15px;font-weight:700">Thu 18/07 · 2:15 pm</span></span><a href="#1d" style="font-size:13px;font-weight:700;color:#6C5CE7;text-decoration:none">Edit</a></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-car" style="color:#6C5CE7;width:10px"></i><span style="flex:1"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">VEHICLE</span><span style="display:block;font-size:15px;font-weight:700">Standard sedan · $38.50 est.</span></span><a href="#1d" style="font-size:13px;font-weight:700;color:#6C5CE7;text-decoration:none">Edit</a></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px;color:#4A4540;padding:0 4px"><span>Core transport remaining</span><strong style="color:#2D3748">$1,205.65</strong></div>
+<button style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700">Confirm booking</button>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "wire the SOS flow deeper in <a class="dv-oid" href="#1a">1a</a>" · "make <a class="dv-oid" href="#1b">1b</a> the home screen in the prototype" · "start the Driver App"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;prefersWAV&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Participant profile&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;where&quot;,&quot;when&quot;,&quot;tier&quot;,&quot;review&quot;,&quot;tracking&quot;,&quot;pickup&quot;,&quot;intrip&quot;,&quot;complete&quot;,&quot;receipt&quot;,&quot;bookings&quot;,&quot;profile&quot;,&quot;help&quot;,&quot;a11y&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
+    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess' };
+  renderVals() {
+    const S = this.state, P = this.props;
+    const screen = S.screen ?? (P.startScreen ?? 'home');
+    const go = s => () => this.setState({ screen: s, ...(s === 'home' ? { sos: false } : {}) });
+    const prefersWAV = !!P.prefersWAV;
+    const tierList = [
+      { id: 'standard', icon: 'fa-car', name: 'Standard sedan', desc: 'Door-to-door support', fare: '$38.50' },
+      { id: 'wav', icon: 'fa-wheelchair', name: 'Wheelchair accessible (WAV)', desc: 'Hoist, restraint compliant', fare: '$52.20' },
+      { id: 'sensory', icon: 'fa-volume-xmark', name: 'Sensory-calm', desc: 'Low light, quiet, no radio', fare: '$45.10' },
+    ];
+    const tierId = S.tier ?? (prefersWAV ? 'wav' : 'standard');
+    const tiers = tierList.map(t => ({ ...t, sel: t.id === tierId,
+      border: t.id === tierId ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
+      pad: t.id === tierId ? '15px' : '16px',
+      onPick: () => this.setState({ tier: t.id }) }));
+    const tier = tierList.find(t => t.id === tierId);
+    const destList = [
+      { icon: 'fa-house-medical', name: 'Physio · North Adelaide', addr: '88 Ward St, North Adelaide SA' },
+      { icon: 'fa-people-group', name: 'Day program · Mile End', addr: '4 Norma St, Mile End SA' },
+      { icon: 'fa-person-swimming', name: 'Adelaide Aquatic Centre', addr: 'Jeffcott Rd, North Adelaide SA' },
+    ];
+    const dests = destList.map(d => ({ ...d, onPick: () => this.setState({ dest: d, screen: 'when' }) }));
+    const dest = S.dest ?? destList[0];
+    const whenModes = [
+      { id: 'now', label: 'Leave now', desc: 'Pickup in about 10\u201315 minutes' },
+      { id: 'later', label: 'Schedule', desc: 'Pick a date and time' },
+    ].map(m => ({ ...m, sel: m.id === S.whenMode,
+      border: m.id === S.whenMode ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
+      pad: m.id === S.whenMode ? '15px 15px' : '16px 16px',
+      onPick: () => this.setState({ whenMode: m.id }) }));
+    const stars = [1, 2, 3, 4, 5].map(n => ({ n, color: n <= S.rating ? '#FFD93D' : '#E8E5E1', onPick: () => this.setState({ rating: n }) }));
+    const comps = ['Friendly', 'Safe driving', 'On time', 'Great communication'].map(c => {
+      const on = !!S.comps[c];
+      return { label: c, bg: on ? '#6C5CE7' : '#fff', color: on ? '#fff' : '#2D3748',
+        border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1',
+        onPick: () => this.setState(s => ({ comps: { ...s.comps, [c]: !on } })) };
+    });
+    const A = S.a11y;
+    const flip = k => () => this.setState(s => ({ a11y: { ...s.a11y, [k]: !s.a11y[k] } }));
+    const a11yModes = [
+      { k: 'hc', label: 'High contrast', desc: 'Darker text and stronger outlines' },
+      { k: 'lt', label: 'Large text', desc: 'Makes everything a little bigger' },
+      { k: 'voice', label: 'Voice prompts', desc: 'Reads each screen out loud' },
+      { k: 'sw', label: 'Switch access', desc: 'Scan and choose with one button' },
+    ].map((m, i) => ({ ...m, bg: A[m.k] ? '#6C5CE7' : '#E8E5E1', left: A[m.k] ? '23px' : '3px', bt: i === 0 ? '0' : '1px solid #F7F6F4', onFlip: flip(m.k) }));
+    const contacts = [
+      { k: 'anna', name: 'Anna Patel', rel: 'Mum', desc: 'Sees trips live and gets pickup and drop-off messages' },
+      { k: 'leo', name: 'Leo Marsh', rel: 'Support coordinator', desc: 'Can book for you and see upcoming bookings' },
+    ].map(c => { const on = !!S.consents[c.k]; return { ...c, bg: on ? '#6C5CE7' : '#E8E5E1', left: on ? '23px' : '3px',
+      onFlip: () => this.setState(s => ({ consents: { ...s.consents, [c.k]: !s.consents[c.k] } })) }; });
+    const is = k => screen === k;
+    // --- turn 2: booker / coordinator / allied health ---
+    const bkGo = s => () => this.setState({ bk: s });
+    const bkMayaAlerts = [
+      { k: 'pd', label: 'Pickup and drop-off', desc: 'A message when Maya is picked up and dropped off' },
+      { k: 'lt', label: 'Live trip started', desc: 'Link to watch the trip on the map' },
+      { k: 'sos', label: 'SOS and incidents', desc: 'Immediate call and push notification' },
+    ].map(a => { const on = !!S.bkAl[a.k]; return { ...a, bg: on ? '#FF6B6B' : '#E8E5E1', left: on ? '23px' : '3px',
+      onFlip: () => this.setState(s => ({ bkAl: { ...s.bkAl, [a.k]: !s.bkAl[a.k] } })) }; });
+    const cwGo = s => () => this.setState({ cw: s });
+    const cwNavDefs = [
+      { id: 'dash', label: 'Dashboard', icon: 'fa-gauge-high' }, { id: 'participant', label: 'Participants', icon: 'fa-user-group' },
+      { id: 'recurring', label: 'Recurring trips', icon: 'fa-repeat' }, { id: 'claims', label: 'Claims', icon: 'fa-file-invoice-dollar' },
+      { id: 'invoices', label: 'Invoice export', icon: 'fa-file-export' }, { id: 'compliance', label: 'Compliance', icon: 'fa-shield-halved' },
+      { id: 'outcomes', label: 'Outcomes', icon: 'fa-chart-line' }, { id: 'team', label: 'Team & permissions', icon: 'fa-users-gear' },
+      { id: 'integrations', label: 'Integrations', icon: 'fa-plug' },
+    ];
+    const cwNav = cwNavDefs.map(n => ({ ...n, bg: S.cw === n.id ? '#FFF5F5' : 'transparent', fg: S.cw === n.id ? '#E85555' : '#2D3748', fw: S.cw === n.id ? '700' : '400', onPick: cwGo(n.id) }));
+    const cwRows = [
+      { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', plan: 'Leap in!', providers: 'MoveWell, AccessGo', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Thu 18/07 · 2:15 pm' },
+      { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', plan: 'My Plan Manager', providers: 'MoveWell', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', claims: '2 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Tomorrow · 8:40 am' },
+      { init: 'IK', avBg: '#2D3748', name: 'Iris Kaur', plan: 'Leap in!', providers: 'MoveWell, 2 others', pct: '92%', barColor: '#C43F3F', burn: '$2,910 of $3,160 · review', claims: '1 rejected', clBg: 'rgba(232,85,85,0.12)', clFg: '#C43F3F', clIcon: 'fa-circle-xmark', next: 'Paused' },
+      { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', plan: 'Self-managed', providers: 'AccessGo', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Fri 19/07 · 11:00 am' },
+      { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', plan: 'Leap in!', providers: 'MoveWell', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', claims: '4 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Mon 21/07 · 9:00 am' },
+    ].map(r => ({ ...r, onPick: cwGo('participant') }));
+    const cwClaimCols = [
+      { label: 'DRAFT', accent: '#ADA8A2', count: 2, aWho: 'Iris Kaur', aWhat: 'Hydrotherapy · resubmit', aAmt: '$47.90', bWho: 'Theo Rossi', bWhat: 'Day program · 15/07', bAmt: '$44.20' },
+      { label: 'SUBMITTED', accent: '#B8860B', count: 3, aWho: 'Maya Patel', aWhat: 'Hydrotherapy · AccessGo', aAmt: '$47.90', bWho: 'Priya Bakshi', bWhat: 'Day program · 14/07', bAmt: '$41.20' },
+      { label: 'WITH PLAN MANAGER', accent: '#6C5CE7', count: 3, aWho: 'Theo Rossi', aWhat: '18 days · chase', aAmt: '$88.40', bWho: 'Priya Bakshi', bWhat: '15 days · chase', bAmt: '$123.60' },
+      { label: 'PAID', accent: '#1F7A33', count: 41, aWho: 'Maya Patel', aWhat: 'Physio · 16/07', aAmt: '$38.50', bWho: 'Jordan Teague', bWhat: 'CBD · 09/07', bAmt: '$31.80' },
+    ];
+    const cwBars = [ { label: 'Feb', val: '91%', h: '68%', color: '#F0BDBD' }, { label: 'Mar', val: '93%', h: '74%', color: '#F0BDBD' }, { label: 'Apr', val: '92%', h: '71%', color: '#F0BDBD' }, { label: 'May', val: '95%', h: '82%', color: '#FF9B9B' }, { label: 'Jun', val: '97%', h: '90%', color: '#FF8080' }, { label: 'Jul', val: '98%', h: '95%', color: '#FF6B6B' } ];
+    const ahGo = t => () => this.setState({ ah: t });
+    const ahTabs = [
+      { id: 'assess', label: 'Transport assessment' }, { id: 'reqs', label: 'Transport requirements' },
+      { id: 'appts', label: 'Appointments' }, { id: 'outcomes', label: 'Outcomes' },
+    ].map(t => ({ ...t, fg: S.ah === t.id ? '#E85555' : '#4A4540', accent: S.ah === t.id ? '#FF6B6B' : 'transparent', onPick: ahGo(t.id) }));
+    return {
+      isBkPeople: S.bk === 'people', isBkMaya: S.bk === 'maya', isBkAlerts: S.bk === 'alerts', isBkRoles: S.bk === 'roles',
+      goBkPeople: bkGo('people'), goBkMaya: bkGo('maya'), goBkAlerts: bkGo('alerts'), goBkRoles: bkGo('roles'),
+      bkMayaAlerts, bkNoop: () => {},
+      cwNav, cwRows, cwClaimCols, cwBars,
+      isCwDash: S.cw === 'dash', isCwParticipant: S.cw === 'participant', isCwRecurring: S.cw === 'recurring',
+      isCwClaims: S.cw === 'claims', isCwInvoices: S.cw === 'invoices', isCwCompliance: S.cw === 'compliance',
+      isCwOutcomes: S.cw === 'outcomes', isCwTeam: S.cw === 'team', isCwIntegrations: S.cw === 'integrations',
+      goCwRecurring: cwGo('recurring'),
+      ahTabs, isAhAssess: S.ah === 'assess', isAhReqs: S.ah === 'reqs', isAhAppts: S.ah === 'appts', isAhOutcomes: S.ah === 'outcomes',
+      goAhReqs: ahGo('reqs'),
+      isHome: is('home'), isWhere: is('where'), isWhen: is('when'), isTier: is('tier'), isReview: is('review'),
+      isTracking: is('tracking'), isPickup: is('pickup'), isInTrip: is('intrip'), isComplete: is('complete'),
+      isReceipt: is('receipt'), isA11y: is('a11y'),
+      isBookings: is('bookings'), isProfile: is('profile'), isHelp: is('help'),
+      goBookings: go('bookings'), goProfile: go('profile'), goHelp: go('help'),
+      a11yModes, hcAttr: A.hc ? 'on' : 'off', ltAttr: A.lt ? 'on' : 'off', rootBg: A.hc ? '#FFFFFF' : '#FAFAF9',
+      contacts,
+      pickupIsCode: !S.pickupQr, pickupIsQr: S.pickupQr,
+      pickupToggleLabel: S.pickupQr ? 'Show the code instead' : 'Show a QR code instead',
+      onPickupToggle: () => this.setState(s => ({ pickupQr: !s.pickupQr })),
+      goHome: go('home'), goWhere: go('where'), goWhen: go('when'), goTier: go('tier'), goReview: go('review'),
+      goTracking: go('tracking'), goPickup: go('pickup'), goInTrip: go('intrip'), goComplete: go('complete'),
+      goReceipt: go('receipt'), goA11y: go('a11y'),
+      dests, dest, whenModes, isLater: S.whenMode === 'later',
+      whenLabel: S.whenMode === 'later' ? 'Thu 18/07/2026 \u00b7 2:15 pm' : 'Today \u00b7 ASAP pickup',
+      tiers, fare: tier.fare, tierName: tier.name,
+      vehicleLine: tierId === 'wav' ? 'White Hyundai Staria WAV \u00b7 S 209 BFR' : tierId === 'sensory' ? 'Grey Kia Carnival \u00b7 S 771 QMC' : 'White Toyota Camry \u00b7 S 482 KJK',
+      stars, comps,
+      sos: S.sos, sosOff: !S.sos,
+      onSos: () => this.setState({ sos: true }), onSosCancel: () => this.setState({ sos: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

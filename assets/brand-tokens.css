@@ -1,0 +1,44 @@
+/* MoveWell — brand design tokens
+   Drop into Claude Design (or any project) as the single source of truth.
+   Working brand copied from the Wayflo visual system. WCAG 2.1 AA baseline.
+   Coral is CTA/accent only — never body text (fails contrast). */
+
+:root {
+  /* --- Brand --- */
+  --coral:        #FF6B6B;  /* primary brand, CTA fill, gradient start */
+  --coral-light:  #FF8E8E;  /* hover on coral CTAs, tints */
+  --coral-dark:   #E85555;  /* pressed/active on coral CTAs */
+
+  --purple:       #6C5CE7;  /* secondary brand, links, gradient end */
+  --purple-light: #8B7EEE;  /* tints, supporting fills */
+  --purple-dark:  #5647C9;  /* hover/pressed on purple links & CTAs */
+
+  --yellow:       #FFD93D;  /* highlight/celebration only, never body text */
+
+  /* --- Neutral / surface --- */
+  --bg:           #FAFAF9;  /* page background */
+  --surface:      #F7F6F4;  /* cards, containers */
+  --border:       #E8E5E1;  /* dividers, card borders */
+  --text:         #2D3748;  /* primary body text (>12:1 on bg) */
+  --text-muted:   #4A4540;  /* secondary text (passes 4.5:1) */
+  --wash-pink:    #FFF5F5;  /* subtle bg gradient start */
+  --wash-lav:     #F5F3FF;  /* subtle bg gradient end */
+
+  /* --- Gradients --- */
+  --grad-hero:    linear-gradient(135deg, #FF6B6B 0%, #6C5CE7 100%);
+  --grad-admin:   linear-gradient(135deg, #6C5CE7 0%, #8B7EEE 100%);
+  --grad-bg:      linear-gradient(180deg, #FFF5F5 0%, #FFFFFF 50%, #F5F3FF 100%);
+
+  /* --- Shape & type --- */
+  --radius:       0.75rem;  /* 12px — mark + component corner radius */
+  --font-sans:    "Inter", "Atkinson Hyperlegible", system-ui, sans-serif;
+  --font-weight-heading: 600; /* semibold; logo wordmark is extrabold/800 */
+}
+
+/* Surface colour identity (apply per app):
+   Client App        -> coral mark, coral accents
+   Driver App        -> purple mark, purple accents
+   Operator Portal   -> purple
+   Admin Portal      -> purple gradient (--grad-admin)
+   Marketing/Recruit -> full gradient (--grad-hero)
+*/

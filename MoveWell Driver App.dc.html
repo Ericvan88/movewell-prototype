@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#EFEDEA;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#2D3748;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:700 14px/1.2 'Atkinson Hyperlegible',sans-serif;color:#2D3748}
+.dv-notes{max-width:760px;margin:0 0 24px;font:400 12.5px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.65)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(45,55,72,.1);color:#2D3748;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.6)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#6C5CE7;color:#fff}
+.dv-next{margin:26px 0 0;font:12px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.5)}
+</style>
+</helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">MoveWell Driver App · trip lifecycle</span><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:22px;margin-left:auto"></div>
+<p class="dv-notes"><strong>Reconciled against brand-tokens.css + platform scope (contractor mode):</strong> covered · online/offline toggle, 15s offer timeout, pre-trip accessibility/behaviour notes, en route, 2FA pickup, in-trip SOS + deviation alerts, post-trip wrap with incident entry point, earnings + Friday payout, credential hub with expiry alerts and screening portability, tier-progression loop. Deferred per scope · training centre (linked only), full incident flow, support. <strong>Role flag:</strong> contractor / employed is a <strong>sign-in-time role</strong>, never an in-app toggle · the "Signed in as" switcher above the frame (and the <code>role</code> tweak) is demo-only. Employed mode (driver "Lena", Complex tier · the tier-3 destination from the recruitment ladder) replaces the contractor surfaces: online toggle + radar/offer → shift/roster + dispatched jobs (assigned by ops, no accept/decline), earnings → timesheet, driver-owned car → rostered fleet vehicle (WAV-04) with pre-shift check. Everything from pre-trip notes onward (2FA, in-trip SOS, wrap, documents) is shared verbatim between roles. Driver "Deb", CareDriver tier. Purple is the driver-side signature colour (movewell-driver-purple mark); coral appears only on the participant. One-handed layout · all primary actions are ≥56px and pinned to the bottom. Flow in <a class="dv-oid" href="#1a">1a</a>: today (online toggle) → trip offer with live 15s timeout → pre-trip participant notes → en route → arrived → 2FA code entry (code is <strong>4827</strong>, from the rider app) → in-trip → post-trip wrap → earnings. Tabs reach earnings and the credential hub; first-aid expiry shows the alert pattern. <a class="dv-oid" href="#1b">1b</a>-<a class="dv-oid" href="#1c">1c</a> are static variations.</p>
+<div class="dv-opts">
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Interactive prototype · full trip lifecycle
+<span style="display:inline-flex;align-items:center;gap:8px;margin-left:14px">
+<span style="font-size:11px;color:rgba(45,55,72,.55)">Demo · signed in as</span>
+<span style="display:inline-flex;border:1px solid rgba(0,0,0,.14);border-radius:9999px;overflow:hidden;background:#fff">
+<button onClick="{{ setContractor }}" style="border:0;padding:6px 13px;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer;background:{{ segCBg }};color:{{ segCFg }}">Contractor · Deb</button>
+<button onClick="{{ setEmployed }}" style="border:0;padding:6px 13px;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer;background:{{ segEBg }};color:{{ segEFg }}">Employed · Lena</button>
+</span>
+</span></div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
+<div style="width:100%;height:100%;box-sizing:border-box;padding-top:60px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:14px 20px 0"><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:26px;display:block;margin-left:-10px"></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 20px 8px">
+<div style="flex:1">
+<h1 style="margin:0;font-size:26px;font-weight:700;line-height:1.15">G'day, Deb.</h1>
+<p style="margin:4px 0 0;font-size:14px;color:#4A4540">CareDriver · Adelaide north</p>
+</div>
+<span style="width:48px;height:48px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700">DK</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div onClick="{{ toggleOnline }}" style="display:flex;align-items:center;gap:14px;min-height:72px;padding:8px 18px;background:{{ onlineBg }};border-radius:12px;cursor:pointer;box-sizing:border-box">
+<span style="flex:1"><span style="display:block;font-size:18px;font-weight:700;color:{{ onlineFg }}">{{ onlineLabel }}</span><span style="display:block;font-size:13px;color:{{ onlineSub }}">{{ onlineDesc }}</span></span>
+<span style="width:56px;height:32px;border-radius:9999px;background:{{ togBg }};position:relative;flex:none"><span style="position:absolute;top:4px;left:{{ togLeft }};width:24px;height:24px;border-radius:9999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.25);transition:left 180ms"></span></span>
+</div>
+<sc-if value="{{ online }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ goRadar }}" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#5647C9"><i class="fa-solid fa-satellite-dish"></i>Open trip radar</button>
+<button onClick="{{ goOffer }}" style="width:100%;height:44px;border:1px dashed #ADA8A2;background:transparent;color:#4A4540;border-radius:12px;font-family:inherit;font-size:13px;cursor:pointer"><i class="fa-solid fa-forward" style="margin-right:7px"></i>Demo: a direct offer comes in</button>
+</sc-if>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,217,61,0.18);border:1px solid #FFD93D;border-radius:12px;font-size:13px"><i class="fa-solid fa-triangle-exclamation" style="color:#B8860B"></i><span style="flex:1">First aid certificate expires in 21 days.</span><span onClick="{{ goDocs }}" style="font-weight:700;color:#6C5CE7;cursor:pointer">Renew</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">TODAY · WED 16/07</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-car"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">2:15 pm · Prospect to North Adelaide</span><span style="display:block;font-size:12px;color:#4A4540">Maya P. · standard sedan · $52.20</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Confirmed</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-car"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">4:40 pm · Mile End to Prospect</span><span style="display:block;font-size:12px;color:#4A4540">Jordan T. · standard sedan · $31.80</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Scheduled</span>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">NEXT TIER · SPECIALIST</span><span style="font-size:12px;color:#4A4540">2 of 4 modules</span></div>
+<div style="height:8px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:50%;height:100%;background:#6C5CE7;border-radius:9999px"></span></div>
+<div style="font-size:13px;color:#4A4540;line-height:1.45">Specialist unlocks WAV trips · around <strong style="color:#2D3748">+$310/week</strong> in your area.</div>
+</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#6C5CE7"><i class="fa-solid fa-road" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Today</span></div>
+<div onClick="{{ goEarnings }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-dollar-sign" style="font-size:18px"></i><span style="font-size:11px">Earnings</span></div>
+<div onClick="{{ goDocs }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-id-card" style="font-size:18px"></i><span style="font-size:11px">Documents</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isShifts }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:14px 20px 0"><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:26px;display:block;margin-left:-10px"></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 20px 8px">
+<div style="flex:1">
+<h1 style="margin:0;font-size:26px;font-weight:700;line-height:1.15">G'day, Lena.</h1>
+<p style="margin:4px 0 0;font-size:14px;color:#4A4540">Employed driver · Complex tier · Adelaide north</p>
+</div>
+<span style="width:48px;height:48px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700">LV</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#6C5CE7;border-radius:12px;padding:18px;color:#fff;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;font-weight:700;letter-spacing:0.12em;opacity:0.8">TODAY'S SHIFT · WED 16/07</span><span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(255,255,255,0.2);font-size:11px;font-weight:700"><span style="width:7px;height:7px;border-radius:9999px;background:#7BE495"></span>On shift</span></div>
+<span style="font-size:30px;font-weight:700;font-variant-numeric:tabular-nums">7:00 am to 3:30 pm</span>
+<div onClick="{{ goVehicle }}" style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 12px;background:rgba(255,255,255,0.12);border-radius:10px;cursor:pointer">
+<i class="fa-solid fa-van-shuttle" style="font-size:18px"></i>
+<span style="flex:1"><span style="display:block;font-size:14px;font-weight:700">WAV-04 · Toyota Hiace WAV</span><span style="display:block;font-size:12px;opacity:0.85">Fleet vehicle · rostered to you today</span></span>
+<i class="fa-solid fa-chevron-right" style="font-size:12px;opacity:0.7"></i>
+</div>
+</div>
+<div onClick="{{ goDispatch }}" style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;cursor:pointer">
+<div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">DISPATCHED JOBS</span><span style="margin-left:auto;padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">2 remaining</span></div>
+<div style="font-size:15px;font-weight:700">Up next · 11:00 am · Maya P., Prospect to North Adelaide</div>
+<div style="font-size:12.5px;color:#4A4540">Assigned by dispatch. Tap to see today's run.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">UPCOMING SHIFTS</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-calendar-day"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Thu 17/07 · 7:00 am to 3:30 pm</span><span style="display:block;font-size:12px;color:#4A4540">WAV-04 · Toyota Hiace WAV</span></span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-calendar-day"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Fri 18/07 · 11:00 am to 7:00 pm</span><span style="display:block;font-size:12px;color:#4A4540">WAV-02 · VW Caddy WAV</span></span>
+</div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;padding:0 2px">
+<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Auslan</span>
+<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Sensory-calm</span>
+<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">AAC</span>
+<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">MH first aid</span>
+</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#6C5CE7"><i class="fa-solid fa-calendar-week" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Shifts</span></div>
+<div onClick="{{ goTimesheet }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-clock" style="font-size:18px"></i><span style="font-size:11px">Timesheet</span></div>
+<div onClick="{{ goDocs }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-id-card" style="font-size:18px"></i><span style="font-size:11px">Documents</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isVehicle }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Your vehicle today</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:12px"><span style="width:44px;height:44px;border-radius:12px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:20px"><i class="fa-solid fa-van-shuttle"></i></span><span style="flex:1"><span style="display:block;font-size:17px;font-weight:700">WAV-04 · Toyota Hiace WAV</span><span style="display:block;font-size:12.5px;color:#4A4540">Rego S402 KWL · MoveWell fleet · hoist + 2 anchor points</span></span></div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding-top:4px">Fuel card is in the glovebox. Collect from the Regency Park depot; return by end of shift.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">PRE-SHIFT CHECK · DONE 6:52 AM</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:20px"></i><span style="flex:1;font-size:14px">Hoist tested and clear</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:20px"></i><span style="flex:1;font-size:14px">Restraints and anchor points checked</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:20px"></i><span style="flex:1;font-size:14px">Cabin sanitised · sensory kit stocked</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer"><i class="fa-solid fa-wrench" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Report a vehicle fault</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDispatch }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Today's jobs</h2>
+</div>
+<div style="padding:2px 20px 0;font-size:12.5px;color:#4A4540">Assigned by dispatch · no accepting or declining. Problem with a job? Call ops.</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;opacity:0.65">
+<div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;font-weight:700">9:10 am · Theo R.</span><span style="margin-left:auto;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Complete</span></div>
+<div style="font-size:13px;color:#4A4540">Enfield to day program, Regency Park · WAV · sensory-calm</div>
+</div>
+<div style="background:#fff;border:2px solid #6C5CE7;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;font-weight:700">11:00 am · Maya P.</span><span style="margin-left:auto;padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">Up next</span></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:9px;height:9px;border-radius:9999px;background:#6C5CE7;flex:none"></span><span style="flex:1">12 Olive St, Prospect</span></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:9px"></i><span style="flex:1">Physio · 88 Ward St, North Adelaide</span></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">Walking frame</span>
+<span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">2FA pickup</span>
+<span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">No radio</span>
+</div>
+<button onClick="{{ goPretrip }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Prepare for pickup</button>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;font-weight:700">1:45 pm · Iris K.</span><span style="margin-left:auto;padding:4px 10px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Later</span></div>
+<div style="font-size:13px;color:#4A4540">North Adelaide to Salisbury · WAV hoist · Auslan · support worker travelling</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTimesheet }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Timesheet</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#6C5CE7;border-radius:12px;padding:20px;color:#fff;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.12em;opacity:0.8">THIS FORTNIGHT · 7 TO 20 JULY</span>
+<span style="font-size:36px;font-weight:700;font-variant-numeric:tabular-nums">61.5 hrs</span>
+<span style="font-size:13px;opacity:0.85">Pay date Thu 24/07 · penalty rates applied by payroll</span>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Wed 16/07 · 7:00 am to 3:30 pm</span><span style="display:block;font-size:12px;color:#4A4540">8.0 hrs · WAV-04 · in progress</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">On shift</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Tue 15/07 · 7:00 am to 3:30 pm</span><span style="display:block;font-size:12px;color:#4A4540">8.0 hrs · WAV-04</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Approved</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Mon 14/07 · 11:00 am to 7:00 pm</span><span style="display:block;font-size:12px;color:#4A4540">7.5 hrs · WAV-02 · 30 min unpaid break</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Approved</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Fri 11/07 · 7:00 am to 3:30 pm</span><span style="display:block;font-size:12px;color:#4A4540">8.0 hrs · WAV-04</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Submitted</span>
+</div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">Hours are logged automatically from shift start and end. Flag a correction with ops before Monday 9 am.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRadar }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 8px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Trip radar</h2>
+<span style="margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:12px;font-weight:700"><span style="width:7px;height:7px;border-radius:9999px;background:#1F7A33"></span>Online</span>
+</div>
+<div style="position:relative;height:120px;flex:none;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
+<span style="position:absolute;left:48%;top:44%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
+<span style="position:absolute;left:12px;bottom:10px;font-size:11px;color:#ADA8A2">You · Adelaide north</span>
+</div>
+<div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:14px 20px 20px">
+<div style="font-size:12.5px;color:#4A4540">Nearby trips appear here. First driver to grab a trip gets it.</div>
+<sc-if value="{{ radarEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:36px 20px;text-align:center">
+<span style="width:56px;height:56px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="fa-solid fa-satellite-dish"></i></span>
+<span style="font-size:15px;font-weight:700">Waiting for trips near you…</span>
+<span style="font-size:13px;color:#4A4540">Stay online · new trips arrive as riders book.</span>
+</div>
+</sc-if>
+<sc-for list="{{ radarJobs }}" as="j" hint-placeholder-count="2">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<span style="display:block;height:5px;background:#F7F6F4"><span style="display:block;width:{{ j.pct }};height:100%;background:{{ j.barColor }};transition:width 900ms linear"></span></span>
+<div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:18px;font-weight:700;font-variant-numeric:tabular-nums">{{ j.pay }}</span><span style="flex:1;font-size:13px;color:#4A4540">{{ j.meta }}</span><span style="font-size:13px;font-weight:700;color:{{ j.secsColor }};font-variant-numeric:tabular-nums">{{ j.secs }}s</span></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:9px;height:9px;border-radius:9999px;background:#6C5CE7;flex:none"></span><span style="flex:1">{{ j.from }}</span></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:9px"></i><span style="flex:1">{{ j.to }}</span></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<sc-for list="{{ j.chips }}" as="c" hint-placeholder-count="2"><span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">{{ c }}</span></sc-for>
+</div>
+<button onClick="{{ j.onGrab }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Grab this trip</button>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isOffer }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;background:#21203A">
+<div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:28px 20px 8px;text-align:center">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.14em;color:#8B7EEE">NEW TRIP OFFER</span>
+<span style="width:72px;height:72px;border-radius:9999px;border:4px solid {{ timerColor }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700">{{ offerSecs }}</span>
+</div>
+<div style="margin:8px 20px;background:#fff;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:10px;font-size:15px"><span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7;flex:none"></span><span style="flex:1">12 Olive St, Prospect</span><strong style="font-size:13px;color:#4A4540">8 min away</strong></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:10px"></i><span style="flex:1">88 Ward St, North Adelaide</span><strong style="font-size:13px;color:#4A4540">14 min trip</strong></div>
+<div style="border-top:1px solid #F7F6F4;padding-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Standard sedan</span>
+<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Walking frame</span>
+<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">2FA pickup</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:#4A4540">Your earnings</span><span style="font-size:26px;font-weight:700">$52.20</span></div>
+</div>
+<sc-if value="{{ offerExpired }}" hint-placeholder-val="{{ false }}">
+<div style="margin:0 20px;padding:12px 16px;background:rgba(232,85,85,0.15);border-radius:12px;color:#FFB3B3;font-size:14px;text-align:center">Offer expired. It's been passed to the next driver.</div>
+</sc-if>
+<div style="margin-top:auto;display:flex;gap:12px;padding:16px 20px 24px">
+<button onClick="{{ declineOffer }}" style="flex:1;height:64px;border:1px solid rgba(255,255,255,0.35);background:transparent;color:#fff;border-radius:12px;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer">Decline</button>
+<sc-if value="{{ offerLive }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ acceptOffer }}" style="flex:2;height:64px;border:0;background:#6C5CE7;color:#fff;border-radius:12px;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Accept trip</button>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPretrip }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">BEFORE YOU DRIVE</span>
+<h2 style="margin:6px 0 0;font-size:24px;font-weight:700">Maya P.</h2>
+<p style="margin:4px 0 0;font-size:14px;color:#4A4540">Pickup 2:15 pm · 12 Olive St, Prospect</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#5647C9"><i class="fa-solid fa-universal-access"></i>How to support Maya</div>
+<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;color:#2D3748">
+<li>Verbal · happy to chat, speaks softly.</li>
+<li>Uses a walking frame. Allow extra time at the door.</li>
+<li>No radio, please.</li>
+</ul>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px"><i class="fa-solid fa-shield-heart" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Behaviour support plan</span><span style="font-size:13px;color:#4A4540">Not required</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-lock" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Pickup verification</span><span style="font-size:13px;font-weight:700">2FA code</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-phone" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Support contact</span><span style="font-size:13px;font-weight:700;color:#6C5CE7">Call Anna (mum)</span></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">You never handle payment. The claim is built automatically when the trip ends.</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ goEnroute }}" style="width:100%;height:64px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#5647C9"><i class="fa-solid fa-diamond-turn-right" style="margin-right:9px"></i>Start driving</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEnroute }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column">
+<div style="position:relative;flex:1;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
+<span style="position:absolute;left:50%;top:16px;transform:translateX(-50%);padding:8px 16px;border-radius:9999px;background:#2D3748;color:#fff;font-size:13px;font-weight:700">Pickup in 8 min · 3.4 km</span>
+<span style="position:absolute;left:30%;top:60%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
+<span style="position:absolute;left:12px;bottom:12px;font-size:11px;color:#ADA8A2">Turn-by-turn handoff · Google Maps / Apple Maps</span>
+</div>
+<div style="flex:none;background:#fff;border-top:1px solid #E8E5E1;padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:12px"><span style="width:40px;height:40px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">MP</span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Maya P. · 12 Olive St, Prospect</span><span style="display:block;font-size:12px;color:#4A4540">Walking frame · no radio</span></span><button style="width:48px;height:48px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#6C5CE7;font-size:16px;cursor:pointer"><i class="fa-solid fa-phone"></i></button></div>
+<button onClick="{{ goArrived }}" style="width:100%;height:64px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">I've arrived</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isArrived }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:24px 20px 4px;text-align:center">
+<h2 style="margin:0;font-size:24px;font-weight:700">Enter Maya's pickup code</h2>
+<p style="margin:6px 0 0;font-size:14px;color:#4A4540">Maya shows you a 4-digit code in her app.</p>
+</div>
+<div style="display:flex;justify-content:center;gap:10px;padding:18px 20px 6px">
+<sc-for list="{{ codeCells }}" as="c" hint-placeholder-count="4">
+<span style="width:52px;height:64px;border-radius:12px;background:#fff;border:{{ c.border }};display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700">{{ c.d }}</span>
+</sc-for>
+</div>
+<sc-if value="{{ codeError }}" hint-placeholder-val="{{ false }}">
+<div style="text-align:center;font-size:13px;font-weight:700;color:#C43F3F;padding:0 20px">That code doesn't match. Ask Maya to show it again.</div>
+</sc-if>
+<div style="margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px 24px 24px">
+<sc-for list="{{ keys }}" as="k" hint-placeholder-count="12">
+<button onClick="{{ k.onKey }}" style="height:60px;border:1px solid #E8E5E1;background:{{ k.bg }};color:#2D3748;border-radius:12px;font-family:inherit;font-size:{{ k.fs }};font-weight:700;cursor:pointer;visibility:{{ k.vis }}">{{ k.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isIntrip }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column">
+<div style="position:relative;flex:1;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
+<span style="position:absolute;left:50%;top:16px;transform:translateX(-50%);padding:8px 16px;border-radius:9999px;background:#2D3748;color:#fff;font-size:13px;font-weight:700">Drop-off 2:41 pm · 12 min</span>
+<span style="position:absolute;left:45%;top:45%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
+<span style="position:absolute;left:12px;bottom:12px;font-size:11px;color:#ADA8A2">Live map · route deviation alerts on</span>
+</div>
+<div style="flex:none;background:#fff;border-top:1px solid #E8E5E1;padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B"></i>Physio · 88 Ward St, North Adelaide</div>
+<div style="display:flex;gap:10px">
+<button style="flex:1;height:56px;border:1px solid #E85555;background:#fff;color:#C43F3F;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer"><i class="fa-solid fa-tower-broadcast" style="margin-right:8px"></i>SOS</button>
+<button onClick="{{ goWrap }}" style="flex:2;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">End trip</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isWrap }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:24px 20px 8px">
+<h2 style="margin:0;font-size:24px;font-weight:700">Wrap up the trip</h2>
+<p style="margin:6px 0 0;font-size:14px;color:#4A4540">Maya P. · dropped at Physio, North Adelaide · 2:43 pm</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<sc-for list="{{ wraps }}" as="w" hint-placeholder-count="3">
+<div onClick="{{ w.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;cursor:pointer;border-top:1px solid #F7F6F4">
+<span style="width:24px;height:24px;border-radius:6px;background:{{ w.boxBg }};border:{{ w.boxBorder }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none"><sc-if value="{{ w.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-check"></i></sc-if></span>
+<span style="flex:1;font-size:15px">{{ w.label }}</span>
+</div>
+</sc-for>
+</div>
+<div onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer"><i class="fa-solid fa-file-circle-exclamation" style="color:#C43F3F;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Report an incident</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div style="background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;color:#1F7A33;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>You earned</span><span style="font-size:24px;font-weight:700">$52.20</span></div>
+<div style="font-size:12.5px;color:#4A4540">Claim built and sent automatically. Nothing to collect.</div>
+</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ finishWrap }}" style="width:100%;height:64px;border:0;border-radius:12px;background:{{ wrapBtnBg }};color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:{{ wrapBtnCursor }}">Done · back to today</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEarnings }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Earnings</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#6C5CE7;border-radius:12px;padding:20px;color:#fff;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.12em;opacity:0.8">THIS WEEK</span>
+<span style="font-size:36px;font-weight:700;font-variant-numeric:tabular-nums">$1,042.75</span>
+<span style="font-size:13px;opacity:0.85">Payout Friday 18/07 · 22 trips</span>
+</div>
+<div style="display:flex;gap:12px">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#4A4540">Today</span><span style="font-size:20px;font-weight:700;font-variant-numeric:tabular-nums">{{ todayEarnings }}</span></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#4A4540">On-time rate</span><span style="font-size:20px;font-weight:700">98%</span></div>
+</div>
+<div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:14px;font-weight:700;color:#5647C9"><i class="fa-solid fa-arrow-trend-up" style="margin-right:8px"></i>Specialist tier pays more</div>
+<div style="font-size:13px;color:#2D3748;line-height:1.5">WAV trips in your area average <strong>$71.40</strong> each. Finish 2 more modules to unlock them.</div>
+<span style="align-self:flex-start;font-size:13px;font-weight:700;color:#6C5CE7;cursor:pointer">Go to training centre</span>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDocs }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Documents</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<sc-for list="{{ docs }}" as="d" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid {{ d.icon }}"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">{{ d.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ d.sub }}</span></span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:{{ d.lozBg }};color:{{ d.lozFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ d.lozIcon }}"></i>{{ d.status }}</span>
+</div>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">Your NDIS Worker Screening was recognised from your previous provider · no re-check needed.</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Offer variation · light bottom sheet over map</div>
+<div class="dv-card" style="width:393px;height:640px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',sans-serif;color:#2D3748">
+<div style="position:relative;flex:1;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
+<span style="position:absolute;left:35%;top:40%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
+<span style="position:absolute;left:12px;bottom:12px;font-size:11px;color:#ADA8A2">Map · pickup pinned</span>
+</div>
+<div style="flex:none;background:#fff;border-radius:20px 20px 0 0;margin-top:-16px;position:relative;padding:14px 20px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 -4px 12px rgba(0,0,0,0.06)">
+<div style="display:flex;align-items:center;gap:10px"><span style="font-size:12px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">NEW OFFER</span><span style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:9999px;border:3px solid #FF6B6B;font-size:15px;font-weight:700">12</span></div>
+<div style="font-size:16px;font-weight:700">Prospect to North Adelaide · $52.20</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Walking frame</span><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">2FA pickup</span><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">No radio</span></div>
+<div style="display:flex;gap:12px"><button style="flex:1;height:60px;border:1px solid #E8E5E1;background:#fff;color:#4A4540;border-radius:12px;font-family:inherit;font-size:16px;font-weight:700">Decline</button><button style="flex:2;height:60px;border:0;background:#6C5CE7;color:#fff;border-radius:12px;font-family:inherit;font-size:17px;font-weight:700">Accept trip</button></div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Pre-trip variation · support notes as full-screen checklist</div>
+<div class="dv-card" style="width:393px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',sans-serif;color:#2D3748;padding:24px 20px;box-sizing:border-box;gap:14px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">READ BEFORE PICKUP · MAYA P.</span>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><i class="fa-solid fa-person-walking-with-cane" style="font-size:22px;color:#6C5CE7;width:28px"></i><span style="font-size:16px;font-weight:700">Walking frame · allow extra time at the door</span></div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><i class="fa-solid fa-volume-xmark" style="font-size:22px;color:#6C5CE7;width:28px"></i><span style="font-size:16px;font-weight:700">No radio, please</span></div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><i class="fa-solid fa-comment" style="font-size:22px;color:#6C5CE7;width:28px"></i><span style="font-size:16px;font-weight:700">Verbal · speaks softly, happy to chat</span></div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><i class="fa-solid fa-lock" style="font-size:22px;color:#6C5CE7;width:28px"></i><span style="font-size:16px;font-weight:700">2FA code at pickup</span></div>
+</div>
+<button style="width:100%;height:64px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:18px;font-weight:700">I've read this · start driving</button>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "make <a class="dv-oid" href="#1c">1c</a> the pre-trip screen in <a class="dv-oid" href="#1a">1a</a>" · "add the incident report flow" · "start the recruitment portal"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;radar&quot;,&quot;offer&quot;,&quot;pretrip&quot;,&quot;enroute&quot;,&quot;arrived&quot;,&quot;intrip&quot;,&quot;wrap&quot;,&quot;earnings&quot;,&quot;docs&quot;,&quot;shifts&quot;,&quot;vehicle&quot;,&quot;dispatch&quot;,&quot;timesheet&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;contractor&quot;,&quot;options&quot;:[&quot;contractor&quot;,&quot;employed&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Sign-in role · contractor or employed&quot;}}">
+class Component extends DCLogic {
+  state = { screen: null, role: null, online: false, offerSecs: 15, code: [], codeError: false, wraps: { a: false, b: false, c: false }, doneTrip: false, radarT: 0 };
+  componentDidMount() {
+    this._t = setInterval(() => {
+      const scr = this.state.screen ?? this.props.startScreen;
+      if (scr === 'offer' && this.state.offerSecs > 0) this.setState(s => ({ offerSecs: s.offerSecs - 1 }));
+      if (scr === 'radar') this.setState(s => ({ radarT: s.radarT + 1 }));
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+  renderVals() {
+    const role = this.state.role ?? (this.props.role ?? 'contractor');
+    const employed = role === 'employed';
+    let scr = this.state.screen ?? (this.props.startScreen ?? 'home');
+    // role owns the home surface: 'home' resolves per sign-in role
+    if (scr === 'home') scr = employed ? 'shifts' : 'home';
+    if (!employed && ['shifts', 'vehicle', 'dispatch', 'timesheet'].includes(scr)) scr = 'home';
+    if (employed && ['radar', 'offer', 'earnings'].includes(scr)) scr = 'shifts';
+    const S = { ...this.state, screen: scr };
+    const go = s => () => this.setState({ screen: s });
+    const setRole = r => () => this.setState({ role: r, screen: 'home', online: false, code: [], codeError: false, wraps: { a: false, b: false, c: false }, offerSecs: 15 });
+    const online = S.online;
+    const wrapLabels = { a: 'Maya handed over safely', b: 'Walking frame returned and secured', c: 'Vehicle checked · nothing left behind' };
+    const wraps = ['a', 'b', 'c'].map(k => ({ label: wrapLabels[k], on: S.wraps[k],
+      boxBg: S.wraps[k] ? '#6C5CE7' : '#fff', boxBorder: S.wraps[k] ? '1px solid #6C5CE7' : '1px solid #ADA8A2',
+      onPick: () => this.setState(s => ({ wraps: { ...s.wraps, [k]: !s.wraps[k] } })) }));
+    const allWrapped = wraps.every(w => w.on);
+    const digits = S.code;
+    const codeCells = [0, 1, 2, 3].map(i => ({ d: digits[i] ?? '', border: S.codeError ? '2px solid #E85555' : i === digits.length ? '2px solid #6C5CE7' : '1px solid #E8E5E1' }));
+    const onKey = d => () => {
+      if (d === 'back') return this.setState(s => ({ code: s.code.slice(0, -1), codeError: false }));
+      if (this.state.code.length >= 4) return;
+      const next = [...this.state.code, d];
+      if (next.length === 4) {
+        if (next.join('') === '4827') this.setState({ code: next, codeError: false, screen: 'intrip' });
+        else this.setState({ code: [], codeError: true });
+      } else this.setState({ code: next, codeError: false });
+    };
+    const keys = ['1','2','3','4','5','6','7','8','9','',
+      '0','back'].map(k => ({
+      label: k === 'back' ? '\u232B' : k, fs: k === 'back' ? '20px' : '22px',
+      bg: '#fff', vis: k === '' ? 'hidden' : 'visible',
+      onKey: k === '' ? () => {} : onKey(k) }));
+    const docs = [
+      { icon: 'fa-shield-halved', name: 'NDIS Worker Screening', sub: 'Valid to 03/2027 \u00b7 ported from previous provider', status: 'Valid', lozBg: 'rgba(45,167,72,0.14)', lozFg: '#1F7A33', lozIcon: 'fa-circle-check' },
+      { icon: 'fa-kit-medical', name: 'First aid (HLTAID011)', sub: 'Expires 06/08/2026', status: '21 days', lozBg: 'rgba(255,217,61,0.25)', lozFg: '#8A6800', lozIcon: 'fa-triangle-exclamation' },
+      { icon: 'fa-car-burst', name: 'Vehicle insurance', sub: 'Comprehensive \u00b7 renewed 05/2026', status: 'Valid', lozBg: 'rgba(45,167,72,0.14)', lozFg: '#1F7A33', lozIcon: 'fa-circle-check' },
+      { icon: 'fa-graduation-cap', name: 'Disability awareness training', sub: 'Completed 11/2025', status: 'Complete', lozBg: 'rgba(45,167,72,0.14)', lozFg: '#1F7A33', lozIcon: 'fa-circle-check' },
+    ];
+    const is = k => S.screen === k;
+    return {
+      isHome: is('home'), isOffer: is('offer'), isPretrip: is('pretrip'), isEnroute: is('enroute'),
+      isArrived: is('arrived'), isIntrip: is('intrip'), isWrap: is('wrap'), isEarnings: is('earnings'), isDocs: is('docs'),
+      isShifts: is('shifts'), isVehicle: is('vehicle'), isDispatch: is('dispatch'), isTimesheet: is('timesheet'),
+      goVehicle: go('vehicle'), goDispatch: go('dispatch'), goTimesheet: go('timesheet'), goPretrip: go('pretrip'),
+      setContractor: setRole('contractor'), setEmployed: setRole('employed'),
+      segCBg: employed ? '#fff' : '#6C5CE7', segCFg: employed ? '#4A4540' : '#fff',
+      segEBg: employed ? '#6C5CE7' : '#fff', segEFg: employed ? '#fff' : '#4A4540',
+      goHome: go('home'), goEnroute: go('enroute'), goArrived: go('arrived'), goWrap: go('wrap'),
+      goEarnings: go('earnings'), goDocs: go('docs'),
+      goOffer: () => this.setState({ screen: 'offer', offerSecs: 15 }),
+      isRadar: is('radar'),
+      goRadar: () => this.setState({ screen: 'radar', radarT: 0, online: true }),
+      ...(() => {
+        const defs = [
+          { k: 'r1', appear: 0, ttl: 18, pay: '$52.20', meta: '8 min away · 14 min trip', from: '12 Olive St, Prospect', to: '88 Ward St, North Adelaide', chips: ['Standard sedan', 'Walking frame', '2FA pickup'] },
+          { k: 'r2', appear: 5, ttl: 15, pay: '$28.70', meta: '11 min away · 9 min trip', from: 'Blair Athol shops', to: 'Adelaide CBD · Rundle Mall', chips: ['Standard sedan'] },
+          { k: 'r3', appear: 11, ttl: 20, pay: '$33.40', meta: '5 min away · 12 min trip', from: 'Sefton Park', to: 'Day program · Regency Park', chips: ['Quiet ride', '2FA pickup'] },
+          { k: 'r4', appear: 18, ttl: 16, pay: '$41.60', meta: '9 min away · 15 min trip', from: 'Enfield', to: 'Physio · Windsor Gardens', chips: ['Standard sedan', 'Assist to door'] },
+        ];
+        const t = S.radarT % 40;
+        const radarJobs = defs.filter(d => t >= d.appear && t < d.appear + d.ttl).map(d => {
+          const secs = d.appear + d.ttl - t;
+          return { ...d, secs, pct: Math.round(secs / d.ttl * 100) + '%',
+            barColor: secs <= 5 ? '#E85555' : '#6C5CE7', secsColor: secs <= 5 ? '#C43F3F' : '#4A4540',
+            onGrab: () => this.setState({ screen: 'pretrip' }) };
+        });
+        return { radarJobs, radarEmpty: radarJobs.length === 0 };
+      })(),
+      acceptOffer: () => this.setState({ screen: 'pretrip' }),
+      declineOffer: () => this.setState({ screen: 'home' }),
+      offerSecs: S.offerSecs, offerLive: S.offerSecs > 0, offerExpired: S.offerSecs === 0,
+      timerColor: S.offerSecs <= 5 ? '#E85555' : '#8B7EEE',
+      online, toggleOnline: () => this.setState(s => ({ online: !s.online })),
+      onlineLabel: online ? "You're online." : "You're offline.",
+      onlineDesc: online ? 'Ready for trip offers in Adelaide north' : 'Go online to receive trip offers',
+      onlineBg: online ? '#6C5CE7' : '#fff', onlineFg: online ? '#fff' : '#2D3748',
+      onlineSub: online ? 'rgba(255,255,255,0.8)' : '#4A4540',
+      togBg: online ? 'rgba(255,255,255,0.3)' : '#CFCAC4', togLeft: online ? '28px' : '4px',
+      codeCells, codeError: S.codeError, keys,
+      wraps, wrapBtnBg: allWrapped ? '#6C5CE7' : '#CFCAC4', wrapBtnCursor: allWrapped ? 'pointer' : 'default',
+      finishWrap: () => { if (allWrapped) this.setState({ screen: 'home', wraps: { a: false, b: false, c: false }, code: [], doneTrip: true }); },
+      todayEarnings: S.doneTrip ? '$238.60' : '$186.40',
+      noop: () => {},
+    };
+  }
+}
+</script>
+</body>
+</html>

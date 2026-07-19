@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#EFEDEA;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#2D3748;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:700 14px/1.2 'Atkinson Hyperlegible',sans-serif;color:#2D3748}
+.dv-notes{max-width:760px;margin:0 0 24px;font:400 12.5px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.65)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(45,55,72,.1);color:#2D3748;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.6)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#6C5CE7;color:#fff}
+</style>
+</helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">MoveWell · complete platform, investor demo</span><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:22px;margin-left:auto"></div>
+<p class="dv-notes"><strong>The combined platform file.</strong> <a class="dv-oid" href="#1a">1a</a> is the hub: every surface and role, with links into the four live prototype files. <a class="dv-oid" href="#1b">1b</a> is the killer story for stakeholders: one trip followed from booking to paid claim across five perspectives, clickable step by step. The previously deferred gaps are built here: <a class="dv-oid" href="#1c">1c</a> rider sign-up and onboarding, <a class="dv-oid" href="#1d">1d</a> driver training centre (full module flow, quiz, tier progress) plus the support screen, <a class="dv-oid" href="#1e">1e</a> admin participant register and the claims and finance module. Same cast throughout: Maya (rider), Anna (booker), Deb (contractor driver), Lena (employed driver), Leo (coordinator). Coral is the client signature, purple the driver and ops side. Existing files are untouched.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Platform hub · every surface, one map</div>
+<div class="dv-card" style="width:1180px;padding:36px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;align-items:center;gap:16px">
+<img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:34px">
+<div style="flex:1"><div style="font-size:24px;font-weight:700;line-height:1.15">One platform. Every trip, supported.</div><div style="font-size:14px;color:#4A4540;margin-top:2px">NDIS transport from booking to paid claim, across five surfaces and seven roles.</div></div>
+<div style="display:flex;gap:8px">
+<span style="padding:6px 14px;border-radius:9999px;background:#FFF5F5;color:#E85555;font-size:12px;font-weight:700">Client side · coral</span>
+<span style="padding:6px 14px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700">Driver and ops · purple</span>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;border-top:4px solid #FF6B6B">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#FFF5F5;color:#E85555;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-mobile-screen"></i></span><span style="font-size:16px;font-weight:700">Client App</span><span style="margin-left:auto;font-size:11px;font-weight:700;color:#4A4540">iOS</span></div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Rider booking, 2FA pickup, SOS, claims. Booker, coordinator and allied-health roles on the same sign-in.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Maya · rider</span><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Anna · booker</span><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Leo · coordinator</span></div>
+<a href="MoveWell Rider Flow.dc.html" style="margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:12px;background:#FF6B6B;color:#fff;font-size:14px;font-weight:700;text-decoration:none">Open prototype<i class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;border-top:4px solid #6C5CE7">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-car"></i></span><span style="font-size:16px;font-weight:700">Driver App</span><span style="margin-left:auto;font-size:11px;font-weight:700;color:#4A4540">iOS</span></div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Contractor and employed modes on one sign-in role: trip radar and offers, or rostered shifts and dispatched jobs.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Deb · contractor</span><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Lena · employed</span></div>
+<a href="MoveWell Driver App.dc.html" style="margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:12px;background:#6C5CE7;color:#fff;font-size:14px;font-weight:700;text-decoration:none">Open prototype<i class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;border-top:4px solid #2D3748">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#F7F6F4;color:#2D3748;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-building-shield"></i></span><span style="font-size:16px;font-weight:700">Admin Portal</span><span style="margin-left:auto;font-size:11px;font-weight:700;color:#4A4540">Web</span></div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Dispatch board, rostering, drivers register, fleet and credentials, compliance. Participant register and finance in <a class="dv-oid" href="#1e">1e</a>.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Ops and dispatch</span><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Finance</span></div>
+<a href="MoveWell Admin Portal.dc.html" style="margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:12px;background:#2D3748;color:#fff;font-size:14px;font-weight:700;text-decoration:none">Open prototype<i class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;border-top:4px solid #8B7EEE">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-user-plus"></i></span><span style="font-size:16px;font-weight:700">Recruitment Portal</span><span style="margin-left:auto;font-size:11px;font-weight:700;color:#4A4540">Web</span></div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Earnings-led driver acquisition, screening fast-track, the three-tier ladder ending in employed Complex work.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Applicants</span><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Tier progression</span></div>
+<a href="MoveWell Recruitment Portal.dc.html" style="margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:12px;background:#8B7EEE;color:#fff;font-size:14px;font-weight:700;text-decoration:none">Open prototype<i class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;border-top:4px solid #FF9B9B">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:38px;height:38px;border-radius:10px;background:#FFF5F5;color:#E85555;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-briefcase"></i></span><span style="font-size:16px;font-weight:700">Coordinator and allied health</span><span style="margin-left:auto;font-size:11px;font-weight:700;color:#4A4540">Web</span></div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Caseload budgets, claims pipeline, invoice export, transport assessments feeding vehicle matching.</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Leo · coordinator</span><span style="padding:3px 9px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Dr Ngo · OT</span></div>
+<a href="MoveWell Rider Flow.dc.html#2b" style="margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:12px;border:2px solid #FF6B6B;color:#E85555;font-size:14px;font-weight:700;text-decoration:none;box-sizing:border-box">Open workspaces<i class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div style="border:2px dashed #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px;justify-content:center">
+<div style="font-size:14px;font-weight:700"><i class="fa-solid fa-route" style="color:#FF6B6B;margin-right:9px"></i>The story that ties it together</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Follow one Thursday trip from Maya's booking to a paid NDIS claim, across all five perspectives.</div>
+<a href="#1b" style="display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:12px;background:#2D3748;color:#fff;font-size:14px;font-weight:700;text-decoration:none">Play the story below<i class="fa-solid fa-arrow-down"></i></a>
+</div>
+</div>
+<div style="display:flex;gap:24px;padding:16px 20px;background:#FAFAF9;border:1px solid #E8E5E1;border-radius:12px">
+<div style="flex:1"><div style="font-size:22px;font-weight:700">$0</div><div style="font-size:12px;color:#4A4540">handled in the vehicle. Claims are built and sent automatically.</div></div>
+<div style="flex:1"><div style="font-size:22px;font-weight:700">2FA</div><div style="font-size:12px;color:#4A4540">verified pickups, code or QR. No speech needed.</div></div>
+<div style="flex:1"><div style="font-size:22px;font-weight:700">3 tiers</div><div style="font-size:12px;color:#4A4540">of driver capability, matched to each participant's needs.</div></div>
+<div style="flex:1"><div style="font-size:22px;font-weight:700">1 sign-in</div><div style="font-size:12px;color:#4A4540">per person. Roles are consent and organisation grants.</div></div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>The killer story · one trip, booking to paid claim</div>
+<div class="dv-card" style="width:1180px;height:620px;display:flex;box-sizing:border-box">
+<div style="width:320px;flex:none;background:#2D3748;color:#fff;padding:24px;display:flex;flex-direction:column;gap:4px;box-sizing:border-box;overflow-y:auto">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;color:#FF9B9B;margin-bottom:6px">THURSDAY, 2:15 PM PHYSIO RUN</div>
+<sc-for list="{{ storySteps }}" as="st" hint-placeholder-count="8">
+<div onClick="{{ st.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:52px;padding:4px 12px;border-radius:10px;background:{{ st.bg }};cursor:pointer">
+<span style="width:26px;height:26px;border-radius:9999px;background:{{ st.dotBg }};color:{{ st.dotFg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:none">{{ st.n }}</span>
+<span style="flex:1"><span style="display:block;font-size:13.5px;font-weight:700">{{ st.title }}</span><span style="display:block;font-size:11px;color:rgba(255,255,255,0.6)">{{ st.who }}</span></span>
+</div>
+</sc-for>
+<div style="margin-top:auto;display:flex;gap:10px;padding-top:14px">
+<button onClick="{{ storyPrev }}" style="flex:1;height:44px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer"><i class="fa-solid fa-chevron-left" style="margin-right:7px"></i>Back</button>
+<button onClick="{{ storyNext }}" style="flex:2;height:44px;border:0;background:#FF6B6B;color:#fff;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#E85555">{{ storyNextLabel }}<i class="fa-solid fa-chevron-right" style="margin-left:7px"></i></button>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;background:#FAFAF9">
+<div style="display:flex;align-items:center;gap:12px;padding:18px 28px;border-bottom:1px solid #E8E5E1;background:#fff">
+<span style="width:40px;height:40px;border-radius:9999px;background:{{ storyAvBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">{{ storyAvInit }}</span>
+<div style="flex:1"><div style="font-size:16px;font-weight:700">{{ storyHead }}</div><div style="font-size:12.5px;color:#4A4540">{{ storySub }}</div></div>
+<span style="padding:5px 12px;border-radius:9999px;background:{{ storyBadgeBg }};color:{{ storyBadgeFg }};font-size:11px;font-weight:700">{{ storySurface }}</span>
+</div>
+<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden">
+
+<sc-if value="{{ isSt1 }}" hint-placeholder-val="{{ true }}">
+<div style="width:340px;background:#fff;border:1px solid #E8E5E1;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">CHECK AND CONFIRM</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7"></span>Home · 12 Olive St, Prospect</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:10px"></i>Physio · North Adelaide</div>
+<div style="display:flex;gap:8px"><span style="padding:5px 12px;border-radius:9999px;background:#F7F6F4;border:1px solid #E8E5E1;font-size:12px">Thu · 2:15 pm</span><span style="padding:5px 12px;border-radius:9999px;background:#F7F6F4;border:1px solid #E8E5E1;font-size:12px">Standard sedan</span></div>
+<button style="height:52px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:16px;font-weight:700">Confirm booking</button>
+</div>
+</sc-if>
+<sc-if value="{{ isSt2 }}" hint-placeholder-val="{{ false }}">
+<div style="width:340px;background:#fff;border:1px solid #E8E5E1;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+<div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#1F7A33"><i class="fa-solid fa-circle-check"></i>Eligible · Core budget</div>
+<div style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">04_590_0125_6_1 · Activity based transport</div>
+<div style="display:flex;justify-content:space-between;font-size:14px"><span>Estimated claim</span><strong>$38.50</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:14px"><span>Core transport remaining</span><strong>$1,205.65</strong></div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5">Checked before confirm, so a trip never starts that the plan can't fund. Maya never pays in the vehicle.</div>
+</div>
+</sc-if>
+<sc-if value="{{ isSt3 }}" hint-placeholder-val="{{ false }}">
+<div style="width:480px;background:#fff;border:1px solid #E8E5E1;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">VEHICLE-TIER MATCHING</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px;background:#FAFAF9;border-radius:10px;font-size:13px"><i class="fa-solid fa-user" style="color:#FF6B6B"></i><span style="flex:1">Maya's requirements: standard sedan, walking-frame stowage, no radio</span><span style="font-size:11px;font-weight:700;color:#4A4540">from her OT assessment</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px;border:2px solid #6C5CE7;border-radius:10px;font-size:13px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i><span style="flex:1"><strong>Deb K. · CareDriver</strong> · 1.2 km away · disability awareness + first aid current</span><span style="padding:3px 9px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">Best match</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #E8E5E1;border-radius:10px;font-size:13px;color:#4A4540"><i class="fa-solid fa-circle-xmark" style="color:#ADA8A2"></i><span style="flex:1">Marco T. · Standard tier · first aid expired</span><span style="font-size:11px;font-weight:700">Filtered out</span></div>
+</div>
+</sc-if>
+<sc-if value="{{ isSt4 }}" hint-placeholder-val="{{ false }}">
+<div style="width:340px;background:#21203A;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,0.2)">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;color:#8B7EEE">NEW TRIP OFFER</span><span style="width:44px;height:44px;border-radius:9999px;border:3px solid #8B7EEE;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">12</span></div>
+<div style="background:#fff;color:#2D3748;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:14px;font-weight:700">Prospect to North Adelaide · $52.20</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">Walking frame</span><span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">2FA pickup</span><span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">No radio</span></div>
+</div>
+<button style="height:52px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700">Accept trip</button>
+</div>
+</sc-if>
+<sc-if value="{{ isSt5 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:24px;align-items:center">
+<div style="width:250px;background:#fff;border:1px solid #E8E5E1;border-radius:20px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+<span style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">MAYA'S APP</span>
+<span style="display:flex;gap:7px"><span style="width:38px;height:48px;border-radius:9px;background:#FFF7D6;border:1px solid #FFD93D;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700">4</span><span style="width:38px;height:48px;border-radius:9px;background:#FFF7D6;border:1px solid #FFD93D;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700">8</span><span style="width:38px;height:48px;border-radius:9px;background:#FFF7D6;border:1px solid #FFD93D;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700">2</span><span style="width:38px;height:48px;border-radius:9px;background:#FFF7D6;border:1px solid #FFD93D;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700">7</span></span>
+<span style="font-size:11.5px;color:#4A4540;text-align:center">No speech needed. QR available too.</span>
+</div>
+<i class="fa-solid fa-arrow-right-arrow-left" style="font-size:22px;color:#ADA8A2"></i>
+<div style="width:250px;background:#fff;border:1px solid #E8E5E1;border-radius:20px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+<span style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">DEB'S APP</span>
+<span style="display:flex;gap:7px"><span style="width:38px;height:48px;border-radius:9px;background:#fff;border:2px solid #6C5CE7;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700">4</span><span style="width:38px;height:48px;border-radius:9px;background:#fff;border:2px solid #6C5CE7;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700">8</span><span style="width:38px;height:48px;border-radius:9px;background:#fff;border:1px solid #E8E5E1;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700"></span><span style="width:38px;height:48px;border-radius:9px;background:#fff;border:1px solid #E8E5E1;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700"></span></span>
+<span style="font-size:11.5px;color:#4A4540;text-align:center">The right passenger, verified. Anna gets the pickup alert.</span>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ isSt6 }}" hint-placeholder-val="{{ false }}">
+<div style="width:480px;background:#fff;border:1px solid #E8E5E1;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+<div style="position:relative;height:150px;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
+<span style="position:absolute;left:44%;top:44%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
+<span style="position:absolute;left:50%;top:14px;transform:translateX(-50%);padding:7px 14px;border-radius:9999px;background:#2D3748;color:#fff;font-size:12px;font-weight:700">Arriving 2:41 pm · on route</span>
+</div>
+<div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:10px;font-size:13px"><i class="fa-solid fa-eye" style="color:#6C5CE7"></i>Anna watches live. Ops desk sees route deviation alerts.</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13px"><i class="fa-solid fa-tower-broadcast" style="color:#E85555"></i>SOS on both sides reaches a person within 60 seconds.</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ isSt7 }}" hint-placeholder-val="{{ false }}">
+<div style="width:420px;background:#fff;border:1px solid #E8E5E1;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Claim built automatically at drop-off</span>
+<div style="display:flex;justify-content:space-between;font-size:14px"><span>Physio · North Adelaide · 2:43 pm</span><strong>$38.50</strong></div>
+<div style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">04_590_0125_6_1 · Activity based transport · GPS evidence attached</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#FAFAF9;border-radius:10px;font-size:13px"><i class="fa-solid fa-paper-plane" style="color:#FF6B6B"></i>Sent to Leap in! (plan manager). Leo sees it in his pipeline.</div>
+<div style="font-size:12.5px;color:#4A4540">Nobody typed an invoice. Nobody handled money in the car.</div>
+</div>
+</sc-if>
+<sc-if value="{{ isSt8 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:24px;align-items:stretch">
+<div style="width:260px;background:#fff;border:1px solid #E8E5E1;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+<span style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:#2D3748">FINANCE · ADMIN PORTAL</span>
+<div style="display:flex;justify-content:space-between;font-size:13px"><span>Claim MW-88214</span><span style="padding:2px 8px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:10.5px;font-weight:700">Paid</span></div>
+<div style="font-size:24px;font-weight:700">$38.50</div>
+<div style="font-size:12px;color:#4A4540">Settled by Leap in! · 4 business days</div>
+</div>
+<div style="width:260px;background:#6C5CE7;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;color:#fff;box-shadow:0 8px 24px rgba(108,92,231,0.3)">
+<span style="font-size:10px;font-weight:700;letter-spacing:0.12em;opacity:0.8">DEB'S FRIDAY PAYOUT</span>
+<div style="font-size:24px;font-weight:700">$1,042.75</div>
+<div style="font-size:12px;opacity:0.85">22 trips · includes this one at $52.20</div>
+<div style="font-size:12px;opacity:0.85;border-top:1px solid rgba(255,255,255,0.25);padding-top:8px">Maya's rating nudged Deb toward Specialist tier.</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+<div style="padding:14px 28px;border-top:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540;line-height:1.5">{{ storyNote }}</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Rider sign-up and onboarding · iOS, interactive</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
+<div style="width:100%;height:100%;box-sizing:border-box;padding-top:60px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isOb0 }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;padding:0 24px 24px">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px">
+<img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:34px;align-self:flex-start;margin-left:-10px">
+<h1 style="margin:0;font-size:32px;font-weight:700;line-height:1.15">Rides that get you, from people who get it.</h1>
+<p style="margin:0;font-size:16px;color:#4A4540;line-height:1.5">NDIS transport with trained drivers, verified pickups, and claims handled for you.</p>
+<div style="display:flex;flex-direction:column;gap:8px;font-size:14px">
+<span><i class="fa-solid fa-circle-check" style="color:#1F7A33;margin-right:9px"></i>You never pay in the vehicle</span>
+<span><i class="fa-solid fa-circle-check" style="color:#1F7A33;margin-right:9px"></i>Drivers see how to support you, never your diagnosis</span>
+<span><i class="fa-solid fa-circle-check" style="color:#1F7A33;margin-right:9px"></i>Set up once, in about 3 minutes</span>
+</div>
+</div>
+<button onClick="{{ obNext }}" style="height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Get started</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isOb1 }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 4px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">STEP 1 OF 3</span>
+<h2 style="margin:6px 0 0;font-size:24px;font-weight:700">About you</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:14px 20px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700">Your name</span><div style="display:flex;align-items:center;height:52px;padding:0 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;font-size:15px">Maya Patel</div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700">NDIS number</span><div style="display:flex;align-items:center;height:52px;padding:0 16px;background:#fff;border:2px solid #FF6B6B;border-radius:12px;font-size:15px;font-family:ui-monospace,Menlo,monospace">4301 2245 87</div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:700">How is your plan managed?</span>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:0 16px;background:#fff;border:2px solid #FF6B6B;border-radius:12px;font-size:15px;font-weight:700"><i class="fa-solid fa-circle-check" style="color:#FF6B6B"></i>Plan managed · Leap in!</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:0 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;font-size:15px;color:#4A4540">Self-managed</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:0 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;font-size:15px;color:#4A4540">Agency managed (NDIA)</div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5">We use this to check trip funding before you book, so there are never surprises.</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px"><button onClick="{{ obNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Continue</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isOb2 }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 4px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">STEP 2 OF 3</span>
+<h2 style="margin:6px 0 0;font-size:24px;font-weight:700">How should drivers support you?</h2>
+<p style="margin:6px 0 0;font-size:13.5px;color:#4A4540;line-height:1.5">Pick anything that applies. Drivers see this before pickup. They never see your diagnosis.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;padding:14px 20px">
+<sc-for list="{{ obChipRows }}" as="c" hint-placeholder-count="6">
+<div onClick="{{ c.onFlip }}" style="display:flex;align-items:center;gap:14px;min-height:60px;padding:8px 16px;background:{{ c.bg }};border:{{ c.border }};border-radius:12px;cursor:pointer;box-sizing:border-box">
+<i class="fa-solid {{ c.icon }}" style="font-size:19px;color:{{ c.iconColor }};width:26px;text-align:center"></i>
+<span style="flex:1;font-size:15px;font-weight:700">{{ c.label }}</span>
+<sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-circle-check" style="color:#FF6B6B;font-size:20px"></i></sc-if>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px"><button onClick="{{ obNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Continue</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isOb3 }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 4px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">STEP 3 OF 3</span>
+<h2 style="margin:6px 0 0;font-size:24px;font-weight:700">Your support network</h2>
+<p style="margin:6px 0 0;font-size:13.5px;color:#4A4540;line-height:1.5">Invite people you trust. You choose exactly what each person can see, and can change it any time.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:14px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">AP</span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Anna Patel · Mum</span><span style="display:block;font-size:12px;color:#4A4540">Can book, watch trips live, get pickup alerts</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Invited</span>
+</div>
+<button style="height:52px;border:1px dashed #ADA8A2;background:transparent;color:#4A4540;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-plus" style="margin-right:8px"></i>Add another person</button>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F5F3FF;border-radius:12px;font-size:12.5px;color:#5647C9;line-height:1.5"><i class="fa-solid fa-shield-heart"></i>SOS alerts always reach your contacts, whatever else you share.</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px;display:flex;flex-direction:column;gap:8px">
+<button onClick="{{ obNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Finish setup</button>
+<button onClick="{{ obNext }}" style="width:100%;height:44px;border:0;background:transparent;color:#4A4540;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">Skip for now</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isOb4 }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;padding:0 24px 24px">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;text-align:center">
+<span style="width:80px;height:80px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center;font-size:36px"><i class="fa-solid fa-check"></i></span>
+<h2 style="margin:0;font-size:28px;font-weight:700">You're set, Maya.</h2>
+<p style="margin:0;font-size:15px;color:#4A4540;line-height:1.5">Funding checked, profile ready, Anna invited. Your first ride is a tap away.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+<span style="padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-person-walking-with-cane" style="margin-right:6px"></i>Walking frame</span>
+<span style="padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-volume-xmark" style="margin-right:6px"></i>No radio</span>
+</div>
+</div>
+<button onClick="{{ obReset }}" style="height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Book your first ride</button>
+<button onClick="{{ obReset }}" style="height:44px;border:0;background:transparent;color:#4A4540;font-family:inherit;font-size:13px;cursor:pointer;margin-top:4px"><i class="fa-solid fa-rotate-left" style="margin-right:7px"></i>Demo: restart onboarding</button>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Driver training centre and support · iOS, interactive (Deb)</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
+<div style="width:100%;height:100%;box-sizing:border-box;padding-top:60px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isTcHome }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px">
+<h2 style="margin:0;font-size:24px;font-weight:700">Training centre</h2>
+<p style="margin:4px 0 0;font-size:13.5px;color:#4A4540">Specialist tier path · unlocks WAV trips, about +$310/week</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">SPECIALIST TIER</span><span style="font-size:12px;color:#4A4540">{{ tcProgressLabel }}</span></div>
+<div style="height:8px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:{{ tcProgressPct }};height:100%;background:#6C5CE7;border-radius:9999px;transition:width 300ms"></span></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<sc-for list="{{ tcModules }}" as="m" hint-placeholder-count="4">
+<div onClick="{{ m.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:{{ m.cursor }};opacity:{{ m.op }}" style-hover="background:#F7F6F4">
+<span style="width:38px;height:38px;border-radius:9999px;background:{{ m.iconBg }};color:{{ m.iconFg }};display:flex;align-items:center;justify-content:center"><i class="fa-solid {{ m.icon }}"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ m.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ m.meta }}</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:{{ m.lozBg }};color:{{ m.lozFg }};font-size:11px;font-weight:700">{{ m.status }}</span>
+</div>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">Modules are self-paced. The hoist practical is booked at the Regency Park depot after the theory quiz.</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#6C5CE7"><i class="fa-solid fa-graduation-cap" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Training</span></div>
+<div onClick="{{ goTcSupport }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-headset" style="font-size:18px"></i><span style="font-size:11px">Support</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTcModule }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goTcHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:20px;font-weight:700">Safe wheelchair transport</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="position:relative;height:170px;border-radius:12px;background:#21203A;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<span style="width:60px;height:60px;border-radius:9999px;background:rgba(255,255,255,0.15);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="fa-solid fa-play" style="margin-left:4px"></i></span>
+<span style="position:absolute;left:14px;bottom:12px;font-size:11px;color:rgba(255,255,255,0.6)">Video · 12 min · captions and Auslan available</span>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">LESSONS</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4;font-size:14px"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:20px"></i><span style="flex:1">Hoist operation and safety checks</span><span style="font-size:12px;color:#4A4540">12 min</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4;font-size:14px"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:20px"></i><span style="flex:1">Restraints and anchor points</span><span style="font-size:12px;color:#4A4540">9 min</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4;font-size:14px;font-weight:700"><i class="fa-solid fa-circle-half-stroke" style="color:#6C5CE7;width:20px"></i><span style="flex:1">Dignity and communication during transfer</span><span style="font-size:12px;color:#4A4540">7 min</span></div>
+</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ goTcQuiz }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Take the quiz</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTcQuiz }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 4px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">QUIZ · QUESTION 8 OF 8</span>
+<h2 style="margin:8px 0 0;font-size:20px;font-weight:700;line-height:1.35">Before moving off with a wheelchair passenger, you must check:</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;padding:14px 20px">
+<sc-for list="{{ tcAnswers }}" as="a" hint-placeholder-count="3">
+<div onClick="{{ a.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 16px;background:{{ a.bg }};border:{{ a.border }};border-radius:12px;cursor:pointer;box-sizing:border-box">
+<span style="width:26px;height:26px;border-radius:9999px;border:2px solid {{ a.ringColor }};background:{{ a.dotBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none"><sc-if value="{{ a.showIcon }}" hint-placeholder-val="{{ false }}"><i class="fa-solid {{ a.iconName }}"></i></sc-if></span>
+<span style="flex:1;font-size:14.5px;line-height:1.4;font-weight:{{ a.fw }}">{{ a.label }}</span>
+</div>
+</sc-for>
+<sc-if value="{{ tcQuizWrong }}" hint-placeholder-val="{{ false }}">
+<div style="padding:12px 14px;background:rgba(232,85,85,0.1);border:1px solid #E85555;border-radius:12px;font-size:13px;color:#C43F3F;line-height:1.45">Not quite. Think about all four: hoist stowed, restraints, brakes, and the passenger's comfort check.</div>
+</sc-if>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<sc-if value="{{ tcQuizRight }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ goTcDone }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Finish module</button>
+</sc-if>
+<sc-if value="{{ tcQuizPending }}" hint-placeholder-val="{{ true }}">
+<div style="text-align:center;font-size:13px;color:#4A4540">Pick an answer to continue.</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTcDone }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;padding:0 24px 24px">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;text-align:center">
+<span style="width:80px;height:80px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:34px"><i class="fa-solid fa-medal"></i></span>
+<h2 style="margin:0;font-size:26px;font-weight:700">Module complete.</h2>
+<p style="margin:0;font-size:14.5px;color:#4A4540;line-height:1.5">Safe wheelchair transport · passed 8 of 8. One practical to go: hoist assessment at the depot.</p>
+<div style="width:100%;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">SPECIALIST TIER</span><span style="font-size:12px;color:#4A4540">3 of 4 modules</span></div>
+<div style="height:8px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:75%;height:100%;background:#6C5CE7;border-radius:9999px"></span></div>
+</div>
+</div>
+<button onClick="{{ goTcHome }}" style="height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Book the hoist practical</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTcSupport }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px"><h2 style="margin:0;font-size:24px;font-weight:700">Support</h2></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<button style="display:flex;align-items:center;justify-content:center;gap:10px;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#5647C9"><i class="fa-solid fa-phone"></i>Call the ops desk · 24/7</button>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:38px;height:38px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-circle-exclamation"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Report an incident</span><span style="display:block;font-size:12px;color:#4A4540">Guided form, saved as you type</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:38px;height:38px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-invoice-dollar"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Payment question</span><span style="display:block;font-size:12px;color:#4A4540">Payouts, trip adjustments, fees</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:38px;height:38px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-heart-pulse"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Wellbeing check-in</span><span style="display:block;font-size:12px;color:#4A4540">Confidential. After hard trips, or any time</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">COMMON QUESTIONS</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4;font-size:14px;cursor:pointer" style-hover="background:#F7F6F4"><span style="flex:1">What if a participant isn't at the pickup?</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4;font-size:14px;cursor:pointer" style-hover="background:#F7F6F4"><span style="flex:1">When does the 2FA code refresh?</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4;font-size:14px;cursor:pointer" style-hover="background:#F7F6F4"><span style="flex:1">How do tier upgrades affect my insurance?</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div onClick="{{ goTcHome }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-graduation-cap" style="font-size:18px"></i><span style="font-size:11px">Training</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#6C5CE7"><i class="fa-solid fa-headset" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Support</span></div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1e">
+<div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Admin · participant register and claims &amp; finance · web, interactive</div>
+<x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" url="ops.movewell.com.au/participants" width="{{ 1280 }}" height="{{ 800 }}" hint-size="1280px,800px">
+<div style="width:100%;height:100%;display:flex;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748;font-size:14px">
+<div style="width:210px;flex:none;background:#2D3748;color:#fff;display:flex;flex-direction:column">
+<div style="padding:18px 18px 12px"><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:22px;display:block;filter:brightness(0) invert(1)"><div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:rgba(255,255,255,0.5);margin-top:6px">ADMIN PORTAL</div></div>
+<div style="display:flex;flex-direction:column;gap:2px;padding:6px 10px">
+<div style="display:flex;align-items:center;gap:11px;min-height:42px;padding:0 12px;border-radius:9px;color:rgba(255,255,255,0.65);font-size:13.5px"><i class="fa-solid fa-table-columns" style="width:17px;text-align:center"></i>Dispatch</div>
+<div onClick="{{ goAdParticipants }}" style="display:flex;align-items:center;gap:11px;min-height:42px;padding:0 12px;border-radius:9px;background:{{ adNavPBg }};color:{{ adNavPFg }};font-size:13.5px;font-weight:{{ adNavPFw }};cursor:pointer"><i class="fa-solid fa-users" style="width:17px;text-align:center"></i>Participants</div>
+<div onClick="{{ goAdFinance }}" style="display:flex;align-items:center;gap:11px;min-height:42px;padding:0 12px;border-radius:9px;background:{{ adNavFBg }};color:{{ adNavFFg }};font-size:13.5px;font-weight:{{ adNavFFw }};cursor:pointer"><i class="fa-solid fa-file-invoice-dollar" style="width:17px;text-align:center"></i>Claims &amp; finance</div>
+<div style="display:flex;align-items:center;gap:11px;min-height:42px;padding:0 12px;border-radius:9px;color:rgba(255,255,255,0.65);font-size:13.5px"><i class="fa-solid fa-id-card" style="width:17px;text-align:center"></i>Drivers</div>
+<div style="display:flex;align-items:center;gap:11px;min-height:42px;padding:0 12px;border-radius:9px;color:rgba(255,255,255,0.65);font-size:13.5px"><i class="fa-solid fa-van-shuttle" style="width:17px;text-align:center"></i>Fleet</div>
+</div>
+<div style="margin-top:auto;padding:12px 16px;font-size:11px;color:rgba(255,255,255,0.45)">Dispatch, drivers and fleet live in the <a href="MoveWell Admin Portal.dc.html" style="color:#8B7EEE">Admin Portal file</a>.</div>
+</div>
+<div style="flex:1;overflow-y:auto;padding:26px 30px;box-sizing:border-box">
+
+<sc-if value="{{ isAdParticipants }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px"><h2 style="margin:0;font-size:22px;font-weight:700">Participant register</h2><span style="font-size:13px;color:#4A4540">312 active · Adelaide metro</span><div style="margin-left:auto;display:flex;align-items:center;gap:10px;height:42px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:10px;font-size:13px;color:#ADA8A2;width:240px;box-sizing:border-box"><i class="fa-solid fa-magnifying-glass"></i>Search name or NDIS number</div></div>
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.5;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.8fr 1.3fr 1.5fr 1fr;gap:10px;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>PARTICIPANT</span><span>PLAN</span><span>VEHICLE NEEDS</span><span>STATUS</span></div>
+<sc-for list="{{ adRows }}" as="r" hint-placeholder-count="4">
+<div onClick="{{ r.onPick }}" style="display:grid;grid-template-columns:1.8fr 1.3fr 1.5fr 1fr;gap:10px;align-items:center;min-height:54px;padding:6px 16px;border-bottom:1px solid #F7F6F4;cursor:pointer;background:{{ r.rowBg }}" style-hover="background:#F7F6F4">
+<span style="display:flex;align-items:center;gap:10px"><span style="width:30px;height:30px;border-radius:9999px;background:{{ r.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">{{ r.init }}</span><span><span style="display:block;font-weight:700;font-size:13.5px">{{ r.name }}</span><span style="display:block;font-size:11px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">{{ r.ndis }}</span></span></span>
+<span style="font-size:12.5px">{{ r.plan }}</span>
+<span style="font-size:12.5px">{{ r.needs }}</span>
+<span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:{{ r.stBg }};color:{{ r.stFg }};font-size:10.5px;font-weight:700">{{ r.status }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:12px"><span style="width:44px;height:44px;border-radius:9999px;background:{{ adSelAvBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">{{ adSelInit }}</span><span><span style="display:block;font-size:17px;font-weight:700">{{ adSelName }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ adSelPlanLine }}</span></span></div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TRANSPORT REQUIREMENTS</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<sc-for list="{{ adSelChips }}" as="c" hint-placeholder-count="3"><span style="padding:5px 11px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">{{ c }}</span></sc-for>
+</div>
+<span style="font-size:11.5px;color:#4A4540">{{ adSelSource }}</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #F7F6F4;padding-top:10px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SUPPORT NETWORK</span>
+<span style="font-size:13px">{{ adSelNetwork }}</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #F7F6F4;padding-top:10px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">LAST 30 DAYS</span>
+<span style="font-size:13px">{{ adSelActivity }}</span>
+</div>
+<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:#FAFAF9;border-radius:10px;font-size:12px;color:#4A4540;line-height:1.45"><i class="fa-solid fa-shield-heart" style="color:#6C5CE7"></i>Ops sees requirements and consents, never diagnosis or clinical notes.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAdFinance }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px"><h2 style="margin:0;font-size:22px;font-weight:700">Claims &amp; finance</h2><span style="font-size:13px;color:#4A4540">July 2026</span><button style="margin-left:auto;height:42px;padding:0 16px;border:0;border-radius:10px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer"><i class="fa-solid fa-file-export" style="margin-right:8px"></i>Export reconciliation</button></div>
+<div style="display:flex;gap:16px;margin-bottom:16px">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Claims this month</div><div style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">1,842</div><div style="font-size:12px;color:#4A4540">$71,380 total value</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Awaiting plan managers</div><div style="font-size:24px;font-weight:700;color:#B8860B">96</div><div style="font-size:12px;color:#4A4540">$3,912 · 11 overdue past 14 days</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Rejected · needs rework</div><div style="font-size:24px;font-weight:700;color:#C43F3F">7</div><div style="font-size:12px;color:#4A4540">Mostly line-item mismatches</div></div>
+<div style="flex:1;background:#6C5CE7;border-radius:12px;padding:16px;color:#fff"><div style="font-size:12px;opacity:0.85">Friday driver payout run</div><div style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">$48,210</div><div style="font-size:12px;opacity:0.85">132 drivers · runs 18/07 6:00 am</div></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.1fr 1.6fr 1.4fr 1fr 1fr 1.1fr;gap:10px;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>CLAIM</span><span>PARTICIPANT · TRIP</span><span>PLAN MANAGER</span><span>AMOUNT</span><span>AGE</span><span>STATUS</span></div>
+<sc-for list="{{ adClaims }}" as="c" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:1.1fr 1.6fr 1.4fr 1fr 1fr 1.1fr;gap:10px;align-items:center;min-height:50px;padding:6px 16px;border-bottom:1px solid #F7F6F4">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:12px">{{ c.id }}</span>
+<span style="font-size:13px"><strong>{{ c.who }}</strong> · {{ c.trip }}</span>
+<span style="font-size:12.5px">{{ c.pm }}</span>
+<span style="font-weight:700;font-variant-numeric:tabular-nums;font-size:13px">{{ c.amt }}</span>
+<span style="font-size:12.5px;color:{{ c.ageColor }}">{{ c.age }}</span>
+<span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:10.5px;font-weight:700"><i class="fa-solid {{ c.stIcon }}"></i>{{ c.status }}</span>
+</div>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:#4A4540;margin-top:12px">Every claim carries the NDIS support number, GPS trip evidence and the 2FA pickup verification. Rejections open a guided rework flow.</div>
+</sc-if>
+
+</div>
+</div>
+</x-import>
+</div>
+
+</div>
+<p class="dv-next">Try next: "wire the incident report flow" · "add a rejected-claim rework flow to finance" · "turn the story into a self-running demo"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;storyStep&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:7,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;quizPrepassed&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = { story: null, ob: 0, obChips: { frame: true, radio: true, soft: false, wav: false, aac: false, assist: false }, tc: 'home', tcAns: null, ad: 'participants', adSel: 0 };
+  renderVals() {
+    const S = { ...this.state, story: this.state.story ?? (this.props.storyStep ?? 0) };
+    // story
+    const stepDefs = [
+      { title: 'Maya books', who: 'Client App · rider', init: 'MP', avBg: '#FF6B6B', surface: 'CLIENT APP', head: 'Thursday physio, booked in four taps', sub: 'Maya Patel · Prospect SA', note: 'Saved places, her accessibility profile pre-picks the vehicle tier, and the fare is an NDIS claim estimate, not a price to pay.' },
+      { title: 'Funding checked', who: 'Client App · before confirm', init: 'MP', avBg: '#FF6B6B', surface: 'CLIENT APP', head: 'Eligibility confirmed before the trip exists', sub: 'Core budget · plan managed by Leap in!', note: 'The eligibility pre-confirm is the platform\u2019s trust moment: no surprise invoices, no debt risk for participants, no unpaid work for providers.' },
+      { title: 'Dispatch matches', who: 'Admin Portal · ops', init: 'OP', avBg: '#2D3748', surface: 'ADMIN PORTAL', head: 'Tier matching finds the right driver, not just the nearest', sub: 'Requirements from Maya\u2019s OT assessment', note: 'Credentials are checked live: expired first aid filters a driver out automatically. This is the moat: capability matching, not proximity matching.' },
+      { title: 'Deb accepts', who: 'Driver App · contractor', init: 'DK', avBg: '#6C5CE7', surface: 'DRIVER APP', head: 'A 15-second offer with everything Deb needs', sub: 'Deb Kowalski · CareDriver tier', note: 'Support notes arrive before the drive: walking frame, no radio, extra time at the door. Deb starts prepared, not surprised.' },
+      { title: '2FA pickup', who: 'Both apps · at the kerb', init: '2F', avBg: '#B8860B', surface: 'BOTH APPS', head: 'The right passenger, verified without a word', sub: 'Code or QR · no speech needed', note: 'Deb types Maya\u2019s code into her app. Anna gets the pickup alert per her consent. Safeguarding, designed for people who may not speak.' },
+      { title: 'In trip, watched over', who: 'Client App + ops desk', init: 'MP', avBg: '#FF6B6B', surface: 'LIVE TRIP', head: 'Consented eyes on the trip, SOS one tap away', sub: 'Route deviation alerts on · ops desk live', note: 'Everyone Maya has consented to can watch. Nobody she hasn\u2019t. SOS on either side reaches a human inside 60 seconds.' },
+      { title: 'Claim built at drop-off', who: 'Platform · automatic', init: 'CL', avBg: '#1F7A33', surface: 'CLAIMS ENGINE', head: 'Drop-off becomes a compliant claim, instantly', sub: 'Line item + GPS evidence + 2FA verification', note: 'No paperwork for anyone. The claim carries its own evidence, which is why rejection rates stay low and cash cycles stay short.' },
+      { title: 'Money lands', who: 'Admin finance + Driver App', init: '$', avBg: '#6C5CE7', surface: 'FINANCE', head: 'Plan manager pays, Deb gets her Friday payout', sub: 'Claim MW-88214 settled · payout run 18/07', note: 'The loop closes: participant rode, driver earned, plan funded it, and the platform took its margin on a fully evidenced transaction.' },
+    ];
+    const storySteps = stepDefs.map((d, i) => ({ ...d, n: i + 1,
+      bg: i === S.story ? 'rgba(255,107,107,0.18)' : 'transparent',
+      dotBg: i === S.story ? '#FF6B6B' : i < S.story ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.12)',
+      dotFg: '#fff',
+      onPick: () => this.setState({ story: i }) }));
+    const cur = stepDefs[S.story];
+    const stFlags = {};
+    for (let i = 0; i < 8; i++) stFlags['isSt' + (i + 1)] = S.story === i;
+    // onboarding
+    const obChipDefs = [
+      { k: 'frame', icon: 'fa-person-walking-with-cane', label: 'I use a walking frame' },
+      { k: 'wav', icon: 'fa-wheelchair', label: 'I travel in a wheelchair' },
+      { k: 'radio', icon: 'fa-volume-xmark', label: 'Quiet ride, no radio' },
+      { k: 'soft', icon: 'fa-comment', label: 'I speak softly' },
+      { k: 'aac', icon: 'fa-tablet-screen-button', label: 'I use an AAC device' },
+      { k: 'assist', icon: 'fa-door-open', label: 'Help me to the door' },
+    ];
+    const obChipRows = obChipDefs.map(c => { const on = !!S.obChips[c.k]; return { ...c, on,
+      bg: on ? '#FFF5F5' : '#fff', border: on ? '2px solid #FF6B6B' : '1px solid #E8E5E1',
+      iconColor: on ? '#E85555' : '#6C5CE7',
+      onFlip: () => this.setState(s => ({ obChips: { ...s.obChips, [c.k]: !s.obChips[c.k] } })) }; });
+    // training
+    const tcDoneQuiz = S.tc === 'done' || !!this.props.quizPrepassed;
+    const tcModules = [
+      { id: 'm1', icon: 'fa-graduation-cap', name: 'Disability awareness', meta: '45 min · completed 11/2025', status: 'Complete', done: true },
+      { id: 'm2', icon: 'fa-comment-dots', name: 'Communication essentials', meta: '30 min · completed 02/2026', status: 'Complete', done: true },
+      { id: 'm3', icon: 'fa-wheelchair', name: 'Safe wheelchair transport', meta: '28 min video + quiz', status: tcDoneQuiz ? 'Complete' : 'In progress', done: tcDoneQuiz, active: true },
+      { id: 'm4', icon: 'fa-hand-holding-medical', name: 'Hoist practical · at depot', meta: 'Book after module 3', status: 'Locked', locked: !tcDoneQuiz },
+    ].map(m => ({ ...m,
+      iconBg: m.done ? 'rgba(45,167,72,0.14)' : m.locked ? '#F7F6F4' : '#F5F3FF',
+      iconFg: m.done ? '#1F7A33' : m.locked ? '#ADA8A2' : '#6C5CE7',
+      lozBg: m.done ? 'rgba(45,167,72,0.14)' : m.locked ? '#F7F6F4' : '#F5F3FF',
+      lozFg: m.done ? '#1F7A33' : m.locked ? '#4A4540' : '#5647C9',
+      status: m.locked ? 'Locked' : m.status,
+      op: m.locked ? '0.55' : '1', cursor: m.active ? 'pointer' : 'default',
+      onPick: m.active ? () => this.setState({ tc: 'module' }) : () => {} }));
+    const tcAnswers = [
+      { label: 'Hoist stowed and doors secured', correct: false },
+      { label: 'Restraints, brakes, hoist stowed, and the passenger says they\u2019re comfortable', correct: true },
+      { label: 'Just the wheelchair brakes', correct: false },
+    ].map((a, i) => { const picked = S.tcAns === i; return { ...a,
+      bg: picked ? (a.correct ? 'rgba(45,167,72,0.08)' : 'rgba(232,85,85,0.08)') : '#fff',
+      border: picked ? (a.correct ? '2px solid #1F7A33' : '2px solid #E85555') : '1px solid #E8E5E1',
+      ringColor: picked ? (a.correct ? '#1F7A33' : '#E85555') : '#ADA8A2',
+      dotBg: picked ? (a.correct ? '#1F7A33' : '#E85555') : 'transparent',
+      showIcon: picked, iconName: a.correct ? 'fa-check' : 'fa-xmark',
+      fw: picked ? '700' : '400',
+      onPick: () => this.setState({ tcAns: i }) }; });
+    const tcRight = S.tcAns !== null && tcAnswers[S.tcAns].correct;
+    // admin
+    const adPeople = [
+      { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', ndis: '···· ··· 87', plan: 'Plan managed · Leap in!', needs: 'Sedan · frame stowage · no radio', status: 'Active', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33', planLine: 'Plan managed by Leap in! · plan to 03/2027', chips: ['Standard sedan', 'Walking frame', 'No radio', 'Sensory-calm advisory'], source: 'Set by Dr Ngo (OT), 14/02/2026 · feeds vehicle matching', network: 'Anna Patel (mum, booker) · Leo Marsh (coordinator)', activity: '9 trips · $364.20 claimed · 0 incidents' },
+      { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', ndis: '···· ··· 04', plan: 'Plan managed · MPM', needs: 'WAV · sensory-calm', status: 'Active', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33', planLine: 'Plan managed by My Plan Manager · plan to 09/2026', chips: ['WAV with hoist', 'Sensory-calm', 'Support worker travels'], source: 'Set by allied health assessment, 05/2026', network: 'Gina Rossi (mum, booker) · Leo Marsh (coordinator)', activity: '22 trips · $1,148.80 claimed · 1 incident (resolved)' },
+      { init: 'IK', avBg: '#2D3748', name: 'Iris Kaur', ndis: '···· ··· 33', plan: 'Plan managed · Leap in!', needs: 'WAV hoist · Auslan', status: 'Review', stBg: 'rgba(255,217,61,0.25)', stFg: '#8A6800', planLine: 'Plan managed by Leap in! · budget review flagged', chips: ['WAV with hoist', 'Auslan', 'AAC device'], source: 'Assessment review due · consent renewal 29/08', network: 'Northside Coordination (Leo Marsh)', activity: '14 trips · $671.60 claimed · budget 92% used' },
+      { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', ndis: '···· ··· 51', plan: 'Self-managed', needs: 'Standard sedan', status: 'Active', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33', planLine: 'Self-managed · receipts emailed after each trip', chips: ['Standard sedan'], source: 'Self-declared at onboarding', network: 'No support contacts shared', activity: '6 trips · $189.40 claimed · 0 incidents' },
+    ];
+    const adRows = adPeople.map((p, i) => ({ ...p, rowBg: i === S.adSel ? '#F5F3FF' : '#fff', onPick: () => this.setState({ adSel: i }) }));
+    const sel = adPeople[S.adSel];
+    const adClaims = [
+      { id: 'MW-88214', who: 'Maya Patel', trip: 'Physio 16/07', pm: 'Leap in!', amt: '$38.50', age: '4 days', ageColor: '#4A4540', status: 'Paid', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33', stIcon: 'fa-circle-check' },
+      { id: 'MW-88371', who: 'Theo Rossi', trip: 'Day program 15/07', pm: 'My Plan Manager', amt: '$44.20', age: '1 day', ageColor: '#4A4540', status: 'Submitted', stBg: 'rgba(255,217,61,0.25)', stFg: '#8A6800', stIcon: 'fa-hourglass-half' },
+      { id: 'MW-88102', who: 'Iris Kaur', trip: 'Hydrotherapy 11/07', pm: 'Leap in!', amt: '$47.90', age: '5 days', ageColor: '#4A4540', status: 'With PM', stBg: '#F5F3FF', stFg: '#5647C9', stIcon: 'fa-building-columns' },
+      { id: 'MW-87716', who: 'Theo Rossi', trip: 'Day program 27/06', pm: 'My Plan Manager', amt: '$88.40', age: '18 days', ageColor: '#C43F3F', status: 'Overdue', stBg: 'rgba(232,85,85,0.12)', stFg: '#C43F3F', stIcon: 'fa-triangle-exclamation' },
+      { id: 'MW-88055', who: 'Priya Bakshi', trip: 'Community access 09/07', pm: 'Leap in!', amt: '$52.20', age: '7 days', ageColor: '#4A4540', status: 'Rejected', stBg: 'rgba(232,85,85,0.12)', stFg: '#C43F3F', stIcon: 'fa-circle-xmark' },
+    ];
+    return {
+      ...stFlags, storySteps,
+      storyAvInit: cur.init, storyAvBg: cur.avBg, storyHead: cur.head, storySub: cur.sub, storyNote: cur.note,
+      storySurface: cur.surface,
+      storyBadgeBg: cur.avBg === '#FF6B6B' ? '#FFF5F5' : '#F5F3FF',
+      storyBadgeFg: cur.avBg === '#FF6B6B' ? '#E85555' : '#5647C9',
+      storyPrev: () => this.setState(s => ({ story: Math.max(0, s.story - 1) })),
+      storyNext: () => this.setState(s => ({ story: (s.story + 1) % 8 })),
+      storyNextLabel: S.story === 7 ? 'Restart the story' : 'Next: ' + stepDefs[Math.min(S.story + 1, 7)].title,
+      isOb0: S.ob === 0, isOb1: S.ob === 1, isOb2: S.ob === 2, isOb3: S.ob === 3, isOb4: S.ob === 4,
+      obNext: () => this.setState(s => ({ ob: Math.min(4, s.ob + 1) })),
+      obReset: () => this.setState({ ob: 0 }),
+      obChipRows,
+      isTcHome: S.tc === 'home', isTcModule: S.tc === 'module', isTcQuiz: S.tc === 'quiz', isTcDone: S.tc === 'done', isTcSupport: S.tc === 'support',
+      goTcHome: () => this.setState({ tc: 'home' }), goTcQuiz: () => this.setState({ tc: 'quiz', tcAns: null }),
+      goTcDone: () => this.setState({ tc: 'done' }), goTcSupport: () => this.setState({ tc: 'support' }),
+      tcModules, tcAnswers,
+      tcProgressLabel: tcDoneQuiz ? '3 of 4 modules' : '2 of 4 modules',
+      tcProgressPct: tcDoneQuiz ? '75%' : '50%',
+      tcQuizRight: tcRight, tcQuizWrong: S.tcAns !== null && !tcRight, tcQuizPending: !tcRight,
+      isAdParticipants: S.ad === 'participants', isAdFinance: S.ad === 'finance',
+      goAdParticipants: () => this.setState({ ad: 'participants' }), goAdFinance: () => this.setState({ ad: 'finance' }),
+      adNavPBg: S.ad === 'participants' ? '#6C5CE7' : 'transparent', adNavPFg: S.ad === 'participants' ? '#fff' : 'rgba(255,255,255,0.65)', adNavPFw: S.ad === 'participants' ? '700' : '400',
+      adNavFBg: S.ad === 'finance' ? '#6C5CE7' : 'transparent', adNavFFg: S.ad === 'finance' ? '#fff' : 'rgba(255,255,255,0.65)', adNavFFw: S.ad === 'finance' ? '700' : '400',
+      adRows, adClaims,
+      adSelInit: sel.init, adSelAvBg: sel.avBg, adSelName: sel.name, adSelPlanLine: sel.planLine,
+      adSelChips: sel.chips, adSelSource: sel.source, adSelNetwork: sel.network, adSelActivity: sel.activity,
+    };
+  }
+}
+</script>
+</body>
+</html>

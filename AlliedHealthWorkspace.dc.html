@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+</style>
+</helmet>
+
+<div style="width:100%;height:100%;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748;font-size:14px">
+<div style="display:flex;align-items:center;gap:14px;padding:18px 28px 0">
+<span style="width:44px;height:44px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">MP</span>
+<div><div style="font-size:20px;font-weight:700">Maya Patel</div><div style="font-size:12.5px;color:#4A4540">Consent to assess and view transport outcomes · valid to 01/2027</div></div>
+</div>
+<div style="display:flex;gap:4px;padding:14px 28px 0;border-bottom:1px solid #E8E5E1">
+<sc-for list="{{ ahTabs }}" as="t" hint-placeholder-count="4">
+<div onClick="{{ t.onPick }}" style="padding:11px 16px;font-size:13.5px;font-weight:700;color:{{ t.fg }};border-bottom:3px solid {{ t.accent }};cursor:pointer;min-height:44px;box-sizing:border-box">{{ t.label }}</div>
+</sc-for>
+</div>
+<div style="flex:1;overflow-y:auto;padding:22px 28px;box-sizing:border-box">
+
+<sc-if value="{{ isAhAssess }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.5;display:flex;flex-direction:column;gap:14px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TRANSFERS</div>
+<div style="display:flex;gap:8px">
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Independent with aid</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Standby assist</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Hoist transfer</span>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SEATING &amp; POSITIONING</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Standard seat, front preferred</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Travels in own wheelchair</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Postural support required</span>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">EQUIPMENT CARRIED</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Walking frame · boot stowage</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Oxygen</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">AAC device</span>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SENSORY &amp; COMMUNICATION</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Quiet environment · no radio</span>
+<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Verbal, speaks softly</span>
+<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Auslan</span>
+</div>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px">
+<div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:13.5px;font-weight:700;color:#5647C9"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right:8px"></i>Feeds vehicle matching</div>
+<div style="font-size:13px;line-height:1.55">Your selections set Maya's <strong>vehicle-tier requirements</strong>. Right now they resolve to: <strong>Standard sedan</strong>, walking-frame stowage, <strong>sensory-calm recommended</strong>. Bookings that don't meet them are flagged before confirm.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">REVIEW</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Last assessed 14/02/2026 by you. Review due after Maya's next plan reassessment or on referral.</div>
+</div>
+<button onClick="{{ goAhReqs }}" style="height:52px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-floppy-disk" style="margin-right:9px"></i>Save · update transport requirements</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAhReqs }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.4;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:16px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">ON MAYA'S PROFILE · WHAT BOOKING USES</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-car" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Vehicle tier · Standard sedan</span><span style="display:block;font-size:12px;color:#4A4540">WAV not required · front seat preferred</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-person-walking-with-cane" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Walking frame · boot stowage</span><span style="display:block;font-size:12px;color:#4A4540">Driver allows extra time at the door</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-volume-xmark" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Sensory-calm · recommended</span><span style="display:block;font-size:12px;color:#4A4540">Suggested at tier selection, not mandatory</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Advisory</span></div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">WHO SEES WHAT</div>
+<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-car" style="color:#6C5CE7;margin-top:2px"></i>Drivers see the practical requirements only · never your clinical notes or Maya's diagnosis.</div>
+<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-user-pen" style="color:#6C5CE7;margin-top:2px"></i>Maya sees these on her profile and can raise a review with you.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">CHANGE HISTORY</div>
+<div style="font-size:13px;color:#4A4540">14/02/2026 · sensory-calm added (you)</div>
+<div style="font-size:13px;color:#4A4540">03/09/2025 · initial assessment (you)</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAhAppts }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;font-size:13px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i><span style="flex:1"><strong>Clinic calendar connected</strong> · Northcare Therapy (Cliniko). New appointments suggest a MoveWell booking automatically.</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>APPOINTMENT</span><span>WHEN</span><span>TRANSPORT</span><span>ACTION</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;align-items:center;min-height:54px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">OT review · Dr Ngo</span><span style="font-size:13px">Thu 18/07 · 2:30 pm</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Ride booked</span><span style="font-size:12.5px;color:#4A4540">Arrives 2:15 pm · buffer OK</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;align-items:center;min-height:54px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Hydrotherapy</span><span style="font-size:13px">Wed 23/07 · 10:30 am</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>No ride yet</span><button style="justify-self:start;height:36px;padding:0 14px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:9999px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">Suggest booking</button></div>
+<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;align-items:center;min-height:54px;padding:6px 18px"><span style="font-weight:700">Physio · strength program</span><span style="font-size:13px">Thu 25/07 · 2:15 pm</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-repeat"></i>Recurring</span><span style="font-size:12.5px;color:#4A4540">Covered by Thursday schedule</span></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;margin-top:12px">"Suggest booking" sends the trip to Maya (and her booker) to confirm · you never book on her behalf.</div>
+</sc-if>
+
+<sc-if value="{{ isAhOutcomes }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;font-size:13px;color:#5647C9"><i class="fa-solid fa-eye"></i><span style="flex:1"><strong>Consented view</strong> · Maya shares attendance and punctuality with you. She does not share fares, claims or trip locations beyond your clinic.</span></div>
+<div style="display:flex;gap:16px;margin-bottom:16px">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Therapy attendance · 12 weeks</div><div style="font-size:26px;font-weight:700">11 of 12</div><div style="font-size:12px;color:#1F7A33;font-weight:700">1 missed · illness, not transport</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Arrived on time</div><div style="font-size:26px;font-weight:700">100%</div><div style="font-size:12px;color:#4A4540">of attended sessions</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Avg arrival buffer</div><div style="font-size:26px;font-weight:700">14 min</div><div style="font-size:12px;color:#4A4540">before session start</div></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">CLINICAL NOTE</div>
+<div style="font-size:13.5px;line-height:1.55;color:#2D3748">Consistent, low-stress transport is supporting program adherence. Sensory-calm recommendation appears effective · no pre-session dysregulation reported since February. Keep current requirements at next review.</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
+    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess' };
+  renderVals() {
+    const S = this.state, P = this.props;
+    const screen = S.screen ?? (P.startScreen ?? 'home');
+    const go = s => () => this.setState({ screen: s, ...(s === 'home' ? { sos: false } : {}) });
+    const prefersWAV = !!P.prefersWAV;
+    const tierList = [
+      { id: 'standard', icon: 'fa-car', name: 'Standard sedan', desc: 'Door-to-door support', fare: '$38.50' },
+      { id: 'wav', icon: 'fa-wheelchair', name: 'Wheelchair accessible (WAV)', desc: 'Hoist, restraint compliant', fare: '$52.20' },
+      { id: 'sensory', icon: 'fa-volume-xmark', name: 'Sensory-calm', desc: 'Low light, quiet, no radio', fare: '$45.10' },
+    ];
+    const tierId = S.tier ?? (prefersWAV ? 'wav' : 'standard');
+    const tiers = tierList.map(t => ({ ...t, sel: t.id === tierId,
+      border: t.id === tierId ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
+      pad: t.id === tierId ? '15px' : '16px',
+      onPick: () => this.setState({ tier: t.id }) }));
+    const tier = tierList.find(t => t.id === tierId);
+    const destList = [
+      { icon: 'fa-house-medical', name: 'Physio · North Adelaide', addr: '88 Ward St, North Adelaide SA' },
+      { icon: 'fa-people-group', name: 'Day program · Mile End', addr: '4 Norma St, Mile End SA' },
+      { icon: 'fa-person-swimming', name: 'Adelaide Aquatic Centre', addr: 'Jeffcott Rd, North Adelaide SA' },
+    ];
+    const dests = destList.map(d => ({ ...d, onPick: () => this.setState({ dest: d, screen: 'when' }) }));
+    const dest = S.dest ?? destList[0];
+    const whenModes = [
+      { id: 'now', label: 'Leave now', desc: 'Pickup in about 10\u201315 minutes' },
+      { id: 'later', label: 'Schedule', desc: 'Pick a date and time' },
+    ].map(m => ({ ...m, sel: m.id === S.whenMode,
+      border: m.id === S.whenMode ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
+      pad: m.id === S.whenMode ? '15px 15px' : '16px 16px',
+      onPick: () => this.setState({ whenMode: m.id }) }));
+    const stars = [1, 2, 3, 4, 5].map(n => ({ n, color: n <= S.rating ? '#FFD93D' : '#E8E5E1', onPick: () => this.setState({ rating: n }) }));
+    const comps = ['Friendly', 'Safe driving', 'On time', 'Great communication'].map(c => {
+      const on = !!S.comps[c];
+      return { label: c, bg: on ? '#6C5CE7' : '#fff', color: on ? '#fff' : '#2D3748',
+        border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1',
+        onPick: () => this.setState(s => ({ comps: { ...s.comps, [c]: !on } })) };
+    });
+    const A = S.a11y;
+    const flip = k => () => this.setState(s => ({ a11y: { ...s.a11y, [k]: !s.a11y[k] } }));
+    const a11yModes = [
+      { k: 'hc', label: 'High contrast', desc: 'Darker text and stronger outlines' },
+      { k: 'lt', label: 'Large text', desc: 'Makes everything a little bigger' },
+      { k: 'voice', label: 'Voice prompts', desc: 'Reads each screen out loud' },
+      { k: 'sw', label: 'Switch access', desc: 'Scan and choose with one button' },
+    ].map((m, i) => ({ ...m, bg: A[m.k] ? '#6C5CE7' : '#E8E5E1', left: A[m.k] ? '23px' : '3px', bt: i === 0 ? '0' : '1px solid #F7F6F4', onFlip: flip(m.k) }));
+    const contacts = [
+      { k: 'anna', name: 'Anna Patel', rel: 'Mum', desc: 'Sees trips live and gets pickup and drop-off messages' },
+      { k: 'leo', name: 'Leo Marsh', rel: 'Support coordinator', desc: 'Can book for you and see upcoming bookings' },
+    ].map(c => { const on = !!S.consents[c.k]; return { ...c, bg: on ? '#6C5CE7' : '#E8E5E1', left: on ? '23px' : '3px',
+      onFlip: () => this.setState(s => ({ consents: { ...s.consents, [c.k]: !s.consents[c.k] } })) }; });
+    const is = k => screen === k;
+    // --- turn 2: booker / coordinator / allied health ---
+    const bkGo = s => () => this.setState({ bk: s });
+    const bkMayaAlerts = [
+      { k: 'pd', label: 'Pickup and drop-off', desc: 'A message when Maya is picked up and dropped off' },
+      { k: 'lt', label: 'Live trip started', desc: 'Link to watch the trip on the map' },
+      { k: 'sos', label: 'SOS and incidents', desc: 'Immediate call and push notification' },
+    ].map(a => { const on = !!S.bkAl[a.k]; return { ...a, bg: on ? '#FF6B6B' : '#E8E5E1', left: on ? '23px' : '3px',
+      onFlip: () => this.setState(s => ({ bkAl: { ...s.bkAl, [a.k]: !s.bkAl[a.k] } })) }; });
+    const cwGo = s => () => this.setState({ cw: s });
+    const cwNavDefs = [
+      { id: 'dash', label: 'Dashboard', icon: 'fa-gauge-high' }, { id: 'participant', label: 'Participants', icon: 'fa-user-group' },
+      { id: 'recurring', label: 'Recurring trips', icon: 'fa-repeat' }, { id: 'claims', label: 'Claims', icon: 'fa-file-invoice-dollar' },
+      { id: 'invoices', label: 'Invoice export', icon: 'fa-file-export' }, { id: 'compliance', label: 'Compliance', icon: 'fa-shield-halved' },
+      { id: 'outcomes', label: 'Outcomes', icon: 'fa-chart-line' }, { id: 'team', label: 'Team & permissions', icon: 'fa-users-gear' },
+      { id: 'integrations', label: 'Integrations', icon: 'fa-plug' },
+    ];
+    const cwNav = cwNavDefs.map(n => ({ ...n, bg: S.cw === n.id ? '#FFF5F5' : 'transparent', fg: S.cw === n.id ? '#E85555' : '#2D3748', fw: S.cw === n.id ? '700' : '400', onPick: cwGo(n.id) }));
+    const cwRows = [
+      { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', plan: 'Leap in!', providers: 'MoveWell, AccessGo', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Thu 18/07 · 2:15 pm' },
+      { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', plan: 'My Plan Manager', providers: 'MoveWell', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', claims: '2 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Tomorrow · 8:40 am' },
+      { init: 'IK', avBg: '#2D3748', name: 'Iris Kaur', plan: 'Leap in!', providers: 'MoveWell, 2 others', pct: '92%', barColor: '#C43F3F', burn: '$2,910 of $3,160 · review', claims: '1 rejected', clBg: 'rgba(232,85,85,0.12)', clFg: '#C43F3F', clIcon: 'fa-circle-xmark', next: 'Paused' },
+      { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', plan: 'Self-managed', providers: 'AccessGo', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Fri 19/07 · 11:00 am' },
+      { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', plan: 'Leap in!', providers: 'MoveWell', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', claims: '4 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Mon 21/07 · 9:00 am' },
+    ].map(r => ({ ...r, onPick: cwGo('participant') }));
+    const cwClaimCols = [
+      { label: 'DRAFT', accent: '#ADA8A2', count: 2, aWho: 'Iris Kaur', aWhat: 'Hydrotherapy · resubmit', aAmt: '$47.90', bWho: 'Theo Rossi', bWhat: 'Day program · 15/07', bAmt: '$44.20' },
+      { label: 'SUBMITTED', accent: '#B8860B', count: 3, aWho: 'Maya Patel', aWhat: 'Hydrotherapy · AccessGo', aAmt: '$47.90', bWho: 'Priya Bakshi', bWhat: 'Day program · 14/07', bAmt: '$41.20' },
+      { label: 'WITH PLAN MANAGER', accent: '#6C5CE7', count: 3, aWho: 'Theo Rossi', aWhat: '18 days · chase', aAmt: '$88.40', bWho: 'Priya Bakshi', bWhat: '15 days · chase', bAmt: '$123.60' },
+      { label: 'PAID', accent: '#1F7A33', count: 41, aWho: 'Maya Patel', aWhat: 'Physio · 16/07', aAmt: '$38.50', bWho: 'Jordan Teague', bWhat: 'CBD · 09/07', bAmt: '$31.80' },
+    ];
+    const cwBars = [ { label: 'Feb', val: '91%', h: '68%', color: '#F0BDBD' }, { label: 'Mar', val: '93%', h: '74%', color: '#F0BDBD' }, { label: 'Apr', val: '92%', h: '71%', color: '#F0BDBD' }, { label: 'May', val: '95%', h: '82%', color: '#FF9B9B' }, { label: 'Jun', val: '97%', h: '90%', color: '#FF8080' }, { label: 'Jul', val: '98%', h: '95%', color: '#FF6B6B' } ];
+    const ahGo = t => () => this.setState({ ah: t });
+    const ahTabs = [
+      { id: 'assess', label: 'Transport assessment' }, { id: 'reqs', label: 'Transport requirements' },
+      { id: 'appts', label: 'Appointments' }, { id: 'outcomes', label: 'Outcomes' },
+    ].map(t => ({ ...t, fg: S.ah === t.id ? '#E85555' : '#4A4540', accent: S.ah === t.id ? '#FF6B6B' : 'transparent', onPick: ahGo(t.id) }));
+    return {
+      isBkPeople: S.bk === 'people', isBkMaya: S.bk === 'maya', isBkAlerts: S.bk === 'alerts', isBkRoles: S.bk === 'roles',
+      goBkPeople: bkGo('people'), goBkMaya: bkGo('maya'), goBkAlerts: bkGo('alerts'), goBkRoles: bkGo('roles'),
+      bkMayaAlerts, bkNoop: () => {},
+      cwNav, cwRows, cwClaimCols, cwBars,
+      isCwDash: S.cw === 'dash', isCwParticipant: S.cw === 'participant', isCwRecurring: S.cw === 'recurring',
+      isCwClaims: S.cw === 'claims', isCwInvoices: S.cw === 'invoices', isCwCompliance: S.cw === 'compliance',
+      isCwOutcomes: S.cw === 'outcomes', isCwTeam: S.cw === 'team', isCwIntegrations: S.cw === 'integrations',
+      goCwRecurring: cwGo('recurring'),
+      ahTabs, isAhAssess: S.ah === 'assess', isAhReqs: S.ah === 'reqs', isAhAppts: S.ah === 'appts', isAhOutcomes: S.ah === 'outcomes',
+      goAhReqs: ahGo('reqs'),
+      isHome: is('home'), isWhere: is('where'), isWhen: is('when'), isTier: is('tier'), isReview: is('review'),
+      isTracking: is('tracking'), isPickup: is('pickup'), isInTrip: is('intrip'), isComplete: is('complete'),
+      isReceipt: is('receipt'), isA11y: is('a11y'),
+      isBookings: is('bookings'), isProfile: is('profile'), isHelp: is('help'),
+      goBookings: go('bookings'), goProfile: go('profile'), goHelp: go('help'),
+      a11yModes, hcAttr: A.hc ? 'on' : 'off', ltAttr: A.lt ? 'on' : 'off', rootBg: A.hc ? '#FFFFFF' : '#FAFAF9',
+      contacts,
+      pickupIsCode: !S.pickupQr, pickupIsQr: S.pickupQr,
+      pickupToggleLabel: S.pickupQr ? 'Show the code instead' : 'Show a QR code instead',
+      onPickupToggle: () => this.setState(s => ({ pickupQr: !s.pickupQr })),
+      goHome: go('home'), goWhere: go('where'), goWhen: go('when'), goTier: go('tier'), goReview: go('review'),
+      goTracking: go('tracking'), goPickup: go('pickup'), goInTrip: go('intrip'), goComplete: go('complete'),
+      goReceipt: go('receipt'), goA11y: go('a11y'),
+      dests, dest, whenModes, isLater: S.whenMode === 'later',
+      whenLabel: S.whenMode === 'later' ? 'Thu 18/07/2026 \u00b7 2:15 pm' : 'Today \u00b7 ASAP pickup',
+      tiers, fare: tier.fare, tierName: tier.name,
+      vehicleLine: tierId === 'wav' ? 'White Hyundai Staria WAV \u00b7 S 209 BFR' : tierId === 'sensory' ? 'Grey Kia Carnival \u00b7 S 771 QMC' : 'White Toyota Camry \u00b7 S 482 KJK',
+      stars, comps,
+      sos: S.sos, sosOff: !S.sos,
+      onSos: () => this.setState({ sos: true }), onSosCancel: () => this.setState({ sos: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

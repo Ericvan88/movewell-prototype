@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;min-height:100vh;background:#EFEDEA;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+@keyframes mwPulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,0.55)}70%{box-shadow:0 0 0 16px rgba(255,107,107,0)}100%{box-shadow:0 0 0 0 rgba(255,107,107,0)}}
+@keyframes mwBlink{0%,100%{opacity:1}50%{opacity:0.35}}
+</style>
+</helmet>
+<div>
+
+<sc-if value="{{ isMenu }}" hint-placeholder-val="{{ true }}">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#FFF5F5 0%,#FFFFFF 50%,#F5F3FF 100%);padding:40px 20px;box-sizing:border-box">
+<div style="width:640px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box">
+<img src="./assets/movewell-primary-gradient.svg" alt="MoveWell" style="height:30px;align-self:flex-start;margin-left:-8px">
+<div><h1 style="margin:0;font-size:24px;font-weight:700">Complete prototype</h1><p style="margin:4px 0 0;font-size:14px;color:#4A4540">Choose a demo. Sign out from any app to come back to this menu.</p></div>
+<div style="display:flex;gap:14px">
+<div onClick="{{ pickWeb }}" style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
+<span style="width:44px;height:44px;border-radius:12px;background:#F5F3FF;color:#5647C9;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fa-solid fa-display"></i></span>
+<span style="font-size:16px;font-weight:700">Web Portals</span>
+<span style="font-size:12.5px;color:#4A4540;line-height:1.5">Coordinator, allied health and ops mission control workspaces.</span>
+<span style="margin-top:auto;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#5647C9">Enter<i class="fa-solid fa-arrow-right"></i></span>
+</div>
+<div onClick="{{ pickMobile }}" style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
+<span style="width:44px;height:44px;border-radius:12px;background:#FFF5F5;color:#E85555;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fa-solid fa-mobile-screen"></i></span>
+<span style="font-size:16px;font-weight:700">Mobile</span>
+<span style="font-size:12.5px;color:#4A4540;line-height:1.5">Rider, Supporter and Driver apps, shown on an iOS frame.</span>
+<span style="margin-top:auto;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#E85555">Enter<i class="fa-solid fa-arrow-right"></i></span>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isWeb }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+<sc-if value="{{ isWebPicker }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#FFF5F5 0%,#FFFFFF 50%,#F5F3FF 100%);padding:40px 20px;box-sizing:border-box">
+<div style="width:560px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px;display:flex;flex-direction:column;gap:18px;box-sizing:border-box">
+<img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:30px;align-self:flex-start;margin-left:-8px">
+<div><h1 style="margin:0;font-size:24px;font-weight:700">Choose a workspace</h1><p style="margin:4px 0 0;font-size:14px;color:#4A4540">Sign out from the top bar to return to the main menu.</p></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ wsList }}" as="w" hint-placeholder-count="3">
+<div onClick="{{ w.onPick }}" style="display:flex;align-items:center;gap:14px;min-height:76px;padding:12px 16px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
+<span style="width:48px;height:48px;border-radius:12px;background:{{ w.avBg }};color:{{ w.avFg }};display:flex;align-items:center;justify-content:center;font-size:19px;flex:none"><i class="fa-solid {{ w.icon }}"></i></span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">{{ w.name }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ w.desc }}</span></span>
+<i class="fa-solid fa-arrow-right" style="color:#E8E5E1"></i>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isWebWs }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;height:56px;padding:0 22px;background:#fff;border-bottom:1px solid #E8E5E1;flex:none;box-sizing:border-box">
+<img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:22px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.12em;color:#4A4540;border-left:1px solid #E8E5E1;padding-left:14px">{{ wsLabel }}</span>
+<span style="margin-left:auto;display:flex;align-items:center;gap:10px">
+<span style="width:32px;height:32px;border-radius:9999px;background:{{ wsUserBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">{{ wsUserInit }}</span>
+<span style="font-size:13px;font-weight:700">{{ wsUserName }}</span>
+<button onClick="{{ logout }}" style="height:36px;padding:0 14px;border:1px solid #E8E5E1;background:#fff;color:#C43F3F;border-radius:9999px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer" style-hover="background:#FFF5F5"><i class="fa-solid fa-arrow-right-from-bracket" style="margin-right:7px"></i>Sign out</button>
+</span>
+</div>
+<div style="flex:1;min-height:0;height:calc(100vh - 56px)">
+
+<sc-if value="{{ isLeo }}" hint-placeholder-val="{{ false }}">
+<dc-import name="CoordinatorWorkspace" style="width:100%;height:100%;display:block" hint-size="100%,100%"></dc-import>
+</sc-if>
+<sc-if value="{{ isAmy }}" hint-placeholder-val="{{ false }}">
+<dc-import name="AlliedHealthWorkspace" style="width:100%;height:100%;display:block" hint-size="100%,100%"></dc-import>
+</sc-if>
+
+<sc-if value="{{ isOps }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;padding:16px 20px;background:#17162A;color:#EDEDF4;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;flex:none">
+<span style="width:9px;height:9px;border-radius:9999px;background:#7BE495;animation:mwBlink 1.6s infinite"></span>
+<span style="font-size:15px;font-weight:700;letter-spacing:0.06em">LIVE OPERATIONS · ADELAIDE METRO</span>
+<span style="font-size:12.5px;color:rgba(237,237,244,0.55)">Wednesday 16 July · 2:31 pm · {{ opsRefresh }}</span>
+<span style="margin-left:auto;display:flex;gap:6px">
+<sc-for list="{{ opsFilters }}" as="f" hint-placeholder-count="4">
+<button onClick="{{ f.onPick }}" style="height:32px;padding:0 13px;border-radius:9999px;border:{{ f.border }};background:{{ f.bg }};color:{{ f.fg }};font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer">{{ f.label }}</button>
+</sc-for>
+</span>
+</div>
+<div style="display:flex;gap:12px;flex:none">
+<sc-for list="{{ opsKpis }}" as="k" hint-placeholder-count="6">
+<div style="flex:1;background:#211F3B;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 15px;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:rgba(237,237,244,0.5)">{{ k.label }}</span>
+<span style="font-size:23px;font-weight:700;font-variant-numeric:tabular-nums;color:{{ k.color }}">{{ k.val }}</span>
+<span style="font-size:11px;color:{{ k.subColor }}">{{ k.sub }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:1;min-height:0;display:flex;gap:14px">
+<div style="flex:2.4;position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#141326;display:flex;align-items:center;justify-content:center">
+<div style="position:relative;height:100%;aspect-ratio:5 / 3;max-width:100%">
+<div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(3,1fr)">
+<sc-for list="{{ opsTiles }}" as="t" hint-placeholder-count="0">
+<div style="width:100%;height:100%;background-image:url('{{ t.src }}');background-size:cover;background-position:center;filter:saturate(0.75) brightness(0.9)"></div>
+</sc-for>
+</div>
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(23,22,42,0.4) 100%);pointer-events:none"></div>
+<sc-for list="{{ opsHeat }}" as="h" hint-placeholder-count="3">
+<span style="position:absolute;left:{{ h.left }};top:{{ h.top }};width:{{ h.size }};height:{{ h.size }};transform:translate(-50%,-50%);border-radius:9999px;background:radial-gradient(circle,rgba({{ h.rgb }},0.34) 0%,rgba({{ h.rgb }},0.14) 45%,transparent 70%);pointer-events:none"></span>
+</sc-for>
+<svg viewBox="0 0 1000 600" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">
+<sc-for list="{{ opsLines }}" as="l" hint-placeholder-count="5">
+<path d="{{ l.d }}" stroke="#ffffff" stroke-width="5" fill="none" opacity="0.85" stroke-linejoin="round" stroke-linecap="round"></path>
+<path d="{{ l.d }}" stroke="#6C5CE7" stroke-width="2.6" fill="none" stroke-linejoin="round" stroke-linecap="round"></path>
+</sc-for>
+</svg>
+<sc-for list="{{ opsDest }}" as="p" hint-placeholder-count="5">
+<span style="position:absolute;left:{{ p.left }};top:{{ p.top }};transform:translate(-50%,-100%);color:#FF8E8E;font-size:13px"><i class="fa-solid fa-location-dot"></i></span>
+</sc-for>
+<sc-for list="{{ opsDots }}" as="d" hint-placeholder-count="10">
+<span title="{{ d.tip }}" style="position:absolute;left:{{ d.left }};top:{{ d.top }};width:24px;height:24px;transform:translate(-50%,-50%);border-radius:9999px;background:{{ d.color }};border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{ d.op }};box-sizing:border-box"><i class="fa-solid fa-car" style="font-size:10px;color:#fff"></i></span>
+</sc-for>
+<sc-for list="{{ opsFlagPins }}" as="g" hint-placeholder-count="2">
+<span style="position:absolute;left:{{ g.left }};top:{{ g.top }};width:16px;height:16px;transform:translate(-50%,-50%);border-radius:9999px;background:#FF6B6B;border:2px solid #fff;animation:mwPulse 2s infinite"></span>
+<div style="position:absolute;left:{{ g.left }};top:{{ g.top }};transform:translate(-50%,14px);padding:7px 11px;background:rgba(23,22,42,0.92);border:1px solid #FF6B6B;border-radius:9px;font-size:11px;line-height:1.4;white-space:nowrap"><strong style="color:#FF8E8E">{{ g.title }}</strong><br>{{ g.sub }}</div>
+</sc-for>
+</div>
+<div style="position:absolute;left:14px;bottom:12px;display:flex;gap:14px;padding:8px 13px;background:rgba(23,22,42,0.85);border:1px solid rgba(255,255,255,0.1);border-radius:9999px;font-size:11px">
+<span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:9999px;background:#8B7EEE"></span>On trip</span>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:9999px;background:#7BE495"></span>Available</span>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:9999px;background:rgba(237,237,244,0.35)"></span>Going offline</span>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:9999px;background:#FF6B6B"></span>Coverage flag</span>
+<span style="display:flex;align-items:center;gap:6px;color:rgba(237,237,244,0.6)"><span style="width:16px;height:3px;border-radius:2px;background:linear-gradient(90deg,rgba(255,107,107,0.5),rgba(255,217,61,0.5))"></span>Demand heat</span>
+</div>
+<span style="position:absolute;right:14px;top:12px;padding:4px 9px;border-radius:7px;background:rgba(23,22,42,0.8);font-size:10.5px;color:rgba(237,237,244,0.65)">Adelaide metro · approx. 30 km radius</span>
+<span style="position:absolute;right:8px;bottom:8px;padding:3px 8px;border-radius:6px;background:rgba(23,22,42,0.8);font-size:9.5px;color:rgba(237,237,244,0.55)">Map data © OpenStreetMap contributors</span>
+</div>
+<div style="flex:1;min-width:330px;display:flex;flex-direction:column;gap:10px;overflow-y:auto">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:rgba(237,237,244,0.5);flex:none">ATTENTION QUEUE</div>
+<div style="background:#2A1B26;border:1px solid #FF6B6B;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#FF8E8E"><i class="fa-solid fa-triangle-exclamation"></i>Coverage gap · Salisbury WAV<span style="margin-left:auto;font-size:10px;letter-spacing:0.1em;padding:3px 8px;border-radius:9999px;background:#FF6B6B;color:#fff">CRITICAL</span></div>
+<div style="font-size:12px;line-height:1.5;color:rgba(237,237,244,0.8)">A booked WAV pickup at 3:10 pm has no contracted WAV driver within 20 min. This is a supply gap, not a participant issue. Affected: Iris K. Resolve to protect her appointment; she and Leo (coordinator) can be notified once a driver is assigned.</div>
+<sc-if value="{{ flagOpen }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ dispatchLena }}" style="height:40px;border:0;border-radius:9px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-van-shuttle" style="margin-right:8px"></i>Dispatch Lena V. · employed, WAV-04 · ETA 22 min</button>
+</sc-if>
+<sc-if value="{{ flagDone }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(123,228,149,0.12);border:1px solid rgba(123,228,149,0.4);border-radius:9px;font-size:12px;color:#7BE495"><i class="fa-solid fa-circle-check"></i>Lena dispatched · arrives 3:02 pm · Iris and Leo notified</div>
+</sc-if>
+</div>
+<div style="background:#211F3B;border:1px solid rgba(255,217,61,0.45);border-radius:12px;padding:13px;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:#FFD93D"><i class="fa-solid fa-arrow-trend-up"></i>Demand spike · Salisbury</div>
+<div style="font-size:11.5px;line-height:1.5;color:rgba(237,237,244,0.75)">Bookings +38% vs a typical Wednesday. 2 available drivers in zone. Surge nudge suggested to 6 nearby offline drivers.</div>
+</div>
+<div style="background:#211F3B;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:13px;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700"><i class="fa-solid fa-clock" style="color:#8B7EEE"></i>Running late · Deb K.</div>
+<div style="font-size:11.5px;line-height:1.5;color:rgba(237,237,244,0.75)">9 min behind for the 2:15 pm Prospect pickup. Maya notified automatically, buffer holds for her 2:30 appointment.</div>
+</div>
+<div style="background:#211F3B;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:13px;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700"><i class="fa-solid fa-file-invoice-dollar" style="color:#8B7EEE"></i>Claims watch</div>
+<div style="font-size:11.5px;line-height:1.5;color:rgba(237,237,244,0.75)">11 claims past 14 days with plan managers ($3,912). 7 rejected awaiting rework. Auto-chase runs 5 pm.</div>
+</div>
+</div>
+</div>
+<div style="display:flex;gap:14px;flex:none;height:118px">
+<div style="flex:1.6;background:#211F3B;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+<span style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:rgba(237,237,244,0.5)">DEMAND BY HOUR · TODAY VS TYPICAL</span>
+<div style="flex:1;display:flex;align-items:flex-end;gap:7px">
+<sc-for list="{{ opsBars }}" as="b" hint-placeholder-count="12">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end"><span style="display:block;width:100%;height:{{ b.h }};background:{{ b.color }};border-radius:3px 3px 0 0"></span><span style="font-size:9px;color:rgba(237,237,244,0.4)">{{ b.label }}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="flex:1;background:#211F3B;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:rgba(237,237,244,0.5)">REVENUE · WEEK TO DATE</span>
+<span style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">$48,214</span>
+<span style="font-size:11px;color:#7BE495">▲ 8.2% vs last week · take rate 18%</span>
+<span style="font-size:11px;color:rgba(237,237,244,0.55)">Claims funded 92% · private pay 8%</span>
+</div>
+<div style="flex:1;background:#211F3B;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:rgba(237,237,244,0.5)">FLEET &amp; WORKFORCE</span>
+<span style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">74%</span>
+<span style="font-size:11px;color:rgba(237,237,244,0.55)">owned-fleet utilisation · 5 of 6 vehicles out</span>
+<span style="font-size:11px;color:#FFD93D">3 driver credentials expire within 30 days</span>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</sc-if>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:28px 0;box-sizing:border-box">
+<div style="display:flex;align-items:center;gap:12px">
+<img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:24px">
+<span style="font-size:13px;color:#4A4540">Mobile demo · sign out inside any app to return to the main menu</span>
+</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
+<div style="width:100%;height:100%">
+
+<sc-if value="{{ isMobPicker }}" hint-placeholder-val="{{ true }}">
+<div style="width:100%;height:100%;box-sizing:border-box;padding:60px 24px 28px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+<div style="padding-top:18px"><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:30px;display:block;margin-left:-10px"></div>
+<h1 style="margin:16px 0 4px;font-size:26px;font-weight:700;line-height:1.2">Who's signing in?</h1>
+<p style="margin:0 0 18px;font-size:14px;color:#4A4540">Demo build. In production each person has their own sign-in.</p>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ users }}" as="u" hint-placeholder-count="4">
+<div onClick="{{ u.onPick }}" style="display:flex;align-items:center;gap:14px;min-height:72px;padding:10px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
+<span style="width:48px;height:48px;border-radius:9999px;background:{{ u.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex:none">{{ u.init }}</span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">{{ u.name }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ u.desc }}</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:{{ u.chipBg }};color:{{ u.chipFg }};font-size:10.5px;font-weight:700">{{ u.chip }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMaya }}" hint-placeholder-val="{{ false }}">
+<dc-import name="RiderApp" on-logout="{{ logout }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
+</sc-if>
+<sc-if value="{{ isAnna }}" hint-placeholder-val="{{ false }}">
+<dc-import name="SupporterApp" on-logout="{{ logout }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
+</sc-if>
+<sc-if value="{{ isDeb }}" hint-placeholder-val="{{ false }}">
+<dc-import name="DriverApp" role="contractor" on-logout="{{ logout }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
+</sc-if>
+<sc-if value="{{ isLena }}" hint-placeholder-val="{{ false }}">
+<dc-import name="DriverApp" role="employed" on-logout="{{ logout }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startFork&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;menu&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;web&quot;,&quot;mobile&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = { fork: null, ws: null, opsF: 'all', flag: 'open', tick: 0, user: null };
+  componentDidMount() { this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000); }
+  componentWillUnmount() { if (this._iv) clearInterval(this._iv); }
+  renderVals() {
+    const S = this.state;
+    const fork = S.fork ?? (this.props.startFork && this.props.startFork !== 'menu' ? this.props.startFork : null);
+    const toMenu = () => this.setState({ fork: null, ws: null, user: null, opsF: 'all', flag: 'open' });
+
+    // --- Web portals ---
+    const ws = S.ws;
+    const wsDefs = [
+      { k: 'leo', icon: 'fa-briefcase', avBg: '#FFF5F5', avFg: '#E85555', name: 'Coordinator workspace', desc: 'Leo Marsh · Northside Coordination · caseload, claims, invoicing', label: 'COORDINATOR WORKSPACE', userInit: 'LM', userName: 'Leo Marsh', userBg: '#FF6B6B' },
+      { k: 'amy', icon: 'fa-user-doctor', avBg: '#F5F3FF', avFg: '#5647C9', name: 'Allied health workspace', desc: 'Dr Amy Ngo · OT · assessments, requirements, outcomes', label: 'ALLIED HEALTH', userInit: 'AN', userName: 'Dr Amy Ngo', userBg: '#6C5CE7' },
+      { k: 'ops', icon: 'fa-satellite-dish', avBg: '#2D3748', avFg: '#fff', name: 'Ops mission control', desc: 'Rhea Walsh · live map, revenue, KPIs, coverage flags', label: 'OPS MISSION CONTROL', userInit: 'RW', userName: 'Rhea Walsh', userBg: '#2D3748' },
+    ];
+    const cur = wsDefs.find(w => w.k === ws);
+    // positions in a 1000x600 space over Adelaide tiles; kept east of ~x440 to stay on land (Gulf St Vincent is the western third)
+    const drv = [
+      { x: 483, y: 214, st: 'trip', dx: 487, dy: 246, pts: [[483,214],[486,228],[483,240],[487,246]], tip: 'Deb K. · Maya P. aboard · dest North Adelaide · ETA 2:41 pm' },
+      { x: 500, y: 300, st: 'trip', dx: 466, dy: 274, pts: [[500,300],[486,296],[474,284],[466,274]], tip: 'Marco T. · dest Mile End · ETA 2:38 pm' },
+      { x: 584, y: 144, st: 'trip', dx: 624, dy: 110, pts: [[584,144],[604,132],[612,120],[624,110]], tip: 'Sam W. · dest Modbury · ETA 2:52 pm' },
+      { x: 540, y: 120, st: 'trip', dx: 539, dy: 58, pts: [[540,120],[542,96],[538,74],[539,58]], tip: 'Lena V. · WAV-04 · dispatched to Salisbury · ETA 2:47 pm' },
+      { x: 690, y: 300, st: 'trip', dx: 760, dy: 244, pts: [[690,300],[722,282],[744,262],[760,244]], tip: 'Priya N. · dest Tea Tree Gully · ETA 3:05 pm' },
+      { x: 500, y: 452, st: 'avail', tip: 'Available · Marion · 4 min idle' }, { x: 470, y: 356, st: 'avail', tip: 'Available · Unley' },
+      { x: 560, y: 300, st: 'avail', tip: 'Available · Norwood' }, { x: 505, y: 250, st: 'avail', tip: 'Available · North Adelaide' },
+      { x: 606, y: 196, st: 'avail', tip: 'Available · Modbury' }, { x: 648, y: 150, st: 'avail', tip: 'Available · Golden Grove' },
+      { x: 458, y: 330, st: 'off', tip: 'Going offline 3:00 pm · Goodwood' }, { x: 524, y: 424, st: 'off', tip: 'Going offline · Edwardstown' },
+    ];
+    const colors = { trip: '#8B7EEE', avail: '#7BE495', off: 'rgba(237,237,244,0.35)' };
+    const rings = { trip: 'rgba(139,126,238,0.22)', avail: 'rgba(123,228,149,0.2)', off: 'rgba(237,237,244,0.08)' };
+    const show = d => S.opsF === 'all' || S.opsF === d.st;
+    const pct = (x, y) => ({ left: (x / 10) + '%', top: (y / 6) + '%' });
+    const T = S.tick;
+    const opsDots = drv.filter(show).map((d, i) => {
+      const dx = d.st === 'trip' ? Math.sin((T + i * 1.7) / 2.2) * 3 : Math.sin((T + i) / 5) * 1.2;
+      const dy = d.st === 'trip' ? Math.cos((T + i * 1.3) / 2.4) * 2.4 : 0;
+      return { ...pct(d.x + dx, d.y + dy), color: colors[d.st], ring: rings[d.st], tip: d.tip, op: d.st === 'off' ? '0.55' : '1' };
+    });
+    const trips = drv.filter(d => d.st === 'trip' && show(d));
+    const opsLines = trips.map(d => ({ d: 'M' + d.pts.map(p => p[0] + ' ' + p[1]).join(' L') }));
+    const tileXs = [1810, 1811, 1812, 1813, 1814], tileY = [1235, 1236, 1237];
+    const opsTiles = [];
+    for (const y of tileY) for (const x of tileXs) opsTiles.push({ src: 'https://tile.openstreetmap.org/11/' + x + '/' + y + '.png' });
+    const opsDest = trips.map(d => pct(d.dx, d.dy));
+    const flags = [
+      { x: 539, y: 62, title: 'Coverage gap · Salisbury WAV', sub: 'No WAV driver within 20 min' },
+      { x: 500, y: 206, title: 'Pickup risk · Prospect', sub: 'Driver 9 min late · buffer OK' },
+    ];
+    const opsFlagPins = (S.opsF === 'all' || S.opsF === 'flag') ? flags.map(f => ({ ...pct(f.x, f.y), title: f.title, sub: f.sub })) : [];
+    const opsHeat = [
+      { x: 539, y: 70, s: 260, rgb: '255,107,107' },
+      { x: 492, y: 276, s: 230, rgb: '255,217,61' },
+      { x: 512, y: 430, s: 200, rgb: '139,126,238' },
+    ].map(h => ({ ...pct(h.x, h.y), size: h.s + 'px', rgb: h.rgb }));
+    const opsFilters = [
+      { k: 'all', label: 'All' }, { k: 'trip', label: 'On trip' }, { k: 'avail', label: 'Available' }, { k: 'flag', label: 'Coverage flags' },
+    ].map(f => { const on = S.opsF === f.k; return { ...f,
+      bg: on ? '#8B7EEE' : 'transparent', fg: on ? '#17162A' : 'rgba(237,237,244,0.7)',
+      border: on ? '1px solid #8B7EEE' : '1px solid rgba(255,255,255,0.18)',
+      onPick: () => this.setState({ opsF: f.k }) }; });
+    const opsKpis = [
+      { label: 'REVENUE TODAY', val: '$8,412', sub: '▲ 12% vs typical Wed', color: '#EDEDF4', subColor: '#7BE495' },
+      { label: 'TRIPS TODAY', val: '214', sub: '186 done · 23 live · 5 upcoming', color: '#EDEDF4', subColor: 'rgba(237,237,244,0.55)' },
+      { label: 'ON-TIME PICKUPS', val: '97.2%', sub: 'target 95%', color: '#7BE495', subColor: 'rgba(237,237,244,0.55)' },
+      { label: 'DRIVERS ONLINE', val: '48', sub: 'of 61 active · 6 employed on shift', color: '#EDEDF4', subColor: 'rgba(237,237,244,0.55)' },
+      { label: 'SOS OPEN', val: '0', sub: '2 resolved this week · SLA 60 s', color: '#7BE495', subColor: 'rgba(237,237,244,0.55)' },
+      { label: 'CLAIMS AWAITING', val: '$3,912', sub: '11 past 14 days · chase 5 pm', color: '#FFD93D', subColor: 'rgba(237,237,244,0.55)' },
+    ];
+    const barVals = [22, 30, 42, 55, 48, 40, 52, 68, 84, 100, 72, 44];
+    const opsBars = barVals.map((v, i) => ({ h: v + '%', label: (i + 7) + ':00', color: i === 9 ? '#FF6B6B' : i >= 7 ? '#8B7EEE' : 'rgba(139,126,238,0.45)' }));
+
+    // --- Mobile ---
+    const user = S.user;
+    const mobDefs = [
+      { k: 'maya', init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', desc: 'Participant · books her own rides', chip: 'CLIENT APP', chipBg: '#FFF5F5', chipFg: '#E85555' },
+      { k: 'anna', init: 'AP', avBg: '#FF8E8E', name: 'Anna Patel', desc: 'Supporter · books for Maya and Sam', chip: 'CLIENT APP', chipBg: '#FFF5F5', chipFg: '#E85555' },
+      { k: 'deb', init: 'DK', avBg: '#6C5CE7', name: 'Deb Kowalski', desc: 'Contractor driver · CareDriver tier', chip: 'DRIVER APP', chipBg: '#F5F3FF', chipFg: '#5647C9' },
+      { k: 'lena', init: 'LV', avBg: '#5647C9', name: 'Lena Voss', desc: 'Employed driver · Complex tier, rostered', chip: 'DRIVER APP', chipBg: '#F5F3FF', chipFg: '#5647C9' },
+    ];
+
+    return {
+      isMenu: !fork, isWeb: fork === 'web', isMobile: fork === 'mobile',
+      pickWeb: () => this.setState({ fork: 'web' }),
+      pickMobile: () => this.setState({ fork: 'mobile' }),
+
+      isWebPicker: !ws, isWebWs: !!ws,
+      isLeo: ws === 'leo', isAmy: ws === 'amy', isOps: ws === 'ops',
+      wsList: wsDefs.map(w => ({ ...w, onPick: () => this.setState({ ws: w.k }) })),
+      wsLabel: cur ? cur.label : '', wsUserInit: cur ? cur.userInit : '', wsUserName: cur ? cur.userName : '', wsUserBg: cur ? cur.userBg : '#2D3748',
+      opsFilters, opsKpis, opsDots, opsLines, opsDest, opsFlagPins, opsHeat, opsBars, opsTiles,
+      flagOpen: S.flag === 'open', flagDone: S.flag === 'done',
+      dispatchLena: () => this.setState({ flag: 'done' }),
+      opsRefresh: 'refreshed ' + (T % 8 + 1) + ' s ago',
+
+      isMobPicker: !user, isMaya: user === 'maya', isAnna: user === 'anna', isDeb: user === 'deb', isLena: user === 'lena',
+      users: mobDefs.map(d => ({ ...d, onPick: () => this.setState({ user: d.k }) })),
+
+      logout: toMenu,
+    };
+  }
+}
+</script>
+</body>
+</html>

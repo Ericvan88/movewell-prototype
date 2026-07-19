@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+[data-hc="on"] [style*="4A4540"]{color:#1A202C!important}
+[data-hc="on"] [style*="ADA8A2"]{color:#4A4540!important}
+[data-hc="on"] [style*="color:#E8E5E1"]{color:#6B6560!important}
+[data-hc="on"] [style*="E8E5E1"]{border-color:#57534E!important}
+[data-lt="on"]{zoom:1.12}
+</style>
+</helmet>
+
+<div style="width:100%;height:100%;box-sizing:border-box;padding-top:60px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isBkPeople }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:14px 20px 0"><img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:26px;display:block;margin-left:-10px"></div>
+<div style="padding:10px 20px 8px">
+<h1 style="margin:0;font-size:26px;font-weight:700;line-height:1.15">G'day, Anna.</h1>
+<p style="margin:4px 0 0;font-size:14px;color:#4A4540">Booking for the people you support</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div onClick="{{ goBkMaya }}" style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer" style-hover="background:#F7F6F4">
+<div style="display:flex;align-items:center;gap:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">MP</span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">Maya Patel · daughter</span><span style="display:block;font-size:12.5px;color:#4A4540">Full access · book, track live, receipts</span></span>
+<i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i>
+</div>
+<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:#F7F6F4;border-radius:10px;font-size:13px"><i class="fa-solid fa-calendar-check" style="color:#1F7A33"></i><span style="flex:1">Next: Physio · Thu 18/07 · 2:15 pm</span><span style="font-size:11px;font-weight:700;color:#1F7A33">Confirmed</span></div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:12px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">SP</span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">Sam Patel · son</span><span style="display:block;font-size:12.5px;color:#4A4540">Book and SOS alerts only · Sam manages his own trips</span></span>
+</div>
+<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:#F7F6F4;border-radius:10px;font-size:13px;color:#4A4540"><i class="fa-solid fa-lock" style="color:#ADA8A2"></i>Trip history and receipts · not shared with you</div>
+<button onClick="{{ bkNoop }}" style="height:48px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Book a ride for Sam</button>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px"><i class="fa-solid fa-eye" style="color:#6C5CE7;margin-right:7px"></i>What you can see is set by each person's consent. They can change it any time.</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-user-group" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">People</span></div>
+<div onClick="{{ goBkAlerts }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-bell" style="font-size:18px"></i><span style="font-size:11px">Alerts</span></div>
+<div onClick="{{ goBkRoles }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px">Account</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBkMaya }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:10px;padding:12px 20px;background:#FF6B6B;color:#fff">
+<i class="fa-solid fa-user-pen"></i>
+<span style="flex:1;font-size:14px;font-weight:700">Acting for Maya Patel</span>
+<span onClick="{{ goBkPeople }}" style="font-size:13px;font-weight:700;text-decoration:underline;cursor:pointer">Switch</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:16px 20px">
+<button onClick="{{ bkNoop }}" style="display:flex;align-items:center;justify-content:center;gap:10px;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 4px 8px rgba(232,85,85,0.25)" style-hover="background:#E85555"><i class="fa-solid fa-car"></i>Book a ride for Maya</button>
+<div style="font-size:12.5px;color:#4A4540;text-align:center;margin-top:-4px">Same booking steps as Maya's own app · her accessibility profile applies.</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">MAYA'S NEXT RIDE</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Confirmed</span>
+</div>
+<div style="font-size:17px;font-weight:700">Physio · North Adelaide</div>
+<div style="font-size:14px;color:#4A4540">Thu 18/07 · 2:15 pm · Standard sedan</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">HER PROFILE · SHOWN TO DRIVERS</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-person-walking-with-cane"></i>Walking frame</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-volume-xmark"></i>No radio</span>
+</div>
+<div style="font-size:12.5px;color:#4A4540">Only Maya can edit her accessibility profile.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">MAYA SHARES WITH YOU</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:18px"></i>Bookings and live trip tracking</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:18px"></i>Receipts and claim status</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:14px;color:#4A4540"><i class="fa-solid fa-circle-xmark" style="color:#ADA8A2;width:18px"></i>Plan budget balance · not shared</div>
+</div>
+</div>
+<div style="margin-top:auto;padding:12px 20px 20px">
+<button onClick="{{ goBkPeople }}" style="width:100%;height:48px;border:1px solid #E8E5E1;background:#fff;color:#4A4540;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-chevron-left" style="margin-right:8px"></i>Back to your people</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBkAlerts }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px"><h2 style="margin:0;font-size:24px;font-weight:700">Alerts</h2><p style="margin:4px 0 0;font-size:13px;color:#4A4540">Which trip messages come to your phone, per person.</p></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:4px 16px 8px">
+<div style="padding:12px 0 4px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#FF6B6B">MAYA PATEL</div>
+<sc-for list="{{ bkMayaAlerts }}" as="a" hint-placeholder-count="3">
+<div onClick="{{ a.onFlip }}" style="display:flex;align-items:center;gap:12px;min-height:56px;border-top:1px solid #F7F6F4;cursor:pointer">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ a.label }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ a.desc }}</span></span>
+<span style="width:48px;height:28px;border-radius:9999px;background:{{ a.bg }};position:relative;flex:none"><span style="position:absolute;top:3px;left:{{ a.left }};width:22px;height:22px;border-radius:9999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.2);transition:left 180ms"></span></span>
+</div>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:4px 16px 12px">
+<div style="padding:12px 0 4px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">SAM PATEL</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;border-top:1px solid #F7F6F4">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">SOS and incidents</span><span style="display:block;font-size:12px;color:#4A4540">Always on · safety alerts can't be turned off by consent</span></span>
+<span style="width:48px;height:28px;border-radius:9999px;background:#FF6B6B;position:relative;flex:none"><span style="position:absolute;top:3px;left:23px;width:22px;height:22px;border-radius:9999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.2)"></span></span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#F7F6F4;border-radius:10px;font-size:12.5px;color:#4A4540"><i class="fa-solid fa-lock" style="color:#ADA8A2"></i>Pickup, drop-off and live-trip alerts · Sam hasn't shared these.</div>
+</div>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div onClick="{{ goBkPeople }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-user-group" style="font-size:18px"></i><span style="font-size:11px">People</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-bell" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Alerts</span></div>
+<div onClick="{{ goBkRoles }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px">Account</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBkRoles }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:20px 20px 8px"><h2 style="margin:0;font-size:24px;font-weight:700">Account</h2></div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px">
+<span style="width:52px;height:52px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700">AP</span>
+<span><span style="display:block;font-size:17px;font-weight:700">Anna Patel</span><span style="display:block;font-size:13px;color:#4A4540">One sign-in for everything you do on MoveWell</span></span>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">HOW YOU USE MOVEWELL</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;background:#FFF5F5">
+<span style="width:40px;height:40px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-user-group"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Booker · Maya and Sam</span><span style="display:block;font-size:12px;color:#4A4540">Granted by each person's consent</span></span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Active now</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4">
+<span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-briefcase"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Coordinator · for Priya (sister)</span><span style="display:block;font-size:12px;color:#4A4540">Workspace designed for bigger screens</span></span>
+<a href="MoveWell Rider Flow.dc.html#2b" style="display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:9999px;border:1px solid #6C5CE7;color:#6C5CE7;font-size:12px;font-weight:700;text-decoration:none"><i class="fa-solid fa-arrow-up-right-from-square"></i>Open on web</a>
+</div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">One sign-in, different views. Roles are granted by each participant's consent or by your organisation · no second account, no separate password.</div>
+<button onClick="{{ demoLogout }}" style="height:52px;border:1px solid #E8E5E1;background:#fff;color:#C43F3F;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-arrow-right-from-bracket" style="margin-right:8px"></i>Sign out</button>
+</div>
+<div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
+<div onClick="{{ goBkPeople }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-user-group" style="font-size:18px"></i><span style="font-size:11px">People</span></div>
+<div onClick="{{ goBkAlerts }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-bell" style="font-size:18px"></i><span style="font-size:11px">Alerts</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 6px;color:#FF6B6B"><i class="fa-solid fa-circle-user" style="font-size:18px"></i><span style="font-size:11px;font-weight:700">Account</span></div>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
+    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess' };
+  renderVals() {
+    const S = this.state, P = this.props;
+    const screen = S.screen ?? (P.startScreen ?? 'home');
+    const go = s => () => this.setState({ screen: s, ...(s === 'home' ? { sos: false } : {}) });
+    const prefersWAV = !!P.prefersWAV;
+    const tierList = [
+      { id: 'standard', icon: 'fa-car', name: 'Standard sedan', desc: 'Door-to-door support', fare: '$38.50' },
+      { id: 'wav', icon: 'fa-wheelchair', name: 'Wheelchair accessible (WAV)', desc: 'Hoist, restraint compliant', fare: '$52.20' },
+      { id: 'sensory', icon: 'fa-volume-xmark', name: 'Sensory-calm', desc: 'Low light, quiet, no radio', fare: '$45.10' },
+    ];
+    const tierId = S.tier ?? (prefersWAV ? 'wav' : 'standard');
+    const tiers = tierList.map(t => ({ ...t, sel: t.id === tierId,
+      border: t.id === tierId ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
+      pad: t.id === tierId ? '15px' : '16px',
+      onPick: () => this.setState({ tier: t.id }) }));
+    const tier = tierList.find(t => t.id === tierId);
+    const destList = [
+      { icon: 'fa-house-medical', name: 'Physio · North Adelaide', addr: '88 Ward St, North Adelaide SA' },
+      { icon: 'fa-people-group', name: 'Day program · Mile End', addr: '4 Norma St, Mile End SA' },
+      { icon: 'fa-person-swimming', name: 'Adelaide Aquatic Centre', addr: 'Jeffcott Rd, North Adelaide SA' },
+    ];
+    const dests = destList.map(d => ({ ...d, onPick: () => this.setState({ dest: d, screen: 'when' }) }));
+    const dest = S.dest ?? destList[0];
+    const whenModes = [
+      { id: 'now', label: 'Leave now', desc: 'Pickup in about 10\u201315 minutes' },
+      { id: 'later', label: 'Schedule', desc: 'Pick a date and time' },
+    ].map(m => ({ ...m, sel: m.id === S.whenMode,
+      border: m.id === S.whenMode ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
+      pad: m.id === S.whenMode ? '15px 15px' : '16px 16px',
+      onPick: () => this.setState({ whenMode: m.id }) }));
+    const stars = [1, 2, 3, 4, 5].map(n => ({ n, color: n <= S.rating ? '#FFD93D' : '#E8E5E1', onPick: () => this.setState({ rating: n }) }));
+    const comps = ['Friendly', 'Safe driving', 'On time', 'Great communication'].map(c => {
+      const on = !!S.comps[c];
+      return { label: c, bg: on ? '#6C5CE7' : '#fff', color: on ? '#fff' : '#2D3748',
+        border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1',
+        onPick: () => this.setState(s => ({ comps: { ...s.comps, [c]: !on } })) };
+    });
+    const A = S.a11y;
+    const flip = k => () => this.setState(s => ({ a11y: { ...s.a11y, [k]: !s.a11y[k] } }));
+    const a11yModes = [
+      { k: 'hc', label: 'High contrast', desc: 'Darker text and stronger outlines' },
+      { k: 'lt', label: 'Large text', desc: 'Makes everything a little bigger' },
+      { k: 'voice', label: 'Voice prompts', desc: 'Reads each screen out loud' },
+      { k: 'sw', label: 'Switch access', desc: 'Scan and choose with one button' },
+    ].map((m, i) => ({ ...m, bg: A[m.k] ? '#6C5CE7' : '#E8E5E1', left: A[m.k] ? '23px' : '3px', bt: i === 0 ? '0' : '1px solid #F7F6F4', onFlip: flip(m.k) }));
+    const contacts = [
+      { k: 'anna', name: 'Anna Patel', rel: 'Mum', desc: 'Sees trips live and gets pickup and drop-off messages' },
+      { k: 'leo', name: 'Leo Marsh', rel: 'Support coordinator', desc: 'Can book for you and see upcoming bookings' },
+    ].map(c => { const on = !!S.consents[c.k]; return { ...c, bg: on ? '#6C5CE7' : '#E8E5E1', left: on ? '23px' : '3px',
+      onFlip: () => this.setState(s => ({ consents: { ...s.consents, [c.k]: !s.consents[c.k] } })) }; });
+    const is = k => screen === k;
+    // --- turn 2: booker / coordinator / allied health ---
+    const bkGo = s => () => this.setState({ bk: s });
+    const bkMayaAlerts = [
+      { k: 'pd', label: 'Pickup and drop-off', desc: 'A message when Maya is picked up and dropped off' },
+      { k: 'lt', label: 'Live trip started', desc: 'Link to watch the trip on the map' },
+      { k: 'sos', label: 'SOS and incidents', desc: 'Immediate call and push notification' },
+    ].map(a => { const on = !!S.bkAl[a.k]; return { ...a, bg: on ? '#FF6B6B' : '#E8E5E1', left: on ? '23px' : '3px',
+      onFlip: () => this.setState(s => ({ bkAl: { ...s.bkAl, [a.k]: !s.bkAl[a.k] } })) }; });
+    const cwGo = s => () => this.setState({ cw: s });
+    const cwNavDefs = [
+      { id: 'dash', label: 'Dashboard', icon: 'fa-gauge-high' }, { id: 'participant', label: 'Participants', icon: 'fa-user-group' },
+      { id: 'recurring', label: 'Recurring trips', icon: 'fa-repeat' }, { id: 'claims', label: 'Claims', icon: 'fa-file-invoice-dollar' },
+      { id: 'invoices', label: 'Invoice export', icon: 'fa-file-export' }, { id: 'compliance', label: 'Compliance', icon: 'fa-shield-halved' },
+      { id: 'outcomes', label: 'Outcomes', icon: 'fa-chart-line' }, { id: 'team', label: 'Team & permissions', icon: 'fa-users-gear' },
+      { id: 'integrations', label: 'Integrations', icon: 'fa-plug' },
+    ];
+    const cwNav = cwNavDefs.map(n => ({ ...n, bg: S.cw === n.id ? '#FFF5F5' : 'transparent', fg: S.cw === n.id ? '#E85555' : '#2D3748', fw: S.cw === n.id ? '700' : '400', onPick: cwGo(n.id) }));
+    const cwRows = [
+      { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', plan: 'Leap in!', providers: 'MoveWell, AccessGo', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Thu 18/07 · 2:15 pm' },
+      { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', plan: 'My Plan Manager', providers: 'MoveWell', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', claims: '2 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Tomorrow · 8:40 am' },
+      { init: 'IK', avBg: '#2D3748', name: 'Iris Kaur', plan: 'Leap in!', providers: 'MoveWell, 2 others', pct: '92%', barColor: '#C43F3F', burn: '$2,910 of $3,160 · review', claims: '1 rejected', clBg: 'rgba(232,85,85,0.12)', clFg: '#C43F3F', clIcon: 'fa-circle-xmark', next: 'Paused' },
+      { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', plan: 'Self-managed', providers: 'AccessGo', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Fri 19/07 · 11:00 am' },
+      { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', plan: 'Leap in!', providers: 'MoveWell', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', claims: '4 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Mon 21/07 · 9:00 am' },
+    ].map(r => ({ ...r, onPick: cwGo('participant') }));
+    const cwClaimCols = [
+      { label: 'DRAFT', accent: '#ADA8A2', count: 2, aWho: 'Iris Kaur', aWhat: 'Hydrotherapy · resubmit', aAmt: '$47.90', bWho: 'Theo Rossi', bWhat: 'Day program · 15/07', bAmt: '$44.20' },
+      { label: 'SUBMITTED', accent: '#B8860B', count: 3, aWho: 'Maya Patel', aWhat: 'Hydrotherapy · AccessGo', aAmt: '$47.90', bWho: 'Priya Bakshi', bWhat: 'Day program · 14/07', bAmt: '$41.20' },
+      { label: 'WITH PLAN MANAGER', accent: '#6C5CE7', count: 3, aWho: 'Theo Rossi', aWhat: '18 days · chase', aAmt: '$88.40', bWho: 'Priya Bakshi', bWhat: '15 days · chase', bAmt: '$123.60' },
+      { label: 'PAID', accent: '#1F7A33', count: 41, aWho: 'Maya Patel', aWhat: 'Physio · 16/07', aAmt: '$38.50', bWho: 'Jordan Teague', bWhat: 'CBD · 09/07', bAmt: '$31.80' },
+    ];
+    const cwBars = [ { label: 'Feb', val: '91%', h: '68%', color: '#F0BDBD' }, { label: 'Mar', val: '93%', h: '74%', color: '#F0BDBD' }, { label: 'Apr', val: '92%', h: '71%', color: '#F0BDBD' }, { label: 'May', val: '95%', h: '82%', color: '#FF9B9B' }, { label: 'Jun', val: '97%', h: '90%', color: '#FF8080' }, { label: 'Jul', val: '98%', h: '95%', color: '#FF6B6B' } ];
+    const ahGo = t => () => this.setState({ ah: t });
+    const ahTabs = [
+      { id: 'assess', label: 'Transport assessment' }, { id: 'reqs', label: 'Transport requirements' },
+      { id: 'appts', label: 'Appointments' }, { id: 'outcomes', label: 'Outcomes' },
+    ].map(t => ({ ...t, fg: S.ah === t.id ? '#E85555' : '#4A4540', accent: S.ah === t.id ? '#FF6B6B' : 'transparent', onPick: ahGo(t.id) }));
+    return {
+      demoLogout: () => { (this.props.onLogout || (() => {}))(); },
+      isBkPeople: S.bk === 'people', isBkMaya: S.bk === 'maya', isBkAlerts: S.bk === 'alerts', isBkRoles: S.bk === 'roles',
+      goBkPeople: bkGo('people'), goBkMaya: bkGo('maya'), goBkAlerts: bkGo('alerts'), goBkRoles: bkGo('roles'),
+      bkMayaAlerts, bkNoop: () => {},
+      cwNav, cwRows, cwClaimCols, cwBars,
+      isCwDash: S.cw === 'dash', isCwParticipant: S.cw === 'participant', isCwRecurring: S.cw === 'recurring',
+      isCwClaims: S.cw === 'claims', isCwInvoices: S.cw === 'invoices', isCwCompliance: S.cw === 'compliance',
+      isCwOutcomes: S.cw === 'outcomes', isCwTeam: S.cw === 'team', isCwIntegrations: S.cw === 'integrations',
+      goCwRecurring: cwGo('recurring'),
+      ahTabs, isAhAssess: S.ah === 'assess', isAhReqs: S.ah === 'reqs', isAhAppts: S.ah === 'appts', isAhOutcomes: S.ah === 'outcomes',
+      goAhReqs: ahGo('reqs'),
+      isHome: is('home'), isWhere: is('where'), isWhen: is('when'), isTier: is('tier'), isReview: is('review'),
+      isTracking: is('tracking'), isPickup: is('pickup'), isInTrip: is('intrip'), isComplete: is('complete'),
+      isReceipt: is('receipt'), isA11y: is('a11y'),
+      isBookings: is('bookings'), isProfile: is('profile'), isHelp: is('help'),
+      goBookings: go('bookings'), goProfile: go('profile'), goHelp: go('help'),
+      a11yModes, hcAttr: A.hc ? 'on' : 'off', ltAttr: A.lt ? 'on' : 'off', rootBg: A.hc ? '#FFFFFF' : '#FAFAF9',
+      contacts,
+      pickupIsCode: !S.pickupQr, pickupIsQr: S.pickupQr,
+      pickupToggleLabel: S.pickupQr ? 'Show the code instead' : 'Show a QR code instead',
+      onPickupToggle: () => this.setState(s => ({ pickupQr: !s.pickupQr })),
+      goHome: go('home'), goWhere: go('where'), goWhen: go('when'), goTier: go('tier'), goReview: go('review'),
+      goTracking: go('tracking'), goPickup: go('pickup'), goInTrip: go('intrip'), goComplete: go('complete'),
+      goReceipt: go('receipt'), goA11y: go('a11y'),
+      dests, dest, whenModes, isLater: S.whenMode === 'later',
+      whenLabel: S.whenMode === 'later' ? 'Thu 18/07/2026 \u00b7 2:15 pm' : 'Today \u00b7 ASAP pickup',
+      tiers, fare: tier.fare, tierName: tier.name,
+      vehicleLine: tierId === 'wav' ? 'White Hyundai Staria WAV \u00b7 S 209 BFR' : tierId === 'sensory' ? 'Grey Kia Carnival \u00b7 S 771 QMC' : 'White Toyota Camry \u00b7 S 482 KJK',
+      stars, comps,
+      sos: S.sos, sosOff: !S.sos,
+      onSos: () => this.setState({ sos: true }), onSosCancel: () => this.setState({ sos: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

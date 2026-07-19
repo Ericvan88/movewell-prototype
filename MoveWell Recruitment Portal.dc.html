@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#EFEDEA;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+a{color:#6C5CE7}a:hover{color:#5647C9}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#2D3748;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:700 14px/1.2 'Atkinson Hyperlegible',sans-serif;color:#2D3748}
+.dv-notes{max-width:860px;margin:0 0 24px;font:400 12.5px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.65)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(45,55,72,.1);color:#2D3748;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.6)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#6C5CE7;color:#fff}
+.dv-next{margin:26px 0 0;font:12px/1.5 'Atkinson Hyperlegible',sans-serif;color:rgba(45,55,72,.5)}
+</style>
+</helmet>
+<section class="dv-turn" id="t1" data-screen-label="Recruitment Portal">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">MoveWell Driver Onboarding &amp; Recruitment Portal</span><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:22px;margin-left:auto"></div>
+<p class="dv-notes"><strong>Per scope §2/§3/§4:</strong> desktop web (~1180px), earnings-led. Gradient identity on the public landing only; purple from the application step onward, consistent with the Driver App. <a class="dv-oid" href="#1a">1a</a> is interactive: landing → "Apply now" → tier-progression hub, with a persona switch · <strong>Amir</strong> (new applicant, mid-onboarding, screening ported) and <strong>Deb</strong> (active CareDriver, 2 of 4 Specialist modules · same state as the Driver App). Tier 3 shows the contractor→employed path as a destination only. Middle steps are static: <a class="dv-oid" href="#1b">1b</a> apply/identity, <a class="dv-oid" href="#1c">1c</a> credentials + training, <a class="dv-oid" href="#1d">1d</a> readiness → activation. Earnings figures match the Driver App ($1,042.75 week, +$310/wk Specialist uplift, $71.40 avg WAV trip).</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a" data-screen-label="1a Interactive · landing + tier hub">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Interactive · landing → apply → tier-progression hub (persona switch)</div>
+<x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" url="{{ chromeUrl }}" width="{{ 1180 }}" height="{{ 760 }}" hint-size="1180px,760px">
+<div style="width:100%;height:100%;overflow-y:auto;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;min-height:100%">
+<div style="display:flex;align-items:center;gap:28px;padding:14px 40px;background:#fff;border-bottom:1px solid #E8E5E1">
+<img src="./assets/movewell-primary-gradient.svg" alt="MoveWell" style="height:30px;margin-left:-10px">
+<span style="font-size:14px;color:#4A4540">Pay</span>
+<span style="font-size:14px;color:#4A4540">Tiers</span>
+<span style="font-size:14px;color:#4A4540">Requirements</span>
+<span style="margin-left:auto;font-size:14px;font-weight:700;color:#6C5CE7">Driver sign in</span>
+<button onClick="{{ applyNow }}" style="height:44px;padding:0 22px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Apply now</button>
+</div>
+<div style="background:linear-gradient(135deg,#FF6B6B 0%,#6C5CE7 100%);color:#fff;padding:56px 40px 48px">
+<div style="max-width:640px;display:flex;flex-direction:column;gap:16px">
+<h1 style="margin:0;font-size:44px;font-weight:700;line-height:1.1;text-wrap:pretty">Earn more as you learn. Drive where it matters.</h1>
+<p style="margin:0;font-size:18px;line-height:1.5;opacity:0.92;max-width:520px">MoveWell drivers earn more with every support capability they add · and every trip helps someone get where they need to go.</p>
+<div style="display:flex;gap:12px;margin-top:6px">
+<button onClick="{{ applyNow }}" style="height:56px;padding:0 30px;border:0;border-radius:12px;background:#fff;color:#5647C9;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer">Apply in 10 minutes</button>
+<span style="display:inline-flex;align-items:center;padding:0 18px;border:1px solid rgba(255,255,255,0.45);border-radius:12px;font-size:14px">Already NDIS-screened? Fast-tracked in days.</span>
+</div>
+</div>
+</div>
+<div style="padding:40px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:baseline;gap:12px"><h2 style="margin:0;font-size:24px;font-weight:700">Three tiers. Your pace.</h2><span style="font-size:14px;color:#4A4540">Capability, not seniority · each tier unlocks more trip types, higher pay and priority matching.</span></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">TIER 1 · START HERE</span>
+<span style="font-size:20px;font-weight:700">CareDriver</span>
+<span style="font-size:30px;font-weight:700;font-variant-numeric:tabular-nums">~$1,040<span style="font-size:14px;font-weight:400;color:#4A4540">/week avg</span></span>
+<span style="font-size:14px;color:#4A4540;line-height:1.5">Ambulatory participants, your own sedan. Needs NDIS Worker Screening, disability-awareness training and insurance.</span>
+</div>
+<div style="background:#fff;border:2px solid #6C5CE7;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px;position:relative">
+<span style="position:absolute;top:-11px;left:20px;padding:3px 10px;border-radius:9999px;background:#6C5CE7;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:0.08em">MOST DRIVERS UPGRADE</span>
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">TIER 2</span>
+<span style="font-size:20px;font-weight:700">Specialist</span>
+<span style="font-size:30px;font-weight:700;font-variant-numeric:tabular-nums">+$310<span style="font-size:14px;font-weight:400;color:#4A4540">/week on top</span></span>
+<span style="font-size:14px;color:#4A4540;line-height:1.5">WAV and manual-handling trips · $71.40 average per trip. Needs a vehicle audit and restraint compliance.</span>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">TIER 3</span>
+<span style="font-size:20px;font-weight:700">Complex + badges</span>
+<span style="font-size:30px;font-weight:700;font-variant-numeric:tabular-nums">+$580<span style="font-size:14px;font-weight:400;color:#4A4540">/week on top</span></span>
+<span style="font-size:14px;color:#4A4540;line-height:1.5">High-dependency transport plus verified badges · Auslan, AAC, paediatric, mental-health first aid, sensory-calm.</span>
+<span style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-briefcase"></i>Path to employed MoveWell roles</span>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px 24px">
+<span style="width:44px;height:44px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fa-solid fa-shield-halved"></i></span>
+<span style="flex:1"><span style="display:block;font-size:16px;font-weight:700">Already hold an NDIS Worker Screening?</span><span style="display:block;font-size:14px;color:#4A4540">We recognise it on entry · no re-check, no waiting. Most screened applicants are driving within a week.</span></span>
+<button onClick="{{ applyNow }}" style="height:48px;padding:0 22px;border:1px solid #6C5CE7;border-radius:12px;background:#fff;color:#6C5CE7;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#F5F3FF">Fast-track my application</button>
+</div>
+<div style="font-size:12px;color:#4A4540;padding:4px 2px">Earnings are area averages for Adelaide metro, July 2026. Independent-contractor basis at tiers 1-3.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHub }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;min-height:100%">
+<div style="display:flex;align-items:center;gap:20px;padding:12px 32px;background:#fff;border-bottom:1px solid #E8E5E1">
+<img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:28px;margin-left:-10px">
+<span style="font-size:13px;font-weight:700;letter-spacing:0.1em;color:#4A4540">DRIVER PORTAL</span>
+<div style="margin-left:auto;display:flex;align-items:center;gap:8px;background:#F7F6F4;border-radius:9999px;padding:4px">
+<button onClick="{{ setAmir }}" style="height:34px;padding:0 16px;border:0;border-radius:9999px;background:{{ amirBg }};color:{{ amirFg }};font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">Amir · applying</button>
+<button onClick="{{ setDeb }}" style="height:34px;padding:0 16px;border:0;border-radius:9999px;background:{{ debBg }};color:{{ debFg }};font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">Deb · active</button>
+</div>
+</div>
+<div style="display:flex;gap:24px;padding:28px 32px;align-items:flex-start">
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:16px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px">
+<span style="width:52px;height:52px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700">{{ avatarInitials }}</span>
+<span><span style="display:block;font-size:17px;font-weight:700">{{ personName }}</span><span style="display:block;font-size:13px;color:#4A4540">{{ personSub }}</span></span>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:0">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540;padding-bottom:14px">YOUR LADDER</span>
+<sc-for list="{{ ladder }}" as="t" hint-placeholder-count="3">
+<div style="display:flex;gap:12px">
+<span style="display:flex;flex-direction:column;align-items:center;flex:none">
+<span style="width:28px;height:28px;border-radius:9999px;background:{{ t.dotBg }};border:{{ t.dotBorder }};color:{{ t.dotFg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700"><i class="fa-solid {{ t.icon }}"></i></span>
+<sc-if value="{{ t.hasStem }}" hint-placeholder-val="{{ true }}"><span style="width:2px;flex:1;min-height:26px;background:{{ t.stemBg }}"></span></sc-if>
+</span>
+<span style="padding-bottom:18px"><span style="display:block;font-size:14px;font-weight:700;color:{{ t.nameFg }}">{{ t.name }}</span><span style="display:block;font-size:12px;color:#4A4540;line-height:1.45">{{ t.sub }}</span></span>
+</div>
+</sc-for>
+<div style="border-top:1px solid #F7F6F4;padding-top:12px;display:flex;align-items:center;gap:10px;font-size:12px;color:#4A4540"><i class="fa-solid fa-briefcase" style="color:#8B7EEE"></i>Tier 3 opens the path to employed MoveWell roles.</div>
+</div>
+</div>
+
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;min-width:0">
+<sc-if value="{{ isAmir }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:4px">
+<h2 style="margin:0;font-size:26px;font-weight:700">G'day, Amir. 2 of 4 steps done.</h2>
+<p style="margin:0;font-size:14px;color:#4A4540">Finish the two below and you're activated as a CareDriver · most applicants at this stage are driving within 5 days.</p>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:14px;min-height:64px;padding:8px 20px">
+<span style="width:32px;height:32px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-check"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Identity verified</span><span style="display:block;font-size:12.5px;color:#4A4540">Licence + selfie check · completed Monday</span></span>
+</div>
+<div style="display:flex;align-items:center;gap:14px;min-height:64px;padding:8px 20px;border-top:1px solid #F7F6F4">
+<span style="width:32px;height:32px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-check"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">NDIS Worker Screening · recognised</span><span style="display:block;font-size:12.5px;color:#4A4540">WS-2041886 ported from your previous provider · valid to 03/2027 · no re-check</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">Fast-tracked</span>
+</div>
+<div style="display:flex;align-items:center;gap:14px;min-height:64px;padding:8px 20px;border-top:1px solid #F7F6F4">
+<span style="width:32px;height:32px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">3</span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Disability-awareness training</span><span style="display:block;font-size:12.5px;color:#4A4540">3 of 5 modules · about 40 minutes left</span></span>
+<span style="width:120px;height:8px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:60%;height:100%;background:#6C5CE7"></span></span>
+<button style="height:40px;padding:0 18px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Continue</button>
+</div>
+<div style="display:flex;align-items:center;gap:14px;min-height:64px;padding:8px 20px;border-top:1px solid #F7F6F4">
+<span style="width:32px;height:32px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">4</span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Vehicle insurance</span><span style="display:block;font-size:12.5px;color:#4A4540">Upload your comprehensive certificate · we verify within 24-48 h</span></span>
+<button style="height:40px;padding:0 18px;border:1px solid #6C5CE7;border-radius:12px;background:#fff;color:#6C5CE7;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="background:#F5F3FF">Upload</button>
+</div>
+</div>
+<div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:14px">
+<i class="fa-solid fa-arrow-trend-up" style="font-size:20px;color:#5647C9"></i>
+<span style="flex:1;font-size:14px;line-height:1.5;color:#2D3748">Once you're activated, CareDrivers in Adelaide north average <strong>$1,040/week</strong>. Your first tier upgrade · Specialist · adds around <strong>+$310/week</strong>.</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDeb }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:4px">
+<h2 style="margin:0;font-size:26px;font-weight:700">G'day, Deb. Specialist is 2 modules away.</h2>
+<p style="margin:0;font-size:14px;color:#4A4540">Finishing them unlocks WAV trips · around +$310/week in Adelaide north, and priority matching on morning peak.</p>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">NEXT TIER · SPECIALIST</span><span style="font-size:12px;color:#4A4540">2 of 4 modules</span></div>
+<div style="height:10px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:50%;height:100%;background:#6C5CE7;border-radius:9999px"></span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<sc-for list="{{ modules }}" as="m" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:12px;border:1px solid {{ m.border }};border-radius:12px;padding:14px 16px;background:{{ m.bg }}">
+<span style="width:34px;height:34px;border-radius:9999px;background:{{ m.iconBg }};color:{{ m.iconFg }};display:flex;align-items:center;justify-content:center;flex:none"><i class="fa-solid {{ m.icon }}"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:14px;font-weight:700">{{ m.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ m.sub }}</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:{{ m.lozBg }};color:{{ m.lozFg }};font-size:11px;font-weight:700;flex:none">{{ m.status }}</span>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#4A4540;border-top:1px solid #F7F6F4;padding-top:12px"><i class="fa-solid fa-unlock" style="color:#6C5CE7"></i>Reward on completion: WAV trip types · <strong style="color:#2D3748">$71.40 avg/trip</strong> · priority matching · Specialist badge on your public profile.</div>
+</div>
+<div style="display:flex;gap:16px">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">TIER 3 BADGES · VISIBLE TO PARTICIPANTS</span>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ badges }}" as="b" hint-placeholder-count="5">
+<span style="display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:12.5px;font-weight:700;border:1px dashed #E8E5E1"><i class="fa-solid {{ b.icon }}" style="color:#8B7EEE"></i>{{ b.name }}</span>
+</sc-for>
+</div>
+<span style="font-size:12.5px;color:#4A4540;line-height:1.5">Badges appear on your participant-facing profile. Each is a short verified module · earn them in any order once you reach Specialist.</span>
+</div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">THE DESTINATION</span>
+<span style="font-size:16px;font-weight:700"><i class="fa-solid fa-briefcase" style="color:#6C5CE7;margin-right:9px"></i>Employed MoveWell driver</span>
+<span style="font-size:13px;color:#4A4540;line-height:1.5">Complex-tier drivers can move into employed roles · rostered shifts, a MoveWell vehicle, leave and super. We'll invite you when you're eligible.</span>
+<span style="align-self:flex-start;padding:4px 10px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Opens at Tier 3</span>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(255,217,61,0.18);border:1px solid #FFD93D;border-radius:12px;font-size:13px"><i class="fa-solid fa-triangle-exclamation" style="color:#B8860B"></i><span style="flex:1">First aid certificate expires in 21 days · renewing keeps your CareDriver tier active.</span><span style="font-weight:700;color:#6C5CE7;cursor:pointer">Renew</span></div>
+</sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1b" data-screen-label="1b Apply · identity + screening">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Static · apply: identity &amp; screening capture (step 1 of 4)</div>
+<div class="dv-card" style="width:760px;font-family:'Atkinson Hyperlegible',sans-serif;color:#2D3748;background:#FAFAF9">
+<div style="display:flex;align-items:center;gap:16px;padding:12px 28px;background:#fff;border-bottom:1px solid #E8E5E1"><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:26px;margin-left:-9px"><span style="font-size:12px;color:#4A4540">Application · step 1 of 4</span><span style="margin-left:auto;width:160px;height:6px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:25%;height:100%;background:#6C5CE7"></span></span></div>
+<div style="padding:28px;display:flex;flex-direction:column;gap:18px">
+<div><h3 style="margin:0;font-size:22px;font-weight:700">Who's applying?</h3><p style="margin:4px 0 0;font-size:13.5px;color:#4A4540">We check your identity and screening first · everything else can wait.</p></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700">Full name<input value="Amir Hassan" readOnly style="height:46px;border:1px solid #E8E5E1;border-radius:12px;padding:0 14px;font-family:inherit;font-size:15px;font-weight:400;background:#fff;color:#2D3748"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700">Mobile<input value="0421 337 904" readOnly style="height:46px;border:1px solid #E8E5E1;border-radius:12px;padding:0 14px;font-family:inherit;font-size:15px;font-weight:400;background:#fff;color:#2D3748"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700">Driver's licence number<input value="SA · X2984417" readOnly style="height:46px;border:1px solid #E8E5E1;border-radius:12px;padding:0 14px;font-family:inherit;font-size:15px;font-weight:400;background:#fff;color:#2D3748"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700">NDIS Worker Screening number <span style="font-weight:400;color:#4A4540">(if you have one)</span><input value="WS-2041886" readOnly style="height:46px;border:2px solid #6C5CE7;border-radius:12px;padding:0 14px;font-family:inherit;font-size:15px;font-weight:400;background:#fff;color:#2D3748"></label>
+</div>
+<div style="display:flex;align-items:center;gap:12px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:14px 18px">
+<i class="fa-solid fa-shield-halved" style="font-size:18px;color:#5647C9"></i>
+<span style="flex:1;font-size:13.5px;line-height:1.5"><strong>Screening found · you're fast-tracked.</strong> WS-2041886 is valid to 03/2027. We recognise it as-is; no re-check, no fee.</span>
+</div>
+<div style="display:flex;justify-content:flex-end;gap:12px"><button style="height:48px;padding:0 20px;border:1px solid #E8E5E1;border-radius:12px;background:#fff;color:#4A4540;font-family:inherit;font-size:14px;font-weight:700">Save and finish later</button><button style="height:48px;padding:0 26px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:15px;font-weight:700">Continue to credentials</button></div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c" data-screen-label="1c Credentials + training">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Static · credential upload + training modules (steps 2-3 of 4)</div>
+<div class="dv-card" style="width:760px;font-family:'Atkinson Hyperlegible',sans-serif;color:#2D3748;background:#FAFAF9">
+<div style="display:flex;align-items:center;gap:16px;padding:12px 28px;background:#fff;border-bottom:1px solid #E8E5E1"><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:26px;margin-left:-9px"><span style="font-size:12px;color:#4A4540">Application · steps 2-3 of 4</span><span style="margin-left:auto;width:160px;height:6px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:65%;height:100%;background:#6C5CE7"></span></span></div>
+<div style="padding:28px;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<h3 style="margin:0;font-size:18px;font-weight:700">Credentials</h3>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;min-height:58px;padding:8px 18px"><i class="fa-solid fa-id-card" style="color:#6C5CE7;width:22px"></i><span style="flex:1;font-size:14px;font-weight:700">Driver's licence · front and back</span><span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Verified</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:58px;padding:8px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-car-burst" style="color:#6C5CE7;width:22px"></i><span style="flex:1;font-size:14px;font-weight:700">Comprehensive vehicle insurance</span><span style="width:110px;height:8px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:64%;height:100%;background:#6C5CE7"></span></span><span style="font-size:12px;color:#4A4540">Uploading…</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:58px;padding:8px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-kit-medical" style="color:#6C5CE7;width:22px"></i><span style="flex:1;font-size:14px;font-weight:700">First aid (HLTAID011)</span><span style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px dashed #ADA8A2;border-radius:12px;font-size:12.5px;color:#4A4540;cursor:pointer"><i class="fa-solid fa-arrow-up-from-bracket"></i>Drop file or browse</span></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<h3 style="margin:0;font-size:18px;font-weight:700">Training · disability awareness</h3>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:14px;font-weight:700">Module 4 of 5 · Communication and consent</span><span style="font-size:12px;color:#4A4540">12 min</span></div>
+<div style="height:8px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:60%;height:100%;background:#6C5CE7"></span></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#4A4540"><i class="fa-solid fa-unlock" style="color:#6C5CE7"></i>Completing all 5 finishes your CareDriver requirement · the last step before activation.</div>
+<button style="align-self:flex-start;height:44px;padding:0 22px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:14px;font-weight:700">Resume module</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1d" data-screen-label="1d Readiness + activation">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Static · readiness / verification status → activation (step 4 of 4)</div>
+<div class="dv-card" style="width:760px;font-family:'Atkinson Hyperlegible',sans-serif;color:#2D3748;background:#FAFAF9">
+<div style="display:flex;align-items:center;gap:16px;padding:12px 28px;background:#fff;border-bottom:1px solid #E8E5E1"><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:26px;margin-left:-9px"><span style="font-size:12px;color:#4A4540">Application · step 4 of 4</span><span style="margin-left:auto;width:160px;height:6px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:100%;height:100%;background:#6C5CE7"></span></span></div>
+<div style="padding:28px;display:flex;flex-direction:column;gap:18px">
+<div><h3 style="margin:0;font-size:22px;font-weight:700">Almost there, Amir.</h3><p style="margin:4px 0 0;font-size:13.5px;color:#4A4540">One item is with our verification team. We'll text you the moment you're live.</p></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:14px;min-height:56px;padding:8px 18px"><span style="width:30px;height:30px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-check"></i></span><span style="flex:1;font-size:14px;font-weight:700">Identity verified</span><span style="font-size:12px;color:#4A4540">Mon 13/07</span></div>
+<div style="display:flex;align-items:center;gap:14px;min-height:56px;padding:8px 18px;border-top:1px solid #F7F6F4"><span style="width:30px;height:30px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-check"></i></span><span style="flex:1;font-size:14px;font-weight:700">NDIS Worker Screening recognised</span><span style="font-size:12px;color:#4A4540">Mon 13/07 · fast-tracked</span></div>
+<div style="display:flex;align-items:center;gap:14px;min-height:56px;padding:8px 18px;border-top:1px solid #F7F6F4"><span style="width:30px;height:30px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-check"></i></span><span style="flex:1;font-size:14px;font-weight:700">Disability-awareness training complete</span><span style="font-size:12px;color:#4A4540">Wed 15/07 · 5 of 5 modules</span></div>
+<div style="display:flex;align-items:center;gap:14px;min-height:56px;padding:8px 18px;border-top:1px solid #F7F6F4"><span style="width:30px;height:30px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-hourglass-half"></i></span><span style="flex:1;font-size:14px;font-weight:700">Vehicle insurance · under review</span><span style="font-size:12px;color:#4A4540">Usually 24-48 h</span></div>
+</div>
+<div style="background:#6C5CE7;border-radius:12px;padding:22px;color:#fff;display:flex;align-items:center;gap:18px">
+<span style="width:52px;height:52px;border-radius:9999px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:22px"><i class="fa-solid fa-flag-checkered"></i></span>
+<span style="flex:1"><span style="display:block;font-size:18px;font-weight:700">Next: you're a CareDriver.</span><span style="display:block;font-size:13.5px;opacity:0.9;line-height:1.5">On activation you'll get the Driver App sign-in, your public profile goes live, and trip offers start in Adelaide north · average $1,040/week.</span></span>
+<button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#fff;color:#5647C9;font-family:inherit;font-size:14px;font-weight:700;flex:none">Preview my profile</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "make the training module player interactive" · "add the public driver profile the badges feed into" · "storyboard the Specialist upgrade journey end-to-end"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;landing&quot;,&quot;options&quot;:[&quot;landing&quot;,&quot;hub&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;persona&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;deb&quot;,&quot;options&quot;:[&quot;amir&quot;,&quot;deb&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = { view: null, persona: null };
+  renderVals() {
+    const view = this.state.view ?? (this.props.startView ?? 'landing');
+    const persona = this.state.persona ?? (this.props.persona ?? 'deb');
+    const isAmir = persona === 'amir', isDeb = !isAmir;
+    const P = '#6C5CE7', PL = '#8B7EEE', G = '#1F7A33', GBG = 'rgba(45,167,72,0.14)';
+    const ladder = isAmir ? [
+      { name: 'CareDriver', sub: '2 of 4 activation steps done · you are here', icon: 'fa-location-dot', dotBg: P, dotBorder: '0', dotFg: '#fff', nameFg: '#2D3748', hasStem: true, stemBg: '#E8E5E1' },
+      { name: 'Specialist', sub: 'WAV + manual handling · +$310/wk', icon: 'fa-lock', dotBg: '#fff', dotBorder: '1px solid #E8E5E1', dotFg: '#ADA8A2', nameFg: '#4A4540', hasStem: true, stemBg: '#E8E5E1' },
+      { name: 'Complex + badges', sub: 'High-dependency · path to employment', icon: 'fa-lock', dotBg: '#fff', dotBorder: '1px solid #E8E5E1', dotFg: '#ADA8A2', nameFg: '#4A4540', hasStem: false, stemBg: '#E8E5E1' },
+    ] : [
+      { name: 'CareDriver', sub: 'Active since 11/2025 · 148 trips', icon: 'fa-check', dotBg: GBG, dotBorder: '0', dotFg: G, nameFg: '#2D3748', hasStem: true, stemBg: P },
+      { name: 'Specialist', sub: '2 of 4 modules · you are here', icon: 'fa-location-dot', dotBg: P, dotBorder: '0', dotFg: '#fff', nameFg: '#2D3748', hasStem: true, stemBg: '#E8E5E1' },
+      { name: 'Complex + badges', sub: 'High-dependency · path to employment', icon: 'fa-lock', dotBg: '#fff', dotBorder: '1px solid #E8E5E1', dotFg: '#ADA8A2', nameFg: '#4A4540', hasStem: false, stemBg: '#E8E5E1' },
+    ];
+    const modules = [
+      { name: 'Manual handling', sub: 'Completed 02/06', icon: 'fa-hands-holding', status: 'Done', border: '#E8E5E1', bg: '#fff', iconBg: GBG, iconFg: G, lozBg: GBG, lozFg: G },
+      { name: 'Vehicle audit', sub: 'Passed 24/06 · WAV-ready', icon: 'fa-car-side', status: 'Done', border: '#E8E5E1', bg: '#fff', iconBg: GBG, iconFg: G, lozBg: GBG, lozFg: G },
+      { name: 'Restraint compliance', sub: '45 min · practical assessment', icon: 'fa-user-shield', status: 'Start', border: PL, bg: '#F5F3FF', iconBg: '#fff', iconFg: P, lozBg: P, lozFg: '#fff' },
+      { name: 'Complex-acuity standards', sub: '1 h · practice-standards alignment', icon: 'fa-book-medical', status: 'Up next', border: '#E8E5E1', bg: '#fff', iconBg: '#F5F3FF', iconFg: P, lozBg: '#F7F6F4', lozFg: '#4A4540' },
+    ];
+    const badges = [
+      { name: 'Auslan', icon: 'fa-hands' }, { name: 'AAC', icon: 'fa-comment-dots' },
+      { name: 'Paediatric', icon: 'fa-child-reaching' }, { name: 'Mental-health first aid', icon: 'fa-heart-pulse' },
+      { name: 'Sensory-calm', icon: 'fa-moon' },
+    ];
+    return {
+      isLanding: view === 'landing', isHub: view === 'hub',
+      chromeUrl: view === 'landing' ? 'drive.movewell.com.au' : 'drive.movewell.com.au/portal',
+      applyNow: () => this.setState({ view: 'hub', persona: 'amir' }),
+      setAmir: () => this.setState({ persona: 'amir' }), setDeb: () => this.setState({ persona: 'deb' }),
+      isAmir, isDeb,
+      amirBg: isAmir ? P : 'transparent', amirFg: isAmir ? '#fff' : '#4A4540',
+      debBg: isDeb ? P : 'transparent', debFg: isDeb ? '#fff' : '#4A4540',
+      avatarInitials: isAmir ? 'AH' : 'DK',
+      personName: isAmir ? 'Amir Hassan' : 'Deb Kaur',
+      personSub: isAmir ? 'Applicant · Adelaide north' : 'CareDriver · Adelaide north',
+      ladder, modules, badges,
+    };
+  }
+}
+</script>
+</body>
+</html>
