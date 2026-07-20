@@ -39,10 +39,14 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:1;display:flex;flex-direction:column;gap:10px">
 <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540"><i class="fa-solid fa-mobile-screen" style="color:#E85555"></i>MOBILE</div>
 <sc-for list="{{ mobList }}" as="u" hint-placeholder-count="4">
-<div onClick="{{ u.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 14px;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer;box-sizing:border-box" style-hover="background:#F7F6F4">
+<div style="display:flex;align-items:center;gap:10px;min-height:64px;padding:10px 14px;border:1px solid #E8E5E1;border-radius:12px;box-sizing:border-box">
+<div onClick="{{ u.onPick }}" style="flex:1;min-width:0;display:flex;align-items:center;gap:12px;cursor:pointer">
 <span style="width:40px;height:40px;border-radius:9999px;background:{{ u.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex:none">{{ u.init }}</span>
-<span style="flex:1"><span style="display:block;font-size:14.5px;font-weight:700">{{ u.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ u.desc }}</span></span>
-<i class="fa-solid fa-arrow-right" style="color:#E8E5E1;font-size:12px"></i>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:14.5px;font-weight:700">{{ u.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ u.desc }}</span></span>
+</div>
+<sc-if value="{{ u.hasReg }}" hint-placeholder-val="{{ true }}">
+<span onClick="{{ u.onReg }}" style="display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700;cursor:pointer;flex:none" style-hover="background:#EDE9FE"><i class="fa-solid fa-user-plus"></i>Sign up</span>
+</sc-if>
 </div>
 </sc-for>
 </div>
@@ -98,8 +102,14 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-if value="{{ isLena }}" hint-placeholder-val="{{ false }}">
 <dc-import name="DriverApp" role="employed" on-logout="{{ logout }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
 </sc-if>
-<sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
-<dc-import name="ParticipantOnboarding" on-logout="{{ logout }}" on-done="{{ goRider }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
+<sc-if value="{{ isRegParticipant }}" hint-placeholder-val="{{ false }}">
+<dc-import name="ParticipantOnboarding" start="participant" on-logout="{{ logout }}" on-done="{{ goRider }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
+</sc-if>
+<sc-if value="{{ isRegSupporter }}" hint-placeholder-val="{{ false }}">
+<dc-import name="ParticipantOnboarding" start="supporter" on-logout="{{ logout }}" on-done="{{ goRider }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
+</sc-if>
+<sc-if value="{{ isRegDriver }}" hint-placeholder-val="{{ false }}">
+<dc-import name="DriverOnboarding" on-logout="{{ logout }}" on-done="{{ goDriver }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
 </sc-if>
 
 </div>
@@ -109,7 +119,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;menu&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;leo&quot;,&quot;amy&quot;,&quot;admin&quot;,&quot;maya&quot;,&quot;anna&quot;,&quot;deb&quot;,&quot;lena&quot;,&quot;signup&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;menu&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;leo&quot;,&quot;amy&quot;,&quot;admin&quot;,&quot;maya&quot;,&quot;anna&quot;,&quot;deb&quot;,&quot;lena&quot;,&quot;reg-participant&quot;,&quot;reg-supporter&quot;,&quot;reg-driver&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
   state = { screen: null, vw: window.innerWidth, vh: window.innerHeight };
   componentDidMount() {
@@ -139,30 +149,32 @@ class Component extends DCLogic {
 
     // --- Mobile ---
     const mobDefs = [
-      { k: 'maya', init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', desc: 'Participant · books her own rides' },
-      { k: 'anna', init: 'AP', avBg: '#FF8E8E', name: 'Anna Patel', desc: 'Supporter · books for Maya and Sam' },
-      { k: 'deb', init: 'DK', avBg: '#6C5CE7', name: 'Deb Kowalski', desc: 'Contractor driver · CareDriver tier' },
-      { k: 'lena', init: 'LV', avBg: '#5647C9', name: 'Lena Voss', desc: 'Employed driver · Complex tier, rostered' },
-      { k: 'signup', init: '+', avBg: '#FF6B6B', name: 'New participant', desc: 'Self-service sign-up · no account yet' },
+      { k: 'maya', init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', desc: 'Participant · books her own rides', reg: 'reg-participant' },
+      { k: 'anna', init: 'AP', avBg: '#FF8E8E', name: 'Anna Patel', desc: 'Supporter · books for Maya and Sam', reg: 'reg-supporter' },
+      { k: 'deb', init: 'DK', avBg: '#6C5CE7', name: 'Deb Kowalski', desc: 'Contractor driver · CareDriver tier', reg: 'reg-driver' },
+      { k: 'lena', init: 'LV', avBg: '#5647C9', name: 'Lena Voss', desc: 'Employed driver · Complex tier, rostered', reg: 'reg-driver' },
     ];
 
     const isLeo = screen === 'leo', isAmy = screen === 'amy', isAdmin = screen === 'admin';
-    const isMaya = screen === 'maya', isAnna = screen === 'anna', isDeb = screen === 'deb', isLena = screen === 'lena', isSignup = screen === 'signup';
+    const isMaya = screen === 'maya', isAnna = screen === 'anna', isDeb = screen === 'deb', isLena = screen === 'lena';
+    const isRegParticipant = screen === 'reg-participant', isRegSupporter = screen === 'reg-supporter', isRegDriver = screen === 'reg-driver';
 
     return {
       isMenu: !screen,
       isWebScreen: isLeo || isAmy,
       isAdminScreen: isAdmin,
-      isMobileScreen: isMaya || isAnna || isDeb || isLena || isSignup,
+      isMobileScreen: isMaya || isAnna || isDeb || isLena || isRegParticipant || isRegSupporter || isRegDriver,
 
       webList: wsDefs.map(w => ({ ...w, onPick: () => this.setState({ screen: w.k }) })),
-      mobList: mobDefs.map(d => ({ ...d, onPick: () => this.setState({ screen: d.k }) })),
+      mobList: mobDefs.map(d => ({ ...d, onPick: () => this.setState({ screen: d.k }), onReg: () => this.setState({ screen: d.reg }), hasReg: !!d.reg })),
 
       isLeo, isAmy,
       wsLabel: cur ? cur.label : '', wsUserInit: cur ? cur.userInit : '', wsUserName: cur ? cur.userName : '', wsUserBg: cur ? cur.userBg : '#2D3748',
 
-      isMaya, isAnna, isDeb, isLena, isSignup,
+      isMaya, isAnna, isDeb, isLena,
+      isRegParticipant, isRegSupporter, isRegDriver,
       goRider: () => this.setState({ screen: 'maya' }),
+      goDriver: () => this.setState({ screen: 'deb' }),
       frameW, frameH,
 
       logout: toMenu,

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+body{margin:0;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
+</style>
+</helmet>
+
+<div style="width:100%;height:100%;box-sizing:border-box;padding-top:60px;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748">
+
+<sc-if value="{{ isWelcome }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="padding:14px 22px 0"><img src="./assets/movewell-driver-purple.svg" alt="MoveWell" style="height:28px;display:block;margin-left:-10px"></div>
+<div style="padding:24px 22px 0">
+<h1 style="margin:0;font-size:27px;font-weight:700;line-height:1.15">Drive with purpose.</h1>
+<p style="margin:10px 0 0;font-size:15px;color:#4A4540;line-height:1.5">Support people to get where they need to be. Flexible hours, no cash handled, and a clear path to higher-paid specialist work.</p>
+</div>
+<div style="display:flex;gap:10px;padding:22px 22px 0">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px"><div style="font-size:20px;font-weight:700;color:#5647C9">$0</div><div style="font-size:12px;color:#4A4540">cash handled in the car</div></div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px"><div style="font-size:20px;font-weight:700;color:#5647C9">3 tiers</div><div style="font-size:12px;color:#4A4540">level up as you go</div></div>
+</div>
+<div style="padding:22px;margin-top:auto">
+<button onClick="{{ goDMobile }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Start your application</button>
+<div style="text-align:center;margin-top:14px"><span onClick="{{ toMenu }}" style="font-size:13px;color:#6C5CE7;font-weight:700;cursor:pointer">Back to the demo menu</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isStep }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<span onClick="{{ stepBack }}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px"><i class="fa-solid fa-chevron-left"></i></span>
+<span style="flex:1"></span>
+<span style="display:flex;gap:5px;padding-right:8px"><sc-for list="{{ dots }}" as="d" hint-placeholder-count="5"><span style="width:8px;height:8px;border-radius:9999px;background:{{ d }}"></span></sc-for></span>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;padding:8px 22px 0">
+
+<sc-if value="{{ isDMobile }}" hint-placeholder-val="{{ true }}">
+<h2 style="margin:0 0 6px;font-size:23px;font-weight:700">Your mobile</h2>
+<p style="margin:0 0 18px;font-size:14px;color:#4A4540">We text a code to confirm it. This becomes your driver sign-in.</p>
+<div style="display:flex;align-items:center;gap:10px;height:56px;padding:0 16px;background:#fff;border:2px solid #6C5CE7;border-radius:12px"><i class="fa-solid fa-mobile-screen" style="color:#6C5CE7"></i><span style="font-size:17px;font-weight:700">+61 4·· ··· 630</span></div>
+</sc-if>
+
+<sc-if value="{{ isDOtp }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-size:23px;font-weight:700">Enter your code</h2>
+<p style="margin:0 0 18px;font-size:14px;color:#4A4540">Sent to +61 4·· ··· 630.</p>
+<div style="display:flex;gap:10px"><sc-for list="{{ otp }}" as="c" hint-placeholder-count="4"><span style="flex:1;height:60px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;background:#fff;border:2px solid #6C5CE7;border-radius:12px">{{ c }}</span></sc-for></div>
+<div style="margin-top:16px;font-size:13px;color:#6C5CE7;font-weight:700">Resend code</div>
+</sc-if>
+
+<sc-if value="{{ isDIdent }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-size:23px;font-weight:700">About you</h2>
+<p style="margin:0 0 16px;font-size:14px;color:#4A4540">We recognise an existing NDIS Worker Screening so you can start sooner.</p>
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+<sc-for list="{{ scrOpts }}" as="o" hint-placeholder-count="2">
+<div onClick="{{ o.onPick }}" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:{{ o.bg }};border:{{ o.border }};border-radius:12px;cursor:pointer;box-sizing:border-box"><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ o.name }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ o.desc }}</span></span><sc-if value="{{ o.sel }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-circle-check" style="color:#6C5CE7;font-size:19px"></i></sc-if></div>
+</sc-for>
+</div>
+<div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">DRIVER LICENCE</div>
+<div style="display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px"><i class="fa-solid fa-id-card" style="color:#6C5CE7"></i><span style="font-size:15px;font-weight:700">SA · full · verified</span><i class="fa-solid fa-circle-check" style="color:#1F7A33;margin-left:auto"></i></div>
+</sc-if>
+
+<sc-if value="{{ isDVehicle }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-size:23px;font-weight:700">Your vehicle</h2>
+<p style="margin:0 0 16px;font-size:14px;color:#4A4540">Drive your own, or use a MoveWell vehicle for specialist work.</p>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ vehOpts }}" as="v" hint-placeholder-count="3">
+<div onClick="{{ v.onPick }}" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:{{ v.bg }};border:{{ v.border }};border-radius:12px;cursor:pointer;box-sizing:border-box"><span style="width:40px;height:40px;border-radius:10px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:16px;flex:none"><i class="fa-solid {{ v.icon }}"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ v.name }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ v.desc }}</span></span><sc-if value="{{ v.sel }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-circle-check" style="color:#6C5CE7;font-size:19px"></i></sc-if></div>
+</sc-for>
+</div>
+<div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:rgba(45,167,72,0.12);color:#1F7A33;font-size:12px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Insurance</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:rgba(45,167,72,0.12);color:#1F7A33;font-size:12px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Rego</span>
+<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:rgba(45,167,72,0.12);color:#1F7A33;font-size:12px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Vehicle photos</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDTier }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-size:23px;font-weight:700">Your path</h2>
+<p style="margin:0 0 16px;font-size:14px;color:#4A4540">Start as a CareDriver and level up. Higher tiers unlock more trips and higher pay.</p>
+<div style="display:flex;flex-direction:column;gap:12px">
+<sc-for list="{{ ladder }}" as="t" hint-placeholder-count="3">
+<div style="background:#fff;border:{{ t.border }};border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="width:36px;height:36px;border-radius:10px;background:{{ t.iconBg }};color:{{ t.iconFg }};display:flex;align-items:center;justify-content:center;font-size:15px;flex:none"><i class="fa-solid {{ t.icon }}"></i></span>
+<span style="flex:1;font-size:16px;font-weight:700">{{ t.name }}</span>
+<span style="padding:4px 10px;border-radius:9999px;background:{{ t.tagBg }};color:{{ t.tagFg }};font-size:11px;font-weight:700">{{ t.tag }}</span>
+</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">{{ t.desc }}</div>
+<div style="font-size:12.5px;font-weight:700;color:#5647C9">{{ t.pay }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+</div>
+<div style="padding:16px 22px 20px">
+<button onClick="{{ stepNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">{{ stepCta }}</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDDone }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 26px">
+<span style="width:76px;height:76px;border-radius:9999px;background:#F5F3FF;color:#5647C9;display:flex;align-items:center;justify-content:center;font-size:32px"><i class="fa-solid fa-circle-check"></i></span>
+<h1 style="margin:20px 0 6px;font-size:26px;font-weight:700">Application submitted.</h1>
+<p style="margin:0;font-size:15px;color:#4A4540;line-height:1.5">We are reviewing your screening and documents. You will be ready to take trips as a CareDriver shortly.</p>
+<div style="width:100%;margin-top:22px;background:#fff;border:1px solid #E8E5E1;border-radius:14px;overflow:hidden;text-align:left">
+<sc-for list="{{ pipeline }}" as="p" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:10px;min-height:46px;padding:8px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid {{ p.icon }}" style="color:{{ p.color }};width:22px"></i><span style="flex:1;font-size:13.5px">{{ p.label }}</span><span style="font-size:12px;color:{{ p.color }};font-weight:700">{{ p.state }}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="padding:8px 22px 22px;display:flex;flex-direction:column;gap:10px">
+<button onClick="{{ toDriver }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Open the driver app</button>
+<button onClick="{{ toMenu }}" style="width:100%;height:48px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#4A4540;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Back to the demo menu</button>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sc: 'welcome', scr: 'port', veh: 'sedan' };
+  renderVals() {
+    const S = this.state, P = this.props;
+    const go = s => () => this.setState({ sc: s });
+    const order = ['dmobile', 'dotp', 'dident', 'dvehicle', 'dtier'];
+    const idx = order.indexOf(S.sc);
+    const isStep = idx >= 0;
+    const dots = order.map((_, i) => i === idx ? '#6C5CE7' : (i < idx ? '#8B7EEE' : '#E8E5E1'));
+    const nextMap = { dmobile: 'dotp', dotp: 'dident', dident: 'dvehicle', dvehicle: 'dtier', dtier: 'ddone' };
+    const backMap = { dmobile: 'welcome', dotp: 'dmobile', dident: 'dotp', dvehicle: 'dident', dtier: 'dvehicle' };
+    const ctaMap = { dmobile: 'Send code', dotp: 'Verify', dident: 'Continue', dvehicle: 'Continue', dtier: 'Submit application' };
+    const scrDefs = [
+      { k: 'port', name: 'I have NDIS Worker Screening', desc: 'We recognise it. Fast-track your start.' },
+      { k: 'new', name: 'I need to apply', desc: 'We guide you through the screening check.' },
+    ];
+    const scrOpts = scrDefs.map(o => ({ ...o, sel: S.scr === o.k, bg: S.scr === o.k ? '#F5F3FF' : '#fff', border: S.scr === o.k ? '2px solid #6C5CE7' : '1px solid #E8E5E1', onPick: () => this.setState({ scr: o.k }) }));
+    const vehDefs = [
+      { k: 'sedan', icon: 'fa-car', name: 'My own sedan', desc: 'Ambulatory participants, CareDriver' },
+      { k: 'wav', icon: 'fa-wheelchair', name: 'My own WAV', desc: 'Wheelchair accessible, Specialist tier' },
+      { k: 'fleet', icon: 'fa-van-shuttle', name: 'Use a MoveWell vehicle', desc: 'For complex and specialist work' },
+    ];
+    const vehOpts = vehDefs.map(v => ({ ...v, sel: S.veh === v.k, bg: S.veh === v.k ? '#F5F3FF' : '#fff', border: S.veh === v.k ? '2px solid #6C5CE7' : '1px solid #E8E5E1', onPick: () => this.setState({ veh: v.k }) }));
+    const ladder = [
+      { name: 'CareDriver', icon: 'fa-user', iconBg: '#F5F3FF', iconFg: '#6C5CE7', border: '2px solid #6C5CE7', tag: 'You start here', tagBg: '#F5F3FF', tagFg: '#5647C9', desc: 'Ambulatory participants in a sedan. Screening plus disability-awareness training.', pay: 'Base earnings' },
+      { name: 'Specialist', icon: 'fa-wheelchair', iconBg: '#F7F6F4', iconFg: '#4A4540', border: '1px solid #E8E5E1', tag: 'Level up', tagBg: '#F7F6F4', tagFg: '#4A4540', desc: 'WAV and manual handling. Vehicle audit and restraint compliance unlock WAV trips.', pay: 'Around +$310 per week' },
+      { name: 'Complex · employed', icon: 'fa-star', iconBg: '#F7F6F4', iconFg: '#4A4540', border: '1px solid #E8E5E1', tag: 'Level up', tagBg: '#F7F6F4', tagFg: '#4A4540', desc: 'High-dependency work plus verified badges (Auslan, AAC, mental-health first aid). The path to an employed MoveWell role.', pay: 'Highest pay, rostered shifts' },
+    ];
+    const pipeline = [
+      { icon: 'fa-circle-check', color: '#1F7A33', label: 'Identity and licence', state: 'Verified' },
+      { icon: 'fa-circle-check', color: '#1F7A33', label: 'NDIS Worker Screening', state: S.scr === 'port' ? 'Recognised' : 'Applied' },
+      { icon: 'fa-hourglass-half', color: '#8A6800', label: 'Credentials and vehicle', state: 'In review' },
+      { icon: 'fa-clock', color: '#4A4540', label: 'Disability-awareness training', state: 'Next' },
+    ];
+    const otp = ['5', '2', '9', '0'];
+    return {
+      isWelcome: S.sc === 'welcome',
+      isStep, dots, stepCta: ctaMap[S.sc] || 'Continue',
+      stepNext: () => this.setState({ sc: nextMap[this.state.sc] || 'ddone' }),
+      stepBack: () => this.setState({ sc: backMap[this.state.sc] || 'welcome' }),
+      isDMobile: S.sc === 'dmobile', isDOtp: S.sc === 'dotp', isDIdent: S.sc === 'dident',
+      isDVehicle: S.sc === 'dvehicle', isDTier: S.sc === 'dtier', isDDone: S.sc === 'ddone',
+      goDMobile: go('dmobile'),
+      scrOpts, vehOpts, ladder, pipeline, otp,
+      toMenu: () => (P.onLogout || (() => {}))(),
+      toDriver: () => (P.onDone || (() => {}))(),
+    };
+  }
+}
+</script>
+</body>
+</html>

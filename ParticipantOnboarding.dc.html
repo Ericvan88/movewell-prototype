@@ -191,12 +191,13 @@ body{margin:0;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,s
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { sc: 'welcome', plan: 'plan', a11y: { Ambulatory: true }, sup: false };
+  state = { sc: null, plan: 'plan', a11y: { Ambulatory: true }, sup: false };
   renderVals() {
     const S = this.state, P = this.props;
     const go = s => () => this.setState({ sc: s });
+    const sc = S.sc ?? (P.start === 'supporter' ? 'slookup' : P.start === 'participant' ? 'pmobile' : 'welcome');
     const order = ['pmobile', 'potp', 'pndis', 'paddress', 'paccess', 'pconsent'];
-    const idx = order.indexOf(S.sc);
+    const idx = order.indexOf(sc);
     const isStep = idx >= 0;
     const dots = order.map((_, i) => i === idx ? '#FF6B6B' : (i < idx ? '#FF9B9B' : '#E8E5E1'));
     const nextMap = { pmobile: 'potp', potp: 'pndis', pndis: 'paddress', paddress: 'paccess', paccess: 'pconsent', pconsent: 'pdone' };
@@ -212,14 +213,14 @@ class Component extends DCLogic {
     const supLine = S.sup ? 'Supporter invited · they confirm to join' : 'No Supporter added · you can invite one later';
     const otp = ['4', '8', '1', '2'];
     return {
-      isWelcome: S.sc === 'welcome',
-      isStep, dots, stepCta: ctaMap[S.sc] || 'Continue',
-      stepNext: () => this.setState({ sc: nextMap[this.state.sc] || 'pdone' }),
-      stepBack: () => this.setState({ sc: backMap[this.state.sc] || 'welcome' }),
-      isPMobile: S.sc === 'pmobile', isPOtp: S.sc === 'potp', isPNdis: S.sc === 'pndis',
-      isPAddress: S.sc === 'paddress', isPAccess: S.sc === 'paccess', isPConsent: S.sc === 'pconsent',
-      isPDone: S.sc === 'pdone',
-      isSLookup: S.sc === 'slookup', isSRequest: S.sc === 'srequest', isSWait: S.sc === 'swait',
+      isWelcome: sc === 'welcome',
+      isStep, dots, stepCta: ctaMap[sc] || 'Continue',
+      stepNext: () => this.setState({ sc: nextMap[sc] || 'pdone' }),
+      stepBack: () => this.setState({ sc: backMap[sc] || 'welcome' }),
+      isPMobile: sc === 'pmobile', isPOtp: sc === 'potp', isPNdis: sc === 'pndis',
+      isPAddress: sc === 'paddress', isPAccess: sc === 'paccess', isPConsent: sc === 'pconsent',
+      isPDone: sc === 'pdone',
+      isSLookup: sc === 'slookup', isSRequest: sc === 'srequest', isSWait: sc === 'swait',
       goWelcome: go('welcome'), goPMobile: go('pmobile'), goSLookup: go('slookup'), goSRequest: go('srequest'), goSWait: go('swait'),
       planOpts, planName, a11yChips, a11ySummary, supToggle, supOn: S.sup, supLine, otp, otpVals: otp,
       toMenu: () => (P.onLogout || (() => {}))(),
