@@ -382,12 +382,125 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 </sc-if>
 
+<sc-if value="{{ isTripsearch }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Trip search</h2><span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;color:#4A4540;font-size:13px;width:290px"><i class="fa-solid fa-magnifying-glass" style="font-size:12px"></i>Search trip ID, participant, driver, suburb</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ tsFilters }}" as="f" hint-placeholder-count="5"><span style="padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1fr 1.3fr 1.3fr 1.8fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>TRIP</span><span>PARTICIPANT</span><span>DRIVER</span><span>ROUTE</span><span>WHEN</span><span>STATUS</span></div>
+<sc-for list="{{ tsRows }}" as="t" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:1fr 1.3fr 1.3fr 1.8fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ t.id }}</span><span style="font-weight:700">{{ t.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ t.driver }}</span><span style="font-size:12.5px">{{ t.route }}</span><span style="font-size:12.5px;color:#4A4540">{{ t.when }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ t.stBg }};color:{{ t.stFg }};font-size:11px;font-weight:700">{{ t.stLabel }}</span></span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">214 trips today. Every trip links to its participant, driver, vehicle, support items and claim status.</div>
+</sc-if>
+
+<sc-if value="{{ isPrivacy }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Privacy &amp; access logs</h2><span style="font-size:12.5px;color:#4A4540">who viewed or changed what</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.4fr 1.2fr 2fr 1.4fr 0.8fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>WHO</span><span>ROLE</span><span>ACTION</span><span>RECORD</span><span>WHEN</span></div>
+<sc-for list="{{ accessLogs }}" as="l" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:1.4fr 1.2fr 2fr 1.4fr 0.8fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ l.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.role }}</span><span style="font-size:12.5px">{{ l.action }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.record }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.when }}</span></div>
+</sc-for>
+</div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;font-size:13px;color:#5647C9;line-height:1.5"><i class="fa-solid fa-lock" style="margin-top:2px"></i><span>The access log is immutable and audit-ready. Participants can request their own log. Drivers only ever see practical support notes, never a diagnosis or plan detail.</span></div>
+</sc-if>
+
+<sc-if value="{{ isPricing }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Pricing &amp; line items</h2><span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-book"></i>Pricing book 2025-26 · effective 01/07/2025</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.5fr 1.9fr 1.3fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>SUPPORT ITEM</span><span>NAME</span><span>BASIS</span><span>RATE</span><span>EFFECTIVE</span></div>
+<sc-for list="{{ rateCard }}" as="r" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:1.5fr 1.9fr 1.3fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ r.code }}</span><span style="font-weight:700">{{ r.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.basis }}</span><span style="font-size:12.5px">{{ r.rate }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.eff }}</span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Rates are effective-dated and held to NDIS price limits. No gap fees or surcharges. Support-worker time, transport, and non-labour travel are always claimed on separate lines.</div>
+</sc-if>
+
+<sc-if value="{{ isProviders }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Plan managers &amp; providers</h2><span style="font-size:12.5px;color:#4A4540">claim and invoice routing</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.6fr 1.4fr 1.4fr 1.6fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>NAME</span><span>TYPE</span><span>CONNECTION</span><span>ON PLATFORM</span></div>
+<sc-for list="{{ providers }}" as="p" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:1.6fr 1.4fr 1.4fr 1.6fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ p.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ p.type }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ p.connBg }};color:{{ p.connFg }};font-size:11px;font-weight:700">{{ p.conn }}</span></span><span style="font-size:12.5px;color:#4A4540">{{ p.sub }}</span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Plan-managed claims flow to the connected plan manager. Agency-managed claims export to myplace (PACE). Self-managed participants are invoiced directly.</div>
+</sc-if>
+
+<sc-if value="{{ isVehicles }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Vehicles</h2><span style="font-size:12.5px;color:#4A4540">owned fleet · 18 vehicles, added demand-led</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.6fr 1.6fr 1.1fr 1.4fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>VEHICLE</span><span>CONFIG</span><span>CAPACITY</span><span>NEXT SERVICE</span><span>STATUS</span></div>
+<sc-for list="{{ vehicles }}" as="v" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:1.6fr 1.6fr 1.1fr 1.4fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span><span style="display:block;font-weight:700">{{ v.id }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ v.rego }}</span></span><span style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ v.config }}" as="c" hint-placeholder-count="2"><span style="padding:2px 8px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ c }}</span></sc-for></span><span style="font-size:12.5px;color:#4A4540">{{ v.cap }}</span><span style="font-size:12.5px">{{ v.service }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ v.stBg }};color:{{ v.stFg }};font-size:11px;font-weight:700">{{ v.stLabel }}</span></span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Showing 6 of 18. Each vehicle is a tracked asset with registration, insurance, inspection schedule and accessibility config. Equipment carried is tracked under Equipment.</div>
+</sc-if>
+
+<sc-if value="{{ isEquipment }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Equipment</h2><span style="font-size:12.5px;color:#4A4540">restraints, positioning, child and comms assets</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.7fr 1.3fr 1.3fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>EQUIPMENT</span><span>TYPE</span><span>ASSIGNED</span><span>LAST CHECK</span><span>STATUS</span></div>
+<sc-for list="{{ equipment }}" as="e" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:1.7fr 1.3fr 1.3fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ e.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ e.type }}</span><span style="font-size:12.5px">{{ e.at }}</span><span style="font-size:12.5px;color:#4A4540">{{ e.check }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ e.stBg }};color:{{ e.stFg }};font-size:11px;font-weight:700">{{ e.stLabel }}</span></span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Safety equipment is inventoried per vehicle or in the depot pool, with scheduled checks. Child restraints and AAC kit are matched to participant requirements at booking.</div>
+</sc-if>
+
+<sc-if value="{{ isCredentials }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Credential register</h2><span style="font-size:12.5px;color:#4A4540">screening, training and insurance as tracked assets</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.3fr 1.8fr 1fr 1.3fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>HOLDER</span><span>CREDENTIAL</span><span>LINKED TO</span><span>EXPIRES</span><span>STATUS</span></div>
+<sc-for list="{{ credReg }}" as="c" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:1.3fr 1.8fr 1fr 1.3fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ c.holder }}</span><span style="font-size:12.5px">{{ c.cred }}</span><span style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">{{ c.link }}</span><span style="font-size:12.5px;color:#4A4540">{{ c.expires }}</span><span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ c.icon }}"></i>{{ c.status }}</span></span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Credentials are assets linked to the driver or vehicle they belong to, with expiry alerts. A lapsed credential auto-suspends the driver from matching.</div>
+</sc-if>
+
+<sc-if value="{{ isOutcomes }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Outcomes console</h2><span style="font-size:12.5px;color:#4A4540">platform-wide · quarter to date</span></div>
+<div style="display:flex;gap:12px">
+<sc-for list="{{ ocKpis }}" as="k" hint-placeholder-count="5"><div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ k.label }}</span><span style="font-size:23px;font-weight:700;font-variant-numeric:tabular-nums;color:{{ k.color }}">{{ k.val }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ k.sub }}</span></div></sc-for>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;margin-bottom:14px">ON-TIME PICKUPS BY MONTH</div>
+<div style="display:flex;align-items:flex-end;gap:26px;height:120px;padding:0 6px">
+<sc-for list="{{ ocBars }}" as="b" hint-placeholder-count="6"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end"><span style="display:block;width:100%;height:{{ b.h }};background:#6C5CE7;border-radius:6px 6px 0 0"></span><span style="font-size:11px;color:#4A4540">{{ b.label }}</span></div></sc-for>
+</div>
+</div>
+<div style="font-size:12px;color:#4A4540">Transport outcomes feed participant plan reviews and NDIS reporting. Coordinators and allied health see the slice consented for each participant.</div>
+</sc-if>
+
+<sc-if value="{{ isConfig }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Configuration &amp; flags</h2><span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-clock-rotate-left"></i>Effective-dated · changes are logged</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<sc-for list="{{ flags }}" as="f" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;gap:14px;min-height:58px;padding:8px 18px;border-top:1px solid #F7F6F4"><span style="flex:1"><span style="display:block;font-size:14px;font-weight:700">{{ f.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ f.desc }}</span></span><span style="font-size:12px;font-weight:700;color:#4A4540;width:26px;text-align:right">{{ f.label }}</span><span style="position:relative;width:46px;height:26px;border-radius:9999px;background:{{ f.bg }};flex:none"><span style="position:absolute;top:3px;left:{{ f.left }};width:20px;height:20px;border-radius:9999px;background:#fff"></span></span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Feature flags and business rules are versioned with effective dates. Pricing books, support-item mappings and agreement templates keep their full revision history.</div>
+</sc-if>
+
+<sc-if value="{{ isRbac }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Users &amp; RBAC</h2><span style="margin-left:auto;display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:12px;background:#6C5CE7;color:#fff;font-size:13px;font-weight:700"><i class="fa-solid fa-user-plus" style="margin-right:8px"></i>Invite user</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.6fr 1.3fr 1.6fr 1fr 0.9fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>USER</span><span>ROLE</span><span>SCOPE</span><span>LAST ACTIVE</span><span>STATUS</span></div>
+<sc-for list="{{ rbacUsers }}" as="u" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:1.6fr 1.3fr 1.6fr 1fr 0.9fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="display:flex;align-items:center;gap:10px"><span style="width:30px;height:30px;border-radius:9999px;background:linear-gradient(135deg,#6C5CE7,#8B7EEE);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">{{ u.init }}</span><span style="font-weight:700">{{ u.name }}</span></span><span style="font-size:12.5px;color:#4A4540">{{ u.role }}</span><span style="font-size:12.5px">{{ u.scope }}</span><span style="font-size:12.5px;color:#4A4540">{{ u.active }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Access is role-based and scoped. Every action a user takes is written to the immutable access log under Privacy and access logs.</div>
+</sc-if>
+
 </div>
 </div>
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;startSection&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;liveops&quot;,&quot;options&quot;:[&quot;liveops&quot;,&quot;dispatch&quot;,&quot;riders&quot;,&quot;drivers&quot;,&quot;onboarding&quot;,&quot;fleet&quot;,&quot;claims&quot;,&quot;incidents&quot;,&quot;compliance&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;startSection&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;liveops&quot;,&quot;options&quot;:[&quot;liveops&quot;,&quot;dispatch&quot;,&quot;tripsearch&quot;,&quot;riders&quot;,&quot;drivers&quot;,&quot;onboarding&quot;,&quot;compliance&quot;,&quot;incidents&quot;,&quot;privacy&quot;,&quot;claims&quot;,&quot;pricing&quot;,&quot;providers&quot;,&quot;fleet&quot;,&quot;vehicles&quot;,&quot;equipment&quot;,&quot;credentials&quot;,&quot;outcomes&quot;,&quot;config&quot;,&quot;rbac&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
   state = { section: null, assigned: {}, suspended: { s1: true }, approved: {}, activated: {}, opsF: 'all', flag: 'open', tick: 0 };
   componentDidMount() { this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000); }
@@ -397,18 +510,18 @@ class Component extends DCLogic {
     const sec = S.section ?? (P.startSection ?? 'liveops');
     const nav = k => () => this.setState({ section: k });
     const PURP = '#6C5CE7', PD = '#5647C9', SOFT = '#F5F3FF', G = '#1F7A33', GBG = 'rgba(45,167,72,0.14)', Y = 'rgba(255,217,61,0.25)', YFG = '#8A6800', R = '#C43F3F', RBG = 'rgba(232,85,85,0.12)';
-    const built = { liveops: 1, dispatch: 1, riders: 1, drivers: 1, onboarding: 1, fleet: 1, claims: 1, incidents: 1, compliance: 1 };
+    const built = { liveops: 1, dispatch: 1, tripsearch: 1, riders: 1, drivers: 1, onboarding: 1, compliance: 1, incidents: 1, privacy: 1, claims: 1, pricing: 1, providers: 1, fleet: 1, vehicles: 1, equipment: 1, credentials: 1, outcomes: 1, config: 1, rbac: 1 };
     const mk = (name, icon, key, badge) => ({ name, icon, badge: badge || false,
       bg: key === sec ? SOFT : 'transparent', fg: key === sec ? PD : (built[key] ? '#2D3748' : 'rgba(45,55,72,0.45)'),
       fw: key === sec ? 700 : 400, cursor: built[key] ? 'pointer' : 'default', onNav: built[key] ? nav(key) : () => {} });
     const navGroups = [
-      { label: 'OPERATIONS', items: [mk('Live ops', 'fa-tower-observation', 'liveops'), mk('Dispatch & rostering', 'fa-route', 'dispatch', '3'), mk('Trip search', 'fa-magnifying-glass'), mk('Participants', 'fa-users', 'riders', '3'), mk('Drivers', 'fa-id-card', 'drivers'), mk('Driver onboarding', 'fa-user-plus', 'onboarding', '12')] },
-      { label: 'COMPLIANCE', items: [mk('Compliance hub', 'fa-clipboard-check', 'compliance'), mk('Incident management', 'fa-file-circle-exclamation', 'incidents'), mk('Privacy & access logs', 'fa-eye')] },
-      { label: 'FINANCE', items: [mk('Claims monitor', 'fa-file-invoice-dollar', 'claims'), mk('Pricing & line items', 'fa-tags'), mk('Plan managers & providers', 'fa-building')] },
-      { label: 'FLEET & ASSETS', items: [mk('Assignment view', 'fa-diagram-project', 'fleet'), mk('Vehicles', 'fa-van-shuttle', null, '18'), mk('Equipment', 'fa-wheelchair'), mk('Credential register', 'fa-certificate')] },
-      { label: 'PLATFORM', items: [mk('Outcomes console', 'fa-chart-line'), mk('Configuration & flags', 'fa-sliders'), mk('Users & RBAC', 'fa-user-lock')] },
+      { label: 'OPERATIONS', items: [mk('Live ops', 'fa-tower-observation', 'liveops'), mk('Dispatch & rostering', 'fa-route', 'dispatch', '3'), mk('Trip search', 'fa-magnifying-glass', 'tripsearch'), mk('Participants', 'fa-users', 'riders', '3'), mk('Drivers', 'fa-id-card', 'drivers'), mk('Driver onboarding', 'fa-user-plus', 'onboarding', '12')] },
+      { label: 'COMPLIANCE', items: [mk('Compliance hub', 'fa-clipboard-check', 'compliance'), mk('Incident management', 'fa-file-circle-exclamation', 'incidents'), mk('Privacy & access logs', 'fa-eye', 'privacy')] },
+      { label: 'FINANCE', items: [mk('Claims monitor', 'fa-file-invoice-dollar', 'claims'), mk('Pricing & line items', 'fa-tags', 'pricing'), mk('Plan managers & providers', 'fa-building', 'providers')] },
+      { label: 'FLEET & ASSETS', items: [mk('Assignment view', 'fa-diagram-project', 'fleet'), mk('Vehicles', 'fa-van-shuttle', 'vehicles', '18'), mk('Equipment', 'fa-wheelchair', 'equipment'), mk('Credential register', 'fa-certificate', 'credentials')] },
+      { label: 'PLATFORM', items: [mk('Outcomes console', 'fa-chart-line', 'outcomes'), mk('Configuration & flags', 'fa-sliders', 'config'), mk('Users & RBAC', 'fa-user-lock', 'rbac')] },
     ];
-    const titles = { liveops: 'Live ops', dispatch: 'Dispatch & rostering', riders: 'Participants', drivers: 'Drivers', onboarding: 'Driver onboarding', fleet: 'Assignment view', claims: 'Claims monitor', incidents: 'Incident management', compliance: 'Compliance hub' };
+    const titles = { liveops: 'Live ops', dispatch: 'Dispatch & rostering', tripsearch: 'Trip search', riders: 'Participants', drivers: 'Drivers', onboarding: 'Driver onboarding', compliance: 'Compliance hub', incidents: 'Incident management', privacy: 'Privacy & access logs', claims: 'Claims monitor', pricing: 'Pricing & line items', providers: 'Plan managers & providers', fleet: 'Assignment view', vehicles: 'Vehicles', equipment: 'Equipment', credentials: 'Credential register', outcomes: 'Outcomes console', config: 'Configuration & flags', rbac: 'Users & RBAC' };
 
     // --- live ops (migrated from the standalone Ops Mission Control) ---
     const drv = [
@@ -611,12 +724,117 @@ class Component extends DCLogic {
       { title: 'NDIS practice standards review', when: '18/09/2026 · annual', accent: '#1F7A33' },
     ];
 
+    // --- trip search ---
+    const tsFilters = [
+      { label: 'All · today 214', on: true }, { label: 'Live · 23', on: false }, { label: 'Scheduled · 5', on: false }, { label: 'Completed · 186', on: false }, { label: 'Flagged · 1', on: false },
+    ].map(f => ({ ...f, bg: f.on ? '#2D3748' : '#fff', fg: f.on ? '#fff' : '#4A4540', border: f.on ? '#2D3748' : '#E8E5E1' }));
+    const tsStatus = { done: { label: 'Completed', bg: GBG, fg: G }, live: { label: 'On trip', bg: SOFT, fg: PD }, sched: { label: 'Scheduled', bg: '#F7F6F4', fg: '#4A4540' }, flag: { label: 'Coverage flag', bg: Y, fg: YFG }, canc: { label: 'Cancelled', bg: RBG, fg: R } };
+    const tsRows = [
+      { id: 'TR-88231', who: 'Theo Rossi', driver: 'Marcus Field', route: 'Norwood to Modbury', when: 'Live now', st: 'live' },
+      { id: 'TR-88240', who: 'Aisha Bello', driver: 'Lena Voss', route: 'Salisbury to Elizabeth', when: 'Today 4:10 pm', st: 'sched' },
+      { id: 'TR-88198', who: 'Iris Kaur', driver: 'Unassigned', route: 'Salisbury to Adelaide', when: 'Today 3:10 pm', st: 'flag' },
+      { id: 'TR-88214', who: 'Maya Patel', driver: 'Deb Kaur', route: 'Prospect to North Adelaide', when: 'Today 2:15 pm', st: 'done' },
+      { id: 'TR-88165', who: 'Jordan Teague', driver: 'Harpreet Gill', route: 'Glenelg to CBD', when: 'Yesterday 9:00 am', st: 'done' },
+      { id: 'TR-88150', who: 'Priya Bakshi', driver: 'Jo Tran', route: 'Mile End to day program', when: 'Yesterday 8:40 am', st: 'canc' },
+    ].map(r => ({ ...r, stLabel: tsStatus[r.st].label, stBg: tsStatus[r.st].bg, stFg: tsStatus[r.st].fg }));
+
+    // --- privacy & access logs ---
+    const accessLogs = [
+      { who: 'Leo Marsh', role: 'Coordinator', action: 'Viewed participant profile', record: 'Maya Patel', when: '2:31 pm' },
+      { who: 'Deb Kaur', role: 'Driver', action: 'Viewed pickup support note', record: 'Maya Patel', when: '2:12 pm' },
+      { who: 'Dr Amy Ngo', role: 'Allied health', action: 'Updated transport requirements', record: 'Henry Wallace', when: '1:48 pm' },
+      { who: 'Priya Narayan', role: 'Ops lead', action: 'Exported claims batch', record: '12 participants', when: '11:05 am' },
+      { who: 'Anna Patel', role: 'Supporter', action: 'Viewed live trip', record: 'Maya Patel', when: '9:40 am' },
+    ];
+
+    // --- pricing & line items ---
+    const rateCard = [
+      { code: '04_590_0125_6_1', name: 'Activity based transport', basis: 'Cat 2 transport', rate: 'Agreed per trip', eff: '01/07/2025' },
+      { code: '04_590_0129_6_1', name: 'Specialised transport', basis: 'Quote based', rate: 'Per quote', eff: '01/07/2025' },
+      { code: '01_799_0117_8_1', name: 'Provider travel, non-labour', basis: 'Per each', rate: '$1.00', eff: '01/07/2025' },
+      { code: '04_104_0125_6_1', name: 'Access community, support worker', basis: 'Per hour', rate: '$67.56', eff: '01/07/2025' },
+    ];
+
+    // --- plan managers & providers ---
+    const providers = [
+      { name: 'Leap in!', type: 'Plan manager', conn: 'Connected · API', connBg: GBG, connFg: G, sub: '388 participants' },
+      { name: 'My Plan Manager', type: 'Plan manager', conn: 'Connected · API', connBg: GBG, connFg: G, sub: '171 participants' },
+      { name: 'MoveWell', type: 'Transport provider', conn: 'Owned', connBg: SOFT, connFg: PD, sub: 'Fleet and contractors' },
+      { name: 'AccessGo Transport', type: 'Transport provider', conn: 'Partner', connBg: '#F7F6F4', connFg: '#4A4540', sub: 'Ad hoc trips' },
+      { name: 'NDIA myplace (PACE)', type: 'Agency', conn: 'Export only', connBg: '#F7F6F4', connFg: '#4A4540', sub: 'Agency-managed claims' },
+    ];
+
+    // --- vehicles register ---
+    const vStatus = { out: { label: 'In service', bg: GBG, fg: G }, depot: { label: 'Depot', bg: '#F7F6F4', fg: '#4A4540' }, charge: { label: 'Charging', bg: '#F7F6F4', fg: '#4A4540' } };
+    const vehicles = [
+      { id: 'WAV-04', rego: 'S 209 BFR · Hyundai Staria', config: ['WAV', 'Hoist'], cap: '4 + 1 WC', service: '12/09/2026', st: 'out' },
+      { id: 'SC-01', rego: 'S 771 QMC · Kia Carnival', config: ['Sensory-calm'], cap: '6 seats', service: '20/08/2026', st: 'out' },
+      { id: 'WAV-02', rego: 'S 118 KTR · Hyundai Staria', config: ['WAV'], cap: '4 + 1 WC', service: '12/08/2026 · due', st: 'out' },
+      { id: 'HD-01', rego: 'S 452 KJK · Mercedes Sprinter', config: ['High-dependency'], cap: '2 stretcher', service: '02/10/2026', st: 'depot' },
+      { id: 'CH-02', rego: 'S 903 LMN · Toyota Kluger', config: ['Child restraint'], cap: '5 seats', service: '15/09/2026', st: 'out' },
+      { id: 'EV-03', rego: 'S 640 PQR · VW ID.Buzz', config: ['Standard', 'EV'], cap: '6 seats', service: '28/09/2026', st: 'charge' },
+    ].map(v => ({ ...v, stLabel: vStatus[v.st].label, stBg: vStatus[v.st].bg, stFg: vStatus[v.st].fg }));
+
+    // --- equipment assets ---
+    const eqStatus = { ok: { label: 'OK', bg: GBG, fg: G }, due: { label: 'Recheck due', bg: Y, fg: YFG } };
+    const equipment = [
+      { name: 'Ceiling hoist', type: 'Transfer aid', at: 'WAV-04', check: '10/07/2026', st: 'ok' },
+      { name: 'WAV restraints x4', type: 'Restraint', at: 'WAV-04', check: '10/07/2026', st: 'ok' },
+      { name: 'Child restraint (0 to 4)', type: 'Child', at: 'CH-02', check: '12/07/2026', st: 'ok' },
+      { name: 'Booster seat', type: 'Child', at: 'Depot pool', check: '05/07/2026', st: 'ok' },
+      { name: 'AAC comms board', type: 'Communication', at: 'Depot pool', check: '28/06/2026', st: 'due' },
+      { name: 'Positioning cushion', type: 'Positioning', at: 'HD-01', check: '09/07/2026', st: 'ok' },
+    ].map(e => ({ ...e, stLabel: eqStatus[e.st].label, stBg: eqStatus[e.st].bg, stFg: eqStatus[e.st].fg }));
+
+    // --- credential register ---
+    const credReg = [
+      { holder: 'Deb Kaur', cred: 'First aid', link: 'DR-0387', expires: '10/08/2026', status: '21 days', icon: 'fa-triangle-exclamation', stBg: Y, stFg: YFG },
+      { holder: 'Deb Kaur', cred: 'NDIS worker screening', link: 'DR-0387', expires: '03/2027', status: 'Valid', icon: 'fa-circle-check', stBg: GBG, stFg: G },
+      { holder: 'Marcus Field', cred: 'WAV vehicle audit', link: 'WAV-02', expires: '12/08/2026', status: '23 days', icon: 'fa-triangle-exclamation', stBg: Y, stFg: YFG },
+      { holder: 'Callum Reid', cred: 'Public liability insurance', link: 'DR-0412', expires: '05/07/2026', status: 'Lapsed', icon: 'fa-circle-xmark', stBg: RBG, stFg: R },
+      { holder: 'Lena Voss', cred: 'Complex tier training', link: 'DR-0141', expires: '11/2027', status: 'Valid', icon: 'fa-circle-check', stBg: GBG, stFg: G },
+      { holder: 'Rosa Amato', cred: 'Mental health first aid', link: 'DR-0102', expires: '09/2027', status: 'Valid', icon: 'fa-circle-check', stBg: GBG, stFg: G },
+    ];
+
+    // --- outcomes console ---
+    const ocKpis = [
+      { label: 'ON-TIME PICKUPS', val: '97.2%', sub: 'target 95%', color: G },
+      { label: 'APPOINTMENT ATTENDANCE', val: '96%', sub: '3 pts vs last quarter', color: '#2D3748' },
+      { label: 'GOAL-LINKED TRIPS · MONTH', val: '1,284', sub: 'community and social access', color: '#2D3748' },
+      { label: 'COMPLAINTS · 30 DAYS', val: '3', sub: 'all resolved', color: '#2D3748' },
+      { label: 'SATISFACTION', val: '4.8', sub: 'of 5 · 612 ratings', color: '#2D3748' },
+    ];
+    const ocBars = [ { label: 'Feb', h: '62%' }, { label: 'Mar', h: '70%' }, { label: 'Apr', h: '74%' }, { label: 'May', h: '82%' }, { label: 'Jun', h: '90%' }, { label: 'Jul', h: '96%' } ];
+
+    // --- configuration & flags ---
+    const configFlags = [
+      { name: '2FA verified pickup required', desc: 'Code or QR at every pickup', on: true },
+      { name: 'In-trip SOS · 60 s ops SLA', desc: 'Escalates to the ops desk', on: true },
+      { name: 'Auto-build and send claims', desc: 'Claim built from trip evidence', on: true },
+      { name: 'Auto-chase overdue claims', desc: 'Runs daily at 5 pm', on: true },
+      { name: 'Sensory-calm auto-suggest', desc: 'From the allied-health assessment', on: true },
+      { name: 'Surge nudges to offline drivers', desc: 'During demand spikes', on: false },
+    ].map(f => ({ ...f, bg: f.on ? PURP : '#E8E5E1', left: f.on ? '23px' : '3px', label: f.on ? 'On' : 'Off' }));
+
+    // --- users & RBAC ---
+    const rbacUsers = [
+      { name: 'Priya Narayan', role: 'Operations lead', scope: 'All zones', active: 'Now', init: 'PN' },
+      { name: 'Sam Ochoa', role: 'Dispatch', scope: 'Adelaide metro', active: '12 min ago', init: 'SO' },
+      { name: 'Fiona Reid', role: 'Finance', scope: 'Claims and invoices', active: '1 hr ago', init: 'FR' },
+      { name: 'Marcus Webb', role: 'Compliance', scope: 'IMS and audits', active: 'Today', init: 'MW' },
+      { name: 'Owen Diaz', role: 'Intake', scope: 'Onboarding queue', active: 'Yesterday', init: 'OD' },
+    ];
+
     return {
       logout: () => (this.props.onLogout || (() => {}))(),
       sectionTitle: titles[sec] || 'Admin', navGroups,
       isLiveops: sec === 'liveops', isDispatch: sec === 'dispatch', isRiders: sec === 'riders',
       isDrivers: sec === 'drivers', isOnboarding: sec === 'onboarding', isFleet: sec === 'fleet',
       isClaims: sec === 'claims', isIncidents: sec === 'incidents', isCompliance: sec === 'compliance',
+      isTripsearch: sec === 'tripsearch', isPrivacy: sec === 'privacy', isPricing: sec === 'pricing',
+      isProviders: sec === 'providers', isVehicles: sec === 'vehicles', isEquipment: sec === 'equipment',
+      isCredentials: sec === 'credentials', isOutcomes: sec === 'outcomes', isConfig: sec === 'config', isRbac: sec === 'rbac',
+      tsFilters, tsRows, accessLogs, rateCard, providers, vehicles, equipment, credReg, ocKpis, ocBars, flags: configFlags, rbacUsers,
       opsFilters, opsKpis, opsDots, opsLines, opsDest, opsFlagPins, opsHeat, opsBars, opsTiles,
       flagOpen: S.flag === 'open', flagDone: S.flag === 'done',
       dispatchLena: () => this.setState({ flag: 'done' }),
