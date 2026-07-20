@@ -19,8 +19,8 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 
 <div style="width:100%;height:100%;display:flex;flex-direction:column;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748;font-size:14px">
 <div style="display:flex;align-items:center;gap:14px;padding:18px 28px 0">
-<span style="width:44px;height:44px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">MP</span>
-<div><div style="font-size:20px;font-weight:700">Maya Patel</div><div style="font-size:12.5px;color:#4A4540">Consent to assess and view transport outcomes · valid to 01/2027</div></div>
+<span style="width:44px;height:44px;border-radius:9999px;background:{{ assessAvBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">{{ assessInit }}</span>
+<div><div style="font-size:20px;font-weight:700">{{ assessName }}</div><div style="font-size:12.5px;color:#4A4540">{{ assessSub }}</div></div>
 </div>
 <div style="display:flex;gap:4px;padding:14px 28px 0;border-bottom:1px solid #E8E5E1">
 <sc-for list="{{ ahTabs }}" as="t" hint-placeholder-count="4">
@@ -29,7 +29,35 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 <div style="flex:1;overflow-y:auto;padding:22px 28px;box-sizing:border-box">
 
-<sc-if value="{{ isAhAssess }}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{ isAhReferrals }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;font-size:13px;color:#5647C9"><i class="fa-solid fa-inbox"></i><span style="flex:1">Coordinators refer participants here for a transport assessment. Accept one to set the vehicle requirements bookings will use.</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;max-width:820px">
+<sc-for list="{{ referralsIn }}" as="r" hint-placeholder-count="2">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:12px">
+<span style="width:38px;height:38px;border-radius:9999px;background:{{ r.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">{{ r.init }}</span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ r.who }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ r.type }}</span></span>
+<span style="padding:4px 10px;border-radius:9999px;background:{{ r.stBg }};color:{{ r.stFg }};font-size:11px;font-weight:700">{{ r.status }}</span>
+</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">{{ r.note }}</div>
+<div style="display:flex;align-items:center;gap:10px;border-top:1px solid #F7F6F4;padding-top:10px">
+<span style="flex:1;font-size:12px;color:#4A4540"><i class="fa-solid fa-user-tie" style="color:#6C5CE7;margin-right:6px"></i>Referred by {{ r.from }}</span>
+<sc-if value="{{ r.canAccept }}" hint-placeholder-val="{{ true }}"><button onClick="{{ r.onAccept }}" style="height:40px;padding:0 16px;border:0;border-radius:10px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#E85555">{{ r.actLabel }}</button></sc-if>
+<sc-if value="{{ r.doneState }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;color:#1F7A33;font-size:12.5px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Sent to profile</span></sc-if>
+</div>
+</div>
+</sc-for>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;opacity:0.85">
+<span style="width:34px;height:34px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center;flex:none"><i class="fa-solid fa-circle-check"></i></span>
+<span style="flex:1;font-size:13px"><strong>Iris Kaur</strong> · WAV positioning reassessment<br><span style="color:#4A4540;font-size:12px">Referred by Leo Marsh · completed 14/02/2026</span></span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAhAssess }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ assessBannerShow }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:rgba(108,92,231,0.08);border:1px solid #8B7EEE;border-radius:12px;font-size:13px"><i class="fa-solid fa-clipboard-user" style="color:#6C5CE7"></i><span style="flex:1">Completing the assessment referred by {{ assessFrom }}. Save to return the requirements to {{ assessName }}'s profile and the coordinator.</span></div>
+</sc-if>
 <div style="display:flex;gap:16px;align-items:flex-start">
 <div style="flex:1.5;display:flex;flex-direction:column;gap:14px">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
@@ -68,13 +96,13 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:1;display:flex;flex-direction:column;gap:14px">
 <div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
 <div style="font-size:13.5px;font-weight:700;color:#5647C9"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right:8px"></i>Feeds vehicle matching</div>
-<div style="font-size:13px;line-height:1.55">Your selections set Maya's <strong>vehicle-tier requirements</strong>. Right now they resolve to: <strong>Standard sedan</strong>, walking-frame stowage, <strong>sensory-calm recommended</strong>. Bookings that don't meet them are flagged before confirm.</div>
+<div style="font-size:13px;line-height:1.55">Your selections set {{ assessName }}'s <strong>vehicle-tier requirements</strong>. Right now they resolve to: <strong>Standard sedan</strong>, walking-frame stowage, <strong>sensory-calm recommended</strong>. Bookings that don't meet them are flagged before confirm.</div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">REVIEW</div>
-<div style="font-size:13px;color:#4A4540;line-height:1.5">Last assessed 14/02/2026 by you. Review due after Maya's next plan reassessment or on referral.</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">Last assessed 14/02/2026 by you. Review due after {{ assessName }}'s next plan reassessment or on referral.</div>
 </div>
-<button onClick="{{ goAhReqs }}" style="height:52px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-floppy-disk" style="margin-right:9px"></i>Save · update transport requirements</button>
+<button onClick="{{ ahSaveReqs }}" style="height:52px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-floppy-disk" style="margin-right:9px"></i>Save · return requirements to profile</button>
 </div>
 </div>
 </sc-if>
@@ -90,7 +118,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:1;display:flex;flex-direction:column;gap:14px">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">WHO SEES WHAT</div>
-<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-car" style="color:#6C5CE7;margin-top:2px"></i>Drivers see the practical requirements only · never your clinical notes or Maya's diagnosis.</div>
+<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-car" style="color:#6C5CE7;margin-top:2px"></i>Drivers see the practical requirements only · never your clinical notes or {{ assessName }}'s diagnosis.</div>
 <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-user-pen" style="color:#6C5CE7;margin-top:2px"></i>Maya sees these on her profile and can raise a review with you.</div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
@@ -133,7 +161,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
-    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess' };
+    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'referrals', ahRef: null, ahDone: {} };
   renderVals() {
     const S = this.state, P = this.props;
     const screen = S.screen ?? (P.startScreen ?? 'home');
@@ -218,9 +246,26 @@ class Component extends DCLogic {
     const cwBars = [ { label: 'Feb', val: '91%', h: '68%', color: '#F0BDBD' }, { label: 'Mar', val: '93%', h: '74%', color: '#F0BDBD' }, { label: 'Apr', val: '92%', h: '71%', color: '#F0BDBD' }, { label: 'May', val: '95%', h: '82%', color: '#FF9B9B' }, { label: 'Jun', val: '97%', h: '90%', color: '#FF8080' }, { label: 'Jul', val: '98%', h: '95%', color: '#FF6B6B' } ];
     const ahGo = t => () => this.setState({ ah: t });
     const ahTabs = [
-      { id: 'assess', label: 'Transport assessment' }, { id: 'reqs', label: 'Transport requirements' },
+      { id: 'referrals', label: 'Referrals' }, { id: 'assess', label: 'Transport assessment' }, { id: 'reqs', label: 'Transport requirements' },
       { id: 'appts', label: 'Appointments' }, { id: 'outcomes', label: 'Outcomes' },
     ].map(t => ({ ...t, fg: S.ah === t.id ? '#E85555' : '#4A4540', accent: S.ah === t.id ? '#FF6B6B' : 'transparent', onPick: ahGo(t.id) }));
+    const refBase = [
+      { k: 'henry', who: 'Henry Wallace', init: 'HW', avBg: '#2D3748', from: 'Leo Marsh · Northside Coordination', type: 'Transport assessment · new participant', note: 'Ambulatory, plan-managed. Needs a baseline transfer, seating and sensory assessment before his first MoveWell trips next week.' },
+      { k: 'maya', who: 'Maya Patel', init: 'MP', avBg: '#FF6B6B', from: 'Leo Marsh · Northside Coordination', type: 'Transport reassessment', note: 'Existing participant. Review whether the sensory-calm recommendation should become a firm vehicle requirement.' },
+    ];
+    const referralsIn = refBase.map(r => { const done = !!S.ahDone[r.k]; const active = S.ahRef === r.k && !done;
+      return { ...r, status: done ? 'Requirements set' : (active ? 'In assessment' : 'New referral'),
+        stBg: done ? 'rgba(45,167,72,0.14)' : (active ? 'rgba(255,217,61,0.25)' : '#F5F3FF'),
+        stFg: done ? '#1F7A33' : (active ? '#8A6800' : '#5647C9'),
+        canAccept: !done, doneState: done, actLabel: active ? 'Resume assessment' : 'Accept and assess',
+        onAccept: () => this.setState({ ahRef: r.k, ah: 'assess' }) }; });
+    const ahActive = refBase.find(r => r.k === S.ahRef);
+    const assessName = ahActive ? ahActive.who : 'Maya Patel';
+    const assessInit = ahActive ? ahActive.init : 'MP';
+    const assessAvBg = ahActive ? ahActive.avBg : '#FF6B6B';
+    const assessSub = ahActive ? ('Referred by ' + ahActive.from + ' · assessment in progress') : 'Consent to assess and view transport outcomes · valid to 01/2027';
+    const assessFrom = ahActive ? ahActive.from : '';
+    const ahSaveReqs = () => this.setState(s => ({ ahDone: { ...s.ahDone, [s.ahRef || 'maya']: true }, ah: 'reqs' }));
     return {
       isBkPeople: S.bk === 'people', isBkMaya: S.bk === 'maya', isBkAlerts: S.bk === 'alerts', isBkRoles: S.bk === 'roles',
       goBkPeople: bkGo('people'), goBkMaya: bkGo('maya'), goBkAlerts: bkGo('alerts'), goBkRoles: bkGo('roles'),
@@ -231,6 +276,8 @@ class Component extends DCLogic {
       isCwOutcomes: S.cw === 'outcomes', isCwTeam: S.cw === 'team', isCwIntegrations: S.cw === 'integrations',
       goCwRecurring: cwGo('recurring'),
       ahTabs, isAhAssess: S.ah === 'assess', isAhReqs: S.ah === 'reqs', isAhAppts: S.ah === 'appts', isAhOutcomes: S.ah === 'outcomes',
+      isAhReferrals: S.ah === 'referrals', referralsIn,
+      assessBannerShow: !!ahActive, assessName, assessInit, assessAvBg, assessSub, assessFrom, ahSaveReqs,
       goAhReqs: ahGo('reqs'),
       isHome: is('home'), isWhere: is('where'), isWhen: is('when'), isTier: is('tier'), isReview: is('review'),
       isTracking: is('tracking'), isPickup: is('pickup'), isInTrip: is('intrip'), isComplete: is('complete'),

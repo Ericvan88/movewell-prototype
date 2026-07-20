@@ -89,6 +89,12 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="font-size:12px;color:#4A4540">Scope is set by Maya in her app.</div>
 </div>
 <button onClick="{{ goCwRecurring }}" style="height:48px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-repeat" style="margin-right:8px"></i>Plan recurring trips</button>
+<sc-if value="{{ mayaNotReferred }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ referMaya }}" style="height:48px;border:0;background:#6C5CE7;color:#fff;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#5647C9"><i class="fa-solid fa-user-doctor" style="margin-right:8px"></i>Refer for OT assessment</button>
+</sc-if>
+<sc-if value="{{ mayaReferred }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:8px;min-height:48px;padding:0 14px;border-radius:12px;background:rgba(108,92,231,0.1);color:#5647C9;font-size:13px;font-weight:700"><i class="fa-solid fa-clock"></i>Referred to Dr Amy Ngo · awaiting assessment</div>
+</sc-if>
 </div>
 </div>
 </sc-if>
@@ -193,6 +199,133 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 </sc-if>
 
+<sc-if value="{{ isCwAdd }}" hint-placeholder-val="{{ false }}">
+<div style="max-width:840px">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Add a participant</h2><span style="font-size:13px;color:#4A4540">Onboard someone to your caseload and to MoveWell</span></div>
+
+<sc-if value="{{ addDone }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+<span style="width:52px;height:52px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center;font-size:22px"><i class="fa-solid fa-circle-check"></i></span>
+<div style="font-size:20px;font-weight:700">Henry Wallace added to your caseload</div>
+<div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#4A4540;line-height:1.5;max-width:600px">
+<div><i class="fa-solid fa-mobile-screen" style="color:#6C5CE7;width:24px"></i>App invite sent to +61 4·· ··· 219. Henry confirms before anyone gets access.</div>
+<div><i class="fa-solid fa-building-columns" style="color:#6C5CE7;width:24px"></i>Plan funding sent for verification. Henry appears in the MoveWell intake queue.</div>
+<div><i class="fa-solid fa-user-doctor" style="color:#6C5CE7;width:24px"></i>{{ referLine }}</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:4px">
+<button onClick="{{ addReset }}" style="height:46px;padding:0 18px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Add another</button>
+<button onClick="{{ goCwAssess }}" style="height:46px;padding:0 18px;border:0;background:#FF6B6B;color:#fff;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">View assessments</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ addForm }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;gap:8px;margin-bottom:16px">
+<sc-for list="{{ addSteps }}" as="s" hint-placeholder-count="6">
+<div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:5px;border-radius:9999px;background:{{ s.bar }}"></span><span style="font-size:11px;color:{{ s.fg }};font-weight:{{ s.fw }}">{{ s.label }}</span></div>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:16px;min-height:250px;box-sizing:border-box">
+
+<sc-if value="{{ isAddS1 }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 1 · IDENTITY</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+<div><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">FULL NAME</div><div style="display:flex;align-items:center;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9;font-size:13.5px">Henry Wallace</div></div>
+<div><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">DATE OF BIRTH</div><div style="display:flex;align-items:center;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9;font-size:13.5px">04/03/1991</div></div>
+<div><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">NDIS NUMBER</div><div style="display:flex;align-items:center;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9;font-size:13.5px">43 318 204</div></div>
+<div><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">MOBILE</div><div style="display:flex;align-items:center;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9;font-size:13.5px">+61 4·· ··· 219</div></div>
+<div style="grid-column:1 / 3"><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">HOME ADDRESS</div><div style="display:flex;align-items:center;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9;font-size:13.5px">22 Hastings St, Glenelg SA 5045</div></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540">Consent to coordinate is recorded here. Henry (or his nominee) confirms it in the app before you can act on his behalf.</div>
+</sc-if>
+
+<sc-if value="{{ isAddS2 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 2 · PLAN MANAGEMENT</div>
+<div style="display:flex;gap:10px">
+<sc-for list="{{ planOpts }}" as="p" hint-placeholder-count="3">
+<div onClick="{{ p.onPick }}" style="flex:1;border:{{ p.border }};background:{{ p.bg }};border-radius:12px;padding:14px;cursor:pointer;box-sizing:border-box"><div style="font-size:14px;font-weight:700">{{ p.name }}</div><div style="font-size:12px;color:#4A4540;margin-top:2px">{{ p.desc }}</div></div>
+</sc-for>
+</div>
+<div style="display:flex;gap:12px;align-items:flex-end">
+<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">FUNDING LINE ITEM</div><div style="display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9;font-size:13.5px"><i class="fa-solid fa-tag" style="color:#FF6B6B"></i>Core · Transport (recurrent) · 04_590_0125_6_1</div></div>
+<div style="width:180px"><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:6px">ANNUAL BUDGET</div><div style="display:flex;align-items:center;height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9;font-size:13.5px">$3,300.00</div></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAddS3 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 3 · ACCESS &amp; CONSENT</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #E8E5E1;border-radius:10px"><i class="fa-solid fa-mobile-screen" style="color:#6C5CE7"></i><span style="flex:1;font-size:13.5px"><strong>Invite Henry to the MoveWell app</strong><br><span style="color:#4A4540;font-size:12.5px">Sent to +61 4·· ··· 219 on activation</span></span></div>
+<div style="border:1px solid #E8E5E1;border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:12px"><i class="fa-solid fa-user-group" style="color:#6C5CE7"></i><span style="flex:1;font-size:13.5px"><strong>Add a Supporter to book for Henry</strong><br><span style="color:#4A4540;font-size:12.5px">Family member or support worker, by mobile number</span></span><span onClick="{{ supToggle.onFlip }}" style="position:relative;width:44px;height:24px;border-radius:9999px;background:{{ supToggle.bg }};cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:{{ supToggle.left }};width:18px;height:18px;border-radius:9999px;background:#fff"></span></span></div>
+<sc-if value="{{ supOn }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;height:42px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9;font-size:13.5px;color:#4A4540"><i class="fa-solid fa-phone" style="color:#6C5CE7;margin-right:8px"></i>Supporter mobile · +61 4·· ··· 884</div>
+<div style="font-size:12px;color:#4A4540">Henry confirms before access is granted. Self-added Supporters are never silent.</div>
+</sc-if>
+</div>
+<div><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:8px">WHAT YOU AND SUPPORTERS CAN DO (SET BY HENRY, EDITABLE ANY TIME)</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ newConsent }}" as="c" hint-placeholder-count="4">
+<div onClick="{{ c.onFlip }}" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #E8E5E1;border-radius:9999px;cursor:pointer"><span style="position:relative;width:38px;height:20px;border-radius:9999px;background:{{ c.bg }};flex:none"><span style="position:absolute;top:3px;left:{{ c.left }};width:14px;height:14px;border-radius:9999px;background:#fff"></span></span><span style="font-size:13px;font-weight:700">{{ c.label }}</span></div>
+</sc-for>
+</div></div>
+</sc-if>
+
+<sc-if value="{{ isAddS4 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 4 · ACCESSIBILITY BASICS</div>
+<div style="font-size:13px;color:#4A4540">Set what you know now. The transport assessment in the next step refines these into vehicle requirements.</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ newA11y }}" as="a" hint-placeholder-count="6">
+<span onClick="{{ a.onPick }}" style="padding:9px 16px;border-radius:9999px;background:{{ a.bg }};color:{{ a.fg }};border:{{ a.border }};font-size:13px;font-weight:700;cursor:pointer">{{ a.label }}</span>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAddS5 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 5 · TRANSPORT ASSESSMENT</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #E8E5E1;border-radius:10px"><i class="fa-solid fa-user-doctor" style="color:#6C5CE7"></i><span style="flex:1;font-size:13.5px"><strong>Refer Henry for an allied-health transport assessment</strong><br><span style="color:#4A4540;font-size:12.5px">Recommended for new participants with mobility or sensory needs</span></span><span onClick="{{ referToggle.onFlip }}" style="position:relative;width:44px;height:24px;border-radius:9999px;background:{{ referToggle.bg }};cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:{{ referToggle.left }};width:18px;height:18px;border-radius:9999px;background:#fff"></span></span></div>
+<sc-if value="{{ referOn }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;gap:10px">
+<sc-for list="{{ referProvOpts }}" as="p" hint-placeholder-count="2">
+<div onClick="{{ p.onPick }}" style="flex:1;border:{{ p.border }};background:{{ p.bg }};border-radius:10px;padding:12px 14px;cursor:pointer;font-size:13.5px;font-weight:700;box-sizing:border-box">{{ p.name }}</div>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5">The OT assesses transfers, seating and sensory needs and sets the vehicle requirements that every booking checks. Requirements return to Henry's profile and to your caseload.</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ isAddS6 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 6 · REVIEW</div>
+<div style="display:flex;flex-direction:column;gap:0;border:1px solid #E8E5E1;border-radius:10px;overflow:hidden">
+<div style="display:flex;gap:12px;padding:11px 14px;font-size:13.5px"><span style="width:150px;color:#4A4540">Participant</span><strong>Henry Wallace · 43 318 204</strong></div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-top:1px solid #F7F6F4;font-size:13.5px"><span style="width:150px;color:#4A4540">Plan management</span><strong>{{ planName }}</strong></div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-top:1px solid #F7F6F4;font-size:13.5px"><span style="width:150px;color:#4A4540">Accessibility</span><strong>{{ a11ySummary }}</strong></div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-top:1px solid #F7F6F4;font-size:13.5px"><span style="width:150px;color:#4A4540">Assessment</span><strong>{{ reviewRefer }}</strong></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540">Activation sends the app invite, submits plan funding for verification, and raises the assessment referral if selected.</div>
+</sc-if>
+
+</div>
+<div style="display:flex;gap:10px;margin-top:16px">
+<sc-if value="{{ addCanBack }}" hint-placeholder-val="{{ false }}"><button onClick="{{ addBack }}" style="height:48px;padding:0 20px;border:1px solid #E8E5E1;background:#fff;color:#2D3748;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Back</button></sc-if>
+<span style="flex:1"></span>
+<sc-if value="{{ addNotLast }}" hint-placeholder-val="{{ true }}"><button onClick="{{ addNext }}" style="height:48px;padding:0 24px;border:0;background:#FF6B6B;color:#fff;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Continue</button></sc-if>
+<sc-if value="{{ addLast }}" hint-placeholder-val="{{ false }}"><button onClick="{{ addActivate }}" style="height:48px;padding:0 24px;border:0;background:#1F7A33;color:#fff;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-circle-check" style="margin-right:8px"></i>Activate participant</button></sc-if>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCwAssess }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Assessments</h2><span style="font-size:13px;color:#4A4540">Transport assessments you have referred to allied health</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.5fr 1.6fr 1.9fr 1fr 1.3fr;gap:12px;padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>PARTICIPANT</span><span>ASSESSOR</span><span>TYPE</span><span>REFERRED</span><span>STATUS</span></div>
+<sc-for list="{{ referrals }}" as="r" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:1.5fr 1.6fr 1.9fr 1fr 1.3fr;gap:12px;align-items:center;min-height:54px;padding:8px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">{{ r.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.assessor }}</span><span style="font-size:12.5px">{{ r.type }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.referred }}</span><span style="justify-self:start;padding:4px 10px;border-radius:9999px;background:{{ r.stBg }};color:{{ r.stFg }};font-size:11px;font-weight:700">{{ r.status }}</span></div>
+</sc-for>
+</div>
+<div style="display:flex;align-items:flex-start;gap:10px;margin-top:14px;padding:12px 16px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;font-size:13px;color:#5647C9;line-height:1.5"><i class="fa-solid fa-arrows-rotate" style="margin-top:2px"></i><span>You refer, the allied-health OT assesses, and the vehicle requirements they set flow back onto the participant's profile. Bookings that do not meet them are flagged before confirm.</span></div>
+</sc-if>
+
 </div>
 </div>
 
@@ -200,7 +333,8 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
-    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess' };
+    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess',
+    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, addDone: false, mayaReferred: false };
   renderVals() {
     const S = this.state, P = this.props;
     const screen = S.screen ?? (P.startScreen ?? 'home');
@@ -263,12 +397,38 @@ class Component extends DCLogic {
     const cwGo = s => () => this.setState({ cw: s });
     const cwNavDefs = [
       { id: 'dash', label: 'Dashboard', icon: 'fa-gauge-high' }, { id: 'participant', label: 'Participants', icon: 'fa-user-group' },
-      { id: 'recurring', label: 'Recurring trips', icon: 'fa-repeat' }, { id: 'claims', label: 'Claims', icon: 'fa-file-invoice-dollar' },
+      { id: 'add', label: 'Add participant', icon: 'fa-user-plus' },
+      { id: 'recurring', label: 'Recurring trips', icon: 'fa-repeat' }, { id: 'assess', label: 'Assessments', icon: 'fa-stethoscope' },
+      { id: 'claims', label: 'Claims', icon: 'fa-file-invoice-dollar' },
       { id: 'invoices', label: 'Invoice export', icon: 'fa-file-export' }, { id: 'compliance', label: 'Compliance', icon: 'fa-shield-halved' },
       { id: 'outcomes', label: 'Outcomes', icon: 'fa-chart-line' }, { id: 'team', label: 'Team & permissions', icon: 'fa-users-gear' },
       { id: 'integrations', label: 'Integrations', icon: 'fa-plug' },
     ];
     const cwNav = cwNavDefs.map(n => ({ ...n, bg: S.cw === n.id ? '#FFF5F5' : 'transparent', fg: S.cw === n.id ? '#E85555' : '#2D3748', fw: S.cw === n.id ? '700' : '400', onPick: cwGo(n.id) }));
+    // --- add participant wizard ---
+    const addStep = S.addStep;
+    const addSteps = ['Identity', 'Plan', 'Access', 'Needs', 'Assessment', 'Review'].map((label, i) => ({ label, bar: (i + 1) <= addStep ? '#FF6B6B' : '#E8E5E1', fg: (i + 1) === addStep ? '#2D3748' : '#4A4540', fw: (i + 1) === addStep ? '700' : '400' }));
+    const planDefs = [ { k: 'self', name: 'Self-managed', desc: 'Books and claims directly' }, { k: 'plan', name: 'Plan-managed', desc: 'Plan manager pays invoices' }, { k: 'agency', name: 'Agency-managed', desc: 'NDIA pays via PACE' } ];
+    const planOpts = planDefs.map(p => ({ ...p, sel: S.newPlan === p.k, border: S.newPlan === p.k ? '2px solid #FF6B6B' : '1px solid #E8E5E1', bg: S.newPlan === p.k ? '#FFF5F5' : '#fff', onPick: () => this.setState({ newPlan: p.k }) }));
+    const planName = planDefs.find(p => p.k === S.newPlan).name;
+    const consentDefs = [ { k: 'book', label: 'Book rides' }, { k: 'trips', label: 'View trips' }, { k: 'claims', label: 'View claims' }, { k: 'track', label: 'Live tracking' } ];
+    const newConsent = consentDefs.map(c => { const on = !!S.newConsent[c.k]; return { ...c, bg: on ? '#FF6B6B' : '#E8E5E1', left: on ? '21px' : '3px', onFlip: () => this.setState(s => ({ newConsent: { ...s.newConsent, [c.k]: !s.newConsent[c.k] } })) }; });
+    const supToggle = { bg: S.newSup ? '#FF6B6B' : '#E8E5E1', left: S.newSup ? '23px' : '3px', onFlip: () => this.setState(s => ({ newSup: !s.newSup })) };
+    const a11yDefs = ['Ambulatory', 'Walking frame', 'WAV', 'Sensory-calm', 'AAC device', 'Assistance animal'];
+    const newA11y = a11yDefs.map(l => { const on = !!S.newA11y[l]; return { label: l, bg: on ? '#6C5CE7' : '#fff', fg: on ? '#fff' : '#2D3748', border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1', onPick: () => this.setState(s => ({ newA11y: { ...s.newA11y, [l]: !s.newA11y[l] } })) }; });
+    const a11ySummary = a11yDefs.filter(l => S.newA11y[l]).join(', ') || 'None recorded';
+    const referToggle = { bg: S.newRefer ? '#FF6B6B' : '#E8E5E1', left: S.newRefer ? '23px' : '3px', onFlip: () => this.setState(s => ({ newRefer: !s.newRefer })) };
+    const referProviderDefs = [ { k: 'ngo', name: 'Dr Amy Ngo · OT' }, { k: 'north', name: 'Northcare Therapy' } ];
+    const referProvOpts = referProviderDefs.map(p => ({ ...p, sel: S.newProv === p.k, border: S.newProv === p.k ? '2px solid #6C5CE7' : '1px solid #E8E5E1', bg: S.newProv === p.k ? '#F5F3FF' : '#fff', onPick: () => this.setState({ newProv: p.k }) }));
+    const provName = (referProviderDefs.find(p => p.k === S.newProv) || referProviderDefs[0]).name;
+    const referLine = S.newRefer ? ('Referral raised to ' + provName + '. Requirements return to his profile once assessed.') : 'No assessment referral raised. You can add one from his profile later.';
+    const reviewRefer = S.newRefer ? ('Referred to ' + provName) : 'Not referred';
+    const referMaya = () => this.setState({ mayaReferred: true, cw: 'assess' });
+    const referrals = [];
+    if (S.addDone) referrals.push({ who: 'Henry Wallace', assessor: provName, type: 'Transport assessment · new participant', referred: 'Today', status: 'Requested', stBg: '#F5F3FF', stFg: '#5647C9' });
+    if (S.mayaReferred) referrals.push({ who: 'Maya Patel', assessor: 'Dr Amy Ngo · OT', type: 'Transport reassessment', referred: 'Today', status: 'Requested', stBg: '#F5F3FF', stFg: '#5647C9' });
+    referrals.push({ who: 'Theo Rossi', assessor: 'Northcare Therapy', type: 'Sensory-calm positioning review', referred: '09/07', status: 'Booked · Thu 25/07', stBg: 'rgba(255,217,61,0.25)', stFg: '#8A6800' });
+    referrals.push({ who: 'Iris Kaur', assessor: 'Dr Amy Ngo · OT', type: 'WAV reassessment', referred: '02/07', status: 'Requirements set', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33' });
     const cwRows = [
       { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', plan: 'Leap in!', providers: 'MoveWell, AccessGo', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Thu 18/07 · 2:15 pm' },
       { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', plan: 'My Plan Manager', providers: 'MoveWell', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', claims: '2 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Tomorrow · 8:40 am' },
@@ -296,7 +456,18 @@ class Component extends DCLogic {
       isCwDash: S.cw === 'dash', isCwParticipant: S.cw === 'participant', isCwRecurring: S.cw === 'recurring',
       isCwClaims: S.cw === 'claims', isCwInvoices: S.cw === 'invoices', isCwCompliance: S.cw === 'compliance',
       isCwOutcomes: S.cw === 'outcomes', isCwTeam: S.cw === 'team', isCwIntegrations: S.cw === 'integrations',
-      goCwRecurring: cwGo('recurring'),
+      isCwAdd: S.cw === 'add', isCwAssess: S.cw === 'assess',
+      goCwRecurring: cwGo('recurring'), goCwAssess: cwGo('assess'),
+      addSteps, addForm: !S.addDone, addDone: S.addDone,
+      isAddS1: addStep === 1, isAddS2: addStep === 2, isAddS3: addStep === 3, isAddS4: addStep === 4, isAddS5: addStep === 5, isAddS6: addStep === 6,
+      addCanBack: addStep > 1, addNotLast: addStep < 6, addLast: addStep === 6,
+      addNext: () => this.setState(s => ({ addStep: Math.min(6, s.addStep + 1) })),
+      addBack: () => this.setState(s => ({ addStep: Math.max(1, s.addStep - 1) })),
+      addActivate: () => this.setState({ addDone: true }),
+      addReset: () => this.setState({ addStep: 1, addDone: false }),
+      planOpts, planName, newConsent, supToggle, supOn: S.newSup,
+      newA11y, a11ySummary, referToggle, referOn: S.newRefer, referProvOpts, provName, referLine, reviewRefer,
+      referrals, mayaReferred: S.mayaReferred, mayaNotReferred: !S.mayaReferred, referMaya,
       ahTabs, isAhAssess: S.ah === 'assess', isAhReqs: S.ah === 'reqs', isAhAppts: S.ah === 'appts', isAhOutcomes: S.ah === 'outcomes',
       goAhReqs: ahGo('reqs'),
       isHome: is('home'), isWhere: is('where'), isWhen: is('when'), isTier: is('tier'), isReview: is('review'),

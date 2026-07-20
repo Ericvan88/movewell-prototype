@@ -23,14 +23,28 @@ which redirects there).
 ## Structure
 
 - **`MoveWell Complete Prototype.dc.html`**: the combined prototype and
-  main entry point. The menu lists all Web Portal workspaces (Coordinator,
-  Allied Health, Ops mission control) and all Mobile users (Maya · rider,
-  Anna · supporter, Deb · contractor driver, Lena · employed driver) on one
-  page. Any option is one click away, and signing out of any app or
-  workspace returns to this same menu.
-- `RiderApp.dc.html`, `SupporterApp.dc.html`, `DriverApp.dc.html`,
-  `CoordinatorWorkspace.dc.html`, `AlliedHealthWorkspace.dc.html`: the
-  individual app/workspace components, imported by the combined prototype.
+  main entry point. The menu lists all Web Portals (Coordinator, Allied
+  Health, Admin Portal) and all Mobile options (Maya · rider, Anna ·
+  supporter, Deb · contractor driver, Lena · employed driver, plus New
+  participant · self sign-up) on one page. Any option is one click away, and
+  signing out of any app or workspace returns to this same menu.
+- `AdminPortal.dc.html`: the internal ops portal (live ops with the Adelaide
+  map, dispatch and rostering, participant register plus intake queue,
+  drivers, driver onboarding, fleet assignment, claims, incidents,
+  compliance). Ops mission control lives here as the Live Ops section.
+- `CoordinatorWorkspace.dc.html`: coordinator caseload, plus an Add-participant
+  onboarding wizard (identity, plan management, Supporter linking,
+  accessibility, refer for allied-health assessment) and an Assessments view
+  tracking those referrals.
+- `AlliedHealthWorkspace.dc.html`: allied-health (OT) workspace with an
+  incoming Referrals tab. Accepting a coordinator referral opens the
+  assessment; saving returns the vehicle requirements and closes the loop.
+- `ParticipantOnboarding.dc.html`: mobile self-service sign-up. A participant
+  path (mobile, NDIS plan, address, accessibility, consent, into the app) and
+  a Supporter path (look up a participant by mobile, send a consent-gated
+  access request).
+- `RiderApp.dc.html`, `SupporterApp.dc.html`, `DriverApp.dc.html`: the
+  individual mobile app components, imported by the combined prototype.
 - `MoveWell Web Demo.dc.html`, `MoveWell Mobile Demo.dc.html`: the original
   standalone Web and Mobile demos, kept for reference. Each still runs on
   its own.
