@@ -187,12 +187,8 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 <sc-if value="{{ isMobileScreen }}" hint-placeholder-val="{{ false }}">
-<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:28px 0;box-sizing:border-box">
-<div style="display:flex;align-items:center;gap:12px">
-<img src="./assets/movewell-client-coral.svg" alt="MoveWell" style="height:24px">
-<span style="font-size:13px;color:#4A4540">Mobile demo · sign out inside the app to return to the main menu</span>
-</div>
-<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="430px,900px">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:8px;box-sizing:border-box">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ frameW }}" height="{{ frameH }}" hint-size="430px,900px">
 <div style="width:100%;height:100%">
 
 <sc-if value="{{ isMaya }}" hint-placeholder-val="{{ true }}">
@@ -217,13 +213,25 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;menu&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;leo&quot;,&quot;amy&quot;,&quot;ops&quot;,&quot;maya&quot;,&quot;anna&quot;,&quot;deb&quot;,&quot;lena&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { screen: null, opsF: 'all', flag: 'open', tick: 0 };
-  componentDidMount() { this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000); }
-  componentWillUnmount() { if (this._iv) clearInterval(this._iv); }
+  state = { screen: null, opsF: 'all', flag: 'open', tick: 0, vw: window.innerWidth, vh: window.innerHeight };
+  componentDidMount() {
+    this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000);
+    this._onResize = () => this.setState({ vw: window.innerWidth, vh: window.innerHeight });
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() {
+    if (this._iv) clearInterval(this._iv);
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+  }
   renderVals() {
     const S = this.state;
     const screen = S.screen ?? (this.props.startScreen && this.props.startScreen !== 'menu' ? this.props.startScreen : null);
     const toMenu = () => this.setState({ screen: null, opsF: 'all', flag: 'open' });
+
+    // fill nearly the whole viewport on a phone; keep the compact mockup size on desktop
+    const isNarrow = S.vw <= 680;
+    const frameW = isNarrow ? Math.min(S.vw - 16, 460) : 402;
+    const frameH = isNarrow ? Math.min(S.vh - 16, 960) : 874;
 
     // --- Web portals ---
     const wsDefs = [
@@ -314,6 +322,7 @@ class Component extends DCLogic {
       opsRefresh: 'refreshed ' + (T % 8 + 1) + ' s ago',
 
       isMaya, isAnna, isDeb, isLena,
+      frameW, frameH,
 
       logout: toMenu,
     };
