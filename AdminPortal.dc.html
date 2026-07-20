@@ -225,7 +225,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="display:grid;grid-template-columns:2fr 1.3fr 1.7fr 1.8fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9">
 <span style="display:flex;align-items:center;gap:10px;min-width:0"><span style="width:30px;height:30px;border-radius:9999px;background:{{ r.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">{{ r.init }}</span><span style="min-width:0"><span style="display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ r.ndis }}</span></span></span>
 <span style="font-size:12.5px">{{ r.plan }}</span>
-<span><span style="display:block;height:7px;border-radius:9999px;background:#F0EEEA;overflow:hidden"><span style="display:block;width:{{ r.pct }};height:100%;background:{{ r.barColor }};border-radius:9999px"></span></span><span style="display:block;font-size:11px;color:#4A4540;margin-top:4px">{{ r.burn }}</span></span>
+<span><span style="display:block;height:7px;border-radius:9999px;background:#F0EEEA;overflow:hidden"><span style="display:block;width:{{ r.pct }};height:100%;background:{{ r.barColor }};border-radius:9999px"></span></span><span style="display:block;font-size:11px;color:#4A4540;margin-top:4px">{{ r.burn }}</span><span style="display:block;font-size:10.5px;color:#8A8580;margin-top:1px">{{ r.pathway }}</span></span>
 <span style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ r.tags }}" as="t" hint-placeholder-count="2"><span style="padding:2px 8px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ t }}</span></sc-for></span>
 <span><span style="padding:3px 9px;border-radius:9999px;background:{{ r.stBg }};color:{{ r.stFg }};font-size:11px;font-weight:700">{{ r.status }}</span></span>
 </div>
@@ -612,12 +612,12 @@ class Component extends DCLogic {
       { label: 'Needs review · 6', bg: '#fff', fg: YFG, border: '#E8E5E1' },
     ];
     const riders = [
-      { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', ndis: '43 128 907 · Prospect', plan: 'Plan-managed', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', tags: ['Walking frame', 'Sensory-calm'], status: 'Active', stBg: GBG, stFg: G },
-      { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', ndis: '43 077 214 · Regency Park', plan: 'Agency-managed', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', tags: ['WAV', 'Sensory-calm'], status: 'Active', stBg: GBG, stFg: G },
-      { init: 'IK', avBg: '#2D3748', name: 'Iris Kaur', ndis: '43 210 665 · Salisbury', plan: 'Plan-managed', pct: '92%', barColor: '#C43F3F', burn: '$2,910 of $3,160', tags: ['WAV hoist'], status: 'Budget review', stBg: Y, stFg: YFG },
-      { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', ndis: '43 199 038 · Glenelg', plan: 'Self-managed', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', tags: ['Ambulatory'], status: 'Active', stBg: GBG, stFg: G },
-      { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', ndis: '43 260 471 · Mile End', plan: 'Plan-managed', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', tags: ['Ambulatory'], status: 'Active', stBg: GBG, stFg: G },
-      { init: 'AB', avBg: '#FF8E8E', name: 'Aisha Bello', ndis: '43 305 882 · Elizabeth', plan: 'Agency-managed', pct: '63%', barColor: '#FF6B6B', burn: '$2,040 of $3,240', tags: ['Sensory-calm', 'SIL'], status: 'Active', stBg: GBG, stFg: G },
+      { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', ndis: '43 128 907 · Prospect', plan: 'Plan-managed', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', pathway: 'Core budget · claim to plan manager', tags: ['Walking frame', 'Sensory-calm'], status: 'Active', stBg: GBG, stFg: G },
+      { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', ndis: '43 077 214 · Regency Park', plan: 'Agency-managed', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', pathway: 'Core budget · NDIA claim', tags: ['WAV', 'Sensory-calm'], status: 'Active', stBg: GBG, stFg: G },
+      { init: 'IK', avBg: '#2D3748', name: 'Iris Kaur', ndis: '43 210 665 · Salisbury', plan: 'Plan-managed', pct: '92%', barColor: '#C43F3F', burn: '$2,910 of $3,160', pathway: 'Core budget · claim to plan manager', tags: ['WAV hoist'], status: 'Budget review', stBg: Y, stFg: YFG },
+      { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', ndis: '43 199 038 · Glenelg', plan: 'Self-managed', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', pathway: 'Recurring Level 2 · externally paid', tags: ['Ambulatory'], status: 'Active', stBg: GBG, stFg: G },
+      { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', ndis: '43 260 471 · Mile End', plan: 'Plan-managed', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', pathway: 'Core budget · claim to plan manager', tags: ['Ambulatory'], status: 'Active', stBg: GBG, stFg: G },
+      { init: 'AB', avBg: '#FF8E8E', name: 'Aisha Bello', ndis: '43 305 882 · Elizabeth', plan: 'Agency-managed', pct: '63%', barColor: '#FF6B6B', burn: '$2,040 of $3,240', pathway: 'Core budget · NDIA claim', tags: ['Sensory-calm', 'SIL'], status: 'Active', stBg: GBG, stFg: G },
     ];
     const intakeBase = [
       { k: 'i1', init: 'NA', avBg: '#FF6B6B', name: 'Nina Alvaro', source: 'Self sign-up (mobile)', ago: '12 min ago', tag: 'Awaiting plan verification', tagIcon: 'fa-hourglass-half', tagBg: Y, tagFg: YFG },

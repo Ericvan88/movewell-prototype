@@ -78,6 +78,15 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">FUNDING PROFILE &amp; AGREEMENT</div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Plan management</span><strong>Plan-managed · Leap in!</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Funding source</span><strong>Core transport budget</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Payment pathway</span><strong>Claim to plan manager</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Pass-through costs</span><strong>Tolls, parking</strong></div>
+<div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Service agreement</span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Active · signed 12/01/2026</span></div>
+<div style="font-size:12px;color:#4A4540;margin-top:2px">Every booking is checked against this profile: funding source, remaining budget, eligible support item and agreement permissions.</div>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TRANSPORT PROVIDERS</div>
 <div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span>MoveWell · 2 recurring schedules</div>
 <div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:8px;height:8px;border-radius:9999px;background:#ADA8A2"></span>AccessGo Transport · ad hoc</div>
@@ -211,6 +220,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div><i class="fa-solid fa-mobile-screen" style="color:#6C5CE7;width:24px"></i>App invite sent to +61 4·· ··· 219. Henry confirms before anyone gets access.</div>
 <div><i class="fa-solid fa-building-columns" style="color:#6C5CE7;width:24px"></i>Plan funding sent for verification. Henry appears in the MoveWell intake queue.</div>
 <div><i class="fa-solid fa-user-doctor" style="color:#6C5CE7;width:24px"></i>{{ referLine }}</div>
+<div><i class="fa-solid fa-file-signature" style="color:#6C5CE7;width:24px"></i>{{ agrStatusLine }}</div>
 </div>
 <div style="display:flex;gap:10px;margin-top:4px">
 <button onClick="{{ addReset }}" style="height:46px;padding:0 18px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Add another</button>
@@ -294,14 +304,36 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 <sc-if value="{{ isAddS6 }}" hint-placeholder-val="{{ false }}">
-<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 6 · REVIEW</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 6 · SERVICE AGREEMENT</div>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid #E8E5E1;border-radius:10px;background:#FAFAF9"><i class="fa-solid fa-file-invoice-dollar" style="color:#FF6B6B"></i><span style="flex:1;font-size:13.5px"><strong>Billing method</strong> · {{ billingMethod }}</span></div>
+<div style="border:1px solid #E8E5E1;border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:700;color:#4A4540">PASS-THROUGH COSTS THE PARTICIPANT AGREES TO</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ agrPass }}" as="c" hint-placeholder-count="3">
+<div onClick="{{ c.onFlip }}" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #E8E5E1;border-radius:9999px;cursor:pointer"><span style="position:relative;width:38px;height:20px;border-radius:9999px;background:{{ c.bg }};flex:none"><span style="position:absolute;top:3px;left:{{ c.left }};width:14px;height:14px;border-radius:9999px;background:#fff"></span></span><span style="font-size:13px;font-weight:700">{{ c.label }}</span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Non-labour travel costs (tolls, parking) can only be recovered with the participant's agreement. No gap fees or surcharges.</div>
+</div>
+<div style="border:1px solid #E8E5E1;border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px"><i class="fa-solid fa-ban" style="color:#6C5CE7;margin-top:2px"></i><span style="font-size:13px;line-height:1.5"><strong>Cancellation and no-show</strong><br><span style="color:#4A4540">Free to cancel up to 2 hours before pickup. Later cancellations and no-shows may be charged per the agreement.</span></span></div>
+<div><div style="font-size:12px;font-weight:700;color:#4A4540;margin-bottom:8px">SIGNATURE</div>
+<div style="display:flex;gap:10px">
+<sc-for list="{{ agrSignOpts }}" as="o" hint-placeholder-count="2">
+<div onClick="{{ o.onPick }}" style="flex:1;border:{{ o.border }};background:{{ o.bg }};border-radius:10px;padding:12px 14px;cursor:pointer;box-sizing:border-box"><div style="font-size:14px;font-weight:700">{{ o.name }}</div><div style="font-size:12px;color:#4A4540;margin-top:2px">{{ o.desc }}</div></div>
+</sc-for>
+</div></div>
+</sc-if>
+
+<sc-if value="{{ isAddS7 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">STEP 7 · REVIEW</div>
 <div style="display:flex;flex-direction:column;gap:0;border:1px solid #E8E5E1;border-radius:10px;overflow:hidden">
 <div style="display:flex;gap:12px;padding:11px 14px;font-size:13.5px"><span style="width:150px;color:#4A4540">Participant</span><strong>Henry Wallace · 43 318 204</strong></div>
 <div style="display:flex;gap:12px;padding:11px 14px;border-top:1px solid #F7F6F4;font-size:13.5px"><span style="width:150px;color:#4A4540">Plan management</span><strong>{{ planName }}</strong></div>
 <div style="display:flex;gap:12px;padding:11px 14px;border-top:1px solid #F7F6F4;font-size:13.5px"><span style="width:150px;color:#4A4540">Accessibility</span><strong>{{ a11ySummary }}</strong></div>
 <div style="display:flex;gap:12px;padding:11px 14px;border-top:1px solid #F7F6F4;font-size:13.5px"><span style="width:150px;color:#4A4540">Assessment</span><strong>{{ reviewRefer }}</strong></div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-top:1px solid #F7F6F4;font-size:13.5px"><span style="width:150px;color:#4A4540">Service agreement</span><strong>{{ reviewAgreement }}</strong></div>
 </div>
-<div style="font-size:12.5px;color:#4A4540">Activation sends the app invite, submits plan funding for verification, and raises the assessment referral if selected.</div>
+<div style="font-size:12.5px;color:#4A4540">Activation sends the app invite, submits plan funding for verification, raises the assessment referral, and issues the service agreement. Transport activates once the agreement is signed.</div>
 </sc-if>
 
 </div>
@@ -334,7 +366,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
     bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess',
-    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, addDone: false, mayaReferred: false };
+    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, agrPass: { tolls: true, parking: true, contrib: false }, agrSign: 'esign', addDone: false, mayaReferred: false };
   renderVals() {
     const S = this.state, P = this.props;
     const screen = S.screen ?? (P.startScreen ?? 'home');
@@ -407,7 +439,7 @@ class Component extends DCLogic {
     const cwNav = cwNavDefs.map(n => ({ ...n, bg: S.cw === n.id ? '#FFF5F5' : 'transparent', fg: S.cw === n.id ? '#E85555' : '#2D3748', fw: S.cw === n.id ? '700' : '400', onPick: cwGo(n.id) }));
     // --- add participant wizard ---
     const addStep = S.addStep;
-    const addSteps = ['Identity', 'Plan', 'Access', 'Needs', 'Assessment', 'Review'].map((label, i) => ({ label, bar: (i + 1) <= addStep ? '#FF6B6B' : '#E8E5E1', fg: (i + 1) === addStep ? '#2D3748' : '#4A4540', fw: (i + 1) === addStep ? '700' : '400' }));
+    const addSteps = ['Identity', 'Plan', 'Access', 'Needs', 'Assessment', 'Agreement', 'Review'].map((label, i) => ({ label, bar: (i + 1) <= addStep ? '#FF6B6B' : '#E8E5E1', fg: (i + 1) === addStep ? '#2D3748' : '#4A4540', fw: (i + 1) === addStep ? '700' : '400' }));
     const planDefs = [ { k: 'self', name: 'Self-managed', desc: 'Books and claims directly' }, { k: 'plan', name: 'Plan-managed', desc: 'Plan manager pays invoices' }, { k: 'agency', name: 'Agency-managed', desc: 'NDIA pays via PACE' } ];
     const planOpts = planDefs.map(p => ({ ...p, sel: S.newPlan === p.k, border: S.newPlan === p.k ? '2px solid #FF6B6B' : '1px solid #E8E5E1', bg: S.newPlan === p.k ? '#FFF5F5' : '#fff', onPick: () => this.setState({ newPlan: p.k }) }));
     const planName = planDefs.find(p => p.k === S.newPlan).name;
@@ -423,6 +455,14 @@ class Component extends DCLogic {
     const provName = (referProviderDefs.find(p => p.k === S.newProv) || referProviderDefs[0]).name;
     const referLine = S.newRefer ? ('Referral raised to ' + provName + '. Requirements return to his profile once assessed.') : 'No assessment referral raised. You can add one from his profile later.';
     const reviewRefer = S.newRefer ? ('Referred to ' + provName) : 'Not referred';
+    const billingMap = { self: 'Invoiced to the participant', plan: 'Invoices to the plan manager', agency: 'Claimed via NDIA (myplace)' };
+    const billingMethod = billingMap[S.newPlan];
+    const agrPassDefs = [ { k: 'tolls', label: 'Tolls' }, { k: 'parking', label: 'Parking' }, { k: 'contrib', label: 'Participant contribution' } ];
+    const agrPass = agrPassDefs.map(c => { const on = !!S.agrPass[c.k]; return { ...c, bg: on ? '#FF6B6B' : '#E8E5E1', left: on ? '21px' : '3px', onFlip: () => this.setState(s => ({ agrPass: { ...s.agrPass, [c.k]: !s.agrPass[c.k] } })) }; });
+    const agrSignDefs = [ { k: 'esign', name: 'Send for e-signature', desc: 'Emailed to Henry to sign' }, { k: 'inperson', name: 'Signed in person', desc: 'Countersigned at intake' } ];
+    const agrSignOpts = agrSignDefs.map(o => ({ ...o, sel: S.agrSign === o.k, border: S.agrSign === o.k ? '2px solid #FF6B6B' : '1px solid #E8E5E1', bg: S.agrSign === o.k ? '#FFF5F5' : '#fff', onPick: () => this.setState({ agrSign: o.k }) }));
+    const agrStatusLine = S.agrSign === 'esign' ? 'Service agreement sent to Henry for e-signature. Transport activates once he signs.' : 'Service agreement signed in person. Transport can activate now.';
+    const reviewAgreement = (S.agrSign === 'esign' ? 'Sent for e-signature' : 'Signed in person') + ' · ' + billingMethod;
     const referMaya = () => this.setState({ mayaReferred: true, cw: 'assess' });
     const referrals = [];
     if (S.addDone) referrals.push({ who: 'Henry Wallace', assessor: provName, type: 'Transport assessment · new participant', referred: 'Today', status: 'Requested', stBg: '#F5F3FF', stFg: '#5647C9' });
@@ -459,9 +499,10 @@ class Component extends DCLogic {
       isCwAdd: S.cw === 'add', isCwAssess: S.cw === 'assess',
       goCwRecurring: cwGo('recurring'), goCwAssess: cwGo('assess'),
       addSteps, addForm: !S.addDone, addDone: S.addDone,
-      isAddS1: addStep === 1, isAddS2: addStep === 2, isAddS3: addStep === 3, isAddS4: addStep === 4, isAddS5: addStep === 5, isAddS6: addStep === 6,
-      addCanBack: addStep > 1, addNotLast: addStep < 6, addLast: addStep === 6,
-      addNext: () => this.setState(s => ({ addStep: Math.min(6, s.addStep + 1) })),
+      isAddS1: addStep === 1, isAddS2: addStep === 2, isAddS3: addStep === 3, isAddS4: addStep === 4, isAddS5: addStep === 5, isAddS6: addStep === 6, isAddS7: addStep === 7,
+      addCanBack: addStep > 1, addNotLast: addStep < 7, addLast: addStep === 7,
+      addNext: () => this.setState(s => ({ addStep: Math.min(7, s.addStep + 1) })),
+      billingMethod, agrPass, agrSignOpts, agrStatusLine, reviewAgreement,
       addBack: () => this.setState(s => ({ addStep: Math.max(1, s.addStep - 1) })),
       addActivate: () => this.setState({ addDone: true }),
       addReset: () => this.setState({ addStep: 1, addDone: false }),

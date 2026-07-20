@@ -49,17 +49,17 @@ Direct conflicts that had to change:
   claims-monitor notes reflect invoice separation, gap-fee blocking, and price-limit
   holds.
 
-### Phase 2: service agreements and funding profiles
-- **Service agreement** as an onboarding gate in the coordinator wizard and mobile
-  sign-up: billing method, participant contribution and pass-through consent (tolls,
-  parking), cancellation and no-show policy, signature status. Transport is not
-  operationally active until the agreement is complete.
-- **Participant funding profile**: recurring transport Level 1/2/3
-  ($1,784 / $2,676 / $3,456) vs budgeted Core transport; management type driving claim
-  vs invoice vs **externally-paid allowance**. Surface in Coordinator participant detail
-  and the Admin participant register. Budget check before every booking (funding source,
-  remaining budget or recurring context, eligible item, agreement permissions, trip
-  history).
+### Phase 2 (done): service agreements and funding profiles
+- **Service agreement** as an onboarding gate: a step in the coordinator Add-participant
+  wizard (billing method from plan, pass-through consent for tolls/parking/contribution,
+  cancellation and no-show policy, e-signature vs in-person) and an acknowledgement step
+  in the mobile sign-up; transport activates once the agreement is signed.
+- **Participant funding profile**: a Funding profile and agreement card in the
+  Coordinator participant detail, and funding-pathway lines on the Admin participant
+  register showing the variations (Core budget claim to plan manager, NDIA claim,
+  recurring Level allowance externally paid). Booking-time budget check is described on
+  the card. Deepening the recurring Level 1/2/3 amounts and the full pre-booking gate
+  remains for a later pass.
 
 ### Phase 3: finance in the Admin Portal (claim vs invoice vs reconciliation)
 - Rework Admin **Claims monitor** into a pipeline that separates trip validation ->

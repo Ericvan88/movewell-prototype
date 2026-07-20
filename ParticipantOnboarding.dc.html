@@ -111,6 +111,17 @@ body{margin:0;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,s
 </sc-if>
 </sc-if>
 
+<sc-if value="{{ isPAgreement }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0 0 6px;font-size:23px;font-weight:700">Your service terms</h2>
+<p style="margin:0 0 18px;font-size:14px;color:#4A4540">A quick agreement so we can book and claim for you. Nothing to pay in the car.</p>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px"><i class="fa-solid fa-hand-holding-dollar" style="color:#FF6B6B;margin-top:2px"></i><span style="font-size:13.5px;line-height:1.5"><strong>No gap fees.</strong> Your trips are funded by your NDIS plan. You never pay in the vehicle.</span></div>
+<div style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px"><i class="fa-solid fa-clock" style="color:#FF6B6B;margin-top:2px"></i><span style="font-size:13.5px;line-height:1.5"><strong>Cancellations.</strong> Free to cancel up to 2 hours before pickup. Late cancellations and no-shows may be charged.</span></div>
+<div style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px"><i class="fa-solid fa-road" style="color:#FF6B6B;margin-top:2px"></i><span style="font-size:13.5px;line-height:1.5"><strong>Tolls and parking.</strong> Recovered from your plan with your agreement, shown on every receipt. No surcharges.</span></div>
+</div>
+<div style="margin-top:14px;font-size:12.5px;color:#4A4540">Tapping "Agree and finish" accepts these terms. You can view the full agreement any time in your profile.</div>
+</sc-if>
+
 </div>
 <div style="padding:16px 22px 20px">
 <button onClick="{{ stepNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#E85555">{{ stepCta }}</button>
@@ -127,7 +138,8 @@ body{margin:0;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,s
 <div style="width:100%;margin-top:22px;background:#fff;border:1px solid #E8E5E1;border-radius:14px;overflow:hidden;text-align:left">
 <div style="display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 16px;border-bottom:1px solid #F7F6F4"><i class="fa-solid fa-id-card" style="color:#6C5CE7;width:22px"></i><span style="flex:1;font-size:13.5px">NDIS 43 401 776 · {{ planName }}</span></div>
 <div style="display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 16px;border-bottom:1px solid #F7F6F4"><i class="fa-solid fa-wheelchair-move" style="color:#6C5CE7;width:22px"></i><span style="flex:1;font-size:13.5px">Travel needs: {{ a11ySummary }}</span></div>
-<div style="display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 16px"><i class="fa-solid fa-user-group" style="color:#6C5CE7;width:22px"></i><span style="flex:1;font-size:13.5px">{{ supLine }}</span></div>
+<div style="display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 16px;border-bottom:1px solid #F7F6F4"><i class="fa-solid fa-user-group" style="color:#6C5CE7;width:22px"></i><span style="flex:1;font-size:13.5px">{{ supLine }}</span></div>
+<div style="display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 16px"><i class="fa-solid fa-file-signature" style="color:#6C5CE7;width:22px"></i><span style="flex:1;font-size:13.5px">Service terms accepted</span></div>
 </div>
 </div>
 <div style="padding:8px 22px 22px;display:flex;flex-direction:column;gap:10px">
@@ -196,13 +208,13 @@ class Component extends DCLogic {
     const S = this.state, P = this.props;
     const go = s => () => this.setState({ sc: s });
     const sc = S.sc ?? (P.start === 'supporter' ? 'slookup' : P.start === 'participant' ? 'pmobile' : 'welcome');
-    const order = ['pmobile', 'potp', 'pndis', 'paddress', 'paccess', 'pconsent'];
+    const order = ['pmobile', 'potp', 'pndis', 'paddress', 'paccess', 'pconsent', 'pagreement'];
     const idx = order.indexOf(sc);
     const isStep = idx >= 0;
     const dots = order.map((_, i) => i === idx ? '#FF6B6B' : (i < idx ? '#FF9B9B' : '#E8E5E1'));
-    const nextMap = { pmobile: 'potp', potp: 'pndis', pndis: 'paddress', paddress: 'paccess', paccess: 'pconsent', pconsent: 'pdone' };
-    const backMap = { pmobile: 'welcome', potp: 'pmobile', pndis: 'potp', paddress: 'pndis', paccess: 'paddress', pconsent: 'paccess' };
-    const ctaMap = { pmobile: 'Send code', potp: 'Verify', pndis: 'Continue', paddress: 'Continue', paccess: 'Continue', pconsent: 'Finish setup' };
+    const nextMap = { pmobile: 'potp', potp: 'pndis', pndis: 'paddress', paddress: 'paccess', paccess: 'pconsent', pconsent: 'pagreement', pagreement: 'pdone' };
+    const backMap = { pmobile: 'welcome', potp: 'pmobile', pndis: 'potp', paddress: 'pndis', paccess: 'paddress', pconsent: 'paccess', pagreement: 'pconsent' };
+    const ctaMap = { pmobile: 'Send code', potp: 'Verify', pndis: 'Continue', paddress: 'Continue', paccess: 'Continue', pconsent: 'Continue', pagreement: 'Agree and finish' };
     const planDefs = [ { k: 'self', name: 'Self-managed', desc: 'I pay and claim myself' }, { k: 'plan', name: 'Plan-managed', desc: 'A plan manager pays invoices' }, { k: 'agency', name: 'Agency-managed', desc: 'The NDIA pays via PACE' } ];
     const planOpts = planDefs.map(p => ({ ...p, sel: S.plan === p.k, border: S.plan === p.k ? '2px solid #6C5CE7' : '1px solid #E8E5E1', bg: S.plan === p.k ? '#F5F3FF' : '#fff', onPick: () => this.setState({ plan: p.k }) }));
     const planName = planDefs.find(p => p.k === S.plan).name;
@@ -219,7 +231,7 @@ class Component extends DCLogic {
       stepBack: () => this.setState({ sc: backMap[sc] || 'welcome' }),
       isPMobile: sc === 'pmobile', isPOtp: sc === 'potp', isPNdis: sc === 'pndis',
       isPAddress: sc === 'paddress', isPAccess: sc === 'paccess', isPConsent: sc === 'pconsent',
-      isPDone: sc === 'pdone',
+      isPAgreement: sc === 'pagreement', isPDone: sc === 'pdone',
       isSLookup: sc === 'slookup', isSRequest: sc === 'srequest', isSWait: sc === 'swait',
       goWelcome: go('welcome'), goPMobile: go('pmobile'), goSLookup: go('slookup'), goSRequest: go('srequest'), goSWait: go('swait'),
       planOpts, planName, a11yChips, a11ySummary, supToggle, supOn: S.sup, supLine, otp, otpVals: otp,
