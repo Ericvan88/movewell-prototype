@@ -19,34 +19,43 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </style>
 </helmet>
 
-<div style="width:100%;height:100%;display:flex;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748;font-size:13.5px">
+<div style="width:100%;height:100%;display:flex;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748;font-size:13.5px;position:relative;overflow:hidden">
 
-<div style="flex:none;width:236px;background:#fff;border-right:1px solid #E8E5E1;display:flex;flex-direction:column;overflow-y:auto">
-<div style="padding:16px 18px 10px"><img src="./assets/movewell-admin-purplegrad.svg" alt="MoveWell" style="height:26px;margin-left:-9px;display:block"><span style="display:block;margin-top:2px;font-size:10px;font-weight:700;letter-spacing:0.14em;color:#4A4540">ADMIN PORTAL</span></div>
-<sc-for list="{{ navGroups }}" as="g" hint-placeholder-count="5">
-<div style="padding:10px 10px 2px">
-<div style="padding:0 10px 6px;font-size:10px;font-weight:700;letter-spacing:0.16em;color:#4A4540">{{ g.label }}</div>
-<sc-for list="{{ g.items }}" as="n" hint-placeholder-count="4">
-<div onClick="{{ n.onNav }}" style="display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:12px;background:{{ n.bg }};color:{{ n.fg }};cursor:{{ n.cursor }};font-weight:{{ n.fw }}">
-<i class="fa-solid {{ n.icon }}" style="width:16px;font-size:12.5px;text-align:center"></i>
-<span style="flex:1;font-size:13px">{{ n.name }}</span>
+<div style="flex:none;width:64px;background:#fff;border-right:1px solid #E8E5E1;display:flex;flex-direction:column;padding:10px 0 8px;box-sizing:border-box">
+<div style="display:flex;justify-content:center;padding:2px 0 10px"><img src="./assets/movewell-admin-purplegrad.svg" alt="MoveWell" style="height:20px;width:46px;object-fit:cover;object-position:left"></div>
+<sc-for list="{{ railItems }}" as="a" hint-placeholder-count="5">
+<div onClick="{{ a.onPick }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;margin:2px 6px;margin-top:{{ a.mt }};padding:8px 2px;border-radius:12px;background:{{ a.bg }};color:{{ a.fg }};cursor:pointer" style-hover="background:#F7F6F4">
+<i class="fa-solid {{ a.icon }}" style="font-size:15px"></i>
+<span style="font-size:8.5px;font-weight:700;letter-spacing:0.03em">{{ a.label }}</span>
+</div>
+</sc-for>
+</div>
+
+<sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ true }}">
+<div style="flex:none;width:200px;background:#fff;border-right:1px solid #E8E5E1;display:flex;flex-direction:column;padding:12px 10px;box-sizing:border-box;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:2px 10px 10px">
+<span style="flex:1;font-size:10.5px;font-weight:700;letter-spacing:0.14em;color:#4A4540">{{ areaEyebrow }}</span>
+<button onClick="{{ panelToggle }}" title="Hide navigation" style="width:24px;height:24px;border:0;background:transparent;color:#ADA8A2;font-family:inherit;font-size:11px;cursor:pointer;border-radius:6px" style-hover="background:#F7F6F4"><i class="fa-solid fa-angles-left"></i></button>
+</div>
+<sc-for list="{{ panelItems }}" as="n" hint-placeholder-count="6">
+<div onClick="{{ n.onNav }}" style="display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border-radius:10px;background:{{ n.bg }};color:{{ n.fg }};font-weight:{{ n.fw }};font-size:13px;cursor:pointer" style-hover="background:#F7F6F4">
+<span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ n.name }}</span>
 <sc-if value="{{ n.badge }}" hint-placeholder-val="{{ false }}"><span style="padding:1px 8px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ n.badge }}</span></sc-if>
 </div>
 </sc-for>
 </div>
-</sc-for>
-<div style="margin-top:auto;padding:12px 14px;border-top:1px solid #E8E5E1;display:flex;align-items:center;gap:10px">
-<span style="width:32px;height:32px;border-radius:9999px;background:linear-gradient(135deg,#6C5CE7,#8B7EEE);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:none">PN</span>
-<span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:700">Priya Narayan</span><span style="display:block;font-size:11px;color:#4A4540">Operations lead</span></span>
-<button onClick="{{ logout }}" title="Sign out" style="width:34px;height:34px;flex:none;border:1px solid #E8E5E1;background:#fff;color:#C43F3F;border-radius:9999px;font-family:inherit;font-size:13px;cursor:pointer" style-hover="background:#FFF5F5"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
-</div>
-</div>
+</sc-if>
 
 <div style="flex:1;display:flex;flex-direction:column;min-width:0">
-<div style="flex:none;display:flex;align-items:center;gap:12px;height:58px;padding:0 28px;background:#fff;border-bottom:1px solid #E8E5E1">
-<span style="font-size:12.5px;color:#4A4540">MoveWell Ops</span><i class="fa-solid fa-chevron-right" style="font-size:9px;color:#ADA8A2"></i><span style="font-size:14px;font-weight:700">{{ sectionTitle }}</span>
-<span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(45,167,72,0.1);color:#1F7A33;font-size:12px;font-weight:700"><span style="width:7px;height:7px;border-radius:9999px;background:#1F7A33"></span>All zones normal</span>
-<span style="font-size:12px;color:#4A4540">Wed 16 July · 2:38 pm ACST</span>
+<div style="flex:none;display:flex;align-items:center;gap:12px;height:48px;padding:0 18px;background:#fff;border-bottom:1px solid #E8E5E1">
+<sc-if value="{{ panelClosed }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ panelToggle }}" title="Show navigation" style="width:28px;height:28px;border:1px solid #E8E5E1;background:#fff;color:#4A4540;border-radius:8px;font-family:inherit;font-size:11px;cursor:pointer" style-hover="background:#F7F6F4"><i class="fa-solid fa-angles-right"></i></button>
+</sc-if>
+<span style="font-size:12.5px;color:#4A4540">{{ crumbArea }}</span><i class="fa-solid fa-chevron-right" style="font-size:9px;color:#ADA8A2"></i><span style="font-size:13.5px;font-weight:700">{{ sectionTitle }}</span>
+<span style="margin-left:auto"></span>
+<div onClick="{{ palOpenFn }}" style="display:flex;align-items:center;gap:8px;height:30px;padding:0 11px;border:1px solid #E8E5E1;border-radius:9999px;color:#4A4540;font-size:12px;cursor:pointer" style-hover="background:#F7F6F4"><i class="fa-solid fa-magnifying-glass" style="font-size:11px"></i>Search<span style="padding:1px 6px;border-radius:6px;background:#F7F6F4;font-size:10.5px;font-weight:700">⌘K</span></div>
+<span title="Priya Narayan · Operations lead" style="width:30px;height:30px;border-radius:9999px;background:linear-gradient(135deg,#6C5CE7,#8B7EEE);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">PN</span>
+<button onClick="{{ logout }}" title="Sign out" style="width:30px;height:30px;flex:none;border:1px solid #E8E5E1;background:#fff;color:#C43F3F;border-radius:9999px;font-family:inherit;font-size:12px;cursor:pointer" style-hover="background:#FFF5F5"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
 </div>
 <div style="flex:1;overflow-y:auto;padding:22px 28px;display:flex;flex-direction:column;gap:16px;min-height:0">
 
@@ -166,7 +175,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:none;width:360px;display:flex;flex-direction:column;gap:12px">
 <div style="display:flex;align-items:baseline;gap:8px"><h2 style="margin:0;font-size:17px;font-weight:700">Needs assignment</h2><span style="font-size:12.5px;color:#4A4540">{{ unassignedCount }} trips</span></div>
 <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="3">
-<div style="background:#fff;border:1px solid {{ j.border }};border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:9px">
+<div onClick="{{ j.onOpen }}" style="background:{{ j.rowBg }};border:1px solid {{ j.border }};border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:9px;cursor:pointer">
 <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:14px;font-weight:700">{{ j.time }}</span><span style="flex:1;font-size:13px">{{ j.route }}</span></div>
 <div style="font-size:12.5px;color:#4A4540">{{ j.participant }}</div>
 <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -178,7 +187,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-if value="{{ j.unassigned }}" hint-placeholder-val="{{ true }}">
 <div style="display:flex;align-items:center;gap:8px;border-top:1px solid #F7F6F4;padding-top:9px">
 <span style="flex:1;font-size:12px;color:#4A4540">Suggested: <strong style="color:#2D3748">{{ j.suggested }}</strong> · {{ j.why }}</span>
-<button onClick="{{ j.onAssign }}" style="height:34px;padding:0 14px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Assign</button>
+<span style="font-size:11.5px;font-weight:700;color:#5647C9">Open to assign</span>
 </div>
 </sc-if>
 </div>
@@ -222,7 +231,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <span>PARTICIPANT</span><span>PLAN MANAGEMENT</span><span>TRANSPORT FUNDING</span><span>ACCESSIBILITY</span><span>STATUS</span>
 </div>
 <sc-for list="{{ riders }}" as="r" hint-placeholder-count="6">
-<div style="display:grid;grid-template-columns:2fr 1.3fr 1.7fr 1.8fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9">
+<div onClick="{{ r.onOpen }}" style="display:grid;grid-template-columns:2fr 1.3fr 1.7fr 1.8fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ r.rowBg }};cursor:pointer" style-hover="background:#FAFAF9">
 <span style="display:flex;align-items:center;gap:10px;min-width:0"><span style="width:30px;height:30px;border-radius:9999px;background:{{ r.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">{{ r.init }}</span><span style="min-width:0"><span style="display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ r.ndis }}</span></span></span>
 <span style="font-size:12.5px">{{ r.plan }}</span>
 <span><span style="display:block;height:7px;border-radius:9999px;background:#F0EEEA;overflow:hidden"><span style="display:block;width:{{ r.pct }};height:100%;background:{{ r.barColor }};border-radius:9999px"></span></span><span style="display:block;font-size:11px;color:#4A4540;margin-top:4px">{{ r.burn }}</span><span style="display:block;font-size:10.5px;color:#8A8580;margin-top:1px">{{ r.pathway }}</span></span>
@@ -260,11 +269,11 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-for list="{{ driverFilters }}" as="f" hint-placeholder-count="4"><span style="padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
-<div style="display:grid;grid-template-columns:2.1fr 1.1fr 1fr 1.4fr 0.7fr 1fr 1fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">
-<span>DRIVER</span><span>TIER</span><span>ENGAGEMENT</span><span>CREDENTIALS</span><span>RATING</span><span>ZONE</span><span>STATUS</span><span></span>
+<div style="display:grid;grid-template-columns:2.1fr 1.1fr 1fr 1.4fr 0.7fr 1fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">
+<span>DRIVER</span><span>TIER</span><span>ENGAGEMENT</span><span>CREDENTIALS</span><span>RATING</span><span>ZONE</span><span>STATUS</span>
 </div>
 <sc-for list="{{ drivers }}" as="d" hint-placeholder-count="8">
-<div style="display:grid;grid-template-columns:2.1fr 1.1fr 1fr 1.4fr 0.7fr 1fr 1fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9">
+<div onClick="{{ d.onOpen }}" style="display:grid;grid-template-columns:2.1fr 1.1fr 1fr 1.4fr 0.7fr 1fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ d.rowBg }};cursor:pointer" style-hover="background:#FAFAF9">
 <span style="display:flex;align-items:center;gap:10px;min-width:0"><span style="width:30px;height:30px;border-radius:9999px;background:#F5F3FF;color:#5647C9;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">{{ d.initials }}</span><span style="min-width:0"><span style="display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ d.id }}</span></span></span>
 <span>{{ d.tier }}</span>
 <span><span style="padding:3px 9px;border-radius:9999px;background:{{ d.engBg }};color:{{ d.engFg }};font-size:11px;font-weight:700">{{ d.eng }}</span></span>
@@ -272,7 +281,6 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <span style="font-variant-numeric:tabular-nums">{{ d.rating }}</span>
 <span style="font-size:12.5px;color:#4A4540">{{ d.zone }}</span>
 <span><span style="padding:3px 9px;border-radius:9999px;background:{{ d.stBg }};color:{{ d.stFg }};font-size:11px;font-weight:700">{{ d.status }}</span></span>
-<span style="text-align:right"><button onClick="{{ d.onAction }}" style="height:30px;padding:0 12px;border:1px solid {{ d.actBorder }};border-radius:9999px;background:#fff;color:{{ d.actFg }};font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer">{{ d.action }}</button></span>
 </div>
 </sc-for>
 </div>
@@ -287,11 +295,11 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">AWAITING REVIEW TODAY</span><span style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">{{ reviewCount }}</span></div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
-<div style="display:grid;grid-template-columns:2fr 2.2fr 1.3fr 1fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">
-<span>APPLICANT</span><span>PIPELINE</span><span>SCREENING</span><span>WAITING</span><span>STATUS</span><span></span>
+<div style="display:grid;grid-template-columns:2fr 2.2fr 1.3fr 1fr 1.2fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">
+<span>APPLICANT</span><span>PIPELINE</span><span>SCREENING</span><span>WAITING</span><span>STATUS</span>
 </div>
 <sc-for list="{{ queue }}" as="q" hint-placeholder-count="6">
-<div style="display:grid;grid-template-columns:2fr 2.2fr 1.3fr 1fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:11px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9">
+<div onClick="{{ q.onOpen }}" style="display:grid;grid-template-columns:2fr 2.2fr 1.3fr 1fr 1.2fr;gap:0 12px;align-items:center;padding:11px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ q.rowBg }};cursor:pointer" style-hover="background:#FAFAF9">
 <span style="min-width:0"><span style="display:block;font-weight:700">{{ q.name }}</span><span style="display:block;font-size:11px;color:#4A4540">Applied {{ q.applied }} · {{ q.zone }}</span></span>
 <span style="display:flex;align-items:center;gap:4px">
 <sc-for list="{{ q.steps }}" as="s" hint-placeholder-count="5"><span title="{{ s.name }}" style="flex:1;height:6px;border-radius:9999px;background:{{ s.bg }}"></span></sc-for>
@@ -300,7 +308,6 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <span><span style="padding:3px 9px;border-radius:9999px;background:{{ q.scrBg }};color:{{ q.scrFg }};font-size:11px;font-weight:700">{{ q.screening }}</span></span>
 <span style="font-size:12.5px;color:{{ q.waitFg }};font-weight:{{ q.waitFw }}">{{ q.waiting }}</span>
 <span><span style="padding:3px 9px;border-radius:9999px;background:{{ q.stBg }};color:{{ q.stFg }};font-size:11px;font-weight:700">{{ q.status }}</span></span>
-<span style="text-align:right"><sc-if value="{{ q.actionable }}" hint-placeholder-val="{{ false }}"><button onClick="{{ q.onAction }}" style="height:30px;padding:0 14px;border:0;border-radius:9999px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">{{ q.action }}</button></sc-if></span>
 </div>
 </sc-for>
 </div>
@@ -388,7 +395,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1fr 1.3fr 1.3fr 1.8fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>TRIP</span><span>PARTICIPANT</span><span>DRIVER</span><span>ROUTE</span><span>WHEN</span><span>STATUS</span></div>
 <sc-for list="{{ tsRows }}" as="t" hint-placeholder-count="6">
-<div style="display:grid;grid-template-columns:1fr 1.3fr 1.3fr 1.8fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ t.id }}</span><span style="font-weight:700">{{ t.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ t.driver }}</span><span style="font-size:12.5px">{{ t.route }}</span><span style="font-size:12.5px;color:#4A4540">{{ t.when }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ t.stBg }};color:{{ t.stFg }};font-size:11px;font-weight:700">{{ t.stLabel }}</span></span></div>
+<div onClick="{{ t.onOpen }}" style="display:grid;grid-template-columns:1fr 1.3fr 1.3fr 1.8fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ t.rowBg }};cursor:pointer" style-hover="background:#FAFAF9"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ t.id }}</span><span style="font-weight:700">{{ t.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ t.driver }}</span><span style="font-size:12.5px">{{ t.route }}</span><span style="font-size:12.5px;color:#4A4540">{{ t.when }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ t.stBg }};color:{{ t.stFg }};font-size:11px;font-weight:700">{{ t.stLabel }}</span></span></div>
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">214 trips today. Every trip links to its participant, driver, vehicle, support items and claim status.</div>
@@ -432,7 +439,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.6fr 1.6fr 1.1fr 1.4fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>VEHICLE</span><span>CONFIG</span><span>CAPACITY</span><span>NEXT SERVICE</span><span>STATUS</span></div>
 <sc-for list="{{ vehicles }}" as="v" hint-placeholder-count="6">
-<div style="display:grid;grid-template-columns:1.6fr 1.6fr 1.1fr 1.4fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span><span style="display:block;font-weight:700">{{ v.id }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ v.rego }}</span></span><span style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ v.config }}" as="c" hint-placeholder-count="2"><span style="padding:2px 8px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ c }}</span></sc-for></span><span style="font-size:12.5px;color:#4A4540">{{ v.cap }}</span><span style="font-size:12.5px">{{ v.service }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ v.stBg }};color:{{ v.stFg }};font-size:11px;font-weight:700">{{ v.stLabel }}</span></span></div>
+<div onClick="{{ v.onOpen }}" style="display:grid;grid-template-columns:1.6fr 1.6fr 1.1fr 1.4fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ v.rowBg }};cursor:pointer" style-hover="background:#FAFAF9"><span><span style="display:block;font-weight:700">{{ v.id }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ v.rego }}</span></span><span style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ v.config }}" as="c" hint-placeholder-count="2"><span style="padding:2px 8px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ c }}</span></sc-for></span><span style="font-size:12.5px;color:#4A4540">{{ v.cap }}</span><span style="font-size:12.5px">{{ v.service }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ v.stBg }};color:{{ v.stFg }};font-size:11px;font-weight:700">{{ v.stLabel }}</span></span></div>
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">Showing 6 of 18. Each vehicle is a tracked asset with registration, insurance, inspection schedule and accessibility config. Equipment carried is tracked under Equipment.</div>
@@ -497,31 +504,98 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 
 </div>
 </div>
+
+<sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;top:0;right:0;bottom:0;width:372px;background:#fff;border-left:1px solid #E8E5E1;box-shadow:-16px 0 40px rgba(0,0,0,0.1);z-index:40;display:flex;flex-direction:column;box-sizing:border-box">
+<div style="display:flex;align-items:flex-start;gap:12px;padding:18px 18px 12px;border-bottom:1px solid #F7F6F4">
+<span style="width:38px;height:38px;border-radius:10px;background:#F5F3FF;color:#5647C9;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none"><i class="fa-solid {{ dIcon }}"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:700">{{ dTitle }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ dSub }}</span></span>
+<button onClick="{{ drawerClose }}" title="Close" style="width:30px;height:30px;flex:none;border:1px solid #E8E5E1;background:#fff;color:#4A4540;border-radius:9999px;font-family:inherit;font-size:12px;cursor:pointer" style-hover="background:#F7F6F4"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div style="flex:1;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:12px">
+<span style="align-self:flex-start;padding:4px 11px;border-radius:9999px;background:{{ dStatusBg }};color:{{ dStatusFg }};font-size:11px;font-weight:700">{{ dStatusLabel }}</span>
+<sc-if value="{{ dHasChips }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ dChips }}" as="c" hint-placeholder-count="2"><span style="padding:3px 9px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ c }}</span></sc-for></div></sc-if>
+<div style="border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<sc-for list="{{ dFields }}" as="f" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-bottom:1px solid #F7F6F4;font-size:12.5px"><span style="color:#4A4540;flex:none">{{ f.label }}</span><strong style="text-align:right">{{ f.val }}</strong></div>
+</sc-for>
+</div>
+<sc-if value="{{ dNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#4A4540;line-height:1.5">{{ dNote }}</div></sc-if>
+</div>
+<sc-if value="{{ dHasAction }}" hint-placeholder-val="{{ false }}">
+<div style="padding:14px 18px;border-top:1px solid #F7F6F4">
+<button onClick="{{ dActionGo }}" style="width:100%;height:44px;border:0;border-radius:12px;background:{{ dActionBg }};color:#fff;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer">{{ dActionLabel }}</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ palOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;background:rgba(45,55,72,0.35);z-index:60;display:flex;align-items:flex-start;justify-content:center;padding-top:110px;box-sizing:border-box">
+<div style="width:480px;max-width:92vw;background:#fff;border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,0.25);overflow:hidden">
+<div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #E8E5E1">
+<i class="fa-solid fa-magnifying-glass" style="color:#4A4540;font-size:13px"></i>
+<span style="flex:1;font-size:14px;color:{{ palQColor }}">{{ palQText }}</span>
+<span onClick="{{ palClose }}" style="padding:2px 8px;border-radius:6px;background:#F7F6F4;color:#4A4540;font-size:10.5px;font-weight:700;cursor:pointer">ESC</span>
+</div>
+<div style="max-height:320px;overflow-y:auto;padding:6px">
+<sc-for list="{{ palResults }}" as="r" hint-placeholder-count="6">
+<div onClick="{{ r.onGo }}" style="display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:10px;background:{{ r.bg }};cursor:pointer" style-hover="background:#F7F6F4">
+<i class="fa-solid {{ r.icon }}" style="width:16px;text-align:center;color:#5647C9;font-size:13px"></i>
+<span style="flex:1;font-size:13px;font-weight:{{ r.fw }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
+<span style="font-size:11px;color:#4A4540;flex:none">{{ r.area }}</span>
+</div>
+</sc-for>
+<sc-if value="{{ palEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:16px 12px;font-size:12.5px;color:#4A4540">No matches. Try a screen, driver, participant, vehicle or trip.</div></sc-if>
+</div>
+<div style="display:flex;gap:14px;padding:9px 16px;border-top:1px solid #E8E5E1;font-size:11px;color:#4A4540">Type to search · up and down to move · Enter to open · Esc to close</div>
+</div>
+</div>
+</sc-if>
+
 </div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;startSection&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;liveops&quot;,&quot;options&quot;:[&quot;liveops&quot;,&quot;dispatch&quot;,&quot;tripsearch&quot;,&quot;riders&quot;,&quot;drivers&quot;,&quot;onboarding&quot;,&quot;compliance&quot;,&quot;incidents&quot;,&quot;privacy&quot;,&quot;claims&quot;,&quot;pricing&quot;,&quot;providers&quot;,&quot;fleet&quot;,&quot;vehicles&quot;,&quot;equipment&quot;,&quot;credentials&quot;,&quot;outcomes&quot;,&quot;config&quot;,&quot;rbac&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { section: null, assigned: {}, suspended: { s1: true }, approved: {}, activated: {}, opsF: 'all', flag: 'open', tick: 0 };
-  componentDidMount() { this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000); }
-  componentWillUnmount() { if (this._iv) clearInterval(this._iv); }
+  state = { section: null, assigned: {}, suspended: { s1: true }, approved: {}, activated: {}, opsF: 'all', flag: 'open', tick: 0,
+    drawer: null, palOpen: false, palQ: '', palSel: 0,
+    panel: (() => { try { return window.localStorage.getItem('mwPanel') !== 'closed'; } catch (e) { return true; } })() };
+  componentDidMount() {
+    this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000);
+    this._kd = (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); this.setState(s => ({ palOpen: !s.palOpen, palQ: '', palSel: 0 })); return; }
+      if (this.state.palOpen) {
+        if (e.key === 'Escape') this.setState({ palOpen: false });
+        else if (e.key === 'Enter' || e.key === 'Return') { if (this._palGo) this._palGo(); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); this.setState(s => ({ palSel: s.palSel + 1 })); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); this.setState(s => ({ palSel: Math.max(0, s.palSel - 1) })); }
+        else if (e.key === 'Backspace') this.setState(s => ({ palQ: s.palQ.slice(0, -1), palSel: 0 }));
+        else if (e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey) this.setState(s => ({ palQ: (s.palQ + e.key).slice(0, 40), palSel: 0 }));
+        return;
+      }
+      if (e.key === 'Escape' && this.state.drawer) this.setState({ drawer: null });
+    };
+    document.addEventListener('keydown', this._kd);
+  }
+  componentWillUnmount() { if (this._iv) clearInterval(this._iv); if (this._kd) document.removeEventListener('keydown', this._kd); }
   renderVals() {
     const S = this.state, P = this.props;
     const sec = S.section ?? (P.startSection ?? 'liveops');
-    const nav = k => () => this.setState({ section: k });
+    const nav = k => () => this.setState({ section: k, drawer: null });
     const PURP = '#6C5CE7', PD = '#5647C9', SOFT = '#F5F3FF', G = '#1F7A33', GBG = 'rgba(45,167,72,0.14)', Y = 'rgba(255,217,61,0.25)', YFG = '#8A6800', R = '#C43F3F', RBG = 'rgba(232,85,85,0.12)';
-    const built = { liveops: 1, dispatch: 1, tripsearch: 1, riders: 1, drivers: 1, onboarding: 1, compliance: 1, incidents: 1, privacy: 1, claims: 1, pricing: 1, providers: 1, fleet: 1, vehicles: 1, equipment: 1, credentials: 1, outcomes: 1, config: 1, rbac: 1 };
-    const mk = (name, icon, key, badge) => ({ name, icon, badge: badge || false,
-      bg: key === sec ? SOFT : 'transparent', fg: key === sec ? PD : (built[key] ? '#2D3748' : 'rgba(45,55,72,0.45)'),
-      fw: key === sec ? 700 : 400, cursor: built[key] ? 'pointer' : 'default', onNav: built[key] ? nav(key) : () => {} });
-    const navGroups = [
-      { label: 'OPERATIONS', items: [mk('Live ops', 'fa-tower-observation', 'liveops'), mk('Dispatch & rostering', 'fa-route', 'dispatch', '3'), mk('Trip search', 'fa-magnifying-glass', 'tripsearch'), mk('Participants', 'fa-users', 'riders', '3'), mk('Drivers', 'fa-id-card', 'drivers'), mk('Driver onboarding', 'fa-user-plus', 'onboarding', '12')] },
-      { label: 'COMPLIANCE', items: [mk('Compliance hub', 'fa-clipboard-check', 'compliance'), mk('Incident management', 'fa-file-circle-exclamation', 'incidents'), mk('Privacy & access logs', 'fa-eye', 'privacy')] },
-      { label: 'FINANCE', items: [mk('Claims monitor', 'fa-file-invoice-dollar', 'claims'), mk('Pricing & line items', 'fa-tags', 'pricing'), mk('Plan managers & providers', 'fa-building', 'providers')] },
-      { label: 'FLEET & ASSETS', items: [mk('Assignment view', 'fa-diagram-project', 'fleet'), mk('Vehicles', 'fa-van-shuttle', 'vehicles', '18'), mk('Equipment', 'fa-wheelchair', 'equipment'), mk('Credential register', 'fa-certificate', 'credentials')] },
-      { label: 'PLATFORM', items: [mk('Outcomes console', 'fa-chart-line', 'outcomes'), mk('Configuration & flags', 'fa-sliders', 'config'), mk('Users & RBAC', 'fa-user-lock', 'rbac')] },
+    const titles = { liveops: 'Live ops', dispatch: 'Dispatch & rostering', tripsearch: 'Trip search', riders: 'Riders', drivers: 'Drivers', onboarding: 'Onboarding queue', compliance: 'Compliance hub', incidents: 'Incident management', privacy: 'Privacy & access logs', claims: 'Claims monitor', pricing: 'Pricing & line items', providers: 'Plan managers & providers', fleet: 'Assignment view', vehicles: 'Vehicles', equipment: 'Equipment', credentials: 'Credential register', outcomes: 'Outcomes console', config: 'Configuration & flags', rbac: 'Users & RBAC' };
+    const screenIcons = { liveops: 'fa-tower-observation', dispatch: 'fa-route', tripsearch: 'fa-magnifying-glass', riders: 'fa-users', drivers: 'fa-id-card', onboarding: 'fa-user-plus', compliance: 'fa-clipboard-check', incidents: 'fa-file-circle-exclamation', privacy: 'fa-eye', claims: 'fa-file-invoice-dollar', pricing: 'fa-tags', providers: 'fa-building', vehicles: 'fa-van-shuttle', equipment: 'fa-wheelchair', credentials: 'fa-certificate', fleet: 'fa-diagram-project', outcomes: 'fa-chart-line', config: 'fa-sliders', rbac: 'fa-user-lock' };
+    const areaDefs = [
+      { label: 'Operations', short: 'OPS', icon: 'fa-tower-observation', screens: ['liveops', 'dispatch', 'tripsearch', 'riders', 'drivers', 'onboarding'] },
+      { label: 'Compliance', short: 'COMPLIANCE', icon: 'fa-clipboard-check', screens: ['compliance', 'incidents', 'privacy'] },
+      { label: 'Finance', short: 'FINANCE', icon: 'fa-file-invoice-dollar', screens: ['claims', 'pricing', 'providers'] },
+      { label: 'Fleet & assets', short: 'FLEET', icon: 'fa-van-shuttle', screens: ['vehicles', 'equipment', 'credentials', 'fleet'] },
+      { label: 'Platform', short: 'PLATFORM', icon: 'fa-sliders', screens: ['outcomes', 'config', 'rbac'], bottom: true },
     ];
-    const titles = { liveops: 'Live ops', dispatch: 'Dispatch & rostering', tripsearch: 'Trip search', riders: 'Participants', drivers: 'Drivers', onboarding: 'Driver onboarding', compliance: 'Compliance hub', incidents: 'Incident management', privacy: 'Privacy & access logs', claims: 'Claims monitor', pricing: 'Pricing & line items', providers: 'Plan managers & providers', fleet: 'Assignment view', vehicles: 'Vehicles', equipment: 'Equipment', credentials: 'Credential register', outcomes: 'Outcomes console', config: 'Configuration & flags', rbac: 'Users & RBAC' };
+    const curArea = areaDefs.find(a => a.screens.includes(sec)) || areaDefs[0];
+    const drawerIs = (t, k) => S.drawer && S.drawer.t === t && S.drawer.k === k;
+    const openDrawer = (t, k) => () => this.setState({ drawer: { t, k } });
 
     // --- live ops (migrated from the standalone Ops Mission Control) ---
     const drv = [
@@ -585,6 +659,7 @@ class Component extends DCLogic {
     ];
     const jobs = jobsBase.map(j => ({ ...j, assigned: !!S.assigned[j.k], unassigned: !S.assigned[j.k],
       border: S.assigned[j.k] ? '#E8E5E1' : '#8B7EEE',
+      rowBg: drawerIs('job', j.k) ? '#F5F3FF' : '#fff', onOpen: openDrawer('job', j.k),
       onAssign: () => this.setState(s => ({ assigned: { ...s.assigned, [j.k]: true } })) }));
     const unassignedCount = jobs.filter(j => !j.assigned).length;
     const hours = ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17'];
@@ -618,7 +693,7 @@ class Component extends DCLogic {
       { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', ndis: '43 199 038 · Glenelg', plan: 'Self-managed', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', pathway: 'Recurring Level 2 · externally paid', tags: ['Ambulatory'], status: 'Active', stBg: GBG, stFg: G },
       { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', ndis: '43 260 471 · Mile End', plan: 'Plan-managed', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', pathway: 'Core budget · claim to plan manager', tags: ['Ambulatory'], status: 'Active', stBg: GBG, stFg: G },
       { init: 'AB', avBg: '#FF8E8E', name: 'Aisha Bello', ndis: '43 305 882 · Elizabeth', plan: 'Agency-managed', pct: '63%', barColor: '#FF6B6B', burn: '$2,040 of $3,240', pathway: 'Core budget · NDIA claim', tags: ['Sensory-calm', 'SIL'], status: 'Active', stBg: GBG, stFg: G },
-    ];
+    ].map(r => ({ ...r, k: r.ndis, rowBg: drawerIs('rider', r.ndis) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('rider', r.ndis) }));
     const intakeBase = [
       { k: 'i1', init: 'NA', avBg: '#FF6B6B', name: 'Nina Alvaro', source: 'Self sign-up (mobile)', ago: '12 min ago', tag: 'Awaiting plan verification', tagIcon: 'fa-hourglass-half', tagBg: Y, tagFg: YFG },
       { k: 'i2', init: 'CT', avBg: '#6C5CE7', name: 'Cooper Tran (age 9)', source: 'Guardian Supporter · self sign-up', ago: '1 hr ago', tag: 'Guardian consent confirmed', tagIcon: 'fa-circle-check', tagBg: GBG, tagFg: G },
@@ -650,6 +725,7 @@ class Component extends DCLogic {
       eng: d.e.flag, engBg: d.e.flagBg, engFg: d.e.flagFg,
       status: sus ? 'Suspended' : 'Active', stBg: sus ? RBG : GBG, stFg: sus ? R : G,
       action: sus ? 'Reinstate' : 'Suspend', actFg: sus ? PD : R, actBorder: sus ? '#8B7EEE' : '#E8E5E1',
+      rowBg: drawerIs('driver', d.k) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('driver', d.k),
       onAction: () => this.setState(s => ({ suspended: { ...s.suspended, [d.k]: !s.suspended[d.k] } })) }; });
 
     // --- driver onboarding queue ---
@@ -673,6 +749,7 @@ class Component extends DCLogic {
       stBg: ok ? GBG : (q.done >= 4 ? Y : '#F7F6F4'), stFg: ok ? G : (q.done >= 4 ? YFG : '#4A4540'),
       actionable: q.actionable && !ok,
       waitFg: q.hot && !ok ? YFG : '#4A4540', waitFw: q.hot && !ok ? 700 : 400,
+      rowBg: drawerIs('applicant', q.k) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('applicant', q.k),
       onAction: () => this.setState(s => ({ approved: { ...s.approved, [q.k]: true } })) }; });
     const reviewCount = queue.filter(q => q.status === 'Awaiting review').length;
 
@@ -736,7 +813,8 @@ class Component extends DCLogic {
       { id: 'TR-88214', who: 'Maya Patel', driver: 'Deb Kaur', route: 'Prospect to North Adelaide', when: 'Today 2:15 pm', st: 'done' },
       { id: 'TR-88165', who: 'Jordan Teague', driver: 'Harpreet Gill', route: 'Glenelg to CBD', when: 'Yesterday 9:00 am', st: 'done' },
       { id: 'TR-88150', who: 'Priya Bakshi', driver: 'Jo Tran', route: 'Mile End to day program', when: 'Yesterday 8:40 am', st: 'canc' },
-    ].map(r => ({ ...r, stLabel: tsStatus[r.st].label, stBg: tsStatus[r.st].bg, stFg: tsStatus[r.st].fg }));
+    ].map(r => ({ ...r, stLabel: tsStatus[r.st].label, stBg: tsStatus[r.st].bg, stFg: tsStatus[r.st].fg,
+      rowBg: drawerIs('trip', r.id) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('trip', r.id) }));
 
     // --- privacy & access logs ---
     const accessLogs = [
@@ -773,7 +851,8 @@ class Component extends DCLogic {
       { id: 'HD-01', rego: 'S 452 KJK · Mercedes Sprinter', config: ['High-dependency'], cap: '2 stretcher', service: '02/10/2026', st: 'depot' },
       { id: 'CH-02', rego: 'S 903 LMN · Toyota Kluger', config: ['Child restraint'], cap: '5 seats', service: '15/09/2026', st: 'out' },
       { id: 'EV-03', rego: 'S 640 PQR · VW ID.Buzz', config: ['Standard', 'EV'], cap: '6 seats', service: '28/09/2026', st: 'charge' },
-    ].map(v => ({ ...v, stLabel: vStatus[v.st].label, stBg: vStatus[v.st].bg, stFg: vStatus[v.st].fg }));
+    ].map(v => ({ ...v, stLabel: vStatus[v.st].label, stBg: vStatus[v.st].bg, stFg: vStatus[v.st].fg,
+      rowBg: drawerIs('vehicle', v.id) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('vehicle', v.id) }));
 
     // --- equipment assets ---
     const eqStatus = { ok: { label: 'OK', bg: GBG, fg: G }, due: { label: 'Recheck due', bg: Y, fg: YFG } };
@@ -825,9 +904,64 @@ class Component extends DCLogic {
       { name: 'Owen Diaz', role: 'Intake', scope: 'Onboarding queue', active: 'Yesterday', init: 'OD' },
     ];
 
+    // --- rail + contextual panel ---
+    const badgeMap = { dispatch: String(unassignedCount), riders: '3', onboarding: '12', vehicles: '18' };
+    const railItems = areaDefs.map(a => { const on = a === curArea; return { icon: a.icon, label: a.short,
+      bg: on ? SOFT : 'transparent', fg: on ? PD : '#4A4540', mt: a.bottom ? 'auto' : '2px',
+      onPick: nav(a.screens[0]) }; });
+    const panelItems = curArea.screens.map(k => { const on = k === sec; return { name: titles[k], badge: badgeMap[k] || false,
+      bg: on ? SOFT : 'transparent', fg: on ? PD : '#2D3748', fw: on ? '700' : '400', onNav: nav(k) }; });
+    const panelToggle = () => this.setState(s => { const open = !s.panel; try { window.localStorage.setItem('mwPanel', open ? 'open' : 'closed'); } catch (e) {} return { panel: open }; });
+
+    // --- record drawer ---
+    let dw = null;
+    const DR = S.drawer;
+    if (DR) {
+      const F = (label, val) => ({ label, val });
+      if (DR.t === 'driver') { const r = drivers.find(x => x.k === DR.k); if (r) dw = { icon: 'fa-id-card', title: r.name, sub: r.id, status: { label: r.status, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Tier', r.tier), F('Engagement', r.eng), F('Credentials', r.cred), F('Rating', r.rating), F('Zone', r.zone)], note: 'Suspension takes effect immediately and pauses offers. The driver is notified with the reason and review date.', action: { label: r.action, bg: r.action === 'Suspend' ? R : PURP, go: r.onAction } }; }
+      else if (DR.t === 'rider') { const r = riders.find(x => x.k === DR.k); if (r) dw = { icon: 'fa-user', title: r.name, sub: r.ndis, status: { label: r.status, bg: r.stBg, fg: r.stFg }, chips: r.tags, fields: [F('Plan management', r.plan), F('Funding pathway', r.pathway), F('Transport budget', r.burn)], note: 'Bookings are checked against this profile: funding source, remaining budget, eligible support item and agreement permissions.', action: null }; }
+      else if (DR.t === 'vehicle') { const r = vehicles.find(x => x.id === DR.k); if (r) dw = { icon: 'fa-van-shuttle', title: r.id, sub: r.rego, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: r.config, fields: [F('Capacity', r.cap), F('Next service', r.service)], note: 'Registration, insurance and inspection are tracked per vehicle. Equipment carried is listed under Equipment.', action: null }; }
+      else if (DR.t === 'trip') { const r = tsRows.find(x => x.id === DR.k); if (r) dw = { icon: 'fa-route', title: r.id, sub: r.when, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Participant', r.who), F('Driver', r.driver), F('Route', r.route)], note: 'Every trip links to its participant, driver, vehicle, support items and claim status.', action: null }; }
+      else if (DR.t === 'applicant') { const r = queue.find(x => x.k === DR.k); if (r) dw = { icon: 'fa-user-plus', title: r.name, sub: 'Applied ' + r.applied + ' · ' + r.zone, status: { label: r.status, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Screening', r.screening), F('Stage', r.stage), F('Waiting', r.waiting)], note: 'Pipeline: identity, screening, credentials, training, review. Ported NDIS Worker Screenings skip the screening stage.', action: r.actionable ? { label: r.action, bg: PURP, go: r.onAction } : null }; }
+      else if (DR.t === 'job') { const r = jobs.find(x => x.k === DR.k); if (r) dw = { icon: 'fa-route', title: r.time + ' · ' + r.route, sub: r.participant, status: r.assigned ? { label: 'Assigned', bg: GBG, fg: G } : { label: 'Needs assignment', bg: SOFT, fg: PD }, chips: r.chips, fields: [F('Suggested driver', r.suggested), F('Why', r.why)], note: 'Assignment dispatches the job to the driver and notifies the participant and any linked Supporter.', action: r.assigned ? null : { label: 'Assign ' + r.suggested, bg: PURP, go: r.onAssign } }; }
+    }
+
+    // --- command palette ---
+    const palAll = [];
+    areaDefs.forEach(a => a.screens.forEach(k => palAll.push({ name: titles[k], icon: screenIcons[k], area: a.label, run: () => this.setState({ section: k, drawer: null, palOpen: false, palQ: '', palSel: 0 }) })));
+    const recItem = (name, icon, area, section, t, k) => palAll.push({ name, icon, area, run: () => this.setState({ section, drawer: { t, k }, palOpen: false, palQ: '', palSel: 0 }) });
+    drivers.forEach(d0 => recItem(d0.name, 'fa-id-card', 'Driver', 'drivers', 'driver', d0.k));
+    riders.forEach(r0 => recItem(r0.name, 'fa-user', 'Participant', 'riders', 'rider', r0.k));
+    vehicles.forEach(v0 => recItem(v0.id + ' · ' + v0.rego, 'fa-van-shuttle', 'Vehicle', 'vehicles', 'vehicle', v0.id));
+    tsRows.forEach(t0 => recItem(t0.id + ' · ' + t0.who, 'fa-route', 'Trip', 'tripsearch', 'trip', t0.id));
+    queue.forEach(q0 => recItem(q0.name, 'fa-user-plus', 'Applicant', 'onboarding', 'applicant', q0.k));
+    const palQ = S.palQ.trim().toLowerCase();
+    const fuzzy = (s) => { let i = 0; s = s.toLowerCase(); for (const ch of palQ) { i = s.indexOf(ch, i); if (i < 0) return false; i++; } return true; };
+    const palMatches = palQ ? palAll.filter(i => (i.name + ' ' + i.area).toLowerCase().includes(palQ) || fuzzy(i.name)) : palAll.slice(0, 7);
+    const palShown = palMatches.slice(0, 8);
+    const palSel = Math.min(S.palSel, Math.max(0, palShown.length - 1));
+    this._palGo = () => { const r = palShown[palSel]; if (r) r.run(); };
+    const palResults = palShown.map((r, i) => ({ ...r, bg: i === palSel ? SOFT : 'transparent', fw: i === palSel ? '700' : '400', onGo: r.run }));
+
     return {
       logout: () => (this.props.onLogout || (() => {}))(),
-      sectionTitle: titles[sec] || 'Admin', navGroups,
+      sectionTitle: titles[sec] || 'Admin',
+      railItems, panelItems, panelToggle,
+      panelOpen: S.panel, panelClosed: !S.panel,
+      areaEyebrow: curArea.label.toUpperCase(), crumbArea: curArea.label,
+      drawerOpen: !!dw,
+      dIcon: dw ? dw.icon : 'fa-circle-info', dTitle: dw ? dw.title : '', dSub: dw ? dw.sub : '',
+      dStatusLabel: dw && dw.status ? dw.status.label : '', dStatusBg: dw && dw.status ? dw.status.bg : '#F7F6F4', dStatusFg: dw && dw.status ? dw.status.fg : '#4A4540',
+      dHasChips: !!(dw && dw.chips && dw.chips.length), dChips: dw && dw.chips ? dw.chips : [],
+      dFields: dw ? dw.fields : [], dNote: dw && dw.note ? dw.note : false,
+      dHasAction: !!(dw && dw.action), dActionLabel: dw && dw.action ? dw.action.label : '', dActionBg: dw && dw.action ? dw.action.bg : PURP,
+      dActionGo: dw && dw.action ? dw.action.go : () => {},
+      drawerClose: () => this.setState({ drawer: null }),
+      palOpen: S.palOpen, palResults, palEmpty: !!palQ && palShown.length === 0,
+      palOpenFn: () => this.setState({ palOpen: true, palQ: '', palSel: 0 }),
+      palClose: () => this.setState({ palOpen: false }),
+      palQText: S.palQ || 'Search screens, trips, drivers, participants...',
+      palQColor: S.palQ ? '#2D3748' : '#ADA8A2',
       isLiveops: sec === 'liveops', isDispatch: sec === 'dispatch', isRiders: sec === 'riders',
       isDrivers: sec === 'drivers', isOnboarding: sec === 'onboarding', isFleet: sec === 'fleet',
       isClaims: sec === 'claims', isIncidents: sec === 'incidents', isCompliance: sec === 'compliance',
