@@ -133,7 +133,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="3">
 <div onClick="{{ t.onPick }}" style="display:flex;align-items:center;gap:14px;padding:{{ t.pad }};background:#fff;border:{{ t.border }};border-radius:12px;cursor:pointer;box-sizing:border-box">
 <span style="width:44px;height:44px;border-radius:12px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fa-solid {{ t.icon }}"></i></span>
-<span style="flex:1;min-width:0"><span style="display:block;font-size:16px;font-weight:700">{{ t.name }}</span><span style="display:block;font-size:13px;color:#4A4540">{{ t.desc }}</span></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:16px;font-weight:700">{{ t.name }}</span><span style="display:block;font-size:13px;color:#4A4540">{{ t.desc }}</span><span style="display:inline-block;margin-top:4px;padding:2px 8px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ t.basis }}</span></span>
 <span style="text-align:right"><span style="display:block;font-size:15px;font-weight:700">{{ t.fare }}</span><span style="display:block;font-size:11px;color:#4A4540">est. claim</span></span>
 </div>
 </sc-for>
@@ -161,11 +161,16 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 </div>
 <div style="background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
-<div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#1F7A33"><i class="fa-solid fa-circle-check"></i>Eligible · Core budget</div>
-<div style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">04_590_0125_6_1 · Activity based transport</div>
-<div style="display:flex;justify-content:space-between;font-size:14px"><span>Estimated claim</span><strong>{{ fare }}</strong></div>
-<div style="display:flex;justify-content:space-between;font-size:14px"><span>Core transport remaining</span><strong>$1,205.65</strong></div>
-<div style="font-size:12.5px;color:#4A4540;line-height:1.45">You never pay in the vehicle. The claim goes to your plan manager after the trip.</div>
+<div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#1F7A33"><i class="fa-solid fa-circle-check"></i>Eligible · Core transport, plan-managed</div>
+<div style="font-size:12px;color:#4A4540"><i class="fa-solid fa-route" style="margin-right:6px"></i>{{ kmLabel }}</div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(45,167,72,0.25);border-bottom:1px solid rgba(45,167,72,0.25);padding:8px 0">
+<sc-for list="{{ estBreakdown }}" as="b" hint-placeholder-count="2">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13.5px"><span style="flex:1;min-width:0"><span style="display:block">{{ b.label }}</span><span style="display:block;font-size:11px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">{{ b.item }}</span></span><strong style="font-variant-numeric:tabular-nums">{{ b.amount }}</strong></div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700"><span>Estimated claim</span><strong style="font-variant-numeric:tabular-nums">{{ estTotal }}</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:#4A4540"><span>Core transport remaining</span><strong>$1,205.65</strong></div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.45">No gap fees. You never pay in the vehicle. The claim is built from trip evidence and goes to your plan manager after the trip.</div>
 </div>
 </div>
 <div style="margin-top:auto;padding:16px 20px 20px;display:flex;flex-direction:column;gap:8px">
@@ -304,13 +309,18 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
 <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7;flex:none"></span>Home · 12 Olive St, Prospect</div>
 <div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:10px"></i>{{ dest.name }}</div>
-<div style="border-top:1px solid #F7F6F4;padding-top:10px;display:flex;justify-content:space-between;font-size:15px"><span>{{ tierName }}</span><strong>{{ fare }}</strong></div>
+<div style="border-top:1px solid #F7F6F4;padding-top:10px;display:flex;justify-content:space-between;font-size:13.5px;color:#4A4540"><span>{{ tierName }}</span><span>{{ kmLabel }}</span></div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
 <span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Claim submitted</span>
 <div style="font-size:14px">Sent to your plan manager (Leap in!)</div>
-<div style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">04_590_0125_6_1 · Activity based transport</div>
-<div style="font-size:12.5px;color:#4A4540">No payment needed from you.</div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #F7F6F4;padding-top:8px">
+<sc-for list="{{ estBreakdown }}" as="b" hint-placeholder-count="2">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13px"><span style="flex:1;min-width:0"><span style="display:block">{{ b.label }}</span><span style="display:block;font-size:11px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">{{ b.item }}</span></span><strong style="font-variant-numeric:tabular-nums">{{ b.amount }}</strong></div>
+</sc-for>
+<div style="display:flex;justify-content:space-between;font-size:13.5px;font-weight:700;border-top:1px solid #F7F6F4;padding-top:6px"><span>Total claimed</span><strong style="font-variant-numeric:tabular-nums">{{ estTotal }}</strong></div>
+</div>
+<div style="font-size:12.5px;color:#4A4540">No gap fees or surcharges. No payment needed from you.</div>
 </div>
 </div>
 <div style="margin-top:auto;padding:16px 20px 20px">
@@ -459,11 +469,12 @@ class Component extends DCLogic {
     const screen = S.screen ?? (P.startScreen ?? 'home');
     const go = s => () => this.setState({ screen: s, ...(s === 'home' ? { sos: false } : {}) });
     const prefersWAV = !!P.prefersWAV;
+    const money = n => '$' + n.toFixed(2);
     const tierList = [
-      { id: 'standard', icon: 'fa-car', name: 'Standard sedan', desc: 'Door-to-door support', fare: '$38.50' },
-      { id: 'wav', icon: 'fa-wheelchair', name: 'Wheelchair accessible (WAV)', desc: 'Hoist, restraint compliant', fare: '$52.20' },
-      { id: 'sensory', icon: 'fa-volume-xmark', name: 'Sensory-calm', desc: 'Low light, quiet, no radio', fare: '$45.10' },
-    ];
+      { id: 'standard', icon: 'fa-car', name: 'Standard sedan', desc: 'Door-to-door support', total: 38.50, basis: 'Activity based transport', item: '04_590_0125_6_1' },
+      { id: 'wav', icon: 'fa-wheelchair', name: 'Wheelchair accessible (WAV)', desc: 'Hoist, restraint compliant', total: 52.20, basis: 'Specialised transport', item: '04_590_0129_6_1' },
+      { id: 'sensory', icon: 'fa-volume-xmark', name: 'Sensory-calm', desc: 'Low light, quiet, no radio', total: 45.10, basis: 'Specialised transport', item: '04_590_0129_6_1' },
+    ].map(t => ({ ...t, fare: money(t.total) }));
     const tierId = S.tier ?? (prefersWAV ? 'wav' : 'standard');
     const tiers = tierList.map(t => ({ ...t, sel: t.id === tierId,
       border: t.id === tierId ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
@@ -471,12 +482,22 @@ class Component extends DCLogic {
       onPick: () => this.setState({ tier: t.id }) }));
     const tier = tierList.find(t => t.id === tierId);
     const destList = [
-      { icon: 'fa-house-medical', name: 'Physio · North Adelaide', addr: '88 Ward St, North Adelaide SA' },
-      { icon: 'fa-people-group', name: 'Day program · Mile End', addr: '4 Norma St, Mile End SA' },
-      { icon: 'fa-person-swimming', name: 'Adelaide Aquatic Centre', addr: 'Jeffcott Rd, North Adelaide SA' },
+      { icon: 'fa-house-medical', name: 'Physio · North Adelaide', addr: '88 Ward St, North Adelaide SA', km: 12.4, park: 3.20 },
+      { icon: 'fa-people-group', name: 'Day program · Mile End', addr: '4 Norma St, Mile End SA', km: 8.6, park: 2.40 },
+      { icon: 'fa-person-swimming', name: 'Adelaide Aquatic Centre', addr: 'Jeffcott Rd, North Adelaide SA', km: 9.1, park: 2.80 },
     ];
     const dests = destList.map(d => ({ ...d, onPick: () => this.setState({ dest: d, screen: 'when' }) }));
     const dest = S.dest ?? destList[0];
+    // NDIS claim decomposition: transport support (Cat 2 / specialised) + non-labour travel (tolls/parking).
+    // Totals preserve today's figures; the $/km is a claim-unit structure, not a retail fare.
+    const nonLabourAmt = dest.park;
+    const transportAmt = tier.total - nonLabourAmt;
+    const estBreakdown = [
+      { label: tier.basis, item: tier.item, amount: money(transportAmt) },
+      { label: 'Non-labour travel · tolls and parking', item: '01_799_0117_8_1', amount: money(nonLabourAmt) },
+    ];
+    const estTotal = money(tier.total);
+    const kmLabel = dest.km.toFixed(1) + ' km · Adelaide metro (MMM 1)';
     const whenModes = [
       { id: 'now', label: 'Leave now', desc: 'Pickup in about 10\u201315 minutes' },
       { id: 'later', label: 'Schedule', desc: 'Pick a date and time' },
@@ -568,7 +589,7 @@ class Component extends DCLogic {
       goReceipt: go('receipt'), goA11y: go('a11y'),
       dests, dest, whenModes, isLater: S.whenMode === 'later',
       whenLabel: S.whenMode === 'later' ? 'Thu 18/07/2026 \u00b7 2:15 pm' : 'Today \u00b7 ASAP pickup',
-      tiers, fare: tier.fare, tierName: tier.name,
+      tiers, fare: tier.fare, tierName: tier.name, estBreakdown, estTotal, kmLabel,
       vehicleLine: tierId === 'wav' ? 'White Hyundai Staria WAV \u00b7 S 209 BFR' : tierId === 'sensory' ? 'Grey Kia Carnival \u00b7 S 771 QMC' : 'White Toyota Camry \u00b7 S 482 KJK',
       stars, comps,
       sos: S.sos, sosOff: !S.sos,
