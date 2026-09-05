@@ -133,7 +133,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 <div style="background:#211F3B;border:1px solid rgba(255,217,61,0.45);border-radius:12px;padding:13px;display:flex;flex-direction:column;gap:6px">
 <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:#FFD93D"><i class="fa-solid fa-arrow-trend-up"></i>Demand spike · Salisbury</div>
-<div style="font-size:11.5px;line-height:1.5;color:rgba(237,237,244,0.75)">Bookings +38% vs a typical Wednesday. 2 available drivers in zone. Surge nudge suggested to 6 nearby offline drivers.</div>
+<div style="font-size:11.5px;line-height:1.5;color:rgba(237,237,244,0.75)">Bookings +38% vs a typical Wednesday. 2 available drivers in zone. Coverage nudge suggested to 6 nearby offline drivers (supply only, never price).</div>
 </div>
 <div style="background:#211F3B;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:13px;display:flex;flex-direction:column;gap:6px">
 <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700"><i class="fa-solid fa-clock" style="color:#8B7EEE"></i>Running late · Deb K.</div>
@@ -157,8 +157,8 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:1;background:#211F3B;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:4px">
 <span style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:rgba(237,237,244,0.5)">REVENUE · WEEK TO DATE</span>
 <span style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">$48,214</span>
-<span style="font-size:11px;color:#7BE495">▲ 8.2% vs last week · take rate 18%</span>
-<span style="font-size:11px;color:rgba(237,237,244,0.55)">Claims funded 92% · private pay 8%</span>
+<span style="font-size:11px;color:#7BE495">▲ 8.2% vs last week · platform margin 22%</span>
+<span style="font-size:11px;color:rgba(237,237,244,0.55)">NDIS funded 92% · externally funded 8%</span>
 </div>
 <div style="flex:1;background:#211F3B;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:4px">
 <span style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:rgba(237,237,244,0.5)">FLEET &amp; WORKFORCE</span>
@@ -446,7 +446,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 <sc-if value="{{ isPricing }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Pricing &amp; line items</h2><span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-book"></i>Pricing book 2025-26 · effective 01/07/2025</span></div>
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Pricing &amp; line items</h2><span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-book"></i>Pricing book 2026-27 · effective 01/07/2026</span></div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.5fr 1.9fr 1.3fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>SUPPORT ITEM</span><span>NAME</span><span>BASIS</span><span>RATE</span><span>EFFECTIVE</span></div>
 <sc-for list="{{ rateCard }}" as="r" hint-placeholder-count="4">
@@ -454,6 +454,14 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">Rates are effective-dated and held to NDIS price limits. No gap fees or surcharges. Support-worker time, transport, and non-labour travel are always claimed on separate lines.</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:10px;padding:12px 18px 6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">DRIVER REMUNERATION · HOW THE CLAIM SPLITS</span><span style="margin-left:auto;font-size:11.5px;color:#4A4540">Effective 01/07/2026 · versioned</span></div>
+<div style="display:grid;grid-template-columns:1.6fr 1.2fr 2.4fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-top:1px solid #E8E5E1;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>LINE</span><span>SHARE</span><span>RULE</span></div>
+<sc-for list="{{ payRules }}" as="r" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:1.6fr 1.2fr 2.4fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ r.line }}</span><span style="font-size:12.5px">{{ r.share }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.rule }}</span></div>
+</sc-for>
+<div style="padding:10px 18px;border-top:1px solid #F7F6F4;font-size:12px;color:#4A4540;line-height:1.5">Worked example, standard sedan, 12.4 km with $3.20 parking: claim $38.50 = transport support $35.30 + non-labour $3.20. Contractor receives $27.53 (78%) + $3.20 = $30.73. Platform margin $7.77 (22% of transport support). Employed drivers are paid by the hour under the award, so the whole transport line contributes to margin after wages.</div>
+</div>
 </sc-if>
 
 <sc-if value="{{ isProviders }}" hint-placeholder-val="{{ false }}">
@@ -1036,11 +1044,17 @@ class Component extends DCLogic {
     ];
 
     // --- pricing & line items ---
+    const payRules = [
+      { line: 'Transport support (04_590_0125 / 0129)', share: 'Contractor 78% · MoveWell 22%', rule: 'Share applies to the transport line only, after price-limit checks. Same share for sedan, sensory-calm and WAV.' },
+      { line: 'Non-labour travel (01_799_0117)', share: 'Driver 100% at cost', rule: 'Tolls and parking pass through to the driver with no margin, only when the service agreement allows recovery.' },
+      { line: 'Support-worker time (04_104_0125)', share: 'Worker hourly · award', rule: 'Claimed separately when a support worker travels. Never blended into the transport line.' },
+      { line: 'Employed drivers (Complex tier)', share: 'Award hourly + penalties', rule: 'Rostered shifts under the SCHADS award. Per-trip share does not apply; vehicles are MoveWell fleet.' },
+    ];
     const rateCard = [
-      { code: '04_590_0125_6_1', name: 'Activity based transport', basis: 'Cat 2 transport', rate: 'Agreed per trip', eff: '01/07/2025' },
-      { code: '04_590_0129_6_1', name: 'Specialised transport', basis: 'Quote based', rate: 'Per quote', eff: '01/07/2025' },
-      { code: '01_799_0117_8_1', name: 'Provider travel, non-labour', basis: 'Per each', rate: '$1.00', eff: '01/07/2025' },
-      { code: '04_104_0125_6_1', name: 'Access community, support worker', basis: 'Per hour', rate: '$67.56', eff: '01/07/2025' },
+      { code: '04_590_0125_6_1', name: 'Activity based transport', basis: 'Per km · national', rate: '$1.00 / km', eff: '01/07/2026' },
+      { code: '04_590_0129_6_1', name: 'Specialised transport', basis: 'Quote based', rate: 'Per quote · agreement', eff: '01/07/2026' },
+      { code: '01_799_0117_8_1', name: 'Provider travel, non-labour', basis: 'At cost · tolls, parking', rate: 'Pass-through', eff: '01/07/2026' },
+      { code: '04_104_0125_6_1', name: 'Access community, support worker', basis: 'Per hour · weekday', rate: '$73.58', eff: '01/07/2026' },
     ];
 
     // --- plan managers & providers ---
@@ -1102,7 +1116,7 @@ class Component extends DCLogic {
       { name: 'Auto-build and send claims', desc: 'Claim built from trip evidence', on: true },
       { name: 'Auto-chase overdue claims', desc: 'Runs daily at 5 pm', on: true },
       { name: 'Sensory-calm auto-suggest', desc: 'From the allied-health assessment', on: true },
-      { name: 'Surge nudges to offline drivers', desc: 'During demand spikes', on: false },
+      { name: 'Coverage nudges to offline drivers', desc: 'During demand spikes · supply, never price', on: false },
     ].map(f => ({ ...f, bg: f.on ? PURP : '#E8E5E1', left: f.on ? '23px' : '3px', label: f.on ? 'On' : 'Off' }));
 
     // --- users & RBAC ---
@@ -1204,7 +1218,7 @@ class Component extends DCLogic {
       isTripsearch: sec === 'tripsearch', isPrivacy: sec === 'privacy', isPricing: sec === 'pricing', isComplaints: sec === 'complaints',
       isProviders: sec === 'providers', isVehicles: sec === 'vehicles', isEquipment: sec === 'equipment',
       isCredentials: sec === 'credentials', isOutcomes: sec === 'outcomes', isConfig: sec === 'config', isRbac: sec === 'rbac',
-      tsFilters, tsRows, accessLogs, rateCard, providers, vehicles, equipment, credReg, ocKpis, ocBars, flags: configFlags, rbacUsers,
+      tsFilters, tsRows, accessLogs, rateCard, payRules, providers, vehicles, equipment, credReg, ocKpis, ocBars, flags: configFlags, rbacUsers,
       opsFilters, opsKpis, opsDots, opsLines, opsDest, opsFlagPins, opsHeat, opsBars, opsTiles,
       flagOpen: S.flag === 'open', flagDone: S.flag === 'done',
       dispatchLena: () => this.setState({ flag: 'done' }),

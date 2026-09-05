@@ -45,19 +45,19 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="padding:14px 16px 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">TODAY · WED 16/07</div>
 <div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4">
 <span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-car"></i></span>
-<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">2:15 pm · Prospect to North Adelaide</span><span style="display:block;font-size:12px;color:#4A4540">Maya P. · standard sedan · $52.20</span></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">2:15 pm · Prospect to North Adelaide</span><span style="display:block;font-size:12px;color:#4A4540">Maya P. · standard sedan · {{ homePayMaya }}</span></span>
 <span style="padding:4px 10px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Confirmed</span>
 </div>
 <div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;border-top:1px solid #F7F6F4">
 <span style="width:36px;height:36px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-car"></i></span>
-<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">4:40 pm · Mile End to Prospect</span><span style="display:block;font-size:12px;color:#4A4540">Jordan T. · standard sedan · $31.80</span></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">4:40 pm · Mile End to Prospect</span><span style="display:block;font-size:12px;color:#4A4540">Jordan T. · standard sedan · {{ homePayJordan }}</span></span>
 <span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Scheduled</span>
 </div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
 <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">NEXT TIER · SPECIALIST</span><span style="font-size:12px;color:#4A4540">2 of 4 modules</span></div>
 <div style="height:8px;border-radius:9999px;background:#F7F6F4;overflow:hidden"><span style="display:block;width:50%;height:100%;background:#6C5CE7;border-radius:9999px"></span></div>
-<div style="font-size:13px;color:#4A4540;line-height:1.45">Specialist unlocks WAV trips · around <strong style="color:#2D3748">+$310/week</strong> in your area.</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.45">Specialist unlocks WAV trips · around <strong style="color:#2D3748">+$240/week</strong> in your area.</div>
 </div>
 </div>
 <div style="margin-top:auto;display:flex;border-top:1px solid #E8E5E1;background:#fff">
@@ -258,7 +258,8 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="border-top:1px solid #F7F6F4;padding-top:12px;display:flex;gap:8px;flex-wrap:wrap">
 <sc-for list="{{ offer.chips }}" as="c" hint-placeholder-count="3"><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">{{ c }}</span></sc-for>
 </div>
-<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:#4A4540">Your earnings</span><span style="font-size:26px;font-weight:700">{{ offer.pay }}</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:#4A4540">Your pay</span><span style="font-size:26px;font-weight:700">{{ offer.pay }}</span></div>
+<div style="font-size:11.5px;color:#4A4540;margin-top:-6px">{{ offer.payLine }}</div>
 </div>
 <sc-if value="{{ offerExpired }}" hint-placeholder-val="{{ false }}">
 <div style="margin:0 20px;padding:12px 16px;background:rgba(232,85,85,0.15);border-radius:12px;color:#FFB3B3;font-size:14px;text-align:center">Offer expired. It's been passed to the next driver.</div>
@@ -371,7 +372,8 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div onClick="{{ goIncFromWrap }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer"><i class="fa-solid fa-file-circle-exclamation" style="color:#C43F3F;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Report an incident</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
 <div style="background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px">
 <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;color:#1F7A33;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>You earned</span><span style="font-size:24px;font-weight:700">{{ job.pay }}</span></div>
-<div style="font-size:12.5px;color:#4A4540">Claim built and sent automatically. Nothing to collect.</div>
+<div style="font-size:12.5px;color:#4A4540">{{ job.payLine }}</div>
+<div style="font-size:12.5px;color:#4A4540">{{ job.claimLine }}. Nothing to collect. Your share is paid Friday.</div>
 </div>
 </div>
 <div style="margin-top:auto;padding:16px 20px 20px">
@@ -473,16 +475,23 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
 <div style="background:#6C5CE7;border-radius:12px;padding:20px;color:#fff;display:flex;flex-direction:column;gap:4px">
 <span style="font-size:12px;font-weight:700;letter-spacing:0.12em;opacity:0.8">THIS WEEK</span>
-<span style="font-size:36px;font-weight:700;font-variant-numeric:tabular-nums">$1,042.75</span>
-<span style="font-size:13px;opacity:0.85">Payout Friday 18/07 · 22 trips</span>
+<span style="font-size:36px;font-weight:700;font-variant-numeric:tabular-nums">$742.60</span>
+<span style="font-size:13px;opacity:0.85">Paid Friday 18/07 · 22 trips · includes $31.40 tolls and parking at cost</span>
 </div>
 <div style="display:flex;gap:12px">
 <div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#4A4540">Today</span><span style="font-size:20px;font-weight:700;font-variant-numeric:tabular-nums">{{ todayEarnings }}</span></div>
 <div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#4A4540">On-time rate</span><span style="font-size:20px;font-weight:700">98%</span></div>
 </div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:12px 16px 4px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">HOW YOUR PAY WORKS</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:13.5px"><i class="fa-solid fa-percent" style="color:#6C5CE7;width:18px"></i><span style="flex:1">You keep <strong>78%</strong> of the transport support on every trip</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:13.5px"><i class="fa-solid fa-road" style="color:#6C5CE7;width:18px"></i><span style="flex:1">Tolls and parking are paid back to you at cost</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:13.5px"><i class="fa-solid fa-hand-holding-dollar" style="color:#6C5CE7;width:18px"></i><span style="flex:1">MoveWell's 22% covers matching, NDIS claims, insurance and the 24/7 ops desk</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:13.5px"><i class="fa-solid fa-ban" style="color:#6C5CE7;width:18px"></i><span style="flex:1">No cash, no fares, nothing to collect from participants</span></div>
+</div>
 <div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px">
 <div style="font-size:14px;font-weight:700;color:#5647C9"><i class="fa-solid fa-arrow-trend-up" style="margin-right:8px"></i>Specialist tier pays more</div>
-<div style="font-size:13px;color:#2D3748;line-height:1.5">WAV trips in your area average <strong>$71.40</strong> each. Finish 2 more modules to unlock them.</div>
+<div style="font-size:13px;color:#2D3748;line-height:1.5">WAV trips in your area pay around <strong>$41</strong> each, about $12 more than a sedan trip. Finish 2 more modules to unlock them.</div>
 <span style="align-self:flex-start;font-size:13px;font-weight:700;color:#6C5CE7;cursor:pointer">Go to training centre</span>
 </div>
 </div>
@@ -539,19 +548,24 @@ class Component extends DCLogic {
     const setRole = r => () => this.setState({ role: r, screen: 'home', online: false, code: [], codeError: false, wraps: { a: false, b: false, c: false }, offerSecs: 15 });
     const online = S.online;
     const jobDefs = {
-      maya: { short: 'Maya P.', first: 'Maya', init: 'MP', avBg: '#FF6B6B', time: employed ? '11:00 am' : '2:15 pm', from: '12 Olive St, Prospect', to: 'Physio · 88 Ward St, North Adelaide', toShort: 'Physio, North Adelaide', away: '8 min away', dur: '14 min trip', eta: 'Pickup in 8 min · 3.4 km', drop: employed ? 'Drop-off 11:26 am · 12 min' : 'Drop-off 2:41 pm · 12 min', dropAt: employed ? '11:28 am' : '2:43 pm', pay: '$52.20',
+      maya: { short: 'Maya P.', first: 'Maya', init: 'MP', avBg: '#FF6B6B', time: employed ? '11:00 am' : '2:15 pm', from: '12 Olive St, Prospect', to: 'Physio · 88 Ward St, North Adelaide', toShort: 'Physio, North Adelaide', away: '8 min away', dur: '14 min trip', eta: 'Pickup in 8 min · 3.4 km', drop: employed ? 'Drop-off 11:26 am · 12 min' : 'Drop-off 2:41 pm · 12 min', dropAt: employed ? '11:28 am' : '2:43 pm', claim: 38.50, park: 3.20,
         chips: ['Standard sedan', 'Walking frame', '2FA pickup', 'No radio'], sub: 'Walking frame · no radio', brief: ['Verbal · happy to chat, speaks softly.', 'Uses a walking frame. Allow extra time at the door.', 'No radio, please.'], bsp: 'Not required', verify: '2FA code', contact: 'Call Anna (mum)', codeHint: 'Maya shows you a 4-digit code in her app.', wraps: ['Maya handed over safely', 'Walking frame returned and secured', 'Vehicle checked · nothing left behind'] },
-      jordan: { short: 'Jordan T.', first: 'Jordan', init: 'JT', avBg: '#1F7A33', time: '4:40 pm', from: 'Day program · 6 Henley Beach Rd, Mile End', to: 'Home · 41 Ferry St, Prospect', toShort: 'home, Prospect', away: '6 min away', dur: '18 min trip', eta: 'Pickup in 6 min · 2.1 km', drop: 'Drop-off 5:02 pm · 16 min', dropAt: '5:04 pm', pay: '$31.80',
+      jordan: { short: 'Jordan T.', first: 'Jordan', init: 'JT', avBg: '#1F7A33', time: '4:40 pm', from: 'Day program · 6 Henley Beach Rd, Mile End', to: 'Home · 41 Ferry St, Prospect', toShort: 'home, Prospect', away: '6 min away', dur: '18 min trip', eta: 'Pickup in 6 min · 2.1 km', drop: 'Drop-off 5:02 pm · 16 min', dropAt: '5:04 pm', claim: 31.80, park: 0,
         chips: ['Standard sedan', 'Assist to door'], sub: 'Ambulatory · assist to door', brief: ['Address them as Jordan · they/them.', 'Ambulatory. Walk with them to the front door and wait for it to open.', 'Likes the back seat and a chat about football.'], bsp: 'Not required', verify: 'Photo ID match', contact: 'Call MoveWell ops', codeHint: 'Jordan self-manages. Match the photo ID in the app, no code needed.', wraps: ['Jordan walked to the door', 'Nothing left in the vehicle', 'Vehicle checked'] },
-      iris: { short: 'Iris K.', first: 'Iris', init: 'IK', avBg: '#2D3748', time: '1:45 pm', from: 'Northcare Therapy · 22 Melbourne St, North Adelaide', to: 'Hydrotherapy · Salisbury Aquatic Centre', toShort: 'Hydrotherapy, Salisbury', away: '4 min away', dur: '26 min trip', eta: 'Pickup in 4 min · 1.2 km', drop: 'Drop-off 2:19 pm · 24 min', dropAt: '2:21 pm', pay: '$0.00',
+      iris: { short: 'Iris K.', first: 'Iris', init: 'IK', avBg: '#2D3748', time: '1:45 pm', from: 'Northcare Therapy · 22 Melbourne St, North Adelaide', to: 'Hydrotherapy · Salisbury Aquatic Centre', toShort: 'Hydrotherapy, Salisbury', away: '4 min away', dur: '26 min trip', eta: 'Pickup in 4 min · 1.2 km', drop: 'Drop-off 2:19 pm · 24 min', dropAt: '2:21 pm', claim: 52.20, park: 2.40,
         chips: ['WAV hoist', 'Auslan', 'Support worker travelling', '2FA pickup'], sub: 'Powered wheelchair · Auslan', brief: ['Iris communicates in Auslan. Her support worker travels with her and interprets.', 'Travels in her own powered wheelchair. Hoist load, four-point tie-down, check twice.', 'Address her directly, not the support worker.'], bsp: 'Not required', verify: '2FA code', contact: 'Call Leo (coordinator)', codeHint: "Iris's support worker shows you the 4-digit code.", wraps: ['Iris and support worker handed over', 'Tie-downs released and stowed', 'Vehicle checked · nothing left behind'] },
-      kai: { short: 'Kai N.', first: 'Kai', init: 'KN', avBg: '#B8860B', time: 'ASAP', from: 'Blair Athol shops · Prospect Rd', to: 'Adelaide CBD · Rundle Mall', toShort: 'Rundle Mall', away: '11 min away', dur: '9 min trip', eta: 'Pickup in 11 min · 4.8 km', drop: 'Drop-off in 9 min', dropAt: '3:12 pm', pay: '$28.70',
+      kai: { short: 'Kai N.', first: 'Kai', init: 'KN', avBg: '#B8860B', time: 'ASAP', from: 'Blair Athol shops · Prospect Rd', to: 'Adelaide CBD · Rundle Mall', toShort: 'Rundle Mall', away: '11 min away', dur: '9 min trip', eta: 'Pickup in 11 min · 4.8 km', drop: 'Drop-off in 9 min', dropAt: '3:12 pm', claim: 28.70, park: 0,
         chips: ['Standard sedan'], sub: 'Ambulatory', brief: ['Ambulatory, no aids.', 'Kai has low vision. Say your name and the car colour when you arrive.', 'Kai will sit in the front.'], bsp: 'Not required', verify: '2FA code', contact: 'Call MoveWell ops', codeHint: 'Kai shows you a 4-digit code in his app.', wraps: ['Kai handed over at the mall entrance', 'Nothing left in the vehicle', 'Vehicle checked'] },
-      priya: { short: 'Priya B.', first: 'Priya', init: 'PB', avBg: '#8B7EEE', time: 'ASAP', from: 'Sefton Park · 9 Main North Rd', to: 'Day program · Regency Park', toShort: 'day program, Regency Park', away: '5 min away', dur: '12 min trip', eta: 'Pickup in 5 min · 1.9 km', drop: 'Drop-off in 12 min', dropAt: '3:20 pm', pay: '$33.40',
+      priya: { short: 'Priya B.', first: 'Priya', init: 'PB', avBg: '#8B7EEE', time: 'ASAP', from: 'Sefton Park · 9 Main North Rd', to: 'Day program · Regency Park', toShort: 'day program, Regency Park', away: '5 min away', dur: '12 min trip', eta: 'Pickup in 5 min · 1.9 km', drop: 'Drop-off in 12 min', dropAt: '3:20 pm', claim: 33.40, park: 1.60,
         chips: ['Quiet ride', 'AAC device', '2FA pickup'], sub: 'Sensory-calm · AAC device', brief: ['Priya uses an AAC device to talk. Give her time to answer.', 'Quiet ride: no radio, no phone calls, calm voice.', 'Her mother Sunita gets the drop-off message.'], bsp: 'Not required', verify: '2FA code', contact: 'Call Sunita (mum)', codeHint: 'Priya shows you a 4-digit code on her tablet.', wraps: ['Priya handed over to program staff', 'AAC device with Priya', 'Vehicle checked · nothing left behind'] },
-      owen: { short: 'Owen F.', first: 'Owen', init: 'OF', avBg: '#6C5CE7', time: 'ASAP', from: 'Enfield · 3 Regency Rd', to: 'Physio · Windsor Gardens', toShort: 'Physio, Windsor Gardens', away: '9 min away', dur: '15 min trip', eta: 'Pickup in 9 min · 3.7 km', drop: 'Drop-off in 15 min', dropAt: '3:31 pm', pay: '$41.60',
+      owen: { short: 'Owen F.', first: 'Owen', init: 'OF', avBg: '#6C5CE7', time: 'ASAP', from: 'Enfield · 3 Regency Rd', to: 'Physio · Windsor Gardens', toShort: 'Physio, Windsor Gardens', away: '9 min away', dur: '15 min trip', eta: 'Pickup in 9 min · 3.7 km', drop: 'Drop-off in 15 min', dropAt: '3:31 pm', claim: 41.60, park: 2.80,
         chips: ['Standard sedan', 'Assist to door'], sub: 'Walking stick · assist to door', brief: ['Uses a walking stick. Offer an arm on steps.', 'Assist to the clinic door and let reception know he has arrived.', 'Owen is chatty and likes the radio on low.'], bsp: 'Not required', verify: '2FA code', contact: 'Call Meg (daughter)', codeHint: 'Owen shows you a 4-digit code in his app.', wraps: ['Owen handed over to reception', 'Walking stick with Owen', 'Vehicle checked'] },
     };
+    // Contractor pay = SHARE of the transport-support line; tolls and parking pass through at cost. MoveWell keeps the rest as platform margin.
+    const SHARE = 0.78;
+    const money = n => '$' + n.toFixed(2);
+    const payFor = j => { const transport = j.claim - j.park; const share = Math.round(transport * SHARE * 100) / 100; return { transport, share, pay: share + j.park, margin: Math.round((transport - share) * 100) / 100 }; };
+    Object.keys(jobDefs).forEach(k => { const j = jobDefs[k]; const p = payFor(j); j.pay = employed ? 'Rostered' : money(p.pay); j.payLine = employed ? 'Employed · paid by the hour, not per trip' : (Math.round(SHARE * 100) + '% of transport support ' + money(p.transport) + (j.park ? ' + parking ' + money(j.park) + ' at cost' : '')); j.claimLine = 'Claim ' + money(j.claim) + ' built and sent automatically'; j.marginLine = 'MoveWell margin ' + money(p.margin) + ' covers matching, claims, insurance and the ops desk'; });
     const job = jobDefs[S.job] || jobDefs.maya;
     const wrapLabels = { a: job.wraps[0], b: job.wraps[1], c: job.wraps[2] };
     const startJob = k => () => this.setState({ job: k, screen: 'pretrip', code: [], codeError: false, wraps: { a: false, b: false, c: false } });
@@ -630,15 +644,15 @@ class Component extends DCLogic {
       goRadar: () => this.setState({ screen: 'radar', radarT: 0, online: true }),
       ...(() => {
         const defs = [
-          { k: 'r1', job: 'maya', appear: 0, ttl: 18, pay: '$52.20', meta: '8 min away · 14 min trip', from: '12 Olive St, Prospect', to: '88 Ward St, North Adelaide', chips: ['Standard sedan', 'Walking frame', '2FA pickup'] },
-          { k: 'r2', job: 'kai', appear: 5, ttl: 15, pay: '$28.70', meta: '11 min away · 9 min trip', from: 'Blair Athol shops', to: 'Adelaide CBD · Rundle Mall', chips: ['Standard sedan'] },
-          { k: 'r3', job: 'priya', appear: 11, ttl: 20, pay: '$33.40', meta: '5 min away · 12 min trip', from: 'Sefton Park', to: 'Day program · Regency Park', chips: ['Quiet ride', '2FA pickup'] },
-          { k: 'r4', job: 'owen', appear: 18, ttl: 16, pay: '$41.60', meta: '9 min away · 15 min trip', from: 'Enfield', to: 'Physio · Windsor Gardens', chips: ['Standard sedan', 'Assist to door'] },
+          { k: 'r1', job: 'maya', appear: 0, ttl: 18, meta: '8 min away · 14 min trip', from: '12 Olive St, Prospect', to: '88 Ward St, North Adelaide', chips: ['Standard sedan', 'Walking frame', '2FA pickup'] },
+          { k: 'r2', job: 'kai', appear: 5, ttl: 15, meta: '11 min away · 9 min trip', from: 'Blair Athol shops', to: 'Adelaide CBD · Rundle Mall', chips: ['Standard sedan'] },
+          { k: 'r3', job: 'priya', appear: 11, ttl: 20, meta: '5 min away · 12 min trip', from: 'Sefton Park', to: 'Day program · Regency Park', chips: ['Quiet ride', '2FA pickup'] },
+          { k: 'r4', job: 'owen', appear: 18, ttl: 16, meta: '9 min away · 15 min trip', from: 'Enfield', to: 'Physio · Windsor Gardens', chips: ['Standard sedan', 'Assist to door'] },
         ];
         const t = S.radarT % 40;
         const radarJobs = defs.filter(d => t >= d.appear && t < d.appear + d.ttl).map(d => {
           const secs = d.appear + d.ttl - t;
-          return { ...d, secs, pct: Math.round(secs / d.ttl * 100) + '%',
+          return { ...d, pay: jobDefs[d.job].pay, secs, pct: Math.round(secs / d.ttl * 100) + '%',
             barColor: secs <= 5 ? '#E85555' : '#6C5CE7', secsColor: secs <= 5 ? '#C43F3F' : '#4A4540',
             onGrab: startJob(d.job) };
         });
@@ -659,7 +673,7 @@ class Component extends DCLogic {
       codeCells, codeError: S.codeError, keys,
       wraps, wrapBtnBg: allWrapped ? '#6C5CE7' : '#CFCAC4', wrapBtnCursor: allWrapped ? 'pointer' : 'default',
       finishWrap: () => { if (allWrapped) this.setState({ screen: 'home', wraps: { a: false, b: false, c: false }, code: [], doneTrip: true }); },
-      todayEarnings: S.doneTrip ? '$238.60' : '$186.40',
+      todayEarnings: S.doneTrip ? '$164.10' : '$133.37', homePayMaya: jobDefs.maya.pay, homePayJordan: jobDefs.jordan.pay,
       noop: () => {},
     };
   }
