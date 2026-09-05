@@ -161,11 +161,12 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">2FA pickup</span>
 <span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">No radio</span>
 </div>
-<button onClick="{{ goPretrip }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Prepare for pickup</button>
+<button onClick="{{ prepMaya }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">Prepare for pickup</button>
 </div>
-<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div onClick="{{ prepIris }}" style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;cursor:pointer" style-hover="background:#F7F6F4">
 <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:15px;font-weight:700">1:45 pm · Iris K.</span><span style="margin-left:auto;padding:4px 10px;border-radius:9999px;background:#F7F6F4;color:#4A4540;font-size:11px;font-weight:700">Later</span></div>
 <div style="font-size:13px;color:#4A4540">North Adelaide to Salisbury · WAV hoist · Auslan · support worker travelling</div>
+<div style="font-size:12.5px;font-weight:700;color:#6C5CE7">Preview the brief</div>
 </div>
 </div>
 </div>
@@ -251,14 +252,12 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <span style="width:72px;height:72px;border-radius:9999px;border:4px solid {{ timerColor }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700">{{ offerSecs }}</span>
 </div>
 <div style="margin:8px 20px;background:#fff;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px">
-<div style="display:flex;align-items:center;gap:10px;font-size:15px"><span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7;flex:none"></span><span style="flex:1">12 Olive St, Prospect</span><strong style="font-size:13px;color:#4A4540">8 min away</strong></div>
-<div style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:10px"></i><span style="flex:1">88 Ward St, North Adelaide</span><strong style="font-size:13px;color:#4A4540">14 min trip</strong></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:15px"><span style="width:10px;height:10px;border-radius:9999px;background:#6C5CE7;flex:none"></span><span style="flex:1">{{ offer.from }}</span><strong style="font-size:13px;color:#4A4540">{{ offer.away }}</strong></div>
+<div style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B;width:10px"></i><span style="flex:1">{{ offer.to }}</span><strong style="font-size:13px;color:#4A4540">{{ offer.dur }}</strong></div>
 <div style="border-top:1px solid #F7F6F4;padding-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Standard sedan</span>
-<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Walking frame</span>
-<span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">2FA pickup</span>
+<sc-for list="{{ offer.chips }}" as="c" hint-placeholder-count="3"><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">{{ c }}</span></sc-for>
 </div>
-<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:#4A4540">Your earnings</span><span style="font-size:26px;font-weight:700">$52.20</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:#4A4540">Your earnings</span><span style="font-size:26px;font-weight:700">{{ offer.pay }}</span></div>
 </div>
 <sc-if value="{{ offerExpired }}" hint-placeholder-val="{{ false }}">
 <div style="margin:0 20px;padding:12px 16px;background:rgba(232,85,85,0.15);border-radius:12px;color:#FFB3B3;font-size:14px;text-align:center">Offer expired. It's been passed to the next driver.</div>
@@ -276,22 +275,21 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
 <div style="padding:20px 20px 8px">
 <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6C5CE7">BEFORE YOU DRIVE</span>
-<h2 style="margin:6px 0 0;font-size:24px;font-weight:700">Maya P.</h2>
-<p style="margin:4px 0 0;font-size:14px;color:#4A4540">Pickup 2:15 pm · 12 Olive St, Prospect</p>
+<h2 style="margin:6px 0 0;font-size:24px;font-weight:700">{{ job.short }}</h2>
+<p style="margin:4px 0 0;font-size:14px;color:#4A4540">Pickup {{ job.time }} · {{ job.from }}</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px"><sc-for list="{{ job.chips }}" as="c" hint-placeholder-count="3"><span style="padding:4px 10px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11px;font-weight:700">{{ c }}</span></sc-for></div>
 </div>
 <div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
 <div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
-<div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#5647C9"><i class="fa-solid fa-universal-access"></i>How to support Maya</div>
+<div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#5647C9"><i class="fa-solid fa-universal-access"></i>How to support {{ job.first }}</div>
 <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;color:#2D3748">
-<li>Verbal · happy to chat, speaks softly.</li>
-<li>Uses a walking frame. Allow extra time at the door.</li>
-<li>No radio, please.</li>
+<sc-for list="{{ job.brief }}" as="b" hint-placeholder-count="3"><li>{{ b }}</li></sc-for>
 </ul>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
-<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px"><i class="fa-solid fa-shield-heart" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Behaviour support plan</span><span style="font-size:13px;color:#4A4540">Not required</span></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-lock" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Pickup verification</span><span style="font-size:13px;font-weight:700">2FA code</span></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-phone" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Support contact</span><span style="font-size:13px;font-weight:700;color:#6C5CE7">Call Anna (mum)</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px"><i class="fa-solid fa-shield-heart" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Behaviour support plan</span><span style="font-size:13px;color:#4A4540">{{ job.bsp }}</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-lock" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Pickup verification</span><span style="font-size:13px;font-weight:700">{{ job.verify }}</span></div>
+<div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-phone" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:14px">Support contact</span><span style="font-size:13px;font-weight:700;color:#6C5CE7">{{ job.contact }}</span></div>
 </div>
 <div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">You never handle payment. The claim is built automatically when the trip ends.</div>
 </div>
@@ -304,12 +302,12 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-if value="{{ isEnroute }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;display:flex;flex-direction:column">
 <div style="position:relative;flex:1;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
-<span style="position:absolute;left:50%;top:16px;transform:translateX(-50%);padding:8px 16px;border-radius:9999px;background:#2D3748;color:#fff;font-size:13px;font-weight:700">Pickup in 8 min · 3.4 km</span>
+<span style="position:absolute;left:50%;top:16px;transform:translateX(-50%);padding:8px 16px;border-radius:9999px;background:#2D3748;color:#fff;font-size:13px;font-weight:700">{{ job.eta }}</span>
 <span style="position:absolute;left:30%;top:60%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
 <span style="position:absolute;left:12px;bottom:12px;font-size:11px;color:#ADA8A2">Turn-by-turn handoff · Google Maps / Apple Maps</span>
 </div>
 <div style="flex:none;background:#fff;border-top:1px solid #E8E5E1;padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px">
-<div style="display:flex;align-items:center;gap:12px"><span style="width:40px;height:40px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">MP</span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Maya P. · 12 Olive St, Prospect</span><span style="display:block;font-size:12px;color:#4A4540">Walking frame · no radio</span></span><button style="width:48px;height:48px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#6C5CE7;font-size:16px;cursor:pointer"><i class="fa-solid fa-phone"></i></button></div>
+<div style="display:flex;align-items:center;gap:12px"><span style="width:40px;height:40px;border-radius:9999px;background:{{ job.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">{{ job.init }}</span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ job.short }} · {{ job.from }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ job.sub }}</span></span><button style="width:48px;height:48px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#6C5CE7;font-size:16px;cursor:pointer"><i class="fa-solid fa-phone"></i></button></div>
 <button onClick="{{ goArrived }}" style="width:100%;height:64px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">I've arrived</button>
 </div>
 </div>
@@ -318,8 +316,8 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-if value="{{ isArrived }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
 <div style="padding:24px 20px 4px;text-align:center">
-<h2 style="margin:0;font-size:24px;font-weight:700">Enter Maya's pickup code</h2>
-<p style="margin:6px 0 0;font-size:14px;color:#4A4540">Maya shows you a 4-digit code in her app.</p>
+<h2 style="margin:0;font-size:24px;font-weight:700">Enter {{ job.first }}'s pickup code</h2>
+<p style="margin:6px 0 0;font-size:14px;color:#4A4540">{{ job.codeHint }}</p>
 </div>
 <div style="display:flex;justify-content:center;gap:10px;padding:18px 20px 6px">
 <sc-for list="{{ codeCells }}" as="c" hint-placeholder-count="4">
@@ -327,7 +325,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-for>
 </div>
 <sc-if value="{{ codeError }}" hint-placeholder-val="{{ false }}">
-<div style="text-align:center;font-size:13px;font-weight:700;color:#C43F3F;padding:0 20px">That code doesn't match. Ask Maya to show it again.</div>
+<div style="text-align:center;font-size:13px;font-weight:700;color:#C43F3F;padding:0 20px">That code doesn't match. Ask {{ job.first }} to show it again.</div>
 </sc-if>
 <div style="margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px 24px 24px">
 <sc-for list="{{ keys }}" as="k" hint-placeholder-count="12">
@@ -340,12 +338,12 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-if value="{{ isIntrip }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;display:flex;flex-direction:column">
 <div style="position:relative;flex:1;background:repeating-linear-gradient(0deg,#EDEBE6 0 1px,#F5F3EF 1px 28px),repeating-linear-gradient(90deg,#EDEBE6 0 1px,#F5F3EF 1px 28px)">
-<span style="position:absolute;left:50%;top:16px;transform:translateX(-50%);padding:8px 16px;border-radius:9999px;background:#2D3748;color:#fff;font-size:13px;font-weight:700">Drop-off 2:41 pm · 12 min</span>
+<span style="position:absolute;left:50%;top:16px;transform:translateX(-50%);padding:8px 16px;border-radius:9999px;background:#2D3748;color:#fff;font-size:13px;font-weight:700">{{ job.drop }}</span>
 <span style="position:absolute;left:45%;top:45%;width:14px;height:14px;border-radius:9999px;background:#6C5CE7;box-shadow:0 0 0 5px rgba(108,92,231,0.25)"></span>
 <span style="position:absolute;left:12px;bottom:12px;font-size:11px;color:#ADA8A2">Live map · route deviation alerts on</span>
 </div>
 <div style="flex:none;background:#fff;border-top:1px solid #E8E5E1;padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px">
-<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B"></i>Physio · 88 Ward St, North Adelaide</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B"></i>{{ job.to }}</div>
 <div style="display:flex;gap:10px">
 <button style="flex:1;height:56px;border:1px solid #E85555;background:#fff;color:#C43F3F;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer"><i class="fa-solid fa-tower-broadcast" style="margin-right:8px"></i>SOS</button>
 <button onClick="{{ goWrap }}" style="flex:2;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">End trip</button>
@@ -358,7 +356,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
 <div style="padding:24px 20px 8px">
 <h2 style="margin:0;font-size:24px;font-weight:700">Wrap up the trip</h2>
-<p style="margin:6px 0 0;font-size:14px;color:#4A4540">Maya P. · dropped at Physio, North Adelaide · 2:43 pm</p>
+<p style="margin:6px 0 0;font-size:14px;color:#4A4540">{{ job.short }} · dropped at {{ job.toShort }} · {{ job.dropAt }}</p>
 </div>
 <div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
@@ -371,7 +369,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 <div onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer"><i class="fa-solid fa-file-circle-exclamation" style="color:#C43F3F;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Report an incident</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
 <div style="background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px">
-<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;color:#1F7A33;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>You earned</span><span style="font-size:24px;font-weight:700">$52.20</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;color:#1F7A33;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>You earned</span><span style="font-size:24px;font-weight:700">{{ job.pay }}</span></div>
 <div style="font-size:12.5px;color:#4A4540">Claim built and sent automatically. Nothing to collect.</div>
 </div>
 </div>
@@ -433,7 +431,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { screen: null, role: null, online: false, offerSecs: 15, code: [], codeError: false, wraps: { a: false, b: false, c: false }, doneTrip: false, radarT: 0 };
+  state = { screen: null, role: null, job: 'maya', online: false, offerSecs: 15, code: [], codeError: false, wraps: { a: false, b: false, c: false }, doneTrip: false, radarT: 0 };
   componentDidMount() {
     this._t = setInterval(() => {
       const scr = this.state.screen ?? this.props.startScreen;
@@ -454,7 +452,23 @@ class Component extends DCLogic {
     const go = s => () => this.setState({ screen: s });
     const setRole = r => () => this.setState({ role: r, screen: 'home', online: false, code: [], codeError: false, wraps: { a: false, b: false, c: false }, offerSecs: 15 });
     const online = S.online;
-    const wrapLabels = { a: 'Maya handed over safely', b: 'Walking frame returned and secured', c: 'Vehicle checked · nothing left behind' };
+    const jobDefs = {
+      maya: { short: 'Maya P.', first: 'Maya', init: 'MP', avBg: '#FF6B6B', time: employed ? '11:00 am' : '2:15 pm', from: '12 Olive St, Prospect', to: 'Physio · 88 Ward St, North Adelaide', toShort: 'Physio, North Adelaide', away: '8 min away', dur: '14 min trip', eta: 'Pickup in 8 min · 3.4 km', drop: employed ? 'Drop-off 11:26 am · 12 min' : 'Drop-off 2:41 pm · 12 min', dropAt: employed ? '11:28 am' : '2:43 pm', pay: '$52.20',
+        chips: ['Standard sedan', 'Walking frame', '2FA pickup', 'No radio'], sub: 'Walking frame · no radio', brief: ['Verbal · happy to chat, speaks softly.', 'Uses a walking frame. Allow extra time at the door.', 'No radio, please.'], bsp: 'Not required', verify: '2FA code', contact: 'Call Anna (mum)', codeHint: 'Maya shows you a 4-digit code in her app.', wraps: ['Maya handed over safely', 'Walking frame returned and secured', 'Vehicle checked · nothing left behind'] },
+      jordan: { short: 'Jordan T.', first: 'Jordan', init: 'JT', avBg: '#1F7A33', time: '4:40 pm', from: 'Day program · 6 Henley Beach Rd, Mile End', to: 'Home · 41 Ferry St, Prospect', toShort: 'home, Prospect', away: '6 min away', dur: '18 min trip', eta: 'Pickup in 6 min · 2.1 km', drop: 'Drop-off 5:02 pm · 16 min', dropAt: '5:04 pm', pay: '$31.80',
+        chips: ['Standard sedan', 'Assist to door'], sub: 'Ambulatory · assist to door', brief: ['Address them as Jordan · they/them.', 'Ambulatory. Walk with them to the front door and wait for it to open.', 'Likes the back seat and a chat about football.'], bsp: 'Not required', verify: 'Photo ID match', contact: 'Call MoveWell ops', codeHint: 'Jordan self-manages. Match the photo ID in the app, no code needed.', wraps: ['Jordan walked to the door', 'Nothing left in the vehicle', 'Vehicle checked'] },
+      iris: { short: 'Iris K.', first: 'Iris', init: 'IK', avBg: '#2D3748', time: '1:45 pm', from: 'Northcare Therapy · 22 Melbourne St, North Adelaide', to: 'Hydrotherapy · Salisbury Aquatic Centre', toShort: 'Hydrotherapy, Salisbury', away: '4 min away', dur: '26 min trip', eta: 'Pickup in 4 min · 1.2 km', drop: 'Drop-off 2:19 pm · 24 min', dropAt: '2:21 pm', pay: '$0.00',
+        chips: ['WAV hoist', 'Auslan', 'Support worker travelling', '2FA pickup'], sub: 'Powered wheelchair · Auslan', brief: ['Iris communicates in Auslan. Her support worker travels with her and interprets.', 'Travels in her own powered wheelchair. Hoist load, four-point tie-down, check twice.', 'Address her directly, not the support worker.'], bsp: 'Not required', verify: '2FA code', contact: 'Call Leo (coordinator)', codeHint: "Iris's support worker shows you the 4-digit code.", wraps: ['Iris and support worker handed over', 'Tie-downs released and stowed', 'Vehicle checked · nothing left behind'] },
+      kai: { short: 'Kai N.', first: 'Kai', init: 'KN', avBg: '#B8860B', time: 'ASAP', from: 'Blair Athol shops · Prospect Rd', to: 'Adelaide CBD · Rundle Mall', toShort: 'Rundle Mall', away: '11 min away', dur: '9 min trip', eta: 'Pickup in 11 min · 4.8 km', drop: 'Drop-off in 9 min', dropAt: '3:12 pm', pay: '$28.70',
+        chips: ['Standard sedan'], sub: 'Ambulatory', brief: ['Ambulatory, no aids.', 'Kai has low vision. Say your name and the car colour when you arrive.', 'Kai will sit in the front.'], bsp: 'Not required', verify: '2FA code', contact: 'Call MoveWell ops', codeHint: 'Kai shows you a 4-digit code in his app.', wraps: ['Kai handed over at the mall entrance', 'Nothing left in the vehicle', 'Vehicle checked'] },
+      priya: { short: 'Priya B.', first: 'Priya', init: 'PB', avBg: '#8B7EEE', time: 'ASAP', from: 'Sefton Park · 9 Main North Rd', to: 'Day program · Regency Park', toShort: 'day program, Regency Park', away: '5 min away', dur: '12 min trip', eta: 'Pickup in 5 min · 1.9 km', drop: 'Drop-off in 12 min', dropAt: '3:20 pm', pay: '$33.40',
+        chips: ['Quiet ride', 'AAC device', '2FA pickup'], sub: 'Sensory-calm · AAC device', brief: ['Priya uses an AAC device to talk. Give her time to answer.', 'Quiet ride: no radio, no phone calls, calm voice.', 'Her mother Sunita gets the drop-off message.'], bsp: 'Not required', verify: '2FA code', contact: 'Call Sunita (mum)', codeHint: 'Priya shows you a 4-digit code on her tablet.', wraps: ['Priya handed over to program staff', 'AAC device with Priya', 'Vehicle checked · nothing left behind'] },
+      owen: { short: 'Owen F.', first: 'Owen', init: 'OF', avBg: '#6C5CE7', time: 'ASAP', from: 'Enfield · 3 Regency Rd', to: 'Physio · Windsor Gardens', toShort: 'Physio, Windsor Gardens', away: '9 min away', dur: '15 min trip', eta: 'Pickup in 9 min · 3.7 km', drop: 'Drop-off in 15 min', dropAt: '3:31 pm', pay: '$41.60',
+        chips: ['Standard sedan', 'Assist to door'], sub: 'Walking stick · assist to door', brief: ['Uses a walking stick. Offer an arm on steps.', 'Assist to the clinic door and let reception know he has arrived.', 'Owen is chatty and likes the radio on low.'], bsp: 'Not required', verify: '2FA code', contact: 'Call Meg (daughter)', codeHint: 'Owen shows you a 4-digit code in his app.', wraps: ['Owen handed over to reception', 'Walking stick with Owen', 'Vehicle checked'] },
+    };
+    const job = jobDefs[S.job] || jobDefs.maya;
+    const wrapLabels = { a: job.wraps[0], b: job.wraps[1], c: job.wraps[2] };
+    const startJob = k => () => this.setState({ job: k, screen: 'pretrip', code: [], codeError: false, wraps: { a: false, b: false, c: false } });
     const wraps = ['a', 'b', 'c'].map(k => ({ label: wrapLabels[k], on: S.wraps[k],
       boxBg: S.wraps[k] ? '#6C5CE7' : '#fff', boxBorder: S.wraps[k] ? '1px solid #6C5CE7' : '1px solid #ADA8A2',
       onPick: () => this.setState(s => ({ wraps: { ...s.wraps, [k]: !s.wraps[k] } })) }));
@@ -487,7 +501,7 @@ class Component extends DCLogic {
       isHome: is('home'), isOffer: is('offer'), isPretrip: is('pretrip'), isEnroute: is('enroute'),
       isArrived: is('arrived'), isIntrip: is('intrip'), isWrap: is('wrap'), isEarnings: is('earnings'), isDocs: is('docs'),
       isShifts: is('shifts'), isVehicle: is('vehicle'), isDispatch: is('dispatch'), isTimesheet: is('timesheet'),
-      goVehicle: go('vehicle'), goDispatch: go('dispatch'), goTimesheet: go('timesheet'), goPretrip: go('pretrip'),
+      goVehicle: go('vehicle'), goDispatch: go('dispatch'), goTimesheet: go('timesheet'), goPretrip: startJob('maya'),
       setContractor: setRole('contractor'), setEmployed: setRole('employed'),
       segCBg: employed ? '#fff' : '#6C5CE7', segCFg: employed ? '#4A4540' : '#fff',
       segEBg: employed ? '#6C5CE7' : '#fff', segEFg: employed ? '#fff' : '#4A4540',
@@ -498,21 +512,23 @@ class Component extends DCLogic {
       goRadar: () => this.setState({ screen: 'radar', radarT: 0, online: true }),
       ...(() => {
         const defs = [
-          { k: 'r1', appear: 0, ttl: 18, pay: '$52.20', meta: '8 min away · 14 min trip', from: '12 Olive St, Prospect', to: '88 Ward St, North Adelaide', chips: ['Standard sedan', 'Walking frame', '2FA pickup'] },
-          { k: 'r2', appear: 5, ttl: 15, pay: '$28.70', meta: '11 min away · 9 min trip', from: 'Blair Athol shops', to: 'Adelaide CBD · Rundle Mall', chips: ['Standard sedan'] },
-          { k: 'r3', appear: 11, ttl: 20, pay: '$33.40', meta: '5 min away · 12 min trip', from: 'Sefton Park', to: 'Day program · Regency Park', chips: ['Quiet ride', '2FA pickup'] },
-          { k: 'r4', appear: 18, ttl: 16, pay: '$41.60', meta: '9 min away · 15 min trip', from: 'Enfield', to: 'Physio · Windsor Gardens', chips: ['Standard sedan', 'Assist to door'] },
+          { k: 'r1', job: 'maya', appear: 0, ttl: 18, pay: '$52.20', meta: '8 min away · 14 min trip', from: '12 Olive St, Prospect', to: '88 Ward St, North Adelaide', chips: ['Standard sedan', 'Walking frame', '2FA pickup'] },
+          { k: 'r2', job: 'kai', appear: 5, ttl: 15, pay: '$28.70', meta: '11 min away · 9 min trip', from: 'Blair Athol shops', to: 'Adelaide CBD · Rundle Mall', chips: ['Standard sedan'] },
+          { k: 'r3', job: 'priya', appear: 11, ttl: 20, pay: '$33.40', meta: '5 min away · 12 min trip', from: 'Sefton Park', to: 'Day program · Regency Park', chips: ['Quiet ride', '2FA pickup'] },
+          { k: 'r4', job: 'owen', appear: 18, ttl: 16, pay: '$41.60', meta: '9 min away · 15 min trip', from: 'Enfield', to: 'Physio · Windsor Gardens', chips: ['Standard sedan', 'Assist to door'] },
         ];
         const t = S.radarT % 40;
         const radarJobs = defs.filter(d => t >= d.appear && t < d.appear + d.ttl).map(d => {
           const secs = d.appear + d.ttl - t;
           return { ...d, secs, pct: Math.round(secs / d.ttl * 100) + '%',
             barColor: secs <= 5 ? '#E85555' : '#6C5CE7', secsColor: secs <= 5 ? '#C43F3F' : '#4A4540',
-            onGrab: () => this.setState({ screen: 'pretrip' }) };
+            onGrab: startJob(d.job) };
         });
         return { radarJobs, radarEmpty: radarJobs.length === 0 };
       })(),
-      acceptOffer: () => this.setState({ screen: 'pretrip' }),
+      acceptOffer: startJob('maya'),
+      offer: { ...jobDefs.maya, chips: ['Standard sedan', 'Walking frame', '2FA pickup'] },
+      job, prepMaya: startJob('maya'), prepIris: startJob('iris'),
       declineOffer: () => this.setState({ screen: 'home' }),
       offerSecs: S.offerSecs, offerLive: S.offerSecs > 0, offerExpired: S.offerSecs === 0,
       timerColor: S.offerSecs <= 5 ? '#E85555' : '#8B7EEE',

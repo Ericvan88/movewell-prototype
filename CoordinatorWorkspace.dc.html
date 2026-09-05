@@ -56,53 +56,59 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 <sc-if value="{{ isCwParticipant }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+<sc-for list="{{ cwPeople }}" as="p" hint-placeholder-count="5">
+<div onClick="{{ p.onPick }}" style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 6px;border-radius:9999px;border:{{ p.border }};background:{{ p.bg }};cursor:pointer" style-hover="background:#FFF5F5"><span style="width:24px;height:24px;border-radius:9999px;background:{{ p.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">{{ p.init }}</span><span style="font-size:13px;font-weight:{{ p.fw }}">{{ p.name }}</span></div>
+</sc-for>
+</div>
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
-<span style="width:48px;height:48px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">MP</span>
-<div><h2 style="margin:0;font-size:24px;font-weight:700">Maya Patel</h2><div style="font-size:13px;color:#4A4540">Plan managed by Leap in! · consent to coordinate valid to 01/2027</div></div>
-<span style="margin-left:auto;display:inline-flex;gap:8px;flex-wrap:wrap"><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">Walking frame</span><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">No radio</span></span>
+<span style="width:48px;height:48px;border-radius:9999px;background:{{ sel.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700">{{ sel.init }}</span>
+<div><h2 style="margin:0;font-size:24px;font-weight:700">{{ sel.name }}</h2><div style="font-size:13px;color:#4A4540">{{ sel.sub }}</div></div>
+<span style="margin-left:auto;display:inline-flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ sel.chips }}" as="c" hint-placeholder-count="2"><span style="padding:5px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700">{{ c }}</span></sc-for></span>
 </div>
 <div style="display:flex;gap:16px;align-items:flex-start">
 <div style="flex:1.4;display:flex;flex-direction:column;gap:16px">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px">
-<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;margin-bottom:10px">CORE TRANSPORT · BURN-DOWN</div>
-<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Used $1,394.35</span><strong>Remaining $1,205.65</strong></div>
-<div style="height:12px;border-radius:9999px;background:#F0EEEA;overflow:hidden"><span style="display:block;width:54%;height:100%;background:#FF6B6B;border-radius:9999px"></span></div>
-<div style="font-size:12px;color:#4A4540;margin-top:8px">On current usage the budget lasts to plan end (03/2027). No action needed.</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;margin-bottom:10px">{{ sel.budgetLabel }}</div>
+<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Used {{ sel.used }}</span><strong>Remaining {{ sel.remaining }}</strong></div>
+<div style="height:12px;border-radius:9999px;background:#F0EEEA;overflow:hidden"><span style="display:block;width:{{ sel.pct }};height:100%;background:{{ sel.barColor }};border-radius:9999px"></span></div>
+<div style="font-size:12px;color:{{ sel.budgetNoteFg }};margin-top:8px">{{ sel.budgetNote }}</div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="padding:14px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">RECENT TRIPS · ALL PROVIDERS</div>
-<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4"><span style="flex:1">Physio · North Adelaide · MoveWell</span><span style="color:#4A4540;font-size:12.5px">16/07 · $38.50</span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Claimed</span></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4"><span style="flex:1">Day program · Mile End · MoveWell</span><span style="color:#4A4540;font-size:12.5px">14/07 · $41.20</span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Claimed</span></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4"><span style="flex:1">Hydrotherapy · AccessGo Transport</span><span style="color:#4A4540;font-size:12.5px">11/07 · $47.90</span><span style="padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Submitted</span></div>
+<sc-for list="{{ sel.trips }}" as="t" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4"><span style="flex:1">{{ t.what }}</span><span style="color:#4A4540;font-size:12.5px">{{ t.when }}</span><span style="padding:3px 9px;border-radius:9999px;background:{{ t.stBg }};color:{{ t.stFg }};font-size:11px;font-weight:700">{{ t.status }}</span></div>
+</sc-for>
 </div>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">FUNDING PROFILE &amp; AGREEMENT</div>
-<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Plan management</span><strong>Plan-managed · Leap in!</strong></div>
-<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Funding source</span><strong>Core transport budget</strong></div>
-<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Payment pathway</span><strong>Claim to plan manager</strong></div>
-<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Pass-through costs</span><strong>Tolls, parking</strong></div>
-<div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Service agreement</span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Active · signed 12/01/2026</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Plan management</span><strong>{{ sel.planMgmt }}</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Funding source</span><strong>{{ sel.fundSrc }}</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Payment pathway</span><strong>{{ sel.pathway }}</strong></div>
+<div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Pass-through costs</span><strong>{{ sel.passThrough }}</strong></div>
+<div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px"><span style="color:#4A4540">Service agreement</span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ sel.agrBg }};color:{{ sel.agrFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ sel.agrIcon }}"></i>{{ sel.agreement }}</span></div>
 <div style="font-size:12px;color:#4A4540;margin-top:2px">Every booking is checked against this profile: funding source, remaining budget, eligible support item and agreement permissions.</div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TRANSPORT PROVIDERS</div>
-<div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:8px;height:8px;border-radius:9999px;background:#FF6B6B"></span>MoveWell · 2 recurring schedules</div>
-<div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:8px;height:8px;border-radius:9999px;background:#ADA8A2"></span>AccessGo Transport · ad hoc</div>
+<sc-for list="{{ sel.providers }}" as="pv" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:8px;height:8px;border-radius:9999px;background:{{ pv.dot }}"></span>{{ pv.label }}</div>
+</sc-for>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
-<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">MAYA'S CONSENT TO YOU</div>
-<div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i>Book, view trips, view claims</div>
-<div style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#4A4540"><i class="fa-solid fa-circle-xmark" style="color:#ADA8A2"></i>Live trip tracking · not shared</div>
-<div style="font-size:12px;color:#4A4540">Scope is set by Maya in her app.</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ sel.consentHeading }}</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13.5px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i>{{ sel.consentOn }}</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#4A4540"><i class="fa-solid fa-circle-xmark" style="color:#ADA8A2"></i>{{ sel.consentOff }}</div>
+<div style="font-size:12px;color:#4A4540">{{ sel.consentNote }}</div>
 </div>
 <button onClick="{{ goCwRecurring }}" style="height:48px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-repeat" style="margin-right:8px"></i>Plan recurring trips</button>
-<sc-if value="{{ mayaNotReferred }}" hint-placeholder-val="{{ true }}">
-<button onClick="{{ referMaya }}" style="height:48px;border:0;background:#6C5CE7;color:#fff;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#5647C9"><i class="fa-solid fa-user-doctor" style="margin-right:8px"></i>Refer for OT assessment</button>
+<sc-if value="{{ selNotReferred }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ referSel }}" style="height:48px;border:0;background:#6C5CE7;color:#fff;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#5647C9"><i class="fa-solid fa-user-doctor" style="margin-right:8px"></i>Refer for OT assessment</button>
 </sc-if>
-<sc-if value="{{ mayaReferred }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:center;gap:8px;min-height:48px;padding:0 14px;border-radius:12px;background:rgba(108,92,231,0.1);color:#5647C9;font-size:13px;font-weight:700"><i class="fa-solid fa-clock"></i>Referred to Dr Amy Ngo · awaiting assessment</div>
+<sc-if value="{{ selReferred }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:8px;min-height:48px;padding:0 14px;border-radius:12px;background:rgba(108,92,231,0.1);color:#5647C9;font-size:13px;font-weight:700"><i class="fa-solid fa-clock"></i>{{ sel.referLine }}</div>
 </sc-if>
 </div>
 </div>
@@ -366,7 +372,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
     bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess',
-    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, agrPass: { tolls: true, parking: true, contrib: false }, agrSign: 'esign', addDone: false, mayaReferred: false };
+    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, agrPass: { tolls: true, parking: true, contrib: false }, agrSign: 'esign', addDone: false, referred: {}, cwSel: 'maya' };
   renderVals() {
     const S = this.state, P = this.props;
     const screen = S.screen ?? (P.startScreen ?? 'home');
@@ -463,19 +469,56 @@ class Component extends DCLogic {
     const agrSignOpts = agrSignDefs.map(o => ({ ...o, sel: S.agrSign === o.k, border: S.agrSign === o.k ? '2px solid #FF6B6B' : '1px solid #E8E5E1', bg: S.agrSign === o.k ? '#FFF5F5' : '#fff', onPick: () => this.setState({ agrSign: o.k }) }));
     const agrStatusLine = S.agrSign === 'esign' ? 'Service agreement sent to Henry for e-signature. Transport activates once he signs.' : 'Service agreement signed in person. Transport can activate now.';
     const reviewAgreement = (S.agrSign === 'esign' ? 'Sent for e-signature' : 'Signed in person') + ' · ' + billingMethod;
-    const referMaya = () => this.setState({ mayaReferred: true, cw: 'assess' });
+    const G = '#1F7A33', GBG = 'rgba(45,167,72,0.14)', Y = 'rgba(255,217,61,0.25)', YFG = '#8A6800', R = '#C43F3F', RBG = 'rgba(232,85,85,0.12)';
+    const ppl = {
+      maya: { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', first: 'Maya', pronoun: 'her', sub: 'Plan managed by Leap in! · consent to coordinate valid to 01/2027', chips: ['Walking frame', 'No radio'],
+        budgetLabel: 'CORE TRANSPORT · BURN-DOWN', used: '$1,394.35', remaining: '$1,205.65', pct: '54%', barColor: '#FF6B6B', budgetNote: 'On current usage the budget lasts to plan end (03/2027). No action needed.', budgetNoteFg: '#4A4540',
+        trips: [ { what: 'Physio · North Adelaide · MoveWell', when: '16/07 · 12.4 km · claimed', status: 'Claimed', stBg: GBG, stFg: G }, { what: 'Day program · Mile End · MoveWell', when: '14/07 · 9.1 km · claimed', status: 'Claimed', stBg: GBG, stFg: G }, { what: 'Hydrotherapy · AccessGo Transport', when: '11/07 · submitted', status: 'Submitted', stBg: Y, stFg: YFG } ],
+        planMgmt: 'Plan-managed · Leap in!', fundSrc: 'Core transport budget', pathway: 'Claim to plan manager', passThrough: 'Tolls, parking', agreement: 'Active · signed 12/01/2026', agrBg: GBG, agrFg: G, agrIcon: 'fa-circle-check',
+        providers: [ { dot: '#FF6B6B', label: 'MoveWell · 2 recurring schedules' }, { dot: '#ADA8A2', label: 'AccessGo Transport · ad hoc' } ],
+        consentOn: 'Book, view trips, view claims', consentOff: 'Live trip tracking · not shared', referType: 'Transport reassessment' },
+      theo: { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', first: 'Theo', pronoun: 'his', sub: 'Plan managed by My Plan Manager · consent to coordinate valid to 09/2026', chips: ['WAV', 'Sensory-calm', 'Non-verbal'],
+        budgetLabel: 'CORE TRANSPORT · BURN-DOWN', used: '$3,470.00', remaining: '$810.00', pct: '81%', barColor: '#B8860B', budgetNote: 'At current usage the budget runs out 6 weeks before plan end (11/2026). Consider a plan review or reducing ad hoc trips.', budgetNoteFg: YFG,
+        trips: [ { what: 'Day program · Regency Park · MoveWell', when: '16/07 · 8.6 km · pending', status: 'Pending', stBg: Y, stFg: YFG }, { what: 'Day program · Regency Park · MoveWell', when: '15/07 · 8.6 km · pending', status: 'Pending', stBg: Y, stFg: YFG }, { what: 'Speech therapy · Prospect · MoveWell', when: '10/07 · claimed', status: 'Claimed', stBg: GBG, stFg: G } ],
+        planMgmt: 'Plan-managed · My Plan Manager', fundSrc: 'Core transport budget', pathway: 'Claim to plan manager', passThrough: 'Parking only', agreement: 'Active · signed 04/03/2026', agrBg: GBG, agrFg: G, agrIcon: 'fa-circle-check',
+        providers: [ { dot: '#FF6B6B', label: 'MoveWell · 1 recurring schedule' } ],
+        consentOn: 'Book, view trips, view claims, live tracking', consentOff: 'Clinical notes · held by Northcare only', referType: 'Sensory-calm positioning review' },
+      iris: { init: 'IK', avBg: '#2D3748', name: 'Iris Kaur', first: 'Iris', pronoun: 'her', sub: 'Plan managed by Leap in! · consent to coordinate expires 28/08/2026', chips: ['WAV hoist', 'Auslan', 'Support worker travels'],
+        budgetLabel: 'CORE TRANSPORT · BURN-DOWN', used: '$2,910.00', remaining: '$250.00', pct: '92%', barColor: R, budgetNote: 'Budget nearly exhausted. Transport paused pending plan review. 1 claim rejected (wrong support item) awaiting resubmit.', budgetNoteFg: R,
+        trips: [ { what: 'Hydrotherapy · Salisbury · MoveWell', when: '11/07 · 14.2 km · rejected', status: 'Rejected', stBg: RBG, stFg: R }, { what: 'Hydrotherapy · Salisbury · MoveWell', when: '04/07 · 14.2 km · claimed', status: 'Claimed', stBg: GBG, stFg: G }, { what: 'GP · Salisbury · Community Transport SA', when: '01/07 · externally paid', status: 'External', stBg: '#F7F6F4', stFg: '#4A4540' } ],
+        planMgmt: 'Plan-managed · Leap in!', fundSrc: 'Core transport budget', pathway: 'Claim to plan manager', passThrough: 'Tolls, parking', agreement: 'Renewal due 28/08/2026', agrBg: Y, agrFg: YFG, agrIcon: 'fa-triangle-exclamation',
+        providers: [ { dot: '#FF6B6B', label: 'MoveWell · WAV hoist trips' }, { dot: '#ADA8A2', label: 'Community Transport SA · GP visits' }, { dot: '#ADA8A2', label: 'AccessGo Transport · ad hoc' } ],
+        consentOn: 'Book, view trips, view claims', consentOff: 'Live trip tracking · not shared', referType: 'WAV reassessment' },
+      jordan: { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', first: 'Jordan', pronoun: 'their', sub: 'Self-managed · consent to coordinate valid to 05/2027', chips: ['Ambulatory', 'Assist to door'],
+        budgetLabel: 'RECURRING TRANSPORT · LEVEL 2 · FORTNIGHTLY', used: '$980.00', remaining: '$1,600.00', pct: '38%', barColor: '#FF6B6B', budgetNote: 'Level 2 allowance paid fortnightly to Jordan. MoveWell invoices Jordan directly; nothing is claimed through a plan manager.', budgetNoteFg: '#4A4540',
+        trips: [ { what: 'CBD · Rundle Mall · AccessGo Transport', when: '09/07 · invoiced', status: 'Paid', stBg: GBG, stFg: G }, { what: 'TAFE · Regency Park · AccessGo Transport', when: '07/07 · invoiced', status: 'Paid', stBg: GBG, stFg: G }, { what: 'TAFE · Regency Park · MoveWell', when: '02/07 · 11.8 km · invoiced', status: 'Paid', stBg: GBG, stFg: G } ],
+        planMgmt: 'Self-managed', fundSrc: 'Recurring transport · Level 2', pathway: 'Invoiced to the participant', passThrough: 'None', agreement: 'Active · signed 20/05/2026', agrBg: GBG, agrFg: G, agrIcon: 'fa-circle-check',
+        providers: [ { dot: '#ADA8A2', label: 'AccessGo Transport · study trips' }, { dot: '#FF6B6B', label: 'MoveWell · ad hoc' } ],
+        consentOn: 'View trips', consentOff: 'Booking, claims, live tracking · Jordan self-manages', referType: 'Transport assessment' },
+      priya: { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', first: 'Priya', pronoun: 'her', sub: 'Plan managed by Leap in! · consent to coordinate valid to 02/2027', chips: ['Sensory-calm', 'AAC device'],
+        budgetLabel: 'CORE TRANSPORT · BURN-DOWN', used: '$1,210.00', remaining: '$1,370.00', pct: '47%', barColor: '#FF6B6B', budgetNote: 'On track. 4 claims with the plan manager are older than 14 days and are being chased automatically.', budgetNoteFg: '#4A4540',
+        trips: [ { what: 'Day program · Mile End · MoveWell', when: '14/07 · 9.1 km · pending', status: 'Pending', stBg: Y, stFg: YFG }, { what: 'Day program · Mile End · MoveWell', when: '12/07 · 9.1 km · pending', status: 'Pending', stBg: Y, stFg: YFG }, { what: 'Library · Prospect · MoveWell', when: '08/07 · 3.2 km · claimed', status: 'Claimed', stBg: GBG, stFg: G } ],
+        planMgmt: 'Plan-managed · Leap in!', fundSrc: 'Core transport budget', pathway: 'Claim to plan manager', passThrough: 'Parking only', agreement: 'Active · signed 11/02/2026', agrBg: GBG, agrFg: G, agrIcon: 'fa-circle-check',
+        providers: [ { dot: '#FF6B6B', label: 'MoveWell · 1 recurring schedule' } ],
+        consentOn: 'Book, view trips, view claims', consentOff: 'Live tracking · shared with her mother only', referType: 'Transport assessment' },
+    };
+    const selKey = ppl[S.cwSel] ? S.cwSel : 'maya';
+    const sel0 = ppl[selKey];
+    const sel = { ...sel0, consentHeading: sel0.first.toUpperCase() + "'S CONSENT TO YOU", consentNote: 'Scope is set by ' + sel0.first + ' in ' + sel0.pronoun + ' app.', referLine: 'Referred to Dr Amy Ngo · awaiting assessment' };
+    const cwPeople = Object.keys(ppl).map(k => ({ ...ppl[k], k, fw: k === selKey ? '700' : '400', border: k === selKey ? '2px solid #FF6B6B' : '1px solid #E8E5E1', bg: k === selKey ? '#FFF5F5' : '#fff', onPick: () => this.setState({ cwSel: k }) }));
+    const referSel = () => this.setState(s => ({ referred: { ...s.referred, [selKey]: true }, cw: 'assess' }));
     const referrals = [];
     if (S.addDone) referrals.push({ who: 'Henry Wallace', assessor: provName, type: 'Transport assessment · new participant', referred: 'Today', status: 'Requested', stBg: '#F5F3FF', stFg: '#5647C9' });
-    if (S.mayaReferred) referrals.push({ who: 'Maya Patel', assessor: 'Dr Amy Ngo · OT', type: 'Transport reassessment', referred: 'Today', status: 'Requested', stBg: '#F5F3FF', stFg: '#5647C9' });
+    Object.keys(ppl).filter(k => S.referred[k]).forEach(k => referrals.push({ who: ppl[k].name, assessor: 'Dr Amy Ngo · OT', type: ppl[k].referType, referred: 'Today', status: 'Requested', stBg: '#F5F3FF', stFg: '#5647C9' }));
     referrals.push({ who: 'Theo Rossi', assessor: 'Northcare Therapy', type: 'Sensory-calm positioning review', referred: '09/07', status: 'Booked · Thu 25/07', stBg: 'rgba(255,217,61,0.25)', stFg: '#8A6800' });
     referrals.push({ who: 'Iris Kaur', assessor: 'Dr Amy Ngo · OT', type: 'WAV reassessment', referred: '02/07', status: 'Requirements set', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33' });
     const cwRows = [
-      { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', plan: 'Leap in!', providers: 'MoveWell, AccessGo', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Thu 18/07 · 2:15 pm' },
-      { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', plan: 'My Plan Manager', providers: 'MoveWell', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', claims: '2 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Tomorrow · 8:40 am' },
-      { init: 'IK', avBg: '#2D3748', name: 'Iris Kaur', plan: 'Leap in!', providers: 'MoveWell, 2 others', pct: '92%', barColor: '#C43F3F', burn: '$2,910 of $3,160 · review', claims: '1 rejected', clBg: 'rgba(232,85,85,0.12)', clFg: '#C43F3F', clIcon: 'fa-circle-xmark', next: 'Paused' },
-      { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', plan: 'Self-managed', providers: 'AccessGo', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Fri 19/07 · 11:00 am' },
-      { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', plan: 'Leap in!', providers: 'MoveWell', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', claims: '4 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Mon 21/07 · 9:00 am' },
-    ].map(r => ({ ...r, onPick: cwGo('participant') }));
+      { init: 'MP', avBg: '#FF6B6B', k: 'maya', name: 'Maya Patel', plan: 'Leap in!', providers: 'MoveWell, AccessGo', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Thu 18/07 · 2:15 pm' },
+      { init: 'TR', avBg: '#6C5CE7', k: 'theo', name: 'Theo Rossi', plan: 'My Plan Manager', providers: 'MoveWell', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', claims: '2 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Tomorrow · 8:40 am' },
+      { init: 'IK', avBg: '#2D3748', k: 'iris', name: 'Iris Kaur', plan: 'Leap in!', providers: 'MoveWell, 2 others', pct: '92%', barColor: '#C43F3F', burn: '$2,910 of $3,160 · review', claims: '1 rejected', clBg: 'rgba(232,85,85,0.12)', clFg: '#C43F3F', clIcon: 'fa-circle-xmark', next: 'Paused' },
+      { init: 'JT', avBg: '#1F7A33', k: 'jordan', name: 'Jordan Teague', plan: 'Self-managed', providers: 'AccessGo', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Fri 19/07 · 11:00 am' },
+      { init: 'PB', avBg: '#8B7EEE', k: 'priya', name: 'Priya Bakshi', plan: 'Leap in!', providers: 'MoveWell', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', claims: '4 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Mon 21/07 · 9:00 am' },
+    ].map(r => ({ ...r, onPick: () => this.setState({ cw: 'participant', cwSel: r.k }) }));
     const cwClaimCols = [
       { label: 'DRAFT', accent: '#ADA8A2', count: 2, aWho: 'Iris Kaur', aWhat: 'Hydrotherapy · resubmit', aAmt: '$47.90', bWho: 'Theo Rossi', bWhat: 'Day program · 15/07', bAmt: '$44.20' },
       { label: 'SUBMITTED', accent: '#B8860B', count: 3, aWho: 'Maya Patel', aWhat: 'Hydrotherapy · AccessGo', aAmt: '$47.90', bWho: 'Priya Bakshi', bWhat: 'Day program · 14/07', bAmt: '$41.20' },
@@ -508,7 +551,7 @@ class Component extends DCLogic {
       addReset: () => this.setState({ addStep: 1, addDone: false }),
       planOpts, planName, newConsent, supToggle, supOn: S.newSup,
       newA11y, a11ySummary, referToggle, referOn: S.newRefer, referProvOpts, provName, referLine, reviewRefer,
-      referrals, mayaReferred: S.mayaReferred, mayaNotReferred: !S.mayaReferred, referMaya,
+      referrals, sel, cwPeople, selReferred: !!S.referred[selKey], selNotReferred: !S.referred[selKey], referSel,
       ahTabs, isAhAssess: S.ah === 'assess', isAhReqs: S.ah === 'reqs', isAhAppts: S.ah === 'appts', isAhOutcomes: S.ah === 'outcomes',
       goAhReqs: ahGo('reqs'),
       isHome: is('home'), isWhere: is('where'), isWhen: is('when'), isTier: is('tier'), isReview: is('review'),

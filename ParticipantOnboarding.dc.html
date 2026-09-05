@@ -193,8 +193,9 @@ body{margin:0;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,s
 <p style="margin:0;font-size:15px;color:#4A4540;line-height:1.5">S••• W••• gets a notification to approve you. Once they do, their trips appear here and you can start booking.</p>
 <div style="width:100%;margin-top:22px;padding:14px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;display:flex;align-items:center;gap:10px;text-align:left"><span style="width:34px;height:34px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;display:flex;align-items:center;justify-content:center;flex:none"><i class="fa-solid fa-hourglass-half"></i></span><span style="flex:1;font-size:13px">Waiting for confirmation<br><span style="color:#4A4540;font-size:12px">Usually within a few minutes</span></span></div>
 </div>
-<div style="padding:8px 22px 22px">
-<button onClick="{{ toMenu }}" style="width:100%;height:52px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#4A4540;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer">Back to the demo menu</button>
+<div style="padding:8px 22px 22px;display:flex;flex-direction:column;gap:10px">
+<button onClick="{{ toRider }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-forward" style="margin-right:8px"></i>Demo: they approved · open my app</button>
+<button onClick="{{ toMenu }}" style="width:100%;height:48px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#4A4540;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Back to the demo menu</button>
 </div>
 </sc-if>
 

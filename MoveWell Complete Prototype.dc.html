@@ -106,7 +106,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <dc-import name="ParticipantOnboarding" start="participant" on-logout="{{ logout }}" on-done="{{ goRider }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
 </sc-if>
 <sc-if value="{{ isRegSupporter }}" hint-placeholder-val="{{ false }}">
-<dc-import name="ParticipantOnboarding" start="supporter" on-logout="{{ logout }}" on-done="{{ goRider }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
+<dc-import name="ParticipantOnboarding" start="supporter" on-logout="{{ logout }}" on-done="{{ goSupporter }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
 </sc-if>
 <sc-if value="{{ isRegDriver }}" hint-placeholder-val="{{ false }}">
 <dc-import name="DriverOnboarding" on-logout="{{ logout }}" on-done="{{ goDriver }}" style="width:100%;height:100%" hint-size="100%,100%"></dc-import>
@@ -121,7 +121,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;menu&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;leo&quot;,&quot;amy&quot;,&quot;admin&quot;,&quot;maya&quot;,&quot;anna&quot;,&quot;deb&quot;,&quot;lena&quot;,&quot;reg-participant&quot;,&quot;reg-supporter&quot;,&quot;reg-driver&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { screen: null, vw: window.innerWidth, vh: window.innerHeight };
+  state = { screen: null, regBack: null, vw: window.innerWidth, vh: window.innerHeight };
   componentDidMount() {
     this._onResize = () => this.setState({ vw: window.innerWidth, vh: window.innerHeight });
     window.addEventListener('resize', this._onResize);
@@ -166,7 +166,7 @@ class Component extends DCLogic {
       isMobileScreen: isMaya || isAnna || isDeb || isLena || isRegParticipant || isRegSupporter || isRegDriver,
 
       webList: wsDefs.map(w => ({ ...w, onPick: () => this.setState({ screen: w.k }) })),
-      mobList: mobDefs.map(d => ({ ...d, onPick: () => this.setState({ screen: d.k }), onReg: () => this.setState({ screen: d.reg }), hasReg: !!d.reg })),
+      mobList: mobDefs.map(d => ({ ...d, onPick: () => this.setState({ screen: d.k }), onReg: () => this.setState({ screen: d.reg, regBack: d.k }), hasReg: !!d.reg })),
 
       isLeo, isAmy,
       wsLabel: cur ? cur.label : '', wsUserInit: cur ? cur.userInit : '', wsUserName: cur ? cur.userName : '', wsUserBg: cur ? cur.userBg : '#2D3748',
@@ -174,7 +174,8 @@ class Component extends DCLogic {
       isMaya, isAnna, isDeb, isLena,
       isRegParticipant, isRegSupporter, isRegDriver,
       goRider: () => this.setState({ screen: 'maya' }),
-      goDriver: () => this.setState({ screen: 'deb' }),
+      goSupporter: () => this.setState({ screen: 'anna' }),
+      goDriver: () => this.setState({ screen: S.regBack === 'lena' ? 'lena' : 'deb' }),
       frameW, frameH,
 
       logout: toMenu,

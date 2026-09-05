@@ -60,47 +60,25 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 <div style="display:flex;gap:16px;align-items:flex-start">
 <div style="flex:1.5;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ assessSections }}" as="sec" hint-placeholder-count="4">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
-<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TRANSFERS</div>
-<div style="display:flex;gap:8px">
-<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Independent with aid</span>
-<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Standby assist</span>
-<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Hoist transfer</span>
-</div>
-</div>
-<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
-<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SEATING &amp; POSITIONING</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ sec.label }}</div>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
-<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Standard seat, front preferred</span>
-<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Travels in own wheelchair</span>
-<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Postural support required</span>
+<sc-for list="{{ sec.opts }}" as="o" hint-placeholder-count="3">
+<span onClick="{{ o.onFlip }}" style="padding:9px 16px;border-radius:9999px;border:{{ o.border }};background:{{ o.bg }};color:{{ o.fg }};font-size:13px;font-weight:{{ o.fw }};cursor:pointer"><sc-if value="{{ o.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i></sc-if>{{ o.label }}</span>
+</sc-for>
 </div>
 </div>
-<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
-<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">EQUIPMENT CARRIED</div>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Walking frame · boot stowage</span>
-<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Oxygen</span>
-<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">AAC device</span>
-</div>
-</div>
-<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
-<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SENSORY &amp; COMMUNICATION</div>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Quiet environment · no radio</span>
-<span style="padding:9px 16px;border-radius:9999px;border:2px solid #FF6B6B;background:#FFF5F5;color:#E85555;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>Verbal, speaks softly</span>
-<span style="padding:9px 16px;border-radius:9999px;border:1px solid #E8E5E1;background:#fff;font-size:13px;color:#4A4540">Auslan</span>
-</div>
-</div>
+</sc-for>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:14px">
 <div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
 <div style="font-size:13.5px;font-weight:700;color:#5647C9"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right:8px"></i>Feeds vehicle matching</div>
-<div style="font-size:13px;line-height:1.55">Your selections set {{ assessName }}'s <strong>vehicle-tier requirements</strong>. Right now they resolve to: <strong>Standard sedan</strong>, walking-frame stowage, <strong>sensory-calm recommended</strong>. Bookings that don't meet them are flagged before confirm.</div>
+<div style="font-size:13px;line-height:1.55">Your selections set {{ assessName }}'s <strong>vehicle-tier requirements</strong>. Right now they resolve to: <strong>{{ resolveLine }}</strong>. Bookings that don't meet them are flagged before confirm.</div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">REVIEW</div>
-<div style="font-size:13px;color:#4A4540;line-height:1.5">Last assessed 14/02/2026 by you. Review due after {{ assessName }}'s next plan reassessment or on referral.</div>
+<div style="font-size:13px;color:#4A4540;line-height:1.5">{{ assessReviewLine }}</div>
 </div>
 <button onClick="{{ ahSaveReqs }}" style="height:52px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-floppy-disk" style="margin-right:9px"></i>Save · return requirements to profile</button>
 </div>
@@ -110,21 +88,20 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-if value="{{ isAhReqs }}" hint-placeholder-val="{{ false }}">
 <div style="display:flex;gap:16px;align-items:flex-start">
 <div style="flex:1.4;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
-<div style="padding:16px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">ON MAYA'S PROFILE · WHAT BOOKING USES</div>
-<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-car" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Vehicle tier · Standard sedan</span><span style="display:block;font-size:12px;color:#4A4540">WAV not required · front seat preferred</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-person-walking-with-cane" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Walking frame · boot stowage</span><span style="display:block;font-size:12px;color:#4A4540">Driver allows extra time at the door</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-volume-xmark" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">Sensory-calm · recommended</span><span style="display:block;font-size:12px;color:#4A4540">Suggested at tier selection, not mandatory</span></span><span style="padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Advisory</span></div>
+<div style="padding:16px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">ON {{ assessFirstUpper }}'S PROFILE · WHAT BOOKING USES</div>
+<sc-for list="{{ reqRows }}" as="q" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 18px;border-top:1px solid #F7F6F4"><i class="fa-solid {{ q.icon }}" style="color:#FF6B6B;width:20px"></i><span style="flex:1"><span style="display:block;font-weight:700">{{ q.title }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ q.sub }}</span></span><span style="padding:3px 9px;border-radius:9999px;background:{{ q.stBg }};color:{{ q.stFg }};font-size:11px;font-weight:700">{{ q.status }}</span></div>
+</sc-for>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:14px">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:8px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">WHO SEES WHAT</div>
 <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-car" style="color:#6C5CE7;margin-top:2px"></i>Drivers see the practical requirements only · never your clinical notes or {{ assessName }}'s diagnosis.</div>
-<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-user-pen" style="color:#6C5CE7;margin-top:2px"></i>Maya sees these on her profile and can raise a review with you.</div>
+<div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5"><i class="fa-solid fa-user-pen" style="color:#6C5CE7;margin-top:2px"></i>{{ assessFirst }} sees these on {{ assessPossessive }} profile and can raise a review with you.</div>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">CHANGE HISTORY</div>
-<div style="font-size:13px;color:#4A4540">14/02/2026 · sensory-calm added (you)</div>
-<div style="font-size:13px;color:#4A4540">03/09/2025 · initial assessment (you)</div>
+<sc-for list="{{ assessHistory }}" as="h" hint-placeholder-count="2"><div style="font-size:13px;color:#4A4540">{{ h }}</div></sc-for>
 </div>
 </div>
 </div>
@@ -138,11 +115,11 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;align-items:center;min-height:54px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Hydrotherapy</span><span style="font-size:13px">Wed 23/07 · 10:30 am</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>No ride yet</span><button style="justify-self:start;height:36px;padding:0 14px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:9999px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">Suggest booking</button></div>
 <div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.4fr;gap:12px;align-items:center;min-height:54px;padding:6px 18px"><span style="font-weight:700">Physio · strength program</span><span style="font-size:13px">Thu 25/07 · 2:15 pm</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-repeat"></i>Recurring</span><span style="font-size:12.5px;color:#4A4540">Covered by Thursday schedule</span></div>
 </div>
-<div style="font-size:12.5px;color:#4A4540;margin-top:12px">"Suggest booking" sends the trip to Maya (and her booker) to confirm · you never book on her behalf.</div>
+<div style="font-size:12.5px;color:#4A4540;margin-top:12px">"Suggest booking" sends the trip to {{ assessFirst }} (and {{ assessPossessive }} booker) to confirm · you never book on {{ assessPossessive }} behalf.</div>
 </sc-if>
 
 <sc-if value="{{ isAhOutcomes }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;font-size:13px;color:#5647C9"><i class="fa-solid fa-eye"></i><span style="flex:1"><strong>Consented view</strong> · Maya shares attendance and punctuality with you. She does not share fares, claims or trip locations beyond your clinic.</span></div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;font-size:13px;color:#5647C9"><i class="fa-solid fa-eye"></i><span style="flex:1"><strong>Consented view</strong> · {{ assessFirst }} shares attendance and punctuality with you. Claims, costs and trip locations beyond your clinic are not shared.</span></div>
 <div style="display:flex;gap:16px;margin-bottom:16px">
 <div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Therapy attendance · 12 weeks</div><div style="font-size:26px;font-weight:700">11 of 12</div><div style="font-size:12px;color:#1F7A33;font-weight:700">1 missed · illness, not transport</div></div>
 <div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Arrived on time</div><div style="font-size:26px;font-weight:700">100%</div><div style="font-size:12px;color:#4A4540">of attended sessions</div></div>
@@ -161,7 +138,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
-    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'referrals', ahRef: null, ahDone: {} };
+    bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'referrals', ahRef: null, ahDone: {}, ahSel: {} };
   renderVals() {
     const S = this.state, P = this.props;
     const screen = S.screen ?? (P.startScreen ?? 'home');
@@ -260,7 +237,45 @@ class Component extends DCLogic {
         canAccept: !done, doneState: done, actLabel: active ? 'Resume assessment' : 'Accept and assess',
         onAccept: () => this.setState({ ahRef: r.k, ah: 'assess' }) }; });
     const ahActive = refBase.find(r => r.k === S.ahRef);
+    const ahKey = ahActive ? ahActive.k : 'maya';
     const assessName = ahActive ? ahActive.who : 'Maya Patel';
+    const assessFirst = assessName.split(' ')[0];
+    const assessPossessive = ahKey === 'henry' ? 'his' : 'her';
+    const secDefs = [
+      { k: 'transfers', label: 'TRANSFERS', opts: ['Independent with aid', 'Standby assist', 'Hoist transfer'] },
+      { k: 'seating', label: 'SEATING & POSITIONING', opts: ['Standard seat, front preferred', 'Travels in own wheelchair', 'Postural support required'] },
+      { k: 'equipment', label: 'EQUIPMENT CARRIED', opts: ['Walking frame · boot stowage', 'Oxygen', 'AAC device'] },
+      { k: 'sensory', label: 'SENSORY & COMMUNICATION', opts: ['Quiet environment · no radio', 'Verbal, speaks softly', 'Auslan'] },
+    ];
+    const selDefaults = {
+      maya: { 'Independent with aid': 1, 'Standard seat, front preferred': 1, 'Walking frame · boot stowage': 1, 'Quiet environment · no radio': 1, 'Verbal, speaks softly': 1 },
+      henry: { 'Standby assist': 1, 'Standard seat, front preferred': 1 },
+    };
+    const curSel = S.ahSel[ahKey] || selDefaults[ahKey] || {};
+    const flipSel = label => () => this.setState(s => { const base = s.ahSel[ahKey] || selDefaults[ahKey] || {}; return { ahSel: { ...s.ahSel, [ahKey]: { ...base, [label]: !base[label] } } }; });
+    const assessSections = secDefs.map(sec => ({ label: sec.label, opts: sec.opts.map(label => { const on = !!curSel[label]; return { label, on, onFlip: flipSel(label), border: on ? '2px solid #FF6B6B' : '1px solid #E8E5E1', bg: on ? '#FFF5F5' : '#fff', fg: on ? '#E85555' : '#4A4540', fw: on ? '700' : '400' }; }) }));
+    const needsWav = !!(curSel['Hoist transfer'] || curSel['Travels in own wheelchair']);
+    const tierName = needsWav ? 'Wheelchair accessible vehicle' + (curSel['Hoist transfer'] ? ' with hoist' : '') : 'Standard sedan';
+    const resolveParts = [tierName];
+    if (curSel['Walking frame · boot stowage']) resolveParts.push('walking-frame stowage');
+    if (curSel['Oxygen']) resolveParts.push('oxygen secured in cabin');
+    if (curSel['Postural support required']) resolveParts.push('postural support');
+    if (curSel['Standby assist']) resolveParts.push('driver standby assist at transfers');
+    if (curSel['Quiet environment · no radio']) resolveParts.push('sensory-calm recommended');
+    if (curSel['Auslan']) resolveParts.push('Auslan-aware driver or interpreter travelling');
+    if (curSel['AAC device']) resolveParts.push('AAC device travels with participant');
+    const resolveLine = resolveParts.join(', ');
+    const G = '#1F7A33', GBG = 'rgba(45,167,72,0.14)', Y = 'rgba(255,217,61,0.25)', YFG = '#8A6800';
+    const reqRows = [ { icon: 'fa-car', title: 'Vehicle tier · ' + tierName, sub: needsWav ? 'WAV required · booking blocks non-WAV vehicles' : ('WAV not required' + (curSel['Standard seat, front preferred'] ? ' · front seat preferred' : '')), status: 'Active', stBg: GBG, stFg: G } ];
+    if (curSel['Walking frame · boot stowage']) reqRows.push({ icon: 'fa-person-walking-with-cane', title: 'Walking frame · boot stowage', sub: 'Driver allows extra time at the door', status: 'Active', stBg: GBG, stFg: G });
+    if (curSel['Standby assist']) reqRows.push({ icon: 'fa-hands-holding', title: 'Standby assist at transfers', sub: 'Driver within arm\u2019s reach, hands off unless needed', status: 'Active', stBg: GBG, stFg: G });
+    if (curSel['Postural support required']) reqRows.push({ icon: 'fa-chair', title: 'Postural support', sub: 'Lateral supports fitted before travel', status: 'Active', stBg: GBG, stFg: G });
+    if (curSel['Oxygen']) reqRows.push({ icon: 'fa-lungs', title: 'Oxygen carried', sub: 'Cylinder secured upright, no smoking rule enforced', status: 'Active', stBg: GBG, stFg: G });
+    if (curSel['AAC device']) reqRows.push({ icon: 'fa-tablet-screen-button', title: 'AAC device', sub: 'Device stays with the participant, allow time to respond', status: 'Active', stBg: GBG, stFg: G });
+    if (curSel['Auslan']) reqRows.push({ icon: 'fa-hands', title: 'Auslan', sub: 'Interpreter or support worker travels, or Auslan-aware driver', status: 'Active', stBg: GBG, stFg: G });
+    if (curSel['Quiet environment · no radio']) reqRows.push({ icon: 'fa-volume-xmark', title: 'Sensory-calm · recommended', sub: 'Suggested at tier selection, not mandatory', status: 'Advisory', stBg: Y, stFg: YFG });
+    const assessHistory = ahKey === 'henry' ? ['Today · initial assessment (you)'] : ['14/02/2026 · sensory-calm added (you)', '03/09/2025 · initial assessment (you)'];
+    const assessReviewLine = ahKey === 'henry' ? 'First assessment. Review due after Henry\u2019s next plan reassessment or on referral.' : ('Last assessed 14/02/2026 by you. Review due after ' + assessFirst + '\u2019s next plan reassessment or on referral.');
     const assessInit = ahActive ? ahActive.init : 'MP';
     const assessAvBg = ahActive ? ahActive.avBg : '#FF6B6B';
     const assessSub = ahActive ? ('Referred by ' + ahActive.from + ' · assessment in progress') : 'Consent to assess and view transport outcomes · valid to 01/2027';
@@ -278,6 +293,7 @@ class Component extends DCLogic {
       ahTabs, isAhAssess: S.ah === 'assess', isAhReqs: S.ah === 'reqs', isAhAppts: S.ah === 'appts', isAhOutcomes: S.ah === 'outcomes',
       isAhReferrals: S.ah === 'referrals', referralsIn,
       assessBannerShow: !!ahActive, assessName, assessInit, assessAvBg, assessSub, assessFrom, ahSaveReqs,
+      assessFirst, assessFirstUpper: assessFirst.toUpperCase(), assessPossessive, assessSections, resolveLine, reqRows, assessHistory, assessReviewLine,
       goAhReqs: ahGo('reqs'),
       isHome: is('home'), isWhere: is('where'), isWhen: is('when'), isTier: is('tier'), isReview: is('review'),
       isTracking: is('tracking'), isPickup: is('pickup'), isInTrip: is('intrip'), isComplete: is('complete'),
