@@ -422,13 +422,122 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-phone"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Call us</span><span style="display:block;font-size:12.5px;color:#4A4540">Speak to a person, any time, day or night</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-car-burst"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Report a problem with a trip</span><span style="display:block;font-size:12.5px;color:#4A4540">Tell us what happened · we follow up within 1 business day</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-pen"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Make a complaint</span><span style="display:block;font-size:12.5px;color:#4A4540">In writing, by voice message, or with someone helping you</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div onClick="{{ cmpStartProblem }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-car-burst"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Report a problem with a trip</span><span style="display:block;font-size:12.5px;color:#4A4540">Tell us what happened · we follow up within 1 business day</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div onClick="{{ cmpStartComplaint }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-pen"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Make a complaint</span><span style="display:block;font-size:12.5px;color:#4A4540">In writing, by voice message, or with someone helping you</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div onClick="{{ cmpStartCompliment }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;border-top:1px solid #F7F6F4;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-heart"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Say thanks or give feedback</span><span style="display:block;font-size:12.5px;color:#4A4540">Compliments go straight to the driver and their lead</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
 </div>
+<div onClick="{{ goCmpTrack }}" style="display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer" style-hover="background:#F7F6F4"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-list-check"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Track my complaints and feedback</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ cmpTrackSub }}</span></span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
 <div style="background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px">
 <span style="font-size:14px;font-weight:700;color:#5647C9"><i class="fa-solid fa-shield-heart" style="margin-right:8px"></i>Complaints are safe</span>
 <span style="font-size:13px;color:#2D3748;line-height:1.5">Complaining is free and will never affect your rides. You can also complain to the NDIS Quality and Safeguards Commission · we'll help you do it.</span>
 </div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCmp }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ cmpBack }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">{{ cmpTitle }}</h2>
+</div>
+<div style="display:flex;gap:6px;padding:6px 20px 0"><sc-for list="{{ cmpBars }}" as="b" hint-placeholder-count="3"><span style="flex:1;height:5px;border-radius:9999px;background:{{ b.bg }}"></span></sc-for></div>
+
+<sc-if value="{{ isCmp1 }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:14px;padding:14px 20px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">WHAT IS IT ABOUT</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ cmpTypes }}" as="c" hint-placeholder-count="3">
+<div onClick="{{ c.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 14px;background:{{ c.bg }};border:{{ c.border }};border-radius:12px;cursor:pointer"><i class="fa-solid {{ c.icon }}" style="color:#6C5CE7;width:20px;text-align:center"></i><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ c.label }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ c.desc }}</span></span><sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-circle-check" style="color:#6C5CE7"></i></sc-if></div>
+</sc-for>
+</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">WHICH TRIP (OPTIONAL)</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ cmpTrips }}" as="t" hint-placeholder-count="3"><span onClick="{{ t.onPick }}" style="padding:9px 14px;border-radius:9999px;border:{{ t.border }};background:{{ t.bg }};color:{{ t.fg }};font-size:13px;font-weight:{{ t.fw }};cursor:pointer">{{ t.label }}</span></sc-for>
+</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">TELL US IN YOUR OWN WAY</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ cmpModes }}" as="m" hint-placeholder-count="3"><span onClick="{{ m.onPick }}" style="display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:9999px;border:{{ m.border }};background:{{ m.bg }};color:{{ m.fg }};font-size:13px;font-weight:{{ m.fw }};cursor:pointer"><i class="fa-solid {{ m.icon }}"></i>{{ m.label }}</span></sc-for>
+</div>
+<div style="min-height:88px;padding:12px 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;font-size:14px;color:#4A4540;line-height:1.5">{{ cmpDraft }}</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ cmpNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Continue</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCmp2 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:14px;padding:14px 20px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">WHO IS THIS FROM</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div onClick="{{ cmpSetNamed }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 14px;background:{{ cmpNamedBg }};border:{{ cmpNamedBorder }};border-radius:12px;cursor:pointer"><i class="fa-solid fa-user" style="color:#6C5CE7;width:20px;text-align:center"></i><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Maya Patel · my name</span><span style="display:block;font-size:12px;color:#4A4540">We can update you and ask questions</span></span></div>
+<div onClick="{{ cmpSetAnon }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 14px;background:{{ cmpAnonBg }};border:{{ cmpAnonBorder }};border-radius:12px;cursor:pointer"><i class="fa-solid fa-user-secret" style="color:#6C5CE7;width:20px;text-align:center"></i><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">Anonymous</span><span style="display:block;font-size:12px;color:#4A4540">Your name and NDIS number are not attached. You still get a reference to track it.</span></span></div>
+</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">SOMEONE TO HELP YOU (OPTIONAL)</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ cmpAdvocates }}" as="a" hint-placeholder-count="3">
+<div onClick="{{ a.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 14px;background:{{ a.bg }};border:{{ a.border }};border-radius:12px;cursor:pointer"><span style="width:20px;height:20px;border-radius:6px;background:{{ a.boxBg }};border:{{ a.boxBorder }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;flex:none"><sc-if value="{{ a.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-check"></i></sc-if></span><span style="flex:1"><span style="display:block;font-size:14.5px;font-weight:700">{{ a.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ a.desc }}</span></span></div>
+</sc-for>
+</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">ADD EVIDENCE (OPTIONAL)</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ cmpEvs }}" as="e" hint-placeholder-count="3"><span onClick="{{ e.onFlip }}" style="display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:9999px;border:{{ e.border }};background:{{ e.bg }};color:{{ e.fg }};font-size:13px;font-weight:{{ e.fw }};cursor:pointer"><i class="fa-solid {{ e.icon }}"></i>{{ e.label }}</span></sc-for>
+</div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#F5F3FF;border-radius:12px;font-size:12.5px;color:#5647C9;line-height:1.45"><i class="fa-solid fa-lock" style="margin-top:2px"></i><span>Only the complaints team can see this. Your driver and the ops desk do not. Complaining never affects your rides.</span></div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ cmpNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#E85555">{{ cmpSendLabel }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCmp3 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:28px 24px 8px;text-align:center">
+<span style="width:72px;height:72px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center;font-size:30px"><i class="fa-solid fa-check"></i></span>
+<h3 style="margin:10px 0 0;font-size:22px;font-weight:700">{{ cmpDoneTitle }}</h3>
+<p style="margin:0;font-size:14px;color:#4A4540;line-height:1.5">Your reference is <strong style="color:#2D3748">{{ cmpRef }}</strong>. {{ cmpDoneLine }}</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:12px 16px 4px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">WHAT HAPPENS NEXT</div>
+<sc-for list="{{ cmpNextSteps }}" as="n" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:13.5px"><i class="fa-solid {{ n.icon }}" style="color:{{ n.fg }};width:18px"></i><span style="flex:1">{{ n.text }}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px">
+<button onClick="{{ goCmpTrack }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#E85555">Track it</button>
+<button onClick="{{ goHelp }}" style="width:100%;height:48px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#4A4540;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Back to help</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCmpTrack }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHelp }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">My complaints and feedback</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 20px">
+<sc-for list="{{ cmpCases }}" as="c" hint-placeholder-count="2">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:8px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ c.ref }}</span><span style="margin-left:auto;padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700">{{ c.status }}</span></div>
+<div style="font-size:15px;font-weight:700">{{ c.title }}</div>
+<div style="font-size:12.5px;color:#4A4540">{{ c.meta }}</div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #F7F6F4;padding-top:10px">
+<sc-for list="{{ c.steps }}" as="st" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:{{ st.fg }}"><i class="fa-solid {{ st.icon }}" style="width:16px;text-align:center"></i><span style="flex:1">{{ st.label }}</span><span style="font-size:11.5px;color:#4A4540">{{ st.when }}</span></div>
+</sc-for>
+</div>
+<sc-if value="{{ c.canEscalate }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ c.onEscalate }}" style="height:44px;border:1px solid #6C5CE7;background:#fff;color:#5647C9;border-radius:12px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer"><i class="fa-solid fa-arrow-up-right-from-square" style="margin-right:8px"></i>Escalate to the NDIS Commission</button>
+</sc-if>
+<sc-if value="{{ c.escalated }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;background:#F5F3FF;color:#5647C9;font-size:13px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Sent to the NDIS Commission · they will contact you</div>
+</sc-if>
+</div>
+</sc-for>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">You can escalate at any time. The NDIS Quality and Safeguards Commission is free to contact on 1800 035 544.</div>
 </div>
 </div>
 </sc-if>
@@ -463,6 +572,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
+    cmp: { step: 1, type: 'complaint', trip: null, mode: 'write', anon: false, adv: {}, evs: {} }, cmpCases: [], cmpEsc: {},
     bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess' };
   renderVals() {
     const S = this.state, P = this.props;
@@ -526,6 +636,58 @@ class Component extends DCLogic {
     ].map(c => { const on = !!S.consents[c.k]; return { ...c, bg: on ? '#6C5CE7' : '#E8E5E1', left: on ? '23px' : '3px',
       onFlip: () => this.setState(s => ({ consents: { ...s.consents, [c.k]: !s.consents[c.k] } })) }; });
     const is = k => screen === k;
+    // --- complaints and feedback ---
+    const C = S.cmp;
+    const setCmp = patch => this.setState(s => ({ cmp: { ...s.cmp, ...patch } }));
+    const cmpStart = type => () => this.setState({ screen: 'cmp', cmp: { step: 1, type, trip: type === 'problem' ? 'last' : null, mode: 'write', anon: false, adv: {}, evs: {} } });
+    const cmpTypeDefs = [
+      { k: 'complaint', icon: 'fa-file-pen', label: 'A complaint', desc: 'Something went wrong and you want it fixed' },
+      { k: 'problem', icon: 'fa-car-burst', label: 'A problem with a trip', desc: 'Late, wrong vehicle, driver behaviour, anything on the day' },
+      { k: 'compliment', icon: 'fa-heart', label: 'A compliment or feedback', desc: 'Tell us what worked, we pass it on' },
+    ];
+    const cmpTypes = cmpTypeDefs.map(c => { const on = C.type === c.k; return { ...c, on, bg: on ? '#FFF5F5' : '#fff', border: on ? '2px solid #FF6B6B' : '1px solid #E8E5E1', onPick: () => setCmp({ type: c.k }) }; });
+    const cmpTripDefs = [ { k: 'last', label: 'Physio · Wed 16/07 · Deb K.' }, { k: 'prev', label: 'Aquatic Centre · Wed 09/07' }, { k: 'none', label: 'Not about a trip' } ];
+    const cmpTrips = cmpTripDefs.map(t => { const on = C.trip === t.k; return { ...t, border: on ? '1px solid #FF6B6B' : '1px solid #E8E5E1', bg: on ? '#FF6B6B' : '#fff', fg: on ? '#fff' : '#2D3748', fw: on ? 700 : 400, onPick: () => setCmp({ trip: t.k }) }; });
+    const cmpModeDefs = [ { k: 'write', icon: 'fa-keyboard', label: 'Write it' }, { k: 'voice', icon: 'fa-microphone', label: 'Voice message' }, { k: 'call', icon: 'fa-phone', label: 'Call me back' } ];
+    const cmpModes = cmpModeDefs.map(m => { const on = C.mode === m.k; return { ...m, border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1', bg: on ? '#6C5CE7' : '#fff', fg: on ? '#fff' : '#2D3748', fw: on ? 700 : 400, onPick: () => setCmp({ mode: m.k }) }; });
+    const cmpDraftMap = { write: C.type === 'compliment' ? 'Deb waited while I found my keys and never made me feel rushed. Please tell her thank you.' : 'The driver arrived 25 minutes late and I missed the start of physio. Nobody messaged me to say he was running behind.', voice: 'Voice message · 0:42 recorded. We transcribe it for the record and keep the audio.', call: 'We call you on +61 4·· ··· 512 within one business day. Pick a time that suits you on the next screen.' };
+    const cmpDraft = cmpDraftMap[C.mode];
+    const cmpAdvDefs = [ { k: 'anna', name: 'Anna Patel · mum', desc: 'Copied on every update' }, { k: 'leo', name: 'Leo Marsh · support coordinator', desc: 'Can speak for you' }, { k: 'adv', name: 'An independent advocate', desc: 'We connect you with Disability Advocacy SA' } ];
+    const cmpAdvocates = cmpAdvDefs.map(a => { const on = !!C.adv[a.k]; return { ...a, on, bg: on ? '#FFF5F5' : '#fff', border: on ? '1px solid #FF6B6B' : '1px solid #E8E5E1', boxBg: on ? '#FF6B6B' : '#fff', boxBorder: on ? '1px solid #FF6B6B' : '1px solid #ADA8A2', onPick: () => setCmp({ adv: { ...C.adv, [a.k]: !on } }) }; });
+    const cmpEvDefs = [ { k: 'photo', icon: 'fa-camera', label: 'Photo' }, { k: 'screen', icon: 'fa-mobile-screen', label: 'Screenshot of messages' }, { k: 'receipt', icon: 'fa-receipt', label: 'Attach the trip receipt' } ];
+    const cmpEvs = cmpEvDefs.map(e => { const on = !!C.evs[e.k]; return { ...e, label: on ? e.label + ' · added' : e.label, border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1', bg: on ? '#6C5CE7' : '#fff', fg: on ? '#fff' : '#2D3748', fw: on ? 700 : 400, onFlip: () => setCmp({ evs: { ...C.evs, [e.k]: !on } }) }; });
+    const cmpIsCompliment = C.type === 'compliment';
+    const cmpNewRef = 'CMP-2026-' + String(18 + S.cmpCases.length).padStart(3, '0');
+    const cmpSubmit = () => { const ref = cmpNewRef; const title = cmpIsCompliment ? 'Thanks to Deb K. · Physio trip' : (C.type === 'problem' ? 'Late pickup · Physio · Wed 16/07' : 'Complaint · ' + (C.trip === 'none' ? 'not about a trip' : cmpTripDefs.find(t => t.k === C.trip || 'last').label));
+      const rec = { ref, title, kind: C.type, anon: C.anon, adv: Object.keys(C.adv).filter(k => C.adv[k]), submitted: 'Today · 2:52 pm' };
+      this.setState(s => ({ cmp: { ...s.cmp, step: 3 }, cmpCases: [rec, ...s.cmpCases] })); };
+    const cmpLastRef = S.cmpCases.length ? S.cmpCases[0].ref : cmpNewRef;
+    const cmpBaseCases = [ { ref: 'CMP-2026-011', title: 'Claim line showed the wrong support item', kind: 'complaint', anon: false, adv: ['leo'], submitted: '22/06', stageIdx: 4 } ];
+    const cmpStageDefs = [ { label: 'Received', when: 'submitted' }, { label: 'Acknowledged · within 2 business days', when: '' }, { label: 'Being looked into', when: '' }, { label: 'Outcome shared with you', when: '' }, { label: 'Closed', when: '' } ];
+    const cmpCases = [ ...S.cmpCases.map(c => ({ ...c, stageIdx: 0 })), ...cmpBaseCases ].map(c => { const esc = !!S.cmpEsc[c.ref]; const compliment = c.kind === 'compliment'; const stageIdx = compliment ? 4 : c.stageIdx;
+      const whenMap = c.ref === 'CMP-2026-011' ? ['22/06', '23/06', '24/06', '01/07', '03/07'] : [c.submitted, compliment ? c.submitted : 'by ' + (S.cmpCases.length ? 'Fri 18/07' : ''), '', '', compliment ? c.submitted : ''];
+      return { ...c, status: compliment ? 'Passed on' : (esc ? 'Escalated' : cmpStageDefs[stageIdx].label.split(' · ')[0]), stBg: compliment || stageIdx === 4 ? 'rgba(45,167,72,0.14)' : (esc ? '#F5F3FF' : 'rgba(255,217,61,0.25)'), stFg: compliment || stageIdx === 4 ? '#1F7A33' : (esc ? '#5647C9' : '#8A6800'),
+        meta: (c.anon ? 'Anonymous' : 'From Maya Patel') + (c.adv && c.adv.length ? ' · with ' + c.adv.map(k => ({ anna: 'Anna', leo: 'Leo', adv: 'an advocate' })[k]).join(' and ') : '') + ' · ' + c.submitted,
+        steps: compliment ? [ { icon: 'fa-circle-check', fg: '#1F7A33', label: 'Received', when: c.submitted }, { icon: 'fa-circle-check', fg: '#1F7A33', label: 'Shared with Deb K. and her lead', when: c.submitted } ] : cmpStageDefs.map((st, n) => ({ icon: n < stageIdx ? 'fa-circle-check' : (n === stageIdx ? 'fa-circle-dot' : 'fa-circle'), fg: n < stageIdx ? '#1F7A33' : (n === stageIdx ? '#6C5CE7' : '#CFCAC4'), label: st.label, when: whenMap[n] || '' })),
+        canEscalate: !compliment && !esc && stageIdx < 4, escalated: esc, onEscalate: () => this.setState(s => ({ cmpEsc: { ...s.cmpEsc, [c.ref]: true } })) }; });
+    const cmpOpenCount = cmpCases.filter(c => c.kind !== 'compliment' && c.stageIdx < 4).length;
+    const cmpVals = {
+      cmpStartComplaint: cmpStart('complaint'), cmpStartProblem: cmpStart('problem'), cmpStartCompliment: cmpStart('compliment'),
+      goCmpTrack: go('cmptrack'), isCmpTrack: is('cmptrack'), cmpCases,
+      cmpTrackSub: cmpOpenCount ? (cmpOpenCount + ' open · updates come here and by text') : 'Nothing open · past cases stay here',
+      isCmp: is('cmp'), isCmp1: C.step === 1, isCmp2: C.step === 2, isCmp3: C.step === 3,
+      cmpTitle: C.step === 3 ? (cmpIsCompliment ? 'Thank you' : 'Sent') : (cmpIsCompliment ? 'Say thanks' : 'Make a complaint'),
+      cmpBars: [1, 2, 3].map(n => ({ bg: n <= C.step ? '#FF6B6B' : '#E8E5E1' })),
+      cmpTypes, cmpTrips, cmpModes, cmpDraft, cmpAdvocates, cmpEvs,
+      cmpNamedBg: C.anon ? '#fff' : '#FFF5F5', cmpNamedBorder: C.anon ? '1px solid #E8E5E1' : '2px solid #FF6B6B', cmpAnonBg: C.anon ? '#FFF5F5' : '#fff', cmpAnonBorder: C.anon ? '2px solid #FF6B6B' : '1px solid #E8E5E1',
+      cmpSetNamed: () => setCmp({ anon: false }), cmpSetAnon: () => setCmp({ anon: true, adv: {} }),
+      cmpSendLabel: cmpIsCompliment ? 'Send my thanks' : (C.anon ? 'Send anonymously' : 'Send my complaint'),
+      cmpNext: () => { if (C.step === 1) setCmp({ step: 2 }); else if (C.step === 2) cmpSubmit(); },
+      cmpBack: () => { if (C.step === 2) setCmp({ step: 1 }); else this.setState({ screen: 'help' }); },
+      cmpRef: cmpLastRef, cmpDoneTitle: cmpIsCompliment ? 'Passed on to Deb' : (C.anon ? 'Sent anonymously' : 'We have it'),
+      cmpDoneLine: cmpIsCompliment ? 'Compliments go to the driver and their lead the same day.' : (C.anon ? 'Track it with the reference. We cannot contact you, so check back here.' : 'We acknowledge within 2 business days and keep you updated here and by text.'),
+      cmpNextSteps: cmpIsCompliment ? [ { icon: 'fa-heart', fg: '#FF6B6B', text: 'Deb K. sees your message today' }, { icon: 'fa-chart-line', fg: '#6C5CE7', text: 'It counts toward her quality record' } ] : [ { icon: 'fa-envelope-open-text', fg: '#6C5CE7', text: 'Acknowledged within 2 business days' }, { icon: 'fa-user-shield', fg: '#6C5CE7', text: 'Handled by the complaints team only · your driver never sees it' }, { icon: 'fa-comments', fg: '#6C5CE7', text: C.anon ? 'Updates appear under your reference' : 'Updates here and by text, ' + (C.adv.anna ? 'copied to Anna' : 'to you only') }, { icon: 'fa-arrow-up-right-from-square', fg: '#6C5CE7', text: 'You can escalate to the NDIS Commission at any time' } ],
+    };
     // --- turn 2: booker / coordinator / allied health ---
     const bkGo = s => () => this.setState({ bk: s });
     const bkMayaAlerts = [
@@ -578,6 +740,7 @@ class Component extends DCLogic {
       isTracking: is('tracking'), isPickup: is('pickup'), isInTrip: is('intrip'), isComplete: is('complete'),
       isReceipt: is('receipt'), isA11y: is('a11y'),
       isBookings: is('bookings'), isProfile: is('profile'), isHelp: is('help'),
+      ...cmpVals,
       goBookings: go('bookings'), goProfile: go('profile'), goHelp: go('help'),
       a11yModes, hcAttr: A.hc ? 'on' : 'off', ltAttr: A.lt ? 'on' : 'off', rootBg: A.hc ? '#FFFFFF' : '#FAFAF9',
       contacts,

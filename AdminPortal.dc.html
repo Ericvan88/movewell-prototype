@@ -409,6 +409,31 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="font-size:12px;color:#4A4540">214 trips today. Every trip links to its participant, driver, vehicle, support items and claim status.</div>
 </sc-if>
 
+<sc-if value="{{ isComplaints }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Complaints &amp; feedback</h2><span style="font-size:12.5px;color:#4A4540">NDIS complaints management and resolution rules</span>
+<span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(232,85,85,0.12);color:#C43F3F;font-size:12px;font-weight:700"><i class="fa-solid fa-lock"></i>Restricted · Compliance and Quality roles · every open is logged</span></div>
+<div style="display:flex;gap:12px">
+<sc-for list="{{ cmpKpis }}" as="k" hint-placeholder-count="4">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ k.label }}</span><span style="font-size:24px;font-weight:700;color:{{ k.color }}">{{ k.val }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ k.sub }}</span></div>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.1fr 2fr 1.4fr 1fr 1.2fr 1.1fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>CASE</span><span>WHAT</span><span>FROM</span><span>TYPE</span><span>ABOUT</span><span>STAGE</span><span>DUE</span></div>
+<sc-for list="{{ cmpRows }}" as="c" hint-placeholder-count="5">
+<div onClick="{{ c.onOpen }}" style="display:grid;grid-template-columns:1.1fr 2fr 1.4fr 1fr 1.2fr 1.1fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ c.rowBg }};cursor:pointer" style-hover="background:#FAFAF9">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ c.id }}</span>
+<span><span style="display:block;font-weight:700">{{ c.title }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ c.channel }}</span></span>
+<span style="font-size:12.5px">{{ c.from }}</span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ c.kindBg }};color:{{ c.kindFg }};font-size:11px;font-weight:700">{{ c.kind }}</span></span>
+<span style="font-size:12.5px;color:#4A4540">{{ c.about }}</span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700">{{ c.stage }}</span></span>
+<span style="font-size:12px;color:{{ c.dueFg }};font-weight:{{ c.dueFw }}">{{ c.due }}</span>
+</div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540;line-height:1.5">Complaints follow received, acknowledged (2 business days), investigating, outcome shared, closed. Anonymous complaints keep no identity on the record. Advocates and support people named by the complainant are copied on updates. Complainants can escalate to the NDIS Commission at any point; the Commission notice links back here. Compliments route to the driver and their lead and count toward quality records.</div>
+</sc-if>
+
 <sc-if value="{{ isPrivacy }}" hint-placeholder-val="{{ false }}">
 <div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Privacy &amp; access logs</h2><span style="font-size:12.5px;color:#4A4540">who viewed or changed what</span></div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
@@ -644,7 +669,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 class Component extends DCLogic {
   state = { section: null, assigned: {}, suspended: { s1: true }, approved: {}, activated: {}, opsF: 'all', flag: 'open', tick: 0,
     drawer: null, palOpen: false, palQ: '', palSel: 0,
-    incAdded: [], incStage: {}, incReport: {}, wiz: null,
+    incAdded: [], incStage: {}, incReport: {}, wiz: null, cmpStage: {},
     panel: (() => { try { return window.localStorage.getItem('mwPanel') !== 'closed'; } catch (e) { return true; } })() };
   componentDidMount() {
     this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000);
@@ -670,11 +695,11 @@ class Component extends DCLogic {
     const sec = S.section ?? (P.startSection ?? 'liveops');
     const nav = k => () => this.setState({ section: k, drawer: null });
     const PURP = '#6C5CE7', PD = '#5647C9', SOFT = '#F5F3FF', G = '#1F7A33', GBG = 'rgba(45,167,72,0.14)', Y = 'rgba(255,217,61,0.25)', YFG = '#8A6800', R = '#C43F3F', RBG = 'rgba(232,85,85,0.12)';
-    const titles = { liveops: 'Live ops', dispatch: 'Dispatch & rostering', tripsearch: 'Trip search', riders: 'Riders', drivers: 'Drivers', onboarding: 'Onboarding queue', compliance: 'Compliance hub', incidents: 'Incident management', privacy: 'Privacy & access logs', claims: 'Claims monitor', pricing: 'Pricing & line items', providers: 'Plan managers & providers', fleet: 'Assignment view', vehicles: 'Vehicles', equipment: 'Equipment', credentials: 'Credential register', outcomes: 'Outcomes console', config: 'Configuration & flags', rbac: 'Users & RBAC' };
-    const screenIcons = { liveops: 'fa-tower-observation', dispatch: 'fa-route', tripsearch: 'fa-magnifying-glass', riders: 'fa-users', drivers: 'fa-id-card', onboarding: 'fa-user-plus', compliance: 'fa-clipboard-check', incidents: 'fa-file-circle-exclamation', privacy: 'fa-eye', claims: 'fa-file-invoice-dollar', pricing: 'fa-tags', providers: 'fa-building', vehicles: 'fa-van-shuttle', equipment: 'fa-wheelchair', credentials: 'fa-certificate', fleet: 'fa-diagram-project', outcomes: 'fa-chart-line', config: 'fa-sliders', rbac: 'fa-user-lock' };
+    const titles = { liveops: 'Live ops', dispatch: 'Dispatch & rostering', tripsearch: 'Trip search', riders: 'Riders', drivers: 'Drivers', onboarding: 'Onboarding queue', compliance: 'Compliance hub', incidents: 'Incident management', complaints: 'Complaints & feedback', privacy: 'Privacy & access logs', claims: 'Claims monitor', pricing: 'Pricing & line items', providers: 'Plan managers & providers', fleet: 'Assignment view', vehicles: 'Vehicles', equipment: 'Equipment', credentials: 'Credential register', outcomes: 'Outcomes console', config: 'Configuration & flags', rbac: 'Users & RBAC' };
+    const screenIcons = { liveops: 'fa-tower-observation', dispatch: 'fa-route', tripsearch: 'fa-magnifying-glass', riders: 'fa-users', drivers: 'fa-id-card', onboarding: 'fa-user-plus', compliance: 'fa-clipboard-check', incidents: 'fa-file-circle-exclamation', complaints: 'fa-comment-dots', privacy: 'fa-eye', claims: 'fa-file-invoice-dollar', pricing: 'fa-tags', providers: 'fa-building', vehicles: 'fa-van-shuttle', equipment: 'fa-wheelchair', credentials: 'fa-certificate', fleet: 'fa-diagram-project', outcomes: 'fa-chart-line', config: 'fa-sliders', rbac: 'fa-user-lock' };
     const areaDefs = [
       { label: 'Operations', short: 'OPS', icon: 'fa-tower-observation', screens: ['liveops', 'dispatch', 'tripsearch', 'riders', 'drivers', 'onboarding'] },
-      { label: 'Compliance', short: 'COMPLIANCE', icon: 'fa-clipboard-check', screens: ['compliance', 'incidents', 'privacy'] },
+      { label: 'Compliance', short: 'COMPLIANCE', icon: 'fa-clipboard-check', screens: ['compliance', 'incidents', 'complaints', 'privacy'] },
       { label: 'Finance', short: 'FINANCE', icon: 'fa-file-invoice-dollar', screens: ['claims', 'pricing', 'providers'] },
       { label: 'Fleet & assets', short: 'FLEET', icon: 'fa-van-shuttle', screens: ['vehicles', 'equipment', 'credentials', 'fleet'] },
       { label: 'Platform', short: 'PLATFORM', icon: 'fa-sliders', screens: ['outcomes', 'config', 'rbac'], bottom: true },
@@ -923,6 +948,39 @@ class Component extends DCLogic {
       { label: 'REPORTABLE (24 H / 5 DAY)', val: String(incAll.filter(i => i.reportable && i.stageIdx < 5).length), color: '#2D3748', sub: 'none overdue · last lodged 03/07' },
       { label: 'CORRECTIVE ACTIONS DUE', val: String(incAll.reduce((n, i) => n + i.corrective.filter(c => !c.done).length, 0)), color: '#2D3748', sub: 'earliest due 22/07' },
     ];
+    // --- complaints and feedback ---
+    const cmpStages = ['Received', 'Acknowledged', 'Investigating', 'Outcome shared', 'Closed'];
+    const cmpKindStyle = { Complaint: { bg: RBG, fg: R }, 'Trip problem': { bg: Y, fg: YFG }, Compliment: { bg: GBG, fg: G }, Feedback: { bg: SOFT, fg: PD } };
+    const cmpBase = [
+      { id: 'CMP-2026-017', title: 'Late pickup, day program session missed', kind: 'Trip problem', from: 'Sunita Bakshi · mother of Priya', anon: false, channel: 'Supporter app · written', about: 'Jo Tran · TR-88150', received: '12/07 · 9:05 am', due: 'Closed 16/07', stage: 4, advocate: 'Sunita Bakshi (support person)', escalated: false, incident: 'INC-2026-040',
+        desc: 'Driver arrived 38 minutes late after a roster clash; the day program session was missed. Complainant asked that no claim be raised for the trip and that the roster issue be fixed.',
+        outcome: 'Apology issued by the ops lead. No claim raised. Roster buffer rule introduced (20 minutes between back-to-back jobs). Complainant accepted the outcome on 16/07.',
+        timeline: ['12/07 9:05 am · received via Supporter app', '12/07 9:20 am · acknowledged by phone (Priya Narayan)', '13/07 · investigation: roster snapshot and driver timeline reviewed', '14/07 · corrective action done: roster buffer rule', '16/07 · outcome shared and accepted; closed'], evidence: ['Roster snapshot 12/07', 'Driver app timeline TR-88150', 'Call note 12/07'] },
+      { id: 'CMP-2026-016', title: 'Driver using phone while driving', kind: 'Complaint', from: 'Anonymous', anon: true, channel: 'Rider app · anonymous · voice message', about: 'Driver not named · Salisbury zone', received: '14/07 · 6:40 pm', due: 'Ack by 16/07', stage: 2, advocate: 'None', escalated: false, incident: null,
+        desc: 'Anonymous voice message reports a driver texting at traffic lights during an afternoon trip in the Salisbury zone on 14/07. No trip or driver named. Trip telemetry for Salisbury-zone trips that afternoon is being matched to the description.',
+        outcome: 'Investigation open. Two candidate trips identified from telemetry; dashcam review requested.',
+        timeline: ['14/07 6:40 pm · received (anonymous, reference issued)', '15/07 9:10 am · acknowledged under the reference', '15/07 · telemetry match started (Marcus Webb)'], evidence: ['Voice message · 0:42 · transcribed', 'Telemetry candidates · 2 trips', 'Dashcam review · requested'] },
+      { id: 'CMP-2026-015', title: 'Thanks to Lena Voss · hoist transfer', kind: 'Compliment', from: 'Iris Kaur', anon: false, channel: 'Rider app · written', about: 'Lena Voss · TR-88102', received: '10/07 · 4:12 pm', due: 'Passed on', stage: 4, advocate: 'None', escalated: false, incident: null,
+        desc: '“Lena talked me through every step of the hoist and checked the tie-downs twice. I felt completely safe.”', outcome: 'Shared with Lena Voss and her lead the same day. Added to her quality record.',
+        timeline: ['10/07 4:12 pm · received', '10/07 4:30 pm · shared with driver and lead'], evidence: [] },
+      { id: 'CMP-2026-014', title: 'Booking app hard to use with switch access', kind: 'Feedback', from: 'Jordan Teague', anon: false, channel: 'Rider app · written', about: 'Rider app accessibility', received: '08/07 · 11:00 am', due: 'Outcome by 22/07', stage: 2, advocate: 'None', escalated: false, incident: null,
+        desc: 'Switch-access scanning skips the vehicle tier cards on the booking flow. Jordan can book with voice but wants switch access to work end to end.', outcome: 'Product team reproducing; fix scheduled for the next app release.',
+        timeline: ['08/07 · received', '09/07 · acknowledged', '10/07 · reproduced by product; fix scheduled'], evidence: ['Screen recording from Jordan'] },
+      { id: 'CMP-2026-011', title: 'Claim line showed the wrong support item', kind: 'Complaint', from: 'Maya Patel', anon: false, channel: 'Rider app · written · with Leo Marsh (coordinator)', about: 'Claim CL-2026-3381', received: '22/06 · 3:15 pm', due: 'Closed 03/07', stage: 4, advocate: 'Leo Marsh (support coordinator)', escalated: false, incident: null,
+        desc: 'A June claim used the specialised transport item for a standard sedan trip. Plan manager queried it. Complaint raised with the coordinator copied.', outcome: 'Claim credited and resubmitted under 04_590_0125_6_1. Pricing rule fixed so the support item follows the vehicle actually dispatched, not the tier requested.',
+        timeline: ['22/06 · received', '23/06 · acknowledged', '24/06 · investigation: dispatch record vs claim line', '01/07 · outcome shared', '03/07 · closed, complainant satisfied'], evidence: ['Claim CL-2026-3381', 'Credit note CN-0412', 'Pricing rule change log'] },
+    ];
+    const cmpAll = cmpBase.map(c => { const stage = S.cmpStage[c.id] !== undefined ? S.cmpStage[c.id] : c.stage; const ks = cmpKindStyle[c.kind]; const closed = stage === 4;
+      return { ...c, stageIdx: stage, stage: cmpStages[stage], kindBg: ks.bg, kindFg: ks.fg, stBg: closed ? GBG : (stage === 0 ? RBG : Y), stFg: closed ? G : (stage === 0 ? R : YFG), dueFg: closed ? '#4A4540' : YFG, dueFw: closed ? 400 : 700,
+        rowBg: drawerIs('complaint', c.id) ? SOFT : 'transparent', onOpen: openDrawer('complaint', c.id) }; });
+    const cmpRows = cmpAll;
+    const cmpOpen = cmpAll.filter(c => c.stageIdx < 4).length;
+    const cmpKpis = [
+      { label: 'OPEN', val: String(cmpOpen), color: cmpOpen ? YFG : '#2D3748', sub: cmpOpen + ' in progress' },
+      { label: 'ACKNOWLEDGED IN 2 DAYS', val: '100%', color: G, sub: 'last 90 days · target 100%' },
+      { label: 'ESCALATED TO COMMISSION', val: '0', color: '#2D3748', sub: 'none this quarter' },
+      { label: 'COMPLIMENTS · JULY', val: '14', color: '#2D3748', sub: 'shared with drivers same day' },
+    ];
     // --- new incident wizard ---
     const W = S.wiz;
     const wizOpenFor = tripId => () => this.setState({ wiz: { step: 1, trip: tripId || tsRows[0].id, cat: null, sev: 'minor', acts: {}, notify: { supporter: true, coordinator: true } }, drawer: null });
@@ -1075,6 +1133,17 @@ class Component extends DCLogic {
       else if (DR.t === 'vehicle') { const r = vehicles.find(x => x.id === DR.k); if (r) dw = { icon: 'fa-van-shuttle', title: r.id, sub: r.rego, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: r.config, fields: [F('Capacity', r.cap), F('Next service', r.service)], note: 'Registration, insurance and inspection are tracked per vehicle. Equipment carried is listed under Equipment.', action: null }; }
       else if (DR.t === 'trip') { const r = tsRows.find(x => x.id === DR.k); if (r) { const linked = incAll.filter(i => i.trip === r.id); dw = { icon: 'fa-route', title: r.id, sub: r.when, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Participant', r.who), F('Driver', r.driver), F('Route', r.route)], note: 'Every trip links to its participant, driver, vehicle, support items and claim status.', action: { label: 'Record incident from this trip', bg: R, go: wizOpenFor(r.id) },
         sections: linked.length ? [ { title: 'LINKED INCIDENTS', items: linked.map(i => ({ icon: 'fa-file-circle-exclamation', fg: R, text: i.id + ' · ' + i.title, meta: i.sev + ' · ' + i.stage })) } ] : [] }; } }
+      else if (DR.t === 'complaint') { const c = cmpAll.find(x => x.id === DR.k); if (c) { const next = c.stageIdx < 4 ? cmpStages[c.stageIdx + 1] : null;
+        dw = { icon: 'fa-comment-dots', title: c.id, sub: c.title, status: { label: c.stage, bg: c.stBg, fg: c.stFg }, chips: [c.kind, c.anon ? 'Anonymous' : 'Named', c.advocate !== 'None' ? 'Advocate named' : 'No advocate'],
+          fields: [F('From', c.from), F('Channel', c.channel), F('About', c.about), F('Received', c.received), F('Advocate or support', c.advocate), F('Linked incident', c.incident || 'None')], note: c.desc,
+          sections: [
+            { title: 'LIFECYCLE', items: cmpStages.map((st, n) => ({ icon: n < c.stageIdx ? 'fa-circle-check' : (n === c.stageIdx ? 'fa-circle-dot' : 'fa-circle'), fg: n < c.stageIdx ? G : (n === c.stageIdx ? PD : '#CFCAC4'), text: st, meta: n === 1 ? 'Within 2 business days of receipt' : false })) },
+            { title: 'OUTCOME', items: [ { icon: 'fa-flag-checkered', fg: c.stageIdx >= 3 ? G : YFG, text: c.outcome, meta: false } ] },
+            { title: 'TIMELINE', items: c.timeline.map(t => ({ icon: 'fa-clock', fg: '#4A4540', text: t, meta: false })) },
+            { title: 'EVIDENCE', items: c.evidence.length ? c.evidence.map(e => ({ icon: 'fa-lock', fg: '#4A4540', text: e, meta: false })) : [ { icon: 'fa-circle-minus', fg: '#ADA8A2', text: 'None attached', meta: false } ] },
+            { title: 'ACCESS', items: [ { icon: 'fa-user-shield', fg: R, text: 'Visible to Compliance and Quality roles only. Drivers and the ops desk cannot see this record.', meta: 'Your open was logged · Priya Narayan · now' } ] },
+          ],
+          action: next ? { label: 'Advance to ' + next, bg: PURP, go: () => this.setState(s => ({ cmpStage: { ...s.cmpStage, [c.id]: c.stageIdx + 1 } })) } : null }; } }
       else if (DR.t === 'incident') { const i = incAll.find(x => x.id === DR.k); if (i) { const next = i.stageIdx < 5 ? incStages[i.stageIdx + 1] : null; const reported = !!S.incReport[i.id];
         dw = { icon: 'fa-file-circle-exclamation', title: i.id, sub: i.title, status: { label: i.stage, bg: i.stBg, fg: i.stFg }, chips: [i.sev, i.rep, i.cat],
           fields: [F('Trip', i.trip), F('Participant', i.who), F('Driver', i.driver), F('Reported', i.reported), F('Reported by', i.by)], note: i.desc,
@@ -1101,6 +1170,7 @@ class Component extends DCLogic {
     tsRows.forEach(t0 => recItem(t0.id + ' · ' + t0.who, 'fa-route', 'Trip', 'tripsearch', 'trip', t0.id));
     queue.forEach(q0 => recItem(q0.name, 'fa-user-plus', 'Applicant', 'onboarding', 'applicant', q0.k));
     incAll.forEach(i0 => recItem(i0.id + ' · ' + i0.title, 'fa-file-circle-exclamation', 'Incident', 'incidents', 'incident', i0.id));
+    cmpAll.forEach(c0 => recItem(c0.id + ' · ' + c0.title, 'fa-comment-dots', 'Complaint', 'complaints', 'complaint', c0.id));
     const palQ = S.palQ.trim().toLowerCase();
     const fuzzy = (s) => { let i = 0; s = s.toLowerCase(); for (const ch of palQ) { i = s.indexOf(ch, i); if (i < 0) return false; i++; } return true; };
     const palMatches = palQ ? palAll.filter(i => (i.name + ' ' + i.area).toLowerCase().includes(palQ) || fuzzy(i.name)) : palAll.slice(0, 7);
@@ -1131,7 +1201,7 @@ class Component extends DCLogic {
       isLiveops: sec === 'liveops', isDispatch: sec === 'dispatch', isRiders: sec === 'riders',
       isDrivers: sec === 'drivers', isOnboarding: sec === 'onboarding', isFleet: sec === 'fleet',
       isClaims: sec === 'claims', isIncidents: sec === 'incidents', isCompliance: sec === 'compliance',
-      isTripsearch: sec === 'tripsearch', isPrivacy: sec === 'privacy', isPricing: sec === 'pricing',
+      isTripsearch: sec === 'tripsearch', isPrivacy: sec === 'privacy', isPricing: sec === 'pricing', isComplaints: sec === 'complaints',
       isProviders: sec === 'providers', isVehicles: sec === 'vehicles', isEquipment: sec === 'equipment',
       isCredentials: sec === 'credentials', isOutcomes: sec === 'outcomes', isConfig: sec === 'config', isRbac: sec === 'rbac',
       tsFilters, tsRows, accessLogs, rateCard, providers, vehicles, equipment, credReg, ocKpis, ocBars, flags: configFlags, rbacUsers,
@@ -1144,7 +1214,7 @@ class Component extends DCLogic {
       driverFilters, drivers,
       queue, reviewCount,
       fleet, claimStats, claims, compliance, audits,
-      incidents, incKpis, incNew: wizOpenFor(null),
+      incidents, incKpis, incNew: wizOpenFor(null), cmpRows, cmpKpis,
       dSections: dw && dw.sections ? dw.sections : [],
       wizOpen: !!W, wizStep: W ? W.step : 1, wizStepLabel: W ? wizStepLabels[W.step - 1] : '', wizBars: [1, 2, 3, 4].map(n => ({ bg: W && n <= W.step ? PURP : '#E8E5E1' })),
       wizS1: !!W && W.step === 1, wizS2: !!W && W.step === 2, wizS3: !!W && W.step === 3, wizS4: !!W && W.step === 4,
