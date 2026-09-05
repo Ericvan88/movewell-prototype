@@ -15,6 +15,7 @@
 body{margin:0;background:#FAFAF9;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;color:#2D3748}
 a{color:#6C5CE7}a:hover{color:#5647C9}
 
+@keyframes mwBlink{0%,100%{opacity:1}50%{opacity:0.45}}
 </style>
 </helmet>
 
@@ -135,7 +136,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:20px"></i><span style="flex:1;font-size:14px">Restraints and anchor points checked</span></div>
 <div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;border-top:1px solid #F7F6F4"><i class="fa-solid fa-circle-check" style="color:#1F7A33;width:20px"></i><span style="flex:1;font-size:14px">Cabin sanitised · sensory kit stocked</span></div>
 </div>
-<div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer"><i class="fa-solid fa-wrench" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Report a vehicle fault</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div onClick="{{ goIncVehicle }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer"><i class="fa-solid fa-wrench" style="color:#6C5CE7;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Report a vehicle fault</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
 </div>
 </div>
 </sc-if>
@@ -345,7 +346,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="flex:none;background:#fff;border-top:1px solid #E8E5E1;padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px">
 <div style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700"><i class="fa-solid fa-location-dot" style="color:#FF6B6B"></i>{{ job.to }}</div>
 <div style="display:flex;gap:10px">
-<button style="flex:1;height:56px;border:1px solid #E85555;background:#fff;color:#C43F3F;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer"><i class="fa-solid fa-tower-broadcast" style="margin-right:8px"></i>SOS</button>
+<button onClick="{{ goSos }}" style="flex:1;height:56px;border:1px solid #E85555;background:#fff;color:#C43F3F;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer"><i class="fa-solid fa-tower-broadcast" style="margin-right:8px"></i>SOS</button>
 <button onClick="{{ goWrap }}" style="flex:2;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">End trip</button>
 </div>
 </div>
@@ -367,7 +368,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 </sc-for>
 </div>
-<div onClick="{{ noop }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer"><i class="fa-solid fa-file-circle-exclamation" style="color:#C43F3F;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Report an incident</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
+<div onClick="{{ goIncFromWrap }}" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;cursor:pointer"><i class="fa-solid fa-file-circle-exclamation" style="color:#C43F3F;width:20px"></i><span style="flex:1;font-size:15px;font-weight:700">Report an incident</span><i class="fa-solid fa-chevron-right" style="color:#E8E5E1;font-size:12px"></i></div>
 <div style="background:rgba(45,167,72,0.08);border:1px solid rgba(45,167,72,0.3);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px">
 <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;color:#1F7A33;font-weight:700"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>You earned</span><span style="font-size:24px;font-weight:700">{{ job.pay }}</span></div>
 <div style="font-size:12.5px;color:#4A4540">Claim built and sent automatically. Nothing to collect.</div>
@@ -376,6 +377,90 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="margin-top:auto;padding:16px 20px 20px">
 <button onClick="{{ finishWrap }}" style="width:100%;height:64px;border:0;border-radius:12px;background:{{ wrapBtnBg }};color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:{{ wrapBtnCursor }}">Done · back to today</button>
 </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSos }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;background:#7A1F1F;color:#fff">
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:34px 24px 10px;text-align:center">
+<span style="width:84px;height:84px;border-radius:9999px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-size:34px;animation:mwBlink 1.4s infinite"><i class="fa-solid fa-tower-broadcast"></i></span>
+<h2 style="margin:12px 0 0;font-size:26px;font-weight:700">SOS sent</h2>
+<p style="margin:0;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.5">{{ sosLine }}</p>
+</div>
+<div style="margin:8px 20px;background:#fff;color:#2D3748;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px;font-size:14px"><i class="fa-solid fa-location-crosshairs" style="color:#6C5CE7;width:18px"></i>Live location shared with the ops desk</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px"><i class="fa-solid fa-user" style="color:#6C5CE7;width:18px"></i>{{ job.short }} on board · {{ job.contact }} on standby</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:14px"><i class="fa-solid fa-video" style="color:#6C5CE7;width:18px"></i>Dashcam and trip data preserved from 10 min ago</div>
+</div>
+<div style="margin:0 20px;padding:12px 16px;background:rgba(255,255,255,0.12);border-radius:12px;font-size:13px;line-height:1.5">If anyone is hurt or in danger, call 000 first. The ops desk stays on the line and takes over the paperwork.</div>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:10px;padding:16px 20px 24px">
+<a href="tel:000" style="display:flex;align-items:center;justify-content:center;gap:10px;height:56px;border-radius:12px;background:#fff;color:#C43F3F;font-size:17px;font-weight:700;text-decoration:none"><i class="fa-solid fa-phone"></i>Call 000</a>
+<button onClick="{{ goIncFromSos }}" style="height:56px;border:1px solid rgba(255,255,255,0.5);background:transparent;color:#fff;border-radius:12px;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer">Report what happened</button>
+<button onClick="{{ sosCancel }}" style="height:48px;border:0;background:transparent;color:rgba(255,255,255,0.8);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;text-decoration:underline">I'm safe · cancel SOS</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isInc }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ incBack }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">{{ incTitle }}</h2>
+</div>
+<div style="display:flex;gap:6px;padding:6px 20px 0"><sc-for list="{{ incBars }}" as="b" hint-placeholder-count="3"><span style="flex:1;height:5px;border-radius:9999px;background:{{ b.bg }}"></span></sc-for></div>
+
+<sc-if value="{{ isInc1 }}" hint-placeholder-val="{{ true }}">
+<div style="padding:14px 20px 6px;font-size:14px;color:#4A4540">{{ incContext }}</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:8px 20px">
+<sc-for list="{{ incCats }}" as="c" hint-placeholder-count="6">
+<div onClick="{{ c.onPick }}" style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;background:{{ c.bg }};border:{{ c.border }};border-radius:12px;cursor:pointer"><span style="width:40px;height:40px;border-radius:9999px;background:#F5F3FF;color:#6C5CE7;display:flex;align-items:center;justify-content:center"><i class="fa-solid {{ c.icon }}"></i></span><span style="flex:1;font-size:15px;font-weight:700">{{ c.label }}</span><sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-circle-check" style="color:#6C5CE7"></i></sc-if></div>
+</sc-for>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ incNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:{{ incNextBg }};color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:{{ incNextCursor }}">Continue</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isInc2 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:14px;padding:14px 20px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">HOW SERIOUS</div>
+<div style="display:flex;gap:8px">
+<sc-for list="{{ incSevs }}" as="v" hint-placeholder-count="3"><div onClick="{{ v.onPick }}" style="flex:1;padding:10px 8px;border:{{ v.border }};background:{{ v.bg }};border-radius:12px;cursor:pointer;text-align:center"><span style="display:block;font-size:14px;font-weight:700">{{ v.label }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ v.desc }}</span></div></sc-for>
+</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">WHAT YOU DID</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ incActs }}" as="a" hint-placeholder-count="5"><span onClick="{{ a.onFlip }}" style="padding:9px 14px;border-radius:9999px;border:{{ a.border }};background:{{ a.bg }};color:{{ a.fg }};font-size:13px;font-weight:{{ a.fw }};cursor:pointer"><sc-if value="{{ a.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-check" style="margin-right:6px"></i></sc-if>{{ a.label }}</span></sc-for>
+</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">EVIDENCE</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ incEvs }}" as="e" hint-placeholder-count="3"><span onClick="{{ e.onFlip }}" style="display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:9999px;border:{{ e.border }};background:{{ e.bg }};color:{{ e.fg }};font-size:13px;font-weight:{{ e.fw }};cursor:pointer"><i class="fa-solid {{ e.icon }}"></i>{{ e.label }}</span></sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F5F3FF;border-radius:12px;font-size:12.5px;color:#5647C9"><i class="fa-solid fa-lock"></i>Dashcam, trip telemetry and your location are preserved automatically.</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ incNext }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#C43F3F;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer">Send to ops desk</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isInc3 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:28px 24px 8px;text-align:center">
+<span style="width:72px;height:72px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;display:flex;align-items:center;justify-content:center;font-size:30px"><i class="fa-solid fa-check"></i></span>
+<h3 style="margin:10px 0 0;font-size:22px;font-weight:700">Sent · {{ incRef }}</h3>
+<p style="margin:0;font-size:14px;color:#4A4540;line-height:1.5">The ops desk has it. {{ incRepLine }}</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:12px 20px">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:12px 16px 4px;font-size:11px;font-weight:700;letter-spacing:0.12em;color:#4A4540">WHAT HAPPENS NEXT</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:13.5px"><i class="fa-solid fa-headset" style="color:#6C5CE7;width:18px"></i>Ops calls you within the hour</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:13.5px"><i class="fa-solid fa-bell" style="color:#6C5CE7;width:18px"></i>Ops tells the support contact and coordinator if needed</div>
+<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 16px;border-top:1px solid #F7F6F4;font-size:13.5px"><i class="fa-solid fa-file-lines" style="color:#6C5CE7;width:18px"></i>Your statement is on the record. You can add to it any time.</div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">Reporting never counts against you. It's how we keep participants and drivers safe.</div>
+</div>
+<div style="margin-top:auto;padding:16px 20px 20px">
+<button onClick="{{ incDone }}" style="width:100%;height:56px;border:0;border-radius:12px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer" style-hover="background:#5647C9">{{ incDoneLabel }}</button>
+</div>
+</sc-if>
 </div>
 </sc-if>
 
@@ -431,12 +516,13 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { screen: null, role: null, job: 'maya', online: false, offerSecs: 15, code: [], codeError: false, wraps: { a: false, b: false, c: false }, doneTrip: false, radarT: 0 };
+  state = { screen: null, role: null, job: 'maya', sosT: 0, incStep: 1, incCat: null, incSev: 'minor', incActs: {}, incEvs: {}, incBackTo: 'wrap', incCount: 0, online: false, offerSecs: 15, code: [], codeError: false, wraps: { a: false, b: false, c: false }, doneTrip: false, radarT: 0 };
   componentDidMount() {
     this._t = setInterval(() => {
       const scr = this.state.screen ?? this.props.startScreen;
       if (scr === 'offer' && this.state.offerSecs > 0) this.setState(s => ({ offerSecs: s.offerSecs - 1 }));
       if (scr === 'radar') this.setState(s => ({ radarT: s.radarT + 1 }));
+      if (scr === 'sos') this.setState(s => ({ sosT: s.sosT + 1 }));
     }, 1000);
   }
   componentWillUnmount() { clearInterval(this._t); }
@@ -496,7 +582,39 @@ class Component extends DCLogic {
       { icon: 'fa-graduation-cap', name: 'Disability awareness training', sub: 'Completed 11/2025', status: 'Complete', lozBg: 'rgba(45,167,72,0.14)', lozFg: '#1F7A33', lozIcon: 'fa-circle-check' },
     ];
     const is = k => S.screen === k;
+    // --- SOS and incident intake ---
+    const sosLine = S.sosT < 3 ? 'Calling the ops desk… answer within 60 s guaranteed.' : 'Sam O. (ops desk) is on the line and can see your trip.';
+    const incCatDefs = [
+      { k: 'injury', label: 'Injury or near miss', icon: 'fa-kit-medical' }, { k: 'distress', label: 'Behaviour or distress', icon: 'fa-heart-crack' },
+      { k: 'abuse', label: 'Abuse, neglect or restraint concern', icon: 'fa-shield-halved' }, { k: 'vehicle', label: 'Vehicle or equipment fault', icon: 'fa-wrench' },
+      { k: 'service', label: 'Late, missed or wrong trip', icon: 'fa-clock' }, { k: 'other', label: 'Something else', icon: 'fa-circle-question' },
+    ];
+    const incCats = incCatDefs.map(c => { const on = S.incCat === c.k; return { ...c, on, bg: on ? '#F5F3FF' : '#fff', border: on ? '2px solid #6C5CE7' : '1px solid #E8E5E1', onPick: () => this.setState({ incCat: c.k }) }; });
+    const incSevDefs = [ { k: 'minor', label: 'Minor', desc: 'No treatment' }, { k: 'moderate', label: 'Moderate', desc: 'First aid or GP' }, { k: 'serious', label: 'Serious', desc: 'Hospital or police' } ];
+    const incSevs = incSevDefs.map(v => { const on = S.incSev === v.k; return { ...v, bg: on ? '#F5F3FF' : '#fff', border: on ? '2px solid #6C5CE7' : '1px solid #E8E5E1', onPick: () => this.setState({ incSev: v.k }) }; });
+    const incActDefs = ['Gave first aid', 'Called 000', 'Called ops', 'Called the support contact', 'Stopped the trip', 'Pulled over safely'];
+    const incActs = incActDefs.map(a => { const on = !!S.incActs[a]; return { label: a, on, bg: on ? '#6C5CE7' : '#fff', fg: on ? '#fff' : '#2D3748', border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1', fw: on ? 700 : 400, onFlip: () => this.setState(s => ({ incActs: { ...s.incActs, [a]: !s.incActs[a] } })) }; });
+    const incEvDefs = [ { k: 'photo', label: 'Add photo', icon: 'fa-camera' }, { k: 'voice', label: 'Voice note', icon: 'fa-microphone' }, { k: 'witness', label: 'Witness details', icon: 'fa-user-group' } ];
+    const incEvs = incEvDefs.map(e => { const on = !!S.incEvs[e.k]; return { ...e, label: on ? e.label + ' · added' : e.label, bg: on ? '#6C5CE7' : '#fff', fg: on ? '#fff' : '#2D3748', border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1', fw: on ? 700 : 400, onFlip: () => this.setState(s => ({ incEvs: { ...s.incEvs, [e.k]: !s.incEvs[e.k] } })) }; });
+    const incReportable = S.incCat === 'abuse' || ((S.incCat === 'injury' || S.incCat === 'distress') && S.incSev === 'serious');
+    const incTitles = { 1: 'What happened?', 2: 'Details', 3: 'Report sent' };
+    const incContextMap = { wrap: job.short + ' · ' + job.toShort + ' · trip ' + (employed ? 'TR-88214' : 'TR-88214'), intrip: job.short + ' · in trip now', home: 'Vehicle · not on a trip' };
+    const incStart = (backTo, cat) => () => this.setState({ screen: 'inc', incStep: 1, incCat: cat || null, incSev: 'minor', incActs: {}, incEvs: {}, incBackTo: backTo });
     return {
+      isSos: is('sos'), sosLine,
+      goSos: () => this.setState({ screen: 'sos', sosT: 0 }),
+      sosCancel: () => this.setState({ screen: 'intrip' }),
+      goIncFromSos: incStart('intrip', null), goIncFromWrap: incStart('wrap', null), goIncVehicle: incStart('home', 'vehicle'),
+      isInc: is('inc'), isInc1: S.incStep === 1, isInc2: S.incStep === 2, isInc3: S.incStep === 3,
+      incTitle: incTitles[S.incStep], incContext: incContextMap[S.incBackTo] || '', incBars: [1, 2, 3].map(n => ({ bg: n <= S.incStep ? '#6C5CE7' : '#E8E5E1' })),
+      incCats, incSevs, incActs, incEvs,
+      incNextBg: S.incCat ? '#6C5CE7' : '#CFCAC4', incNextCursor: S.incCat ? 'pointer' : 'default',
+      incNext: () => { if (S.incStep === 1) { if (S.incCat) this.setState({ incStep: 2 }); } else if (S.incStep === 2) this.setState(s => ({ incStep: 3, incCount: s.incCount + 1 })); },
+      incBack: () => { if (S.incStep === 2) this.setState({ incStep: 1 }); else this.setState({ screen: S.incBackTo }); },
+      incRef: 'INC-2026-' + String(42 + Math.max(0, S.incCount - 1)).padStart(3, '0'),
+      incRepLine: incReportable ? 'This looks reportable, so ops starts the NDIS Commission 24-hour notification now.' : 'It stays on the internal incident register with a follow-up call.',
+      incDone: () => this.setState({ screen: S.incBackTo === 'intrip' ? 'intrip' : S.incBackTo }),
+      incDoneLabel: S.incBackTo === 'wrap' ? 'Back to wrap up' : (S.incBackTo === 'intrip' ? 'Back to the trip' : 'Done'),
       demoLogout: () => { (this.props.onLogout || (() => {}))(); },
       isHome: is('home'), isOffer: is('offer'), isPretrip: is('pretrip'), isEnroute: is('enroute'),
       isArrived: is('arrived'), isIntrip: is('intrip'), isWrap: is('wrap'), isEarnings: is('earnings'), isDocs: is('docs'),

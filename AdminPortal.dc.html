@@ -357,20 +357,28 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 <sc-if value="{{ isIncidents }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Incident management</h2><span style="font-size:12.5px;color:#4A4540">IMS · NDIS Commission workflow</span></div>
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Incident management</h2><span style="font-size:12.5px;color:#4A4540">IMS · Practice Standards Module 2A · NDIS Commission reportable incidents</span>
+<button onClick="{{ incNew }}" style="margin-left:auto;height:36px;padding:0 14px;border:0;border-radius:10px;background:#6C5CE7;color:#fff;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#5647C9"><i class="fa-solid fa-plus" style="margin-right:7px"></i>New incident</button></div>
 <div style="display:flex;gap:12px">
-<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">OPEN</span><span style="font-size:24px;font-weight:700;color:#8A6800">1</span></div>
-<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SOS THIS WEEK</span><span style="font-size:24px;font-weight:700">2</span><span style="display:block;font-size:11px;color:#1F7A33">both resolved · SLA 60 s</span></div>
-<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">REPORTABLE (5-DAY)</span><span style="font-size:24px;font-weight:700">0</span><span style="display:block;font-size:11px;color:#4A4540">none outstanding</span></div>
+<sc-for list="{{ incKpis }}" as="k" hint-placeholder-count="4">
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ k.label }}</span><span style="font-size:24px;font-weight:700;color:{{ k.color }}">{{ k.val }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ k.sub }}</span></div>
+</sc-for>
 </div>
-<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px">
-<div style="display:flex;align-items:center;gap:10px"><span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>OPEN</span><span style="font-weight:700">INC-2026-041 · minor · vehicle door assist</span><span style="margin-left:auto;font-size:12px;color:#4A4540">reported 15/07 · 11:20 am</span></div>
-<div style="font-size:13px;line-height:1.55;color:#2D3748">Participant reported a bump to the shin during a manual transfer. First aid given on site, no injury requiring treatment. Reported by driver Marcus Field via the Driver App incident form. Category assessed as non-reportable; retained on the internal IMS with a follow-up call scheduled.</div>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<sc-for list="{{ imsSteps }}" as="s" hint-placeholder-count="4"><span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:{{ s.bg }};color:{{ s.fg }};font-size:11.5px;font-weight:700"><i class="fa-solid {{ s.icon }}"></i>{{ s.label }}</span></sc-for>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:1.1fr 1.8fr 1.5fr 0.9fr 1.1fr 1.3fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>INCIDENT</span><span>WHAT</span><span>WHO</span><span>SEVERITY</span><span>REPORTABLE</span><span>STAGE</span><span>REPORTED</span></div>
+<sc-for list="{{ incidents }}" as="i" hint-placeholder-count="5">
+<div onClick="{{ i.onOpen }}" style="display:grid;grid-template-columns:1.1fr 1.8fr 1.5fr 0.9fr 1.1fr 1.3fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ i.rowBg }};cursor:pointer" style-hover="background:#FAFAF9">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ i.id }}</span>
+<span><span style="display:block;font-weight:700">{{ i.title }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ i.cat }}</span></span>
+<span style="font-size:12.5px"><span style="display:block">{{ i.who }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ i.driver }} · {{ i.trip }}</span></span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ i.sevBg }};color:{{ i.sevFg }};font-size:11px;font-weight:700">{{ i.sev }}</span></span>
+<span style="font-size:12px;color:{{ i.repFg }};font-weight:{{ i.repFw }}">{{ i.rep }}</span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ i.stBg }};color:{{ i.stFg }};font-size:11px;font-weight:700">{{ i.stage }}</span></span>
+<span style="font-size:12px;color:#4A4540">{{ i.reported }}</span>
 </div>
+</sc-for>
 </div>
-<div style="font-size:12px;color:#4A4540">Reportable incidents route to the NDIS Commission workflow with the 24-hour and 5-day timers. This one is retained internally with driver follow-up.</div>
+<div style="font-size:12px;color:#4A4540;line-height:1.5">Every incident follows the same lifecycle: logged, classified (with the reportable test), immediate safety actions, notifications, corrective actions, closure. Reportable incidents start the NDIS Commission 24-hour and 5-day timers automatically. Evidence (driver statement, trip telemetry, dashcam, photos) is preserved on the record. Open an incident to work it, or record one from any trip in Trip search.</div>
 </sc-if>
 
 <sc-if value="{{ isCompliance }}" hint-placeholder-val="{{ false }}">
@@ -521,6 +529,14 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-for>
 </div>
 <sc-if value="{{ dNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#4A4540;line-height:1.5">{{ dNote }}</div></sc-if>
+<sc-for list="{{ dSections }}" as="sec" hint-placeholder-count="0">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ sec.title }}</div>
+<sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="3">
+<div style="display:flex;align-items:flex-start;gap:9px;padding:8px 10px;border:1px solid #E8E5E1;border-radius:10px;font-size:12.5px"><i class="fa-solid {{ it.icon }}" style="color:{{ it.fg }};margin-top:2px;width:14px;text-align:center"></i><span style="flex:1;min-width:0"><span style="display:block;line-height:1.4">{{ it.text }}</span><sc-if value="{{ it.meta }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11px;color:#4A4540;margin-top:2px">{{ it.meta }}</span></sc-if></span></div>
+</sc-for>
+</div>
+</sc-for>
 </div>
 <sc-if value="{{ dHasAction }}" hint-placeholder-val="{{ false }}">
 <div style="padding:14px 18px;border-top:1px solid #F7F6F4">
@@ -553,6 +569,74 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 </sc-if>
 
+<sc-if value="{{ wizOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;background:rgba(45,55,72,0.35);z-index:60;display:flex;align-items:flex-start;justify-content:center;padding-top:60px;box-sizing:border-box">
+<div style="width:560px;max-width:94vw;max-height:calc(100vh - 100px);background:#fff;border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,0.25);display:flex;flex-direction:column;overflow:hidden">
+<div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid #E8E5E1">
+<span style="width:32px;height:32px;border-radius:9px;background:rgba(232,85,85,0.12);color:#C43F3F;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-circle-exclamation"></i></span>
+<span style="flex:1"><span style="display:block;font-size:14px;font-weight:700">Record an incident</span><span style="display:block;font-size:11.5px;color:#4A4540">Step {{ wizStep }} of 4 · {{ wizStepLabel }}</span></span>
+<button onClick="{{ wizClose }}" style="width:28px;height:28px;border:1px solid #E8E5E1;background:#fff;border-radius:9999px;color:#4A4540;font-family:inherit;font-size:11px;cursor:pointer"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div style="display:flex;gap:5px;padding:10px 18px 0"><sc-for list="{{ wizBars }}" as="b" hint-placeholder-count="4"><span style="flex:1;height:4px;border-radius:9999px;background:{{ b.bg }}"></span></sc-for></div>
+<div style="flex:1;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:14px">
+
+<sc-if value="{{ wizS1 }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">TRIP</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ wizTrips }}" as="t" hint-placeholder-count="4">
+<div onClick="{{ t.onPick }}" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border:{{ t.border }};background:{{ t.bg }};border-radius:10px;cursor:pointer;font-size:12.5px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#4A4540">{{ t.id }}</span><span style="font-weight:700">{{ t.who }}</span><span style="color:#4A4540">{{ t.driver }} · {{ t.route }} · {{ t.when }}</span></div>
+</sc-for>
+</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">WHAT KIND OF INCIDENT</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ wizCats }}" as="c" hint-placeholder-count="6"><span onClick="{{ c.onPick }}" style="padding:8px 13px;border-radius:9999px;border:{{ c.border }};background:{{ c.bg }};color:{{ c.fg }};font-size:12.5px;font-weight:{{ c.fw }};cursor:pointer"><i class="fa-solid {{ c.icon }}" style="margin-right:6px"></i>{{ c.label }}</span></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ wizS2 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">SEVERITY</div>
+<div style="display:flex;gap:8px">
+<sc-for list="{{ wizSevs }}" as="v" hint-placeholder-count="3"><div onClick="{{ v.onPick }}" style="flex:1;padding:10px 12px;border:{{ v.border }};background:{{ v.bg }};border-radius:10px;cursor:pointer"><span style="display:block;font-size:13px;font-weight:700">{{ v.label }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ v.desc }}</span></div></sc-for>
+</div>
+<div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;background:{{ wizRepBg }};border:1px solid {{ wizRepBorder }};font-size:12.5px;line-height:1.45"><i class="fa-solid {{ wizRepIcon }}" style="color:{{ wizRepFg }};margin-top:2px"></i><span><strong style="color:{{ wizRepFg }}">{{ wizRepTitle }}</strong> · {{ wizRepText }}</span></div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">IMMEDIATE SAFETY ACTIONS TAKEN</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ wizActs }}" as="a" hint-placeholder-count="6"><span onClick="{{ a.onFlip }}" style="padding:8px 13px;border-radius:9999px;border:{{ a.border }};background:{{ a.bg }};color:{{ a.fg }};font-size:12.5px;font-weight:{{ a.fw }};cursor:pointer"><sc-if value="{{ a.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-check" style="margin-right:6px"></i></sc-if>{{ a.label }}</span></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ wizS3 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">NOTIFY</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ wizNotify }}" as="n" hint-placeholder-count="5">
+<div onClick="{{ n.onFlip }}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #E8E5E1;border-radius:10px;cursor:{{ n.cursor }};background:{{ n.rowBg }}"><span style="width:20px;height:20px;border-radius:6px;background:{{ n.boxBg }};border:{{ n.boxBorder }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;flex:none"><sc-if value="{{ n.on }}" hint-placeholder-val="{{ false }}"><i class="fa-solid fa-check"></i></sc-if></span><span style="flex:1"><span style="display:block;font-size:13px;font-weight:700">{{ n.label }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ n.desc }}</span></span></div>
+</sc-for>
+</div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">EVIDENCE PRESERVED AUTOMATICALLY</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ wizEvidence }}" as="e" hint-placeholder-count="4"><span style="display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:11.5px;font-weight:700"><i class="fa-solid {{ e.icon }}"></i>{{ e.label }}</span></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ wizS4 }}" hint-placeholder-val="{{ false }}">
+<div style="border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<sc-for list="{{ wizSummary }}" as="r" hint-placeholder-count="6">
+<div style="display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-bottom:1px solid #F7F6F4;font-size:12.5px"><span style="color:#4A4540;flex:none">{{ r.label }}</span><strong style="text-align:right">{{ r.val }}</strong></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540;line-height:1.5">Creating the record starts the lifecycle at Logged. Corrective actions are assigned in the record. {{ wizS4Note }}</div>
+</sc-if>
+
+</div>
+<div style="display:flex;gap:8px;padding:12px 18px;border-top:1px solid #E8E5E1">
+<sc-if value="{{ wizHasBack }}" hint-placeholder-val="{{ false }}"><button onClick="{{ wizBack }}" style="height:40px;padding:0 14px;border:1px solid #E8E5E1;background:#fff;border-radius:10px;color:#4A4540;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer">Back</button></sc-if>
+<span style="flex:1"></span>
+<button onClick="{{ wizNext }}" style="height:40px;padding:0 18px;border:0;border-radius:10px;background:{{ wizNextBg }};color:#fff;font-family:inherit;font-size:12.5px;font-weight:700;cursor:{{ wizNextCursor }}">{{ wizNextLabel }}</button>
+</div>
+</div>
+</div>
+</sc-if>
+
 </div>
 
 </x-dc>
@@ -560,6 +644,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 class Component extends DCLogic {
   state = { section: null, assigned: {}, suspended: { s1: true }, approved: {}, activated: {}, opsF: 'all', flag: 'open', tick: 0,
     drawer: null, palOpen: false, palQ: '', palSel: 0,
+    incAdded: [], incStage: {}, incReport: {}, wiz: null,
     panel: (() => { try { return window.localStorage.getItem('mwPanel') !== 'closed'; } catch (e) { return true; } })() };
   componentDidMount() {
     this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000);
@@ -574,6 +659,7 @@ class Component extends DCLogic {
         else if (e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey) this.setState(s => ({ palQ: (s.palQ + e.key).slice(0, 40), palSel: 0 }));
         return;
       }
+      if (e.key === 'Escape' && this.state.wiz) { this.setState({ wiz: null }); return; }
       if (e.key === 'Escape' && this.state.drawer) this.setState({ drawer: null });
     };
     document.addEventListener('keydown', this._kd);
@@ -780,12 +866,91 @@ class Component extends DCLogic {
     ];
 
     // --- incident management ---
-    const imsSteps = [
-      { label: 'Logged', icon: 'fa-circle-check', bg: GBG, fg: G },
-      { label: 'Categorised · non-reportable', icon: 'fa-circle-check', bg: GBG, fg: G },
-      { label: 'Follow-up call', icon: 'fa-hourglass-half', bg: Y, fg: YFG },
-      { label: 'Close', icon: 'fa-lock', bg: '#F7F6F4', fg: '#4A4540' },
+    const tsFilters = [
+      { label: 'All · today 214', on: true }, { label: 'Live · 23', on: false }, { label: 'Scheduled · 5', on: false }, { label: 'Completed · 186', on: false }, { label: 'Flagged · 1', on: false },
+    ].map(f => ({ ...f, bg: f.on ? '#2D3748' : '#fff', fg: f.on ? '#fff' : '#4A4540', border: f.on ? '#2D3748' : '#E8E5E1' }));
+    const tsStatus = { done: { label: 'Completed', bg: GBG, fg: G }, live: { label: 'On trip', bg: SOFT, fg: PD }, sched: { label: 'Scheduled', bg: '#F7F6F4', fg: '#4A4540' }, flag: { label: 'Coverage flag', bg: Y, fg: YFG }, canc: { label: 'Cancelled', bg: RBG, fg: R } };
+    const tsRows = [
+      { id: 'TR-88231', who: 'Theo Rossi', driver: 'Marcus Field', route: 'Norwood to Modbury', when: 'Live now', st: 'live' },
+      { id: 'TR-88240', who: 'Aisha Bello', driver: 'Lena Voss', route: 'Salisbury to Elizabeth', when: 'Today 4:10 pm', st: 'sched' },
+      { id: 'TR-88198', who: 'Iris Kaur', driver: 'Unassigned', route: 'Salisbury to Adelaide', when: 'Today 3:10 pm', st: 'flag' },
+      { id: 'TR-88214', who: 'Maya Patel', driver: 'Deb Kaur', route: 'Prospect to North Adelaide', when: 'Today 2:15 pm', st: 'done' },
+      { id: 'TR-88165', who: 'Jordan Teague', driver: 'Harpreet Gill', route: 'Glenelg to CBD', when: 'Yesterday 9:00 am', st: 'done' },
+      { id: 'TR-88150', who: 'Priya Bakshi', driver: 'Jo Tran', route: 'Mile End to day program', when: 'Yesterday 8:40 am', st: 'canc' },
+    ].map(r => ({ ...r, stLabel: tsStatus[r.st].label, stBg: tsStatus[r.st].bg, stFg: tsStatus[r.st].fg,
+      rowBg: drawerIs('trip', r.id) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('trip', r.id) }));
+    const incStages = ['Logged', 'Classified', 'Safety actions', 'Notified', 'Corrective actions', 'Closed'];
+    const incCatDefs = [
+      { k: 'injury', label: 'Injury or near miss', icon: 'fa-kit-medical' }, { k: 'distress', label: 'Behaviour or distress', icon: 'fa-heart-crack' },
+      { k: 'abuse', label: 'Abuse, neglect or restrictive practice', icon: 'fa-shield-halved' }, { k: 'vehicle', label: 'Vehicle or equipment', icon: 'fa-wrench' },
+      { k: 'service', label: 'Missed, late or wrong service', icon: 'fa-clock' }, { k: 'other', label: 'Other', icon: 'fa-circle-question' },
     ];
+    const sevDefs = [ { k: 'minor', label: 'Minor', desc: 'No treatment needed' }, { k: 'moderate', label: 'Moderate', desc: 'First aid or GP visit' }, { k: 'serious', label: 'Serious', desc: 'Hospital, police or ongoing harm' } ];
+    const isReportable = (cat, sev) => cat === 'abuse' || (cat === 'injury' && sev === 'serious') || (cat === 'distress' && sev === 'serious');
+    const sevStyle = { minor: { bg: '#F7F6F4', fg: '#4A4540' }, moderate: { bg: Y, fg: YFG }, serious: { bg: RBG, fg: R } };
+    const incBase = [
+      { id: 'INC-2026-041', title: 'Bump to shin during door assist', cat: 'injury', sev: 'minor', who: 'Theo Rossi', driver: 'Marcus Field', trip: 'TR-88231', reported: '15/07 · 11:20 am', by: 'Driver app · Marcus Field', stage: 3,
+        desc: 'Participant reported a bump to the shin during a manual transfer at the vehicle door. First aid given on site; no treatment required. Retained on the internal IMS as non-reportable with a follow-up call to the participant and his day program.',
+        acts: ['First aid given on site', 'Trip continued with participant consent', 'Ops desk called'], notified: ['Rosa Amato · day program (support contact) · 11:32 am', 'Leo Marsh · coordinator · 11:40 am'],
+        corrective: [ { text: 'Door-assist refresher for Marcus Field', meta: 'Owner: Marcus Webb · due 22/07 · in progress', done: false }, { text: 'Add step-height note to Theo’s transport profile', meta: 'Owner: Leo Marsh · done 15/07', done: true } ],
+        evidence: ['Driver statement · 11:24 am', 'Trip telemetry TR-88231 · stop at 11:18 am, 4 min', 'Dashcam clip 11:16 to 11:22 · retained 7 years', 'Photo · minor bruise · driver app'] },
+      { id: 'INC-2026-040', title: 'Late pickup, day program session missed', cat: 'service', sev: 'moderate', who: 'Priya Bakshi', driver: 'Jo Tran', trip: 'TR-88150', reported: '12/07 · 9:05 am', by: 'Complaint · Sunita Bakshi (mother)', stage: 5,
+        desc: 'Driver arrived 38 minutes late after a roster clash; the day program session was missed. Trip cancelled without charge to the plan. Complaint received from the participant’s mother and linked to this record.',
+        acts: ['Trip cancelled, no claim raised', 'Apology call from ops lead'], notified: ['Sunita Bakshi · mother · 9:20 am', 'Leo Marsh · coordinator · 9:30 am'],
+        corrective: [ { text: 'Roster buffer rule: 20 min between back-to-back jobs', meta: 'Owner: Sam Ochoa · done 14/07', done: true }, { text: 'Credit noted on Priya’s outcomes record (missed session, transport cause)', meta: 'Owner: Fiona Reid · done 13/07', done: true } ],
+        evidence: ['Roster snapshot 12/07', 'Driver app timeline', 'Complaint record CMP-2026-017'] },
+      { id: 'INC-2026-038', title: 'Seatbelt used as restraint · concern raised', cat: 'abuse', sev: 'serious', who: 'Iris Kaur', driver: 'Callum Reid', trip: 'TR-87902', reported: '03/07 · 3:45 pm', by: 'Support worker · Ana Duric', stage: 5,
+        desc: 'Support worker reported the driver tightened the participant’s seatbelt to limit movement during distress. Treated as a possible unauthorised restrictive practice: reportable to the NDIS Commission within 24 hours. Driver suspended pending review; Commission reference RI-2026-4471. Review found no intent to restrain but a training gap; driver completed positive behaviour support training before reinstatement was considered.',
+        acts: ['Driver suspended immediately', 'Participant and support worker debriefed', 'Coordinator and plan nominee called'], notified: ['NDIS Commission · reportable incident · 03/07 5:10 pm (within 24 h)', 'Leo Marsh · coordinator · 03/07 4:02 pm', 'Iris’s nominee · 03/07 4:15 pm', '5-day detailed report lodged · 08/07'],
+        corrective: [ { text: 'Positive behaviour support and restrictive-practice training for Callum Reid', meta: 'Owner: Marcus Webb · done 10/07', done: true }, { text: 'Behaviour support plan attached to Iris’s transport profile; drivers briefed pre-trip', meta: 'Owner: Leo Marsh · done 05/07', done: true }, { text: 'Fleet-wide reminder: seatbelts are never a restraint', meta: 'Owner: Priya Narayan · done 04/07', done: true } ],
+        evidence: ['Support worker statement · 03/07', 'Driver statement · 03/07', 'Dashcam clip · retained', 'Commission acknowledgement RI-2026-4471', '5-day report PDF'] },
+      { id: 'INC-2026-037', title: 'Hoist fault mid-shift', cat: 'vehicle', sev: 'minor', who: 'No participant on board', driver: 'Marcus Field', trip: 'WAV-02', reported: '01/07 · 2:10 pm', by: 'Driver app · vehicle fault', stage: 5,
+        desc: 'Hoist failed self-test before a pickup. Vehicle taken off WAV duty, job reassigned to WAV-04. Repaired under warranty and re-inspected.',
+        acts: ['Vehicle taken off WAV duty', 'Job reassigned to WAV-04'], notified: ['Fleet · 2:14 pm'],
+        corrective: [ { text: 'Hoist serviced and re-inspected', meta: 'Owner: Fleet · done 03/07', done: true } ],
+        evidence: ['Hoist self-test log', 'Service invoice'] },
+    ];
+    const incAll = [ ...S.incAdded, ...incBase ].map(i => { const stage = S.incStage[i.id] !== undefined ? S.incStage[i.id] : i.stage; const rep = isReportable(i.cat, i.sev); const ss = sevStyle[i.sev];
+      return { ...i, stageIdx: stage, stage: incStages[stage], rep: rep ? 'Reportable · 24 h' : 'Not reportable', repFg: rep ? R : '#4A4540', repFw: rep ? 700 : 400, reportable: rep,
+        cat: (incCatDefs.find(c => c.k === i.cat) || incCatDefs[5]).label, catKey: i.cat, sev: sevDefs.find(v => v.k === i.sev).label, sevKey: i.sev, sevBg: ss.bg, sevFg: ss.fg,
+        stBg: stage === 5 ? GBG : (stage === 0 ? RBG : Y), stFg: stage === 5 ? G : (stage === 0 ? R : YFG),
+        rowBg: drawerIs('incident', i.id) ? SOFT : 'transparent', onOpen: openDrawer('incident', i.id) }; });
+    const incidents = incAll;
+    const incOpen = incAll.filter(i => i.stageIdx < 5).length;
+    const incKpis = [
+      { label: 'OPEN', val: String(incOpen), color: incOpen ? YFG : '#2D3748', sub: incOpen + ' in lifecycle' },
+      { label: 'SOS THIS WEEK', val: '2', color: '#2D3748', sub: 'both resolved · SLA 60 s' },
+      { label: 'REPORTABLE (24 H / 5 DAY)', val: String(incAll.filter(i => i.reportable && i.stageIdx < 5).length), color: '#2D3748', sub: 'none overdue · last lodged 03/07' },
+      { label: 'CORRECTIVE ACTIONS DUE', val: String(incAll.reduce((n, i) => n + i.corrective.filter(c => !c.done).length, 0)), color: '#2D3748', sub: 'earliest due 22/07' },
+    ];
+    // --- new incident wizard ---
+    const W = S.wiz;
+    const wizOpenFor = tripId => () => this.setState({ wiz: { step: 1, trip: tripId || tsRows[0].id, cat: null, sev: 'minor', acts: {}, notify: { supporter: true, coordinator: true } }, drawer: null });
+    const setWiz = patch => this.setState(s => ({ wiz: { ...s.wiz, ...patch } }));
+    const wizTrip = W ? tsRows.find(t => t.id === W.trip) : null;
+    const wizTrips = W ? tsRows.slice(0, 5).map(t => ({ ...t, border: t.id === W.trip ? '2px solid ' + PURP : '1px solid #E8E5E1', bg: t.id === W.trip ? SOFT : '#fff', onPick: () => setWiz({ trip: t.id }) })) : [];
+    const wizCats = W ? incCatDefs.map(c => { const on = W.cat === c.k; return { ...c, on, border: on ? '2px solid ' + PURP : '1px solid #E8E5E1', bg: on ? SOFT : '#fff', fg: on ? PD : '#2D3748', fw: on ? 700 : 400, onPick: () => setWiz({ cat: c.k }) }; }) : [];
+    const wizSevs = W ? sevDefs.map(v => { const on = W.sev === v.k; return { ...v, border: on ? '2px solid ' + PURP : '1px solid #E8E5E1', bg: on ? SOFT : '#fff', onPick: () => setWiz({ sev: v.k }) }; }) : [];
+    const wizRep = W ? isReportable(W.cat, W.sev) : false;
+    const actDefs = ['First aid given', 'Emergency services called (000)', 'Trip stopped or cancelled', 'Driver stood down', 'Participant’s support contact called', 'Vehicle taken off road'];
+    const wizActs = W ? actDefs.map(a => { const on = !!W.acts[a]; return { label: a, on, border: on ? '2px solid ' + PURP : '1px solid #E8E5E1', bg: on ? SOFT : '#fff', fg: on ? PD : '#2D3748', fw: on ? 700 : 400, onFlip: () => setWiz({ acts: { ...W.acts, [a]: !on } }) }; }) : [];
+    const notifyDefs = W ? [
+      { k: 'supporter', label: 'Participant’s support contact', desc: 'Push and call via the Supporter app', locked: false },
+      { k: 'coordinator', label: 'Support coordinator', desc: 'Leo Marsh · Northside Coordination', locked: false },
+      { k: 'commission', label: 'NDIS Commission · reportable incident', desc: wizRep ? 'Required · 24-hour notification, 5-day report' : 'Not required for this classification', locked: true, forced: wizRep },
+      { k: 'police', label: 'SA Police', desc: 'Where a crime may have occurred', locked: false },
+      { k: 'insurer', label: 'Insurer', desc: 'Vehicle damage or injury claims', locked: false },
+    ] : [];
+    const wizNotify = notifyDefs.map(n => { const on = n.locked ? n.forced : !!W.notify[n.k]; return { ...n, on, cursor: n.locked ? 'default' : 'pointer', rowBg: n.locked && n.forced ? RBG : '#fff', boxBg: on ? PURP : '#fff', boxBorder: on ? '1px solid ' + PURP : '1px solid #ADA8A2', onFlip: n.locked ? () => {} : () => setWiz({ notify: { ...W.notify, [n.k]: !on } }) }; });
+    const wizEvidence = [ { icon: 'fa-satellite', label: 'Trip telemetry' }, { icon: 'fa-video', label: 'Dashcam clip · 10 min window' }, { icon: 'fa-file-lines', label: 'Driver statement requested' }, { icon: 'fa-camera', label: 'Photos from driver app' } ];
+    const wizCatLabel = W && W.cat ? incCatDefs.find(c => c.k === W.cat).label : 'Not set';
+    const wizSummary = W ? [ { label: 'Trip', val: wizTrip ? (wizTrip.id + ' · ' + wizTrip.who + ' · ' + wizTrip.driver) : '' }, { label: 'Category', val: wizCatLabel }, { label: 'Severity', val: sevDefs.find(v => v.k === W.sev).label }, { label: 'Reportable', val: wizRep ? 'Yes · Commission 24 h / 5 day' : 'No · internal IMS' }, { label: 'Safety actions', val: Object.keys(W.acts).filter(k => W.acts[k]).join(', ') || 'None recorded' }, { label: 'Notify', val: wizNotify.filter(n => n.on).map(n => n.label).join(', ') } ] : [];
+    const wizCanNext = W ? (W.step !== 1 || !!W.cat) : false;
+    const wizCreate = () => { const id = 'INC-2026-' + String(42 + S.incAdded.length).padStart(3, '0'); const rec = { id, title: wizCatLabel + ' · ' + (wizTrip ? wizTrip.who : ''), cat: W.cat, sev: W.sev, who: wizTrip ? wizTrip.who : '', driver: wizTrip ? wizTrip.driver : '', trip: W.trip, reported: 'Today · ' + (T % 2 ? '2:4' : '2:3') + '8 pm', by: 'Admin · Priya Narayan', stage: 0,
+      desc: 'Recorded from Trip search. Classification: ' + wizCatLabel + ', ' + sevDefs.find(v => v.k === W.sev).label.toLowerCase() + '. ' + (wizRep ? 'Reportable: the Commission 24-hour timer started at creation.' : 'Not reportable: retained on the internal IMS.'),
+      acts: Object.keys(W.acts).filter(k => W.acts[k]), notified: wizNotify.filter(n => n.on).map(n => n.label + ' · queued'), corrective: [ { text: 'Assign corrective actions', meta: 'Owner: Marcus Webb · due in 5 days', done: false } ], evidence: ['Trip telemetry ' + W.trip, 'Dashcam clip · preserved', 'Driver statement · requested'] };
+      this.setState(s => ({ incAdded: [rec, ...s.incAdded], wiz: null, section: 'incidents', drawer: { t: 'incident', k: id } })); };
+    const wizStepLabels = ['Trip and category', 'Severity and safety actions', 'Notifications and evidence', 'Confirm'];
 
     // --- compliance hub ---
     const compliance = [
@@ -802,19 +967,6 @@ class Component extends DCLogic {
     ];
 
     // --- trip search ---
-    const tsFilters = [
-      { label: 'All · today 214', on: true }, { label: 'Live · 23', on: false }, { label: 'Scheduled · 5', on: false }, { label: 'Completed · 186', on: false }, { label: 'Flagged · 1', on: false },
-    ].map(f => ({ ...f, bg: f.on ? '#2D3748' : '#fff', fg: f.on ? '#fff' : '#4A4540', border: f.on ? '#2D3748' : '#E8E5E1' }));
-    const tsStatus = { done: { label: 'Completed', bg: GBG, fg: G }, live: { label: 'On trip', bg: SOFT, fg: PD }, sched: { label: 'Scheduled', bg: '#F7F6F4', fg: '#4A4540' }, flag: { label: 'Coverage flag', bg: Y, fg: YFG }, canc: { label: 'Cancelled', bg: RBG, fg: R } };
-    const tsRows = [
-      { id: 'TR-88231', who: 'Theo Rossi', driver: 'Marcus Field', route: 'Norwood to Modbury', when: 'Live now', st: 'live' },
-      { id: 'TR-88240', who: 'Aisha Bello', driver: 'Lena Voss', route: 'Salisbury to Elizabeth', when: 'Today 4:10 pm', st: 'sched' },
-      { id: 'TR-88198', who: 'Iris Kaur', driver: 'Unassigned', route: 'Salisbury to Adelaide', when: 'Today 3:10 pm', st: 'flag' },
-      { id: 'TR-88214', who: 'Maya Patel', driver: 'Deb Kaur', route: 'Prospect to North Adelaide', when: 'Today 2:15 pm', st: 'done' },
-      { id: 'TR-88165', who: 'Jordan Teague', driver: 'Harpreet Gill', route: 'Glenelg to CBD', when: 'Yesterday 9:00 am', st: 'done' },
-      { id: 'TR-88150', who: 'Priya Bakshi', driver: 'Jo Tran', route: 'Mile End to day program', when: 'Yesterday 8:40 am', st: 'canc' },
-    ].map(r => ({ ...r, stLabel: tsStatus[r.st].label, stBg: tsStatus[r.st].bg, stFg: tsStatus[r.st].fg,
-      rowBg: drawerIs('trip', r.id) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('trip', r.id) }));
 
     // --- privacy & access logs ---
     const accessLogs = [
@@ -921,7 +1073,20 @@ class Component extends DCLogic {
       if (DR.t === 'driver') { const r = drivers.find(x => x.k === DR.k); if (r) dw = { icon: 'fa-id-card', title: r.name, sub: r.id, status: { label: r.status, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Tier', r.tier), F('Engagement', r.eng), F('Credentials', r.cred), F('Rating', r.rating), F('Zone', r.zone)], note: 'Suspension takes effect immediately and pauses offers. The driver is notified with the reason and review date.', action: { label: r.action, bg: r.action === 'Suspend' ? R : PURP, go: r.onAction } }; }
       else if (DR.t === 'rider') { const r = riders.find(x => x.k === DR.k); if (r) dw = { icon: 'fa-user', title: r.name, sub: r.ndis, status: { label: r.status, bg: r.stBg, fg: r.stFg }, chips: r.tags, fields: [F('Plan management', r.plan), F('Funding pathway', r.pathway), F('Transport budget', r.burn)], note: 'Bookings are checked against this profile: funding source, remaining budget, eligible support item and agreement permissions.', action: null }; }
       else if (DR.t === 'vehicle') { const r = vehicles.find(x => x.id === DR.k); if (r) dw = { icon: 'fa-van-shuttle', title: r.id, sub: r.rego, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: r.config, fields: [F('Capacity', r.cap), F('Next service', r.service)], note: 'Registration, insurance and inspection are tracked per vehicle. Equipment carried is listed under Equipment.', action: null }; }
-      else if (DR.t === 'trip') { const r = tsRows.find(x => x.id === DR.k); if (r) dw = { icon: 'fa-route', title: r.id, sub: r.when, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Participant', r.who), F('Driver', r.driver), F('Route', r.route)], note: 'Every trip links to its participant, driver, vehicle, support items and claim status.', action: null }; }
+      else if (DR.t === 'trip') { const r = tsRows.find(x => x.id === DR.k); if (r) { const linked = incAll.filter(i => i.trip === r.id); dw = { icon: 'fa-route', title: r.id, sub: r.when, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Participant', r.who), F('Driver', r.driver), F('Route', r.route)], note: 'Every trip links to its participant, driver, vehicle, support items and claim status.', action: { label: 'Record incident from this trip', bg: R, go: wizOpenFor(r.id) },
+        sections: linked.length ? [ { title: 'LINKED INCIDENTS', items: linked.map(i => ({ icon: 'fa-file-circle-exclamation', fg: R, text: i.id + ' · ' + i.title, meta: i.sev + ' · ' + i.stage })) } ] : [] }; } }
+      else if (DR.t === 'incident') { const i = incAll.find(x => x.id === DR.k); if (i) { const next = i.stageIdx < 5 ? incStages[i.stageIdx + 1] : null; const reported = !!S.incReport[i.id];
+        dw = { icon: 'fa-file-circle-exclamation', title: i.id, sub: i.title, status: { label: i.stage, bg: i.stBg, fg: i.stFg }, chips: [i.sev, i.rep, i.cat],
+          fields: [F('Trip', i.trip), F('Participant', i.who), F('Driver', i.driver), F('Reported', i.reported), F('Reported by', i.by)], note: i.desc,
+          sections: [
+            { title: 'LIFECYCLE', items: incStages.map((st, n) => ({ icon: n < i.stageIdx ? 'fa-circle-check' : (n === i.stageIdx ? 'fa-circle-dot' : 'fa-circle'), fg: n < i.stageIdx ? G : (n === i.stageIdx ? PD : '#CFCAC4'), text: st, meta: n === 1 && i.reportable ? 'Reportable · 24-hour notification, 5-day detailed report' : false })) },
+            { title: 'IMMEDIATE SAFETY ACTIONS', items: i.acts.length ? i.acts.map(a => ({ icon: 'fa-shield-heart', fg: G, text: a, meta: false })) : [ { icon: 'fa-circle-minus', fg: '#ADA8A2', text: 'None recorded', meta: false } ] },
+            { title: 'NOTIFIED', items: i.notified.map(n => ({ icon: 'fa-bell', fg: PD, text: n, meta: false })) },
+            { title: 'CORRECTIVE ACTIONS', items: i.corrective.map(c => ({ icon: c.done ? 'fa-circle-check' : 'fa-hourglass-half', fg: c.done ? G : YFG, text: c.text, meta: c.meta })) },
+            { title: 'EVIDENCE · PRESERVED', items: i.evidence.map(e => ({ icon: 'fa-lock', fg: '#4A4540', text: e, meta: false })) },
+            { title: 'REPORTS', items: [ { icon: reported ? 'fa-file-pdf' : 'fa-file', fg: reported ? G : '#ADA8A2', text: reported ? 'Incident report generated · ' + i.id + '.pdf' : 'No report generated yet', meta: i.reportable ? 'Commission 5-day report uses the same record' : false } ] },
+          ],
+          action: next ? { label: 'Advance to ' + next, bg: PURP, go: () => this.setState(s => ({ incStage: { ...s.incStage, [i.id]: i.stageIdx + 1 } })) } : (reported ? null : { label: 'Generate incident report', bg: '#2D3748', go: () => this.setState(s => ({ incReport: { ...s.incReport, [i.id]: true } })) }) }; } }
       else if (DR.t === 'applicant') { const r = queue.find(x => x.k === DR.k); if (r) dw = { icon: 'fa-user-plus', title: r.name, sub: 'Applied ' + r.applied + ' · ' + r.zone, status: { label: r.status, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Screening', r.screening), F('Stage', r.stage), F('Waiting', r.waiting)], note: 'Pipeline: identity, screening, credentials, training, review. Ported NDIS Worker Screenings skip the screening stage.', action: r.actionable ? { label: r.action, bg: PURP, go: r.onAction } : null }; }
       else if (DR.t === 'job') { const r = jobs.find(x => x.k === DR.k); if (r) dw = { icon: 'fa-route', title: r.time + ' · ' + r.route, sub: r.participant, status: r.assigned ? { label: 'Assigned', bg: GBG, fg: G } : { label: 'Needs assignment', bg: SOFT, fg: PD }, chips: r.chips, fields: [F('Suggested driver', r.suggested), F('Why', r.why)], note: 'Assignment dispatches the job to the driver and notifies the participant and any linked Supporter.', action: r.assigned ? null : { label: 'Assign ' + r.suggested, bg: PURP, go: r.onAssign } }; }
     }
@@ -935,6 +1100,7 @@ class Component extends DCLogic {
     vehicles.forEach(v0 => recItem(v0.id + ' · ' + v0.rego, 'fa-van-shuttle', 'Vehicle', 'vehicles', 'vehicle', v0.id));
     tsRows.forEach(t0 => recItem(t0.id + ' · ' + t0.who, 'fa-route', 'Trip', 'tripsearch', 'trip', t0.id));
     queue.forEach(q0 => recItem(q0.name, 'fa-user-plus', 'Applicant', 'onboarding', 'applicant', q0.k));
+    incAll.forEach(i0 => recItem(i0.id + ' · ' + i0.title, 'fa-file-circle-exclamation', 'Incident', 'incidents', 'incident', i0.id));
     const palQ = S.palQ.trim().toLowerCase();
     const fuzzy = (s) => { let i = 0; s = s.toLowerCase(); for (const ch of palQ) { i = s.indexOf(ch, i); if (i < 0) return false; i++; } return true; };
     const palMatches = palQ ? palAll.filter(i => (i.name + ' ' + i.area).toLowerCase().includes(palQ) || fuzzy(i.name)) : palAll.slice(0, 7);
@@ -977,7 +1143,19 @@ class Component extends DCLogic {
       riderFilters, riders, intake,
       driverFilters, drivers,
       queue, reviewCount,
-      fleet, claimStats, claims, imsSteps, compliance, audits,
+      fleet, claimStats, claims, compliance, audits,
+      incidents, incKpis, incNew: wizOpenFor(null),
+      dSections: dw && dw.sections ? dw.sections : [],
+      wizOpen: !!W, wizStep: W ? W.step : 1, wizStepLabel: W ? wizStepLabels[W.step - 1] : '', wizBars: [1, 2, 3, 4].map(n => ({ bg: W && n <= W.step ? PURP : '#E8E5E1' })),
+      wizS1: !!W && W.step === 1, wizS2: !!W && W.step === 2, wizS3: !!W && W.step === 3, wizS4: !!W && W.step === 4,
+      wizTrips, wizCats, wizSevs, wizActs, wizNotify, wizEvidence, wizSummary,
+      wizRepBg: wizRep ? RBG : GBG, wizRepBorder: wizRep ? '#E85555' : 'rgba(45,167,72,0.3)', wizRepIcon: wizRep ? 'fa-triangle-exclamation' : 'fa-circle-check', wizRepFg: wizRep ? R : G,
+      wizRepTitle: wizRep ? 'Reportable incident' : 'Not reportable', wizRepText: wizRep ? 'Abuse, neglect, unauthorised restrictive practice, serious injury or death must reach the NDIS Commission within 24 hours, with a detailed report in 5 business days. Timers start when you create the record.' : 'Retained on the internal incident management system with corrective actions and closure. Reclassify at any time if new information comes in.',
+      wizS4Note: wizRep ? 'The Commission 24-hour timer starts now.' : 'A follow-up call to the participant is scheduled within one business day.',
+      wizHasBack: !!W && W.step > 1, wizBack: () => setWiz({ step: Math.max(1, (W ? W.step : 1) - 1) }),
+      wizNext: () => { if (!wizCanNext) return; if (W.step < 4) setWiz({ step: W.step + 1 }); else wizCreate(); },
+      wizNextLabel: W && W.step === 4 ? 'Create incident record' : 'Continue', wizNextBg: wizCanNext ? PURP : '#CFCAC4', wizNextCursor: wizCanNext ? 'pointer' : 'default',
+      wizClose: () => this.setState({ wiz: null }),
     };
   }
 }
