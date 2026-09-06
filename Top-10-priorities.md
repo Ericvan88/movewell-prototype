@@ -33,6 +33,15 @@ to size the business, not to polish visuals.
    fortnight, Level 2 about $103, Level 3 about $133, alongside Core-funded
    activity-based transport.
 
+## Status · 6 September 2026
+
+All ten priorities are built, verified in the browser and deployed. Items 3 and 4
+(incidents, complaints) now cover the mandatory-registration obligations; item 5 sets
+the driver share at 78% of the transport support line with tolls and parking at cost;
+item 6 folds the Phase 3 finance pipeline and Phase 4 exceptions into the Admin portal.
+Remaining, deliberately deferred: guided story mode, in-app messaging, effective-dated
+versioning (Phase 5), Thriving Kids routing.
+
 ## The top 10
 
 Ordered by value for user stories and business sizing. "Correct" items fix what a

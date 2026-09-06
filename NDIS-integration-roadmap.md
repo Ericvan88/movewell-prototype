@@ -61,7 +61,7 @@ Direct conflicts that had to change:
   the card. Deepening the recurring Level 1/2/3 amounts and the full pre-booking gate
   remains for a later pass.
 
-### Phase 3: finance in the Admin Portal (claim vs invoice vs reconciliation)
+### Phase 3 (done): finance in the Admin Portal (claim vs invoice vs reconciliation)
 - Rework Admin **Claims monitor** into a pipeline that separates trip validation ->
   financial line generation -> invoice issue (plan-managed / self) vs claim submission
   (NDIA / myplace / PRODA) -> remittance ingestion -> reconciliation -> credit note /
@@ -70,7 +70,7 @@ Direct conflicts that had to change:
   rates), invoice decomposition, gap-fee / above-price-limit controls, and a plan-manager
   touchpoint. External actors: PRODA / myplace, accounting platform, bank.
 
-### Phase 4: first-class exceptions
+### Phase 4 (done, folded into the Claims monitor): first-class exceptions
 - Admin **Exceptions** module with structured types (trip delivered but not billable,
   wrong support item, missing or unsigned agreement, claim rejected, participant over
   budget, duplicate trip, worker or qualification mismatch, toll or parking dispute,
@@ -90,4 +90,4 @@ Direct conflicts that had to change:
 
 Coordinator/scheduler, operations lead, driver/support worker, finance/accounts,
 plan-manager counterpart, participant/nominee, internal approver, compliance/quality.
-Most are present; finance and the plan-manager touchpoint arrive in Phase 3.
+All are present. Finance lives in the Admin Claims monitor (pipeline, exceptions, remittances); the plan-manager touchpoint is the payer on each claim and the remittance matching panel.

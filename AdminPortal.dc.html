@@ -221,10 +221,10 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-if value="{{ isRiders }}" hint-placeholder-val="{{ false }}">
 <div style="display:flex;align-items:center;gap:12px">
 <h2 style="margin:0;font-size:17px;font-weight:700">Participant register</h2>
-<span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;color:#4A4540;font-size:13px;width:250px"><i class="fa-solid fa-magnifying-glass" style="font-size:12px"></i>Search name, NDIS number, suburb</span>
+<span onClick="{{ palOpenFn }}" style="cursor:pointer;margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;color:#4A4540;font-size:13px;width:250px"><i class="fa-solid fa-magnifying-glass" style="font-size:12px"></i>Search name, NDIS number, suburb</span>
 </div>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
-<sc-for list="{{ riderFilters }}" as="f" hint-placeholder-count="5"><span style="padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for>
+<sc-for list="{{ riderFilters }}" as="f" hint-placeholder-count="5"><span onClick="{{ f.onPick }}" style="cursor:pointer;padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:2fr 1.3fr 1.7fr 1.8fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">
@@ -263,16 +263,16 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-if value="{{ isDrivers }}" hint-placeholder-val="{{ false }}">
 <div style="display:flex;align-items:center;gap:12px">
 <h2 style="margin:0;font-size:17px;font-weight:700">Drivers register</h2>
-<span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;color:#4A4540;font-size:13px;width:240px"><i class="fa-solid fa-magnifying-glass" style="font-size:12px"></i>Search name, licence, zone</span>
+<span onClick="{{ palOpenFn }}" style="cursor:pointer;margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;color:#4A4540;font-size:13px;width:240px"><i class="fa-solid fa-magnifying-glass" style="font-size:12px"></i>Search name, licence, zone</span>
 </div>
 <div style="display:flex;gap:8px">
-<sc-for list="{{ driverFilters }}" as="f" hint-placeholder-count="4"><span style="padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for>
+<sc-for list="{{ driverFilters }}" as="f" hint-placeholder-count="4"><span onClick="{{ f.onPick }}" style="cursor:pointer;padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:2.1fr 1.1fr 1fr 1.4fr 0.7fr 1fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540">
 <span>DRIVER</span><span>TIER</span><span>ENGAGEMENT</span><span>CREDENTIALS</span><span>RATING</span><span>ZONE</span><span>STATUS</span>
 </div>
-<sc-for list="{{ drivers }}" as="d" hint-placeholder-count="8">
+<sc-for list="{{ driversShown }}" as="d" hint-placeholder-count="8">
 <div onClick="{{ d.onOpen }}" style="display:grid;grid-template-columns:2.1fr 1.1fr 1fr 1.4fr 0.7fr 1fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ d.rowBg }};cursor:pointer" style-hover="background:#FAFAF9">
 <span style="display:flex;align-items:center;gap:10px;min-width:0"><span style="width:30px;height:30px;border-radius:9999px;background:#F5F3FF;color:#5647C9;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">{{ d.initials }}</span><span style="min-width:0"><span style="display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ d.id }}</span></span></span>
 <span>{{ d.tier }}</span>
@@ -326,7 +326,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <span>VEHICLE</span><span>CONFIG</span><span>ASSIGNED DRIVER</span><span>COMPLIANCE</span><span>STATUS</span>
 </div>
 <sc-for list="{{ fleet }}" as="v" hint-placeholder-count="6">
-<div style="display:grid;grid-template-columns:1.4fr 1.7fr 1.5fr 1.9fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9">
+<div onClick="{{ v.onOpen }}" style="cursor:pointer;background:{{ v.rowBg }};display:grid;grid-template-columns:1.4fr 1.7fr 1.5fr 1.9fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9">
 <span><span style="display:block;font-weight:700">{{ v.id }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ v.rego }}</span></span>
 <span style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ v.config }}" as="c" hint-placeholder-count="2"><span style="padding:2px 8px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:10.5px;font-weight:700">{{ c }}</span></sc-for></span>
 <span style="font-size:12.5px">{{ v.driver }}</span>
@@ -413,7 +413,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.9fr 1.5fr 1.3fr 1.3fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>CREDENTIAL</span><span>HOLDER</span><span>EXPIRES</span><span>SCOPE</span><span>STATUS</span></div>
 <sc-for list="{{ compliance }}" as="c" hint-placeholder-count="5">
-<div style="display:grid;grid-template-columns:1.9fr 1.5fr 1.3fr 1.3fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-weight:700">{{ c.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ c.holder }}</span><span style="font-size:12.5px">{{ c.expires }}</span><span style="font-size:12px;color:#4A4540">{{ c.scope }}</span><span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ c.icon }}"></i>{{ c.status }}</span></span></div>
+<div onClick="{{ c.onOpen }}" style="cursor:pointer;background:{{ c.rowBg }};display:grid;grid-template-columns:1.9fr 1.5fr 1.3fr 1.3fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-weight:700">{{ c.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ c.holder }}</span><span style="font-size:12.5px">{{ c.expires }}</span><span style="font-size:12px;color:#4A4540">{{ c.scope }}</span><span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ c.icon }}"></i>{{ c.status }}</span></span></div>
 </sc-for>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px">
@@ -425,11 +425,11 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 <sc-if value="{{ isTripsearch }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Trip search</h2><span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;color:#4A4540;font-size:13px;width:290px"><i class="fa-solid fa-magnifying-glass" style="font-size:12px"></i>Search trip ID, participant, driver, suburb</span></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ tsFilters }}" as="f" hint-placeholder-count="5"><span style="padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for></div>
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Trip search</h2><span onClick="{{ palOpenFn }}" style="cursor:pointer;margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;color:#4A4540;font-size:13px;width:290px"><i class="fa-solid fa-magnifying-glass" style="font-size:12px"></i>Search trip ID, participant, driver, suburb</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ tsFilters }}" as="f" hint-placeholder-count="5"><span onClick="{{ f.onPick }}" style="cursor:pointer;padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }}">{{ f.label }}</span></sc-for></div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1fr 1.3fr 1.3fr 1.8fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>TRIP</span><span>PARTICIPANT</span><span>DRIVER</span><span>ROUTE</span><span>WHEN</span><span>STATUS</span></div>
-<sc-for list="{{ tsRows }}" as="t" hint-placeholder-count="6">
+<sc-for list="{{ tsShown }}" as="t" hint-placeholder-count="6">
 <div onClick="{{ t.onOpen }}" style="display:grid;grid-template-columns:1fr 1.3fr 1.3fr 1.8fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ t.rowBg }};cursor:pointer" style-hover="background:#FAFAF9"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ t.id }}</span><span style="font-weight:700">{{ t.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ t.driver }}</span><span style="font-size:12.5px">{{ t.route }}</span><span style="font-size:12.5px;color:#4A4540">{{ t.when }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ t.stBg }};color:{{ t.stFg }};font-size:11px;font-weight:700">{{ t.stLabel }}</span></span></div>
 </sc-for>
 </div>
@@ -466,7 +466,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.4fr 1.2fr 2fr 1.4fr 0.8fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>WHO</span><span>ROLE</span><span>ACTION</span><span>RECORD</span><span>WHEN</span></div>
 <sc-for list="{{ accessLogs }}" as="l" hint-placeholder-count="5">
-<div style="display:grid;grid-template-columns:1.4fr 1.2fr 2fr 1.4fr 0.8fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ l.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.role }}</span><span style="font-size:12.5px">{{ l.action }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.record }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.when }}</span></div>
+<div onClick="{{ l.onOpen }}" style="cursor:pointer;background:{{ l.rowBg }};display:grid;grid-template-columns:1.4fr 1.2fr 2fr 1.4fr 0.8fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-weight:700">{{ l.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.role }}</span><span style="font-size:12.5px">{{ l.action }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.record }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.when }}</span></div>
 </sc-for>
 </div>
 <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:#F5F3FF;border:1px solid #8B7EEE;border-radius:12px;font-size:13px;color:#5647C9;line-height:1.5"><i class="fa-solid fa-lock" style="margin-top:2px"></i><span>The access log is immutable and audit-ready. Participants can request their own log. Drivers only ever see practical support notes, never a diagnosis or plan detail.</span></div>
@@ -477,7 +477,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.5fr 1.9fr 1.3fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>SUPPORT ITEM</span><span>NAME</span><span>BASIS</span><span>RATE</span><span>EFFECTIVE</span></div>
 <sc-for list="{{ rateCard }}" as="r" hint-placeholder-count="4">
-<div style="display:grid;grid-template-columns:1.5fr 1.9fr 1.3fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ r.code }}</span><span style="font-weight:700">{{ r.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.basis }}</span><span style="font-size:12.5px">{{ r.rate }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.eff }}</span></div>
+<div onClick="{{ r.onOpen }}" style="cursor:pointer;background:{{ r.rowBg }};display:grid;grid-template-columns:1.5fr 1.9fr 1.3fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ r.code }}</span><span style="font-weight:700">{{ r.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.basis }}</span><span style="font-size:12.5px">{{ r.rate }}</span><span style="font-size:12.5px;color:#4A4540">{{ r.eff }}</span></div>
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">Rates are effective-dated and held to NDIS price limits. No gap fees or surcharges. Support-worker time, transport, and non-labour travel are always claimed on separate lines.</div>
@@ -496,7 +496,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.6fr 1.4fr 1.4fr 1.6fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>NAME</span><span>TYPE</span><span>CONNECTION</span><span>ON PLATFORM</span></div>
 <sc-for list="{{ providers }}" as="p" hint-placeholder-count="5">
-<div style="display:grid;grid-template-columns:1.6fr 1.4fr 1.4fr 1.6fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ p.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ p.type }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ p.connBg }};color:{{ p.connFg }};font-size:11px;font-weight:700">{{ p.conn }}</span></span><span style="font-size:12.5px;color:#4A4540">{{ p.sub }}</span></div>
+<div onClick="{{ p.onOpen }}" style="cursor:pointer;background:{{ p.rowBg }};display:grid;grid-template-columns:1.6fr 1.4fr 1.4fr 1.6fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-weight:700">{{ p.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ p.type }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ p.connBg }};color:{{ p.connFg }};font-size:11px;font-weight:700">{{ p.conn }}</span></span><span style="font-size:12.5px;color:#4A4540">{{ p.sub }}</span></div>
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">Plan-managed claims flow to the connected plan manager. Agency-managed claims export to myplace (PACE). Self-managed participants are invoiced directly.</div>
@@ -518,7 +518,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.7fr 1.3fr 1.3fr 1.2fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>EQUIPMENT</span><span>TYPE</span><span>ASSIGNED</span><span>LAST CHECK</span><span>STATUS</span></div>
 <sc-for list="{{ equipment }}" as="e" hint-placeholder-count="6">
-<div style="display:grid;grid-template-columns:1.7fr 1.3fr 1.3fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ e.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ e.type }}</span><span style="font-size:12.5px">{{ e.at }}</span><span style="font-size:12.5px;color:#4A4540">{{ e.check }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ e.stBg }};color:{{ e.stFg }};font-size:11px;font-weight:700">{{ e.stLabel }}</span></span></div>
+<div onClick="{{ e.onOpen }}" style="cursor:pointer;background:{{ e.rowBg }};display:grid;grid-template-columns:1.7fr 1.3fr 1.3fr 1.2fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-weight:700">{{ e.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ e.type }}</span><span style="font-size:12.5px">{{ e.at }}</span><span style="font-size:12.5px;color:#4A4540">{{ e.check }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ e.stBg }};color:{{ e.stFg }};font-size:11px;font-weight:700">{{ e.stLabel }}</span></span></div>
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">Safety equipment is inventoried per vehicle or in the depot pool, with scheduled checks. Child restraints and AAC kit are matched to participant requirements at booking.</div>
@@ -529,7 +529,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.3fr 1.8fr 1fr 1.3fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>HOLDER</span><span>CREDENTIAL</span><span>LINKED TO</span><span>EXPIRES</span><span>STATUS</span></div>
 <sc-for list="{{ credReg }}" as="c" hint-placeholder-count="6">
-<div style="display:grid;grid-template-columns:1.3fr 1.8fr 1fr 1.3fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ c.holder }}</span><span style="font-size:12.5px">{{ c.cred }}</span><span style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">{{ c.link }}</span><span style="font-size:12.5px;color:#4A4540">{{ c.expires }}</span><span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ c.icon }}"></i>{{ c.status }}</span></span></div>
+<div onClick="{{ c.onOpen }}" style="cursor:pointer;background:{{ c.rowBg }};display:grid;grid-template-columns:1.3fr 1.8fr 1fr 1.3fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-weight:700">{{ c.holder }}</span><span style="font-size:12.5px">{{ c.cred }}</span><span style="font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#4A4540">{{ c.link }}</span><span style="font-size:12.5px;color:#4A4540">{{ c.expires }}</span><span><span style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ c.icon }}"></i>{{ c.status }}</span></span></div>
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">Credentials are assets linked to the driver or vehicle they belong to, with expiry alerts. A lapsed credential auto-suspends the driver from matching.</div>
@@ -537,8 +537,8 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 
 <sc-if value="{{ isOutcomes }}" hint-placeholder-val="{{ false }}">
 <div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Outcomes console</h2><span style="font-size:12.5px;color:#4A4540">platform-wide · quarter to date</span></div>
-<div style="display:flex;gap:12px">
-<sc-for list="{{ ocKpis }}" as="k" hint-placeholder-count="5"><div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ k.label }}</span><span style="font-size:23px;font-weight:700;font-variant-numeric:tabular-nums;color:{{ k.color }}">{{ k.val }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ k.sub }}</span></div></sc-for>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+<sc-for list="{{ ocKpis }}" as="k" hint-placeholder-count="8"><div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ k.label }}</span><span style="font-size:23px;font-weight:700;font-variant-numeric:tabular-nums;color:{{ k.color }}">{{ k.val }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ k.sub }}</span></div></sc-for>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:18px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;margin-bottom:14px">ON-TIME PICKUPS BY MONTH</div>
@@ -546,25 +546,31 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-for list="{{ ocBars }}" as="b" hint-placeholder-count="6"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end"><span style="display:block;width:100%;height:{{ b.h }};background:#6C5CE7;border-radius:6px 6px 0 0"></span><span style="font-size:11px;color:#4A4540">{{ b.label }}</span></div></sc-for>
 </div>
 </div>
-<div style="font-size:12px;color:#4A4540">Transport outcomes feed participant plan reviews and NDIS reporting. Coordinators and allied health see the slice consented for each participant.</div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:grid;grid-template-columns:2fr 1.8fr 1fr 0.8fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>MOST VISITED · JULY</span><span>PLAN GOAL</span><span>TRIPS</span><span>SHARE</span></div>
+<sc-for list="{{ ocPlaces }}" as="pl" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:2fr 1.8fr 1fr 0.8fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ pl.name }}</span><span style="font-size:12.5px;color:#4A4540">{{ pl.goal }}</span><span style="font-variant-numeric:tabular-nums">{{ pl.trips }}</span><span style="font-size:12.5px;color:#4A4540">{{ pl.pct }}</span></div>
+</sc-for>
+</div>
+<div style="font-size:12px;color:#4A4540">Transport outcomes feed participant plan reviews and NDIS reporting, including the support needs assessments that start April 2027. Coordinators and allied health see the slice consented for each participant; participants can export their own evidence pack.</div>
 </sc-if>
 
 <sc-if value="{{ isConfig }}" hint-placeholder-val="{{ false }}">
 <div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Configuration &amp; flags</h2><span style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:9999px;background:#F5F3FF;color:#5647C9;font-size:12px;font-weight:700"><i class="fa-solid fa-clock-rotate-left"></i>Effective-dated · changes are logged</span></div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <sc-for list="{{ flags }}" as="f" hint-placeholder-count="6">
-<div style="display:flex;align-items:center;gap:14px;min-height:58px;padding:8px 18px;border-top:1px solid #F7F6F4"><span style="flex:1"><span style="display:block;font-size:14px;font-weight:700">{{ f.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ f.desc }}</span></span><span style="font-size:12px;font-weight:700;color:#4A4540;width:26px;text-align:right">{{ f.label }}</span><span style="position:relative;width:46px;height:26px;border-radius:9999px;background:{{ f.bg }};flex:none"><span style="position:absolute;top:3px;left:{{ f.left }};width:20px;height:20px;border-radius:9999px;background:#fff"></span></span></div>
+<div onClick="{{ f.onFlip }}" style="cursor:pointer;display:flex;align-items:center;gap:14px;min-height:58px;padding:8px 18px;border-top:1px solid #F7F6F4"><span style="flex:1"><span style="display:block;font-size:14px;font-weight:700">{{ f.name }}</span><span style="display:block;font-size:12px;color:#4A4540">{{ f.desc }}</span></span><span style="font-size:12px;font-weight:700;color:#4A4540;width:26px;text-align:right">{{ f.label }}</span><span style="position:relative;width:46px;height:26px;border-radius:9999px;background:{{ f.bg }};flex:none"><span style="position:absolute;top:3px;left:{{ f.left }};width:20px;height:20px;border-radius:9999px;background:#fff"></span></span></div>
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">Feature flags and business rules are versioned with effective dates. Pricing books, support-item mappings and agreement templates keep their full revision history.</div>
 </sc-if>
 
 <sc-if value="{{ isRbac }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Users &amp; RBAC</h2><span style="margin-left:auto;display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:12px;background:#6C5CE7;color:#fff;font-size:13px;font-weight:700"><i class="fa-solid fa-user-plus" style="margin-right:8px"></i>Invite user</span></div>
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Users &amp; RBAC</h2><span onClick="{{ inviteUser }}" style="cursor:pointer;margin-left:auto;display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:12px;background:#6C5CE7;color:#fff;font-size:13px;font-weight:700"><i class="fa-solid fa-user-plus" style="margin-right:8px"></i>{{ inviteLabel }}</span></div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.6fr 1.3fr 1.6fr 1fr 0.9fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>USER</span><span>ROLE</span><span>SCOPE</span><span>LAST ACTIVE</span><span>STATUS</span></div>
 <sc-for list="{{ rbacUsers }}" as="u" hint-placeholder-count="5">
-<div style="display:grid;grid-template-columns:1.6fr 1.3fr 1.6fr 1fr 0.9fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="display:flex;align-items:center;gap:10px"><span style="width:30px;height:30px;border-radius:9999px;background:linear-gradient(135deg,#6C5CE7,#8B7EEE);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">{{ u.init }}</span><span style="font-weight:700">{{ u.name }}</span></span><span style="font-size:12.5px;color:#4A4540">{{ u.role }}</span><span style="font-size:12.5px">{{ u.scope }}</span><span style="font-size:12.5px;color:#4A4540">{{ u.active }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></span></div>
+<div onClick="{{ u.onOpen }}" style="cursor:pointer;background:{{ u.rowBg }};display:grid;grid-template-columns:1.6fr 1.3fr 1.6fr 1fr 0.9fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="display:flex;align-items:center;gap:10px"><span style="width:30px;height:30px;border-radius:9999px;background:linear-gradient(135deg,#6C5CE7,#8B7EEE);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none">{{ u.init }}</span><span style="font-weight:700">{{ u.name }}</span></span><span style="font-size:12.5px;color:#4A4540">{{ u.role }}</span><span style="font-size:12.5px">{{ u.scope }}</span><span style="font-size:12.5px;color:#4A4540">{{ u.active }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></span></div>
 </sc-for>
 </div>
 <div style="font-size:12px;color:#4A4540">Access is role-based and scoped. Every action a user takes is written to the immutable access log under Privacy and access logs.</div>
@@ -704,7 +710,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 class Component extends DCLogic {
   state = { section: null, assigned: {}, suspended: { s1: true }, approved: {}, activated: {}, opsF: 'all', flag: 'open', tick: 0,
     drawer: null, palOpen: false, palQ: '', palSel: 0,
-    incAdded: [], incStage: {}, incReport: {}, wiz: null, cmpStage: {}, clStage: {}, clF: 'all', clChased: {},
+    incAdded: [], incStage: {}, incReport: {}, wiz: null, cmpStage: {}, clStage: {}, clF: 'all', clChased: {}, rF: 'all', dF: 'all', tF: 'all', cfg: {}, invited: false,
     panel: (() => { try { return window.localStorage.getItem('mwPanel') !== 'closed'; } catch (e) { return true; } })() };
   componentDidMount() {
     this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000);
@@ -825,13 +831,8 @@ class Component extends DCLogic {
     ];
 
     // --- participants register ---
-    const riderFilters = [
-      { label: 'All · 642', bg: '#2D3748', fg: '#fff', border: '#2D3748' },
-      { label: 'Plan-managed · 388', bg: '#fff', fg: '#4A4540', border: '#E8E5E1' },
-      { label: 'Agency-managed · 171', bg: '#fff', fg: '#4A4540', border: '#E8E5E1' },
-      { label: 'Self-managed · 83', bg: '#fff', fg: '#4A4540', border: '#E8E5E1' },
-      { label: 'Needs review · 6', bg: '#fff', fg: YFG, border: '#E8E5E1' },
-    ];
+    const mkFilters = (defs, cur, key) => defs.map(f => { const on = cur === f.k; return { ...f, bg: on ? '#2D3748' : '#fff', fg: on ? '#fff' : (f.warn ? YFG : '#4A4540'), border: on ? '#2D3748' : '#E8E5E1', onPick: () => this.setState({ [key]: f.k }) }; });
+    const riderFilters = mkFilters([ { k: 'all', label: 'All · 642' }, { k: 'Plan-managed', label: 'Plan-managed · 388' }, { k: 'Agency-managed', label: 'Agency-managed · 171' }, { k: 'Self-managed', label: 'Self-managed · 83' }, { k: 'review', label: 'Needs review · 6', warn: true } ], S.rF, 'rF');
     const riders = [
       { init: 'MP', avBg: '#FF6B6B', name: 'Maya Patel', ndis: '43 128 907 · Prospect', planDates: '01/04/2026 to 31/03/2027', contact: 'Anna Patel (mother) · +61 4·· ··· 903', risk: 'Low', support: '1:1', address: 'Maya', coordinator: 'Leo Marsh · Northside', plan: 'Plan-managed', pct: '54%', barColor: '#FF6B6B', burn: '$1,394 of $2,600', pathway: 'Core budget · claim to plan manager', tags: ['Walking frame', 'Sensory-calm'], status: 'Active', stBg: GBG, stFg: G },
       { init: 'TR', avBg: '#6C5CE7', name: 'Theo Rossi', ndis: '43 077 214 · Regency Park', planDates: '01/12/2025 to 30/11/2026', contact: 'Rosa Amato (day program) · +61 4·· ··· 118', risk: 'Medium', support: '1:1 · handover to staff', address: 'Theo', coordinator: 'Leo Marsh · Northside', plan: 'Agency-managed', pct: '81%', barColor: '#B8860B', burn: '$3,470 of $4,280', pathway: 'Core budget · NDIA claim', tags: ['WAV', 'Sensory-calm'], status: 'Active', stBg: GBG, stFg: G },
@@ -839,7 +840,7 @@ class Component extends DCLogic {
       { init: 'JT', avBg: '#1F7A33', name: 'Jordan Teague', ndis: '43 199 038 · Glenelg', planDates: '01/06/2026 to 31/05/2027', contact: 'Jordan Teague (self) · +61 4·· ··· 771', risk: 'Low', support: '1:1', address: 'Jordan · they/them', coordinator: 'Self-managed · Leo Marsh (view)', plan: 'Self-managed', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', pathway: 'Recurring Level 2 · externally paid', tags: ['Ambulatory'], status: 'Active', stBg: GBG, stFg: G },
       { init: 'PB', avBg: '#8B7EEE', name: 'Priya Bakshi', ndis: '43 260 471 · Mile End', planDates: '01/03/2026 to 28/02/2027', contact: 'Sunita Bakshi (mother) · +61 4·· ··· 205', risk: 'Medium · distress', support: '1:1 · handover to staff', address: 'Priya', coordinator: 'Leo Marsh · Northside', plan: 'Plan-managed', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', pathway: 'Core budget · claim to plan manager', tags: ['Ambulatory'], status: 'Active', stBg: GBG, stFg: G },
       { init: 'AB', avBg: '#FF8E8E', name: 'Aisha Bello', ndis: '43 305 882 · Elizabeth', planDates: '01/07/2026 to 30/06/2027', contact: 'SIL house lead · +61 8 8·· ····', risk: 'Low', support: '1:1', address: 'Aisha', coordinator: 'Elizabeth Community Coordination', plan: 'Agency-managed', pct: '63%', barColor: '#FF6B6B', burn: '$2,040 of $3,240', pathway: 'Core budget · NDIA claim', tags: ['Sensory-calm', 'SIL'], status: 'Active', stBg: GBG, stFg: G },
-    ].map(r => ({ ...r, k: r.ndis, rowBg: drawerIs('rider', r.ndis) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('rider', r.ndis) }));
+    ].map(r => ({ ...r, k: r.ndis, rowBg: drawerIs('rider', r.ndis) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('rider', r.ndis) })).filter(r => S.rF === 'all' || (S.rF === 'review' ? r.status !== 'Active' : r.plan === S.rF));
     const intakeBase = [
       { k: 'i1', init: 'NA', avBg: '#FF6B6B', name: 'Nina Alvaro', source: 'Self sign-up (mobile)', ago: '12 min ago', tag: 'Awaiting plan verification', tagIcon: 'fa-hourglass-half', tagBg: Y, tagFg: YFG },
       { k: 'i2', init: 'CT', avBg: '#6C5CE7', name: 'Cooper Tran (age 9)', source: 'Guardian Supporter · self sign-up', ago: '1 hr ago', tag: 'Guardian consent confirmed', tagIcon: 'fa-circle-check', tagBg: GBG, tagFg: G },
@@ -849,13 +850,7 @@ class Component extends DCLogic {
       onActivate: () => this.setState(s => ({ activated: { ...s.activated, [i.k]: true } })) }; });
 
     // --- drivers register ---
-    const driverFilters = [
-      { label: 'All · 214', bg: '#2D3748', fg: '#fff', border: '#2D3748' },
-      { label: 'Contractor · 196', bg: '#fff', fg: '#4A4540', border: '#E8E5E1' },
-      { label: 'Employed · 18', bg: '#fff', fg: '#4A4540', border: '#E8E5E1' },
-      { label: 'Suspended · 3', bg: '#fff', fg: R, border: '#E8E5E1' },
-      { label: 'Credentials expiring · 5', bg: '#fff', fg: YFG, border: '#E8E5E1' },
-    ];
+    const driverFilters = mkFilters([ { k: 'all', label: 'All · 214' }, { k: 'Contractor', label: 'Contractor · 196' }, { k: 'Employed', label: 'Employed · 18' }, { k: 'susp', label: 'Suspended · 3', warn: true }, { k: 'cred', label: 'Credentials expiring · 5', warn: true } ], S.dF, 'dF');
     const credOk = { cred: 'All valid', credFg: G, credIcon: 'fa-circle-check' };
     const dBase = [
       { k: 'd1', name: 'Lena Voss', id: 'DR-0141 · employed', initials: 'LV', tier: 'Complex', e: emp, ...credOk, rating: '4.98', zone: 'Metro-wide' },
@@ -873,6 +868,7 @@ class Component extends DCLogic {
       action: sus ? 'Reinstate' : 'Suspend', actFg: sus ? PD : R, actBorder: sus ? '#8B7EEE' : '#E8E5E1',
       rowBg: drawerIs('driver', d.k) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('driver', d.k),
       onAction: () => this.setState(s => ({ suspended: { ...s.suspended, [d.k]: !s.suspended[d.k] } })) }; });
+    const driversShown = drivers.filter(d => S.dF === 'all' || (S.dF === 'susp' ? d.status === 'Suspended' : (S.dF === 'cred' ? d.cred !== 'All valid' : d.eng === S.dF)));
 
     // --- driver onboarding queue ---
     const stageNames = ['Identity', 'Screening', 'Credentials', 'Training', 'Review'];
@@ -955,9 +951,7 @@ class Component extends DCLogic {
     ];
 
     // --- incident management ---
-    const tsFilters = [
-      { label: 'All · today 214', on: true }, { label: 'Live · 23', on: false }, { label: 'Scheduled · 5', on: false }, { label: 'Completed · 186', on: false }, { label: 'Flagged · 1', on: false },
-    ].map(f => ({ ...f, bg: f.on ? '#2D3748' : '#fff', fg: f.on ? '#fff' : '#4A4540', border: f.on ? '#2D3748' : '#E8E5E1' }));
+    const tsFilters = mkFilters([ { k: 'all', label: 'All · today 214' }, { k: 'live', label: 'Live · 23' }, { k: 'sched', label: 'Scheduled · 5' }, { k: 'done', label: 'Completed · 186' }, { k: 'flag', label: 'Flagged · 1', warn: true } ], S.tF, 'tF');
     const tsStatus = { done: { label: 'Completed', bg: GBG, fg: G }, live: { label: 'On trip', bg: SOFT, fg: PD }, sched: { label: 'Scheduled', bg: '#F7F6F4', fg: '#4A4540' }, flag: { label: 'Coverage flag', bg: Y, fg: YFG }, canc: { label: 'Cancelled', bg: RBG, fg: R } };
     const tsRows = [
       { id: 'TR-88231', who: 'Theo Rossi', driver: 'Marcus Field', route: 'Norwood to Modbury', when: 'Live now', st: 'live' },
@@ -968,6 +962,7 @@ class Component extends DCLogic {
       { id: 'TR-88150', who: 'Priya Bakshi', driver: 'Jo Tran', route: 'Mile End to day program', when: 'Yesterday 8:40 am', st: 'canc' },
     ].map(r => ({ ...r, stLabel: tsStatus[r.st].label, stBg: tsStatus[r.st].bg, stFg: tsStatus[r.st].fg,
       rowBg: drawerIs('trip', r.id) ? '#F5F3FF' : 'transparent', onOpen: openDrawer('trip', r.id) }));
+    const tsShown = tsRows.filter(t => S.tF === 'all' || t.st === S.tF);
     const incStages = ['Logged', 'Classified', 'Safety actions', 'Notified', 'Corrective actions', 'Closed'];
     const incCatDefs = [
       { k: 'injury', label: 'Injury or near miss', icon: 'fa-kit-medical' }, { k: 'distress', label: 'Behaviour or distress', icon: 'fa-heart-crack' },
@@ -1157,12 +1152,16 @@ class Component extends DCLogic {
 
     // --- outcomes console ---
     const ocKpis = [
+      { label: 'TRIPS THIS MONTH', val: '4,612', sub: '642 participants · 214 drivers', color: '#2D3748' },
       { label: 'ON-TIME PICKUPS', val: '97.2%', sub: 'target 95%', color: G },
+      { label: 'AVERAGE WAIT', val: '3.6 min', sub: 'booked time to door', color: '#2D3748' },
+      { label: 'MISSED PICKUPS', val: '0.9%', sub: '41 trips · transport cause', color: YFG },
+      { label: 'CANCELLATION RATE', val: '4.1%', sub: '189 · 62% by participant', color: '#2D3748' },
+      { label: 'KILOMETRES', val: '49,880', sub: '10.8 km average · MMM 1', color: '#2D3748' },
       { label: 'APPOINTMENT ATTENDANCE', val: '96%', sub: '3 pts vs last quarter', color: '#2D3748' },
-      { label: 'GOAL-LINKED TRIPS · MONTH', val: '1,284', sub: 'community and social access', color: '#2D3748' },
-      { label: 'COMPLAINTS · 30 DAYS', val: '3', sub: 'all resolved', color: '#2D3748' },
-      { label: 'SATISFACTION', val: '4.8', sub: 'of 5 · 612 ratings', color: '#2D3748' },
+      { label: 'SATISFACTION', val: '4.8', sub: 'of 5 · 612 ratings · 3 complaints', color: '#2D3748' },
     ];
+    const ocPlaces = [ { name: 'Day programs', goal: 'Community participation', trips: '1,640', pct: '36%' }, { name: 'Allied health clinics', goal: 'Health and wellbeing', trips: '1,102', pct: '24%' }, { name: 'Hydrotherapy and pools', goal: 'Health and wellbeing', trips: '498', pct: '11%' }, { name: 'Education and work', goal: 'Education and employment', trips: '612', pct: '13%' }, { name: 'Shops, libraries, social', goal: 'Daily living and social', trips: '760', pct: '16%' } ];
     const ocBars = [ { label: 'Feb', h: '62%' }, { label: 'Mar', h: '70%' }, { label: 'Apr', h: '74%' }, { label: 'May', h: '82%' }, { label: 'Jun', h: '90%' }, { label: 'Jul', h: '96%' } ];
 
     // --- configuration & flags ---
@@ -1173,7 +1172,7 @@ class Component extends DCLogic {
       { name: 'Auto-chase overdue claims', desc: 'Runs daily at 5 pm', on: true },
       { name: 'Sensory-calm auto-suggest', desc: 'From the allied-health assessment', on: true },
       { name: 'Coverage nudges to offline drivers', desc: 'During demand spikes · supply, never price', on: false },
-    ].map(f => ({ ...f, bg: f.on ? PURP : '#E8E5E1', left: f.on ? '23px' : '3px', label: f.on ? 'On' : 'Off' }));
+    ].map((f, i) => { const on = S.cfg[i] !== undefined ? S.cfg[i] : f.on; return { ...f, on, bg: on ? PURP : '#E8E5E1', left: on ? '23px' : '3px', label: on ? 'On' : 'Off', onFlip: () => this.setState(st => ({ cfg: { ...st.cfg, [i]: !on } })) }; });
 
     // --- users & RBAC ---
     const rbacUsers = [
@@ -1182,8 +1181,23 @@ class Component extends DCLogic {
       { name: 'Fiona Reid', role: 'Finance', scope: 'Claims and invoices', active: '1 hr ago', init: 'FR' },
       { name: 'Marcus Webb', role: 'Compliance', scope: 'IMS and audits', active: 'Today', init: 'MW' },
       { name: 'Owen Diaz', role: 'Intake', scope: 'Onboarding queue', active: 'Yesterday', init: 'OD' },
-    ];
+    ].concat(S.invited ? [ { name: 'Nadia Ali', role: 'Quality (invited)', scope: 'Complaints and audits', active: 'Invite sent · expires in 7 days', init: 'NA' } ] : []);
 
+    // --- generic record drawers for the remaining registers ---
+    const genDefs = {
+      compliance: { icon: 'fa-clipboard-check', title: r => r.name, sub: r => r.holder + ' · ' + r.scope, status: r => ({ label: r.status, bg: r.stBg, fg: r.stFg }), note: 'Expiring credentials block matching automatically 14 days out. Renewals are requested from the holder and evidence is attached here.' },
+      accessLogs: { icon: 'fa-eye', title: r => r.who || r.user || r.name || 'Access event', sub: r => r.what || r.action || '', status: r => ({ label: 'Logged', bg: SOFT, fg: PD }), note: 'Immutable. Every read of a participant record is written here with who, what, when and the consent that allowed it.' },
+      rateCard: { icon: 'fa-tags', title: r => r.name, sub: r => r.code, status: r => ({ label: 'Effective ' + r.eff, bg: GBG, fg: G }), note: 'Effective-dated. Earlier versions stay attached to the claims they priced.' },
+      providers: { icon: 'fa-building', title: r => r.name, sub: r => r.type + ' · ' + r.sub, status: r => ({ label: r.conn, bg: r.connBg, fg: r.connFg }), note: 'Connection type decides how invoices and claims move: API, portal export or PRODA batch.' },
+      equipment: { icon: 'fa-wheelchair', title: r => r.name || r.item || 'Equipment', sub: r => r.vehicle || r.where || r.sub || '', status: r => ({ label: r.status || 'In service', bg: r.stBg || GBG, fg: r.stFg || G }), note: 'Equipment is inspected on the vehicle schedule and matched to participant requirements at booking.' },
+      credReg: { icon: 'fa-certificate', title: r => r.cred, sub: r => r.holder + ' · ' + r.link, status: r => ({ label: r.status, bg: r.stBg, fg: r.stFg }), note: 'Worker screening, first aid, training and vehicle credentials in one register. Lapsed items suspend matching.' },
+      rbacUsers: { icon: 'fa-user-lock', title: r => r.name, sub: r => r.role, status: r => ({ label: r.active, bg: '#F7F6F4', fg: '#4A4540' }), note: 'Scope limits which participants and screens a user can open. Complaints and privacy logs need the Quality or Compliance role.' },
+      fleet: { icon: 'fa-diagram-project', title: r => r.id, sub: r => r.rego, status: r => ({ label: r.status, bg: r.stBg, fg: r.stFg }), note: 'Assignment view links the vehicle, its configuration, today’s driver and compliance state.' },
+    };
+    const genLabel = k => ({ name: 'Name', holder: 'Holder', expires: 'Expires', scope: 'Scope', code: 'Support item', basis: 'Basis', rate: 'Rate', eff: 'Effective', type: 'Type', conn: 'Connection', sub: 'Detail', cred: 'Credential', link: 'Linked to', role: 'Role', active: 'Last active', rego: 'Registration', driver: 'Driver today', who: 'Who', what: 'What', when: 'When', user: 'User', action: 'Action', record: 'Record', reason: 'Reason', item: 'Item', vehicle: 'Vehicle', serial: 'Serial', inspected: 'Inspected', next: 'Next inspection', status: 'Status', cap: 'Capacity', service: 'Next service', config: 'Configuration', compliance: 'Compliance' })[k] || (k.charAt(0).toUpperCase() + k.slice(1));
+    const genFields = r => Object.keys(r).filter(k => !/bg|fg|icon|init|color|onOpen|rowBg|k$/i.test(k)).map(k => { const v = r[k]; const val = Array.isArray(v) ? v.map(x => typeof x === 'object' ? x.label : x).join(', ') : (typeof v === 'object' ? '' : String(v)); return val ? { label: genLabel(k), val } : null; }).filter(Boolean);
+    const genLists = { compliance, accessLogs, rateCard, providers, equipment, credReg, rbacUsers, fleet };
+    Object.keys(genLists).forEach(t => { genLists[t].forEach((r, i) => { r.onOpen = openDrawer(t, String(i)); r.rowBg = drawerIs(t, String(i)) ? SOFT : 'transparent'; }); });
     // --- rail + contextual panel ---
     const badgeMap = { dispatch: String(unassignedCount), riders: '3', onboarding: '12', vehicles: '18' };
     const railItems = areaDefs.map(a => { const on = a === curArea; return { icon: a.icon, label: a.short,
@@ -1192,6 +1206,7 @@ class Component extends DCLogic {
     const panelItems = curArea.screens.map(k => { const on = k === sec; return { name: titles[k], badge: badgeMap[k] || false,
       bg: on ? SOFT : 'transparent', fg: on ? PD : '#2D3748', fw: on ? '700' : '400', onNav: nav(k) }; });
     const panelToggle = () => this.setState(s => { const open = !s.panel; try { window.localStorage.setItem('mwPanel', open ? 'open' : 'closed'); } catch (e) {} return { panel: open }; });
+
 
     // --- record drawer ---
     let dw = null;
@@ -1203,6 +1218,7 @@ class Component extends DCLogic {
       else if (DR.t === 'vehicle') { const r = vehicles.find(x => x.id === DR.k); if (r) dw = { icon: 'fa-van-shuttle', title: r.id, sub: r.rego, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: r.config, fields: [F('Capacity', r.cap), F('Next service', r.service)], note: 'Registration, insurance and inspection are tracked per vehicle. Equipment carried is listed under Equipment.', action: null }; }
       else if (DR.t === 'trip') { const r = tsRows.find(x => x.id === DR.k); if (r) { const linked = incAll.filter(i => i.trip === r.id); dw = { icon: 'fa-route', title: r.id, sub: r.when, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Participant', r.who), F('Driver', r.driver), F('Route', r.route)], note: 'Every trip links to its participant, driver, vehicle, support items and claim status.', action: { label: 'Record incident from this trip', bg: R, go: wizOpenFor(r.id) },
         sections: linked.length ? [ { title: 'LINKED INCIDENTS', items: linked.map(i => ({ icon: 'fa-file-circle-exclamation', fg: R, text: i.id + ' · ' + i.title, meta: i.sev + ' · ' + i.stage })) } ] : [] }; } }
+      else if (genDefs[DR.t]) { const r = genLists[DR.t][Number(DR.k)]; const g = genDefs[DR.t]; if (r) dw = { icon: g.icon, title: g.title(r), sub: g.sub(r), status: g.status(r), chips: [], fields: genFields(r), note: g.note, action: null }; }
       else if (DR.t === 'claim') { const c = finAll.find(x => x.id === DR.k); if (c) { const pwd = pathwayDefs[c.pw];
         let action = null;
         if (c.exception && c.exception.type.startsWith('Rejected')) action = { label: 'Regenerate lines and resubmit', bg: PURP, go: () => this.setState(s => ({ clStage: { ...s.clStage, [c.id]: 2 } })) };
@@ -1265,7 +1281,6 @@ class Component extends DCLogic {
     const palSel = Math.min(S.palSel, Math.max(0, palShown.length - 1));
     this._palGo = () => { const r = palShown[palSel]; if (r) r.run(); };
     const palResults = palShown.map((r, i) => ({ ...r, bg: i === palSel ? SOFT : 'transparent', fw: i === palSel ? '700' : '400', onGo: r.run }));
-
     return {
       logout: () => (this.props.onLogout || (() => {}))(),
       sectionTitle: titles[sec] || 'Admin',
@@ -1291,7 +1306,7 @@ class Component extends DCLogic {
       isTripsearch: sec === 'tripsearch', isPrivacy: sec === 'privacy', isPricing: sec === 'pricing', isComplaints: sec === 'complaints',
       isProviders: sec === 'providers', isVehicles: sec === 'vehicles', isEquipment: sec === 'equipment',
       isCredentials: sec === 'credentials', isOutcomes: sec === 'outcomes', isConfig: sec === 'config', isRbac: sec === 'rbac',
-      tsFilters, tsRows, accessLogs, rateCard, payRules, providers, vehicles, equipment, credReg, ocKpis, ocBars, flags: configFlags, rbacUsers,
+      tsFilters, tsRows, accessLogs, rateCard, payRules, providers, vehicles, equipment, credReg, ocKpis, ocPlaces, ocBars, flags: configFlags, rbacUsers,
       opsFilters, opsKpis, opsDots, opsLines, opsDest, opsFlagPins, opsHeat, opsBars, opsTiles,
       flagOpen: S.flag === 'open', flagDone: S.flag === 'done',
       dispatchLena: () => this.setState({ flag: 'done' }),
@@ -1302,7 +1317,8 @@ class Component extends DCLogic {
       queue, reviewCount,
       fleet, compliance, audits,
       finStages, finFilters, finRows, finOutstanding, finExceptions, exOpenLabel: exOpen + ' open', exOpenBg: exOpen ? Y : GBG, exOpenFg: exOpen ? YFG : G, remittances,
-      incidents, incKpis, incNew: wizOpenFor(null), cmpRows, cmpKpis,
+      incidents, incKpis, incNew: wizOpenFor(null), cmpRows, cmpKpis, driversShown, tsShown,
+      inviteUser: () => this.setState({ invited: true }), inviteLabel: S.invited ? 'Invite sent to Nadia Ali' : 'Invite user',
       dSections: dw && dw.sections ? dw.sections : [],
       wizOpen: !!W, wizStep: W ? W.step : 1, wizStepLabel: W ? wizStepLabels[W.step - 1] : '', wizBars: [1, 2, 3, 4].map(n => ({ bg: W && n <= W.step ? PURP : '#E8E5E1' })),
       wizS1: !!W && W.step === 1, wizS2: !!W && W.step === 2, wizS3: !!W && W.step === 3, wizS4: !!W && W.step === 4,

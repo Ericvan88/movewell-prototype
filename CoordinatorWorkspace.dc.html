@@ -125,13 +125,12 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 <sc-if value="{{ isCwRecurring }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Recurring trips</h2><span style="font-size:13px;color:#4A4540">Standing schedules across your caseload</span><button style="margin-left:auto;height:44px;padding:0 18px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-plus" style="margin-right:8px"></i>New recurring trip</button></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Recurring trips</h2><span style="font-size:13px;color:#4A4540">Standing schedules across your caseload</span><button onClick="{{ addRecurring }}" style="margin-left:auto;height:44px;padding:0 18px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-plus" style="margin-right:8px"></i>{{ recurringLabel }}</button></div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;border-bottom:1px solid #E8E5E1"><span>PARTICIPANT</span><span>ROUTE</span><span>SCHEDULE</span><span>VEHICLE</span><span>STATUS</span></div>
-<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Maya Patel</span><span style="font-size:13px">Home → Day program, Mile End</span><span style="font-size:13px">Every Mon · 9:00 am</span><span style="font-size:13px">Standard sedan</span><span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
-<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Maya Patel</span><span style="font-size:13px">Home → Physio, North Adelaide</span><span style="font-size:13px">Every Thu · 2:15 pm</span><span style="font-size:13px">Standard sedan</span><span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
-<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Theo Rossi</span><span style="font-size:13px">Home → Day program, Regency Park</span><span style="font-size:13px">Mon-Fri · 8:40 am</span><span style="font-size:13px">WAV · sensory-calm</span><span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700">Active</span></div>
-<div style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px"><span style="font-weight:700">Iris Kaur</span><span style="font-size:13px">Home → Hydrotherapy, Adelaide</span><span style="font-size:13px">Every Wed · 10:30 am</span><span style="font-size:13px">WAV hoist</span><span style="justify-self:start;padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700">Paused</span></div>
+<sc-for list="{{ recurring }}" as="rc" hint-placeholder-count="4">
+<div onClick="{{ rc.onOpen }}" style="display:grid;grid-template-columns:1.6fr 2.2fr 1.4fr 1.2fr 1fr;gap:12px;align-items:center;min-height:52px;padding:6px 18px;border-bottom:1px solid #F7F6F4;cursor:pointer" style-hover="background:#FFF5F5"><span style="font-weight:700">{{ rc.who }}</span><span style="font-size:13px">{{ rc.route }}</span><span style="font-size:13px">{{ rc.sched }}</span><span style="font-size:13px;color:#4A4540">{{ rc.vehicle }}</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:{{ rc.stBg }};color:{{ rc.stFg }};font-size:11px;font-weight:700"><i class="fa-solid {{ rc.icon }}"></i>{{ rc.status }}</span></div>
+</sc-for>
 </div>
 <div style="font-size:12.5px;color:#4A4540;margin-top:12px">Schedules book automatically 7 days ahead. Participants and bookers are notified of every generated booking.</div>
 </sc-if>
@@ -210,18 +209,20 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">NDIS registration</span><span style="font-size:13px">MoveWell</span><span style="font-size:13px">11/2027</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Valid</span></div>
 <div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Worker screening · assigned drivers</span><span style="font-size:13px">MoveWell · 6 drivers</span><span style="font-size:13px">Earliest 03/2027</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(45,167,72,0.14);color:#1F7A33;font-size:11px;font-weight:700"><i class="fa-solid fa-circle-check"></i>Valid</span></div>
 <div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px;border-bottom:1px solid #F7F6F4"><span style="font-weight:700">Public liability insurance</span><span style="font-size:13px">AccessGo Transport</span><span style="font-size:13px">08/2026</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(255,217,61,0.25);color:#8A6800;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>42 days</span></div>
-<div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px"><span style="font-weight:700">Consent to coordinate · Iris Kaur</span><span style="font-size:13px">Your organisation</span><span style="font-size:13px">29/08/2026</span><span style="justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(232,85,85,0.12);color:#C43F3F;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>Renew</span></div>
+<div style="display:grid;grid-template-columns:1.8fr 1.6fr 1.4fr 1fr;gap:12px;align-items:center;min-height:50px;padding:6px 18px"><span style="font-weight:700">Consent to coordinate · Iris Kaur</span><span style="font-size:13px">Your organisation</span><span style="font-size:13px">29/08/2026</span><span onClick="{{ renewConsent }}" style="cursor:pointer;justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;background:rgba(232,85,85,0.12);color:#C43F3F;font-size:11px;font-weight:700"><i class="fa-solid fa-triangle-exclamation"></i>{{ renewLabel }}</span></div>
 </div>
 </sc-if>
 
 <sc-if value="{{ isCwOutcomes }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Outcome reports</h2><span style="font-size:13px;color:#4A4540">Transport as it relates to plan goals · quarter to date</span></div>
-<div style="display:flex;gap:16px;margin-bottom:16px">
-<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Appointment attendance</div><div style="font-size:26px;font-weight:700">96%</div><div style="font-size:12px;color:#1F7A33;font-weight:700">▲ 4 pts vs last quarter</div></div>
-<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Trips missed · transport cause</div><div style="font-size:26px;font-weight:700">3</div><div style="font-size:12px;color:#4A4540">of 214 trips</div></div>
-<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:16px"><div style="font-size:12px;color:#4A4540">Goal-linked community outings</div><div style="font-size:26px;font-weight:700">41</div><div style="font-size:12px;color:#1F7A33;font-weight:700">▲ 9 vs last quarter</div></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Outcome reports</h2><span style="font-size:13px;color:#4A4540">Transport as it relates to plan goals · July 2026</span>
+<button onClick="{{ exportEvidence }}" style="margin-left:auto;height:44px;padding:0 18px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#FFF5F5"><i class="fa-solid fa-file-export" style="margin-right:8px"></i>{{ evidenceLabel }}</button></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
+<sc-for list="{{ cwOutKpis }}" as="k" hint-placeholder-count="8">
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px"><div style="font-size:12px;color:#4A4540">{{ k.label }}</div><div style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums">{{ k.val }}</div><div style="font-size:12px;color:{{ k.subFg }};font-weight:{{ k.subFw }}">{{ k.sub }}</div></div>
+</sc-for>
 </div>
-<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px">
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.4;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:20px">
 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540;margin-bottom:14px">ON-TIME PICKUPS BY MONTH</div>
 <div style="display:flex;align-items:flex-end;gap:26px;height:120px;padding:0 6px">
 <sc-for list="{{ cwBars }}" as="b" hint-placeholder-count="6">
@@ -229,10 +230,18 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-for>
 </div>
 </div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:14px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">MOST VISITED · CASELOAD · JULY</div>
+<sc-for list="{{ cwPlaces }}" as="pl" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:4px 18px;border-top:1px solid #F7F6F4;font-size:13px"><i class="fa-solid {{ pl.icon }}" style="color:#FF6B6B;width:18px;text-align:center"></i><span style="flex:1"><span style="display:block;font-weight:700">{{ pl.name }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ pl.goal }}</span></span><span style="font-variant-numeric:tabular-nums;font-weight:700">{{ pl.trips }}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="font-size:12.5px;color:#4A4540;margin-top:14px;line-height:1.5">Evidence for plan reviews: trips by purpose and plan goal, on-time and missed-pickup rates, kilometres, and attendance, per participant, in the format the NDIA support needs assessment expects from April 2027. Each participant sees their own slice in the app.</div>
 </sc-if>
 
 <sc-if value="{{ isCwTeam }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Team &amp; permissions</h2><span style="font-size:13px;color:#4A4540">Northside Coordination</span><button style="margin-left:auto;height:44px;padding:0 18px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-plus" style="margin-right:8px"></i>Invite team member</button></div>
+<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:18px"><h2 style="margin:0;font-size:24px;font-weight:700">Team &amp; permissions</h2><span style="font-size:13px;color:#4A4540">Northside Coordination</span><button onClick="{{ inviteMember }}" style="margin-left:auto;height:44px;padding:0 18px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-plus" style="margin-right:8px"></i>{{ inviteLabel }}</button></div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:flex;align-items:center;gap:14px;min-height:60px;padding:8px 18px;border-bottom:1px solid #F7F6F4"><span style="width:36px;height:36px;border-radius:9999px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">LM</span><span style="flex:1"><span style="display:block;font-weight:700">Leo Marsh · you</span><span style="display:block;font-size:12px;color:#4A4540">14 participants</span></span><span style="display:flex;gap:6px"><span style="padding:4px 10px;border-radius:9999px;background:#FFF5F5;color:#E85555;font-size:11px;font-weight:700">Admin</span><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Book</span><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Claims</span></span></div>
 <div style="display:flex;align-items:center;gap:14px;min-height:60px;padding:8px 18px;border-bottom:1px solid #F7F6F4"><span style="width:36px;height:36px;border-radius:9999px;background:#6C5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">RW</span><span style="flex:1"><span style="display:block;font-weight:700">Ruth Whitton</span><span style="display:block;font-size:12px;color:#4A4540">8 participants</span></span><span style="display:flex;gap:6px"><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Book</span><span style="padding:4px 10px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">Claims</span></span></div>
@@ -409,67 +418,20 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
     bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess',
-    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, agrPass: { tolls: true, parking: true, contrib: false }, agrSign: 'esign', addDone: false, referred: {}, cwSel: 'maya', inv: null, exported: [], exportToast: '' };
+    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, agrPass: { tolls: true, parking: true, contrib: false }, agrSign: 'esign', addDone: false, referred: {}, cwSel: 'maya', inv: null, exported: [], exportToast: '', recAdded: false, memberInvited: false, renewed: false, evidence: false };
   renderVals() {
     const S = this.state, P = this.props;
     const screen = S.screen ?? (P.startScreen ?? 'home');
     const go = s => () => this.setState({ screen: s, ...(s === 'home' ? { sos: false } : {}) });
-    const prefersWAV = !!P.prefersWAV;
-    const tierList = [
-      { id: 'standard', icon: 'fa-car', name: 'Standard sedan', desc: 'Door-to-door support', fare: '$38.50' },
-      { id: 'wav', icon: 'fa-wheelchair', name: 'Wheelchair accessible (WAV)', desc: 'Hoist, restraint compliant', fare: '$52.20' },
-      { id: 'sensory', icon: 'fa-volume-xmark', name: 'Sensory-calm', desc: 'Low light, quiet, no radio', fare: '$45.10' },
-    ];
-    const tierId = S.tier ?? (prefersWAV ? 'wav' : 'standard');
-    const tiers = tierList.map(t => ({ ...t, sel: t.id === tierId,
-      border: t.id === tierId ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
-      pad: t.id === tierId ? '15px' : '16px',
-      onPick: () => this.setState({ tier: t.id }) }));
-    const tier = tierList.find(t => t.id === tierId);
-    const destList = [
-      { icon: 'fa-house-medical', name: 'Physio · North Adelaide', addr: '88 Ward St, North Adelaide SA' },
-      { icon: 'fa-people-group', name: 'Day program · Mile End', addr: '4 Norma St, Mile End SA' },
-      { icon: 'fa-person-swimming', name: 'Adelaide Aquatic Centre', addr: 'Jeffcott Rd, North Adelaide SA' },
-    ];
-    const dests = destList.map(d => ({ ...d, onPick: () => this.setState({ dest: d, screen: 'when' }) }));
-    const dest = S.dest ?? destList[0];
-    const whenModes = [
-      { id: 'now', label: 'Leave now', desc: 'Pickup in about 10\u201315 minutes' },
-      { id: 'later', label: 'Schedule', desc: 'Pick a date and time' },
-    ].map(m => ({ ...m, sel: m.id === S.whenMode,
-      border: m.id === S.whenMode ? '2px solid #6C5CE7' : '1px solid #E8E5E1',
-      pad: m.id === S.whenMode ? '15px 15px' : '16px 16px',
-      onPick: () => this.setState({ whenMode: m.id }) }));
-    const stars = [1, 2, 3, 4, 5].map(n => ({ n, color: n <= S.rating ? '#FFD93D' : '#E8E5E1', onPick: () => this.setState({ rating: n }) }));
-    const comps = ['Friendly', 'Safe driving', 'On time', 'Great communication'].map(c => {
-      const on = !!S.comps[c];
-      return { label: c, bg: on ? '#6C5CE7' : '#fff', color: on ? '#fff' : '#2D3748',
-        border: on ? '1px solid #6C5CE7' : '1px solid #E8E5E1',
-        onPick: () => this.setState(s => ({ comps: { ...s.comps, [c]: !on } })) };
-    });
-    const A = S.a11y;
-    const flip = k => () => this.setState(s => ({ a11y: { ...s.a11y, [k]: !s.a11y[k] } }));
-    const a11yModes = [
-      { k: 'hc', label: 'High contrast', desc: 'Darker text and stronger outlines' },
-      { k: 'lt', label: 'Large text', desc: 'Makes everything a little bigger' },
-      { k: 'voice', label: 'Voice prompts', desc: 'Reads each screen out loud' },
-      { k: 'sw', label: 'Switch access', desc: 'Scan and choose with one button' },
-    ].map((m, i) => ({ ...m, bg: A[m.k] ? '#6C5CE7' : '#E8E5E1', left: A[m.k] ? '23px' : '3px', bt: i === 0 ? '0' : '1px solid #F7F6F4', onFlip: flip(m.k) }));
-    const contacts = [
-      { k: 'anna', name: 'Anna Patel', rel: 'Mum', desc: 'Sees trips live and gets pickup and drop-off messages' },
-      { k: 'leo', name: 'Leo Marsh', rel: 'Support coordinator', desc: 'Can book for you and see upcoming bookings' },
-    ].map(c => { const on = !!S.consents[c.k]; return { ...c, bg: on ? '#6C5CE7' : '#E8E5E1', left: on ? '23px' : '3px',
-      onFlip: () => this.setState(s => ({ consents: { ...s.consents, [c.k]: !s.consents[c.k] } })) }; });
     const is = k => screen === k;
-    // --- turn 2: booker / coordinator / allied health ---
-    const bkGo = s => () => this.setState({ bk: s });
-    const bkMayaAlerts = [
-      { k: 'pd', label: 'Pickup and drop-off', desc: 'A message when Maya is picked up and dropped off' },
-      { k: 'lt', label: 'Live trip started', desc: 'Link to watch the trip on the map' },
-      { k: 'sos', label: 'SOS and incidents', desc: 'Immediate call and push notification' },
-    ].map(a => { const on = !!S.bkAl[a.k]; return { ...a, bg: on ? '#FF6B6B' : '#E8E5E1', left: on ? '23px' : '3px',
-      onFlip: () => this.setState(s => ({ bkAl: { ...s.bkAl, [a.k]: !s.bkAl[a.k] } })) }; });
     const cwGo = s => () => this.setState({ cw: s });
+    const recBase = [
+      { k: 'maya', who: 'Maya Patel', route: 'Home → Day program, Mile End', sched: 'Every Mon · 9:00 am', vehicle: 'Standard sedan', status: 'Active', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33', icon: 'fa-circle-check' },
+      { k: 'maya', who: 'Maya Patel', route: 'Home → Physio, North Adelaide', sched: 'Every Thu · 2:15 pm', vehicle: 'Standard sedan', status: 'Active', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33', icon: 'fa-circle-check' },
+      { k: 'theo', who: 'Theo Rossi', route: 'Home → Day program, Regency Park', sched: 'Mon to Fri · 8:40 am', vehicle: 'WAV · sensory-calm', status: 'Active', stBg: 'rgba(45,167,72,0.14)', stFg: '#1F7A33', icon: 'fa-circle-check' },
+      { k: 'iris', who: 'Iris Kaur', route: 'Home → Hydrotherapy, Adelaide', sched: 'Every Wed · 10:30 am', vehicle: 'WAV hoist', status: 'Paused', stBg: 'rgba(255,217,61,0.25)', stFg: '#8A6800', icon: 'fa-pause' },
+    ];
+    const recurring = (S.recAdded ? [ { k: 'priya', who: 'Priya Bakshi', route: 'Home → Library, Prospect', sched: 'Every Fri · 1:00 pm', vehicle: 'Sensory-calm', status: 'Starts Fri 25/07', stBg: '#F5F3FF', stFg: '#5647C9', icon: 'fa-calendar-plus' } ] : []).concat(recBase).map(r => ({ ...r, onOpen: () => this.setState({ cw: 'participant', cwSel: r.k }) }));
     const cwNavDefs = [
       { id: 'dash', label: 'Dashboard', icon: 'fa-gauge-high' }, { id: 'participant', label: 'Participants', icon: 'fa-user-group' },
       { id: 'add', label: 'Add participant', icon: 'fa-user-plus' },
@@ -584,16 +546,23 @@ class Component extends DCLogic {
       { label: 'PAID', accent: '#1F7A33', count: 41, aWho: 'Maya Patel', aWhat: 'Physio · 16/07', aAmt: '$38.50', bWho: 'Jordan Teague', bWhat: 'CBD · 09/07', bAmt: '$31.80', aK: 'cl-maya-paid', bK: 'cl-jordan-paid' },
     ].map(c => ({ ...c, aOpen: openInv(c.aK), bOpen: openInv(c.bK) }));
     const cwBars = [ { label: 'Feb', val: '91%', h: '68%', color: '#F0BDBD' }, { label: 'Mar', val: '93%', h: '74%', color: '#F0BDBD' }, { label: 'Apr', val: '92%', h: '71%', color: '#F0BDBD' }, { label: 'May', val: '95%', h: '82%', color: '#FF9B9B' }, { label: 'Jun', val: '97%', h: '90%', color: '#FF8080' }, { label: 'Jul', val: '98%', h: '95%', color: '#FF6B6B' } ];
-    const ahGo = t => () => this.setState({ ah: t });
-    const ahTabs = [
-      { id: 'assess', label: 'Transport assessment' }, { id: 'reqs', label: 'Transport requirements' },
-      { id: 'appts', label: 'Appointments' }, { id: 'outcomes', label: 'Outcomes' },
-    ].map(t => ({ ...t, fg: S.ah === t.id ? '#E85555' : '#4A4540', accent: S.ah === t.id ? '#FF6B6B' : 'transparent', onPick: ahGo(t.id) }));
     return {
-      isBkPeople: S.bk === 'people', isBkMaya: S.bk === 'maya', isBkAlerts: S.bk === 'alerts', isBkRoles: S.bk === 'roles',
-      goBkPeople: bkGo('people'), goBkMaya: bkGo('maya'), goBkAlerts: bkGo('alerts'), goBkRoles: bkGo('roles'),
-      bkMayaAlerts, bkNoop: () => {},
-      cwNav, cwRows, cwClaimCols, cwBars,
+      cwNav, cwRows, cwClaimCols, cwBars, recurring,
+      cwOutKpis: [
+        { label: 'Trips this month', val: '214', sub: '14 participants · 5 providers', subFg: '#4A4540', subFw: 400 },
+        { label: 'On-time pickups', val: '98%', sub: '▲ 1 pt vs June · target 95%', subFg: '#1F7A33', subFw: 700 },
+        { label: 'Average wait at pickup', val: '3.2 min', sub: 'from booked time to door', subFg: '#4A4540', subFw: 400 },
+        { label: 'Missed pickups', val: '3', sub: 'transport cause · 1.4%', subFg: '#8A6800', subFw: 700 },
+        { label: 'Cancellation rate', val: '4.7%', sub: '10 of 214 · 6 by participant, 4 by provider', subFg: '#4A4540', subFw: 400 },
+        { label: 'Kilometres travelled', val: '2,318 km', sub: '10.8 km average · Adelaide metro', subFg: '#4A4540', subFw: 400 },
+        { label: 'Appointment attendance', val: '96%', sub: '▲ 4 pts vs last quarter', subFg: '#1F7A33', subFw: 700 },
+        { label: 'Goal-linked outings', val: '41', sub: 'community and social participation', subFg: '#4A4540', subFw: 400 },
+      ],
+      cwPlaces: [ { icon: 'fa-people-group', name: 'Day programs · Mile End, Regency Park', goal: 'Community participation', trips: '88' }, { icon: 'fa-house-medical', name: 'Physio and OT · North Adelaide', goal: 'Health and wellbeing', trips: '46' }, { icon: 'fa-person-swimming', name: 'Hydrotherapy · Adelaide, Salisbury', goal: 'Health and wellbeing', trips: '31' }, { icon: 'fa-graduation-cap', name: 'TAFE · Regency Park', goal: 'Education and employment', trips: '22' }, { icon: 'fa-basket-shopping', name: 'Shops and libraries', goal: 'Daily living', trips: '27' } ],
+      exportEvidence: () => this.setState({ evidence: true }), evidenceLabel: S.evidence ? 'Plan review pack exported · 14 participants' : 'Export plan review evidence',
+      addRecurring: () => this.setState({ recAdded: true }), recurringLabel: S.recAdded ? 'Added · Priya, Fridays 1:00 pm' : 'New recurring trip',
+      inviteMember: () => this.setState({ memberInvited: true }), inviteLabel: S.memberInvited ? 'Invite sent to Nadia Ali' : 'Invite team member',
+      renewConsent: () => this.setState({ renewed: true }), renewLabel: S.renewed ? 'Renewal sent' : 'Renew',
       pastExports, inv, invOpen: !!S.inv, invClose: () => this.setState({ inv: null }), exportCsv: doExport('csv'), exportPdf: doExport('pdf'), exportToast: S.exportToast || false,
       isCwDash: S.cw === 'dash', isCwParticipant: S.cw === 'participant', isCwRecurring: S.cw === 'recurring',
       isCwClaims: S.cw === 'claims', isCwInvoices: S.cw === 'invoices', isCwCompliance: S.cw === 'compliance',
@@ -611,28 +580,6 @@ class Component extends DCLogic {
       planOpts, planName, newConsent, supToggle, supOn: S.newSup,
       newA11y, a11ySummary, referToggle, referOn: S.newRefer, referProvOpts, provName, referLine, reviewRefer,
       referrals, sel, cwPeople, selReferred: !!S.referred[selKey], selNotReferred: !S.referred[selKey], referSel,
-      ahTabs, isAhAssess: S.ah === 'assess', isAhReqs: S.ah === 'reqs', isAhAppts: S.ah === 'appts', isAhOutcomes: S.ah === 'outcomes',
-      goAhReqs: ahGo('reqs'),
-      isHome: is('home'), isWhere: is('where'), isWhen: is('when'), isTier: is('tier'), isReview: is('review'),
-      isTracking: is('tracking'), isPickup: is('pickup'), isInTrip: is('intrip'), isComplete: is('complete'),
-      isReceipt: is('receipt'), isA11y: is('a11y'),
-      isBookings: is('bookings'), isProfile: is('profile'), isHelp: is('help'),
-      goBookings: go('bookings'), goProfile: go('profile'), goHelp: go('help'),
-      a11yModes, hcAttr: A.hc ? 'on' : 'off', ltAttr: A.lt ? 'on' : 'off', rootBg: A.hc ? '#FFFFFF' : '#FAFAF9',
-      contacts,
-      pickupIsCode: !S.pickupQr, pickupIsQr: S.pickupQr,
-      pickupToggleLabel: S.pickupQr ? 'Show the code instead' : 'Show a QR code instead',
-      onPickupToggle: () => this.setState(s => ({ pickupQr: !s.pickupQr })),
-      goHome: go('home'), goWhere: go('where'), goWhen: go('when'), goTier: go('tier'), goReview: go('review'),
-      goTracking: go('tracking'), goPickup: go('pickup'), goInTrip: go('intrip'), goComplete: go('complete'),
-      goReceipt: go('receipt'), goA11y: go('a11y'),
-      dests, dest, whenModes, isLater: S.whenMode === 'later',
-      whenLabel: S.whenMode === 'later' ? 'Thu 18/07/2026 \u00b7 2:15 pm' : 'Today \u00b7 ASAP pickup',
-      tiers, fare: tier.fare, tierName: tier.name,
-      vehicleLine: tierId === 'wav' ? 'White Hyundai Staria WAV \u00b7 S 209 BFR' : tierId === 'sensory' ? 'Grey Kia Carnival \u00b7 S 771 QMC' : 'White Toyota Camry \u00b7 S 482 KJK',
-      stars, comps,
-      sos: S.sos, sosOff: !S.sos,
-      onSos: () => this.setState({ sos: true }), onSosCancel: () => this.setState({ sos: false }),
     };
   }
 }
