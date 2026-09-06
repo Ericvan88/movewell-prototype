@@ -341,19 +341,46 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </sc-if>
 
 <sc-if value="{{ isClaims }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Claims monitor</h2><span style="font-size:12.5px;color:#4A4540">platform-wide · July 2026</span></div>
-<div style="display:flex;gap:12px">
-<sc-for list="{{ claimStats }}" as="c" hint-placeholder-count="4">
-<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 16px;border-top:3px solid {{ c.accent }}"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ c.label }}</span><span style="font-size:22px;font-weight:700;font-variant-numeric:tabular-nums">{{ c.count }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ c.amt }}</span></div>
+<div style="display:flex;align-items:center;gap:12px"><h2 style="margin:0;font-size:17px;font-weight:700">Claims monitor</h2><span style="font-size:12.5px;color:#4A4540">trip to cash · claim, invoice and reconciliation are separate steps</span></div>
+<div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;padding:14px 18px;display:flex;gap:0;align-items:stretch">
+<sc-for list="{{ finStages }}" as="st" hint-placeholder-count="6">
+<div style="flex:1;display:flex;flex-direction:column;gap:2px;padding:0 12px;border-left:{{ st.border }}"><span style="font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:#4A4540">{{ st.label }}</span><span style="font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;color:{{ st.color }}">{{ st.count }}</span><span style="font-size:11px;color:#4A4540">{{ st.sub }}</span></div>
 </sc-for>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<sc-for list="{{ finFilters }}" as="f" hint-placeholder-count="4"><span onClick="{{ f.onPick }}" style="padding:6px 13px;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:12px;font-weight:700;border:1px solid {{ f.border }};cursor:pointer">{{ f.label }}</span></sc-for>
+<span style="margin-left:auto;font-size:12px;color:#4A4540">{{ finOutstanding }}</span>
 </div>
 <div style="background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
-<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.1fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>PARTICIPANT</span><span>TRIP</span><span>PLAN MANAGER</span><span>AGE</span><span>STATE</span></div>
-<sc-for list="{{ claims }}" as="c" hint-placeholder-count="5">
-<div style="display:grid;grid-template-columns:1.6fr 1.8fr 1.4fr 1.1fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px" style-hover="background:#FAFAF9"><span style="font-weight:700">{{ c.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ c.trip }}</span><span style="font-size:12.5px">{{ c.pm }}</span><span style="font-size:12.5px;color:{{ c.ageFg }};font-weight:{{ c.ageFw }}">{{ c.age }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700">{{ c.state }}</span></span></div>
+<div style="display:grid;grid-template-columns:1fr 1.5fr 1.6fr 1.4fr 0.9fr 1.3fr 1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;border-bottom:1px solid #E8E5E1;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>CLAIM</span><span>PARTICIPANT</span><span>TRIP</span><span>PAYER · PATHWAY</span><span>AMOUNT</span><span>STAGE</span><span>AGE</span></div>
+<sc-for list="{{ finRows }}" as="c" hint-placeholder-count="6">
+<div onClick="{{ c.onOpen }}" style="display:grid;grid-template-columns:1fr 1.5fr 1.6fr 1.4fr 0.9fr 1.3fr 1fr;gap:0 12px;align-items:center;padding:10px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ c.rowBg }};cursor:pointer" style-hover="background:#FAFAF9">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ c.id }}</span>
+<span style="font-weight:700">{{ c.who }}</span>
+<span style="font-size:12.5px;color:#4A4540">{{ c.trip }}</span>
+<span style="font-size:12.5px"><span style="display:block">{{ c.payer }}</span><span style="display:block;font-size:11px;color:#4A4540">{{ c.pathway }}</span></span>
+<span style="font-variant-numeric:tabular-nums;font-weight:700">{{ c.total }}</span>
+<span><span style="padding:3px 9px;border-radius:9999px;background:{{ c.stBg }};color:{{ c.stFg }};font-size:11px;font-weight:700">{{ c.stageLabel }}</span></span>
+<span style="font-size:12.5px;color:{{ c.ageFg }};font-weight:{{ c.ageFw }}">{{ c.age }}</span>
+</div>
 </sc-for>
 </div>
-<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(255,217,61,0.18);border:1px solid #FFD93D;border-radius:12px;font-size:13px"><i class="fa-solid fa-robot" style="color:#B8860B"></i>Auto-chase runs at 5 pm for the 7 rejected claims. Every claim separates transport support, non-labour travel, and any support-worker time, each with its NDIS support item and trip evidence. Gap fees and surcharges are blocked and amounts are held to NDIS price limits. Drivers never see or enter fares.</div>
+<div style="display:flex;gap:16px;align-items:flex-start">
+<div style="flex:1.3;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:10px;padding:12px 18px 6px"><span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">EXCEPTIONS · OWNED, WITH AN SLA</span><span style="margin-left:auto;padding:2px 8px;border-radius:9999px;background:{{ exOpenBg }};color:{{ exOpenFg }};font-size:10.5px;font-weight:700">{{ exOpenLabel }}</span></div>
+<sc-for list="{{ finExceptions }}" as="x" hint-placeholder-count="5">
+<div onClick="{{ x.onOpen }}" style="display:flex;align-items:center;gap:12px;padding:9px 18px;border-top:1px solid #F7F6F4;font-size:12.5px;cursor:pointer;background:{{ x.rowBg }}" style-hover="background:#FAFAF9"><i class="fa-solid {{ x.icon }}" style="color:{{ x.fg }};width:16px;text-align:center"></i><span style="flex:1;min-width:0"><span style="display:block;font-weight:700">{{ x.type }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ x.record }}</span></span><span style="font-size:11.5px;color:#4A4540;text-align:right"><span style="display:block">{{ x.owner }}</span><span style="display:block;color:{{ x.slaFg }};font-weight:{{ x.slaFw }}">{{ x.sla }}</span></span></div>
+</sc-for>
+</div>
+<div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="padding:12px 18px 6px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">REMITTANCES · MATCHED TO CLAIMS</div>
+<sc-for list="{{ remittances }}" as="r" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:12px;padding:9px 18px;border-top:1px solid #F7F6F4;font-size:12.5px"><i class="fa-solid {{ r.icon }}" style="color:{{ r.fg }};width:16px;text-align:center"></i><span style="flex:1;min-width:0"><span style="display:block;font-weight:700">{{ r.payer }} · {{ r.amt }}</span><span style="display:block;font-size:11.5px;color:#4A4540">{{ r.sub }}</span></span><span style="padding:3px 9px;border-radius:9999px;background:{{ r.stBg }};color:{{ r.stFg }};font-size:11px;font-weight:700">{{ r.status }}</span></div>
+</sc-for>
+<div style="padding:10px 18px;border-top:1px solid #F7F6F4;font-size:11.5px;color:#4A4540;line-height:1.5">Remittance files arrive from plan managers (API), PRODA (NDIA) and the bank feed. Matched lines reconcile automatically; short or missing lines become exceptions. Nothing is written to the accounting platform until it reconciles.</div>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(255,217,61,0.18);border:1px solid #FFD93D;border-radius:12px;font-size:13px"><i class="fa-solid fa-robot" style="color:#B8860B"></i>Auto-chase runs at 5 pm for issued claims older than 14 days. Every claim separates transport support, non-labour travel, and any support-worker time, each with its NDIS support item and trip evidence. Gap fees and surcharges are blocked and amounts are held to NDIS price limits. Drivers never see or enter fares.</div>
 </sc-if>
 
 <sc-if value="{{ isIncidents }}" hint-placeholder-val="{{ false }}">
@@ -673,11 +700,11 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;startSection&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;liveops&quot;,&quot;options&quot;:[&quot;liveops&quot;,&quot;dispatch&quot;,&quot;tripsearch&quot;,&quot;riders&quot;,&quot;drivers&quot;,&quot;onboarding&quot;,&quot;compliance&quot;,&quot;incidents&quot;,&quot;privacy&quot;,&quot;claims&quot;,&quot;pricing&quot;,&quot;providers&quot;,&quot;fleet&quot;,&quot;vehicles&quot;,&quot;equipment&quot;,&quot;credentials&quot;,&quot;outcomes&quot;,&quot;config&quot;,&quot;rbac&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;startSection&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;liveops&quot;,&quot;options&quot;:[&quot;liveops&quot;,&quot;dispatch&quot;,&quot;tripsearch&quot;,&quot;riders&quot;,&quot;drivers&quot;,&quot;onboarding&quot;,&quot;compliance&quot;,&quot;incidents&quot;,&quot;complaints&quot;,&quot;privacy&quot;,&quot;claims&quot;,&quot;pricing&quot;,&quot;providers&quot;,&quot;fleet&quot;,&quot;vehicles&quot;,&quot;equipment&quot;,&quot;credentials&quot;,&quot;outcomes&quot;,&quot;config&quot;,&quot;rbac&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
   state = { section: null, assigned: {}, suspended: { s1: true }, approved: {}, activated: {}, opsF: 'all', flag: 'open', tick: 0,
     drawer: null, palOpen: false, palQ: '', palSel: 0,
-    incAdded: [], incStage: {}, incReport: {}, wiz: null, cmpStage: {},
+    incAdded: [], incStage: {}, incReport: {}, wiz: null, cmpStage: {}, clStage: {}, clF: 'all', clChased: {},
     panel: (() => { try { return window.localStorage.getItem('mwPanel') !== 'closed'; } catch (e) { return true; } })() };
   componentDidMount() {
     this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1 })), 1000);
@@ -884,18 +911,47 @@ class Component extends DCLogic {
     ];
 
     // --- claims monitor ---
-    const claimStats = [
-      { label: 'DRAFT', accent: '#ADA8A2', count: '14', amt: '$612.40' },
-      { label: 'SUBMITTED', accent: '#B8860B', count: '38', amt: '$1,904.10' },
-      { label: 'WITH PLAN MANAGER', accent: '#6C5CE7', count: '11', amt: '$3,912.00' },
-      { label: 'PAID (JULY)', accent: '#1F7A33', count: '482', amt: '$41,206.55' },
+    // --- finance pipeline: claim vs invoice vs reconciliation ---
+    const finStageDefs = ['Trip validated', 'Lines generated', 'Issued', 'Remittance', 'Reconciled'];
+    const pathwayDefs = { plan: { payerType: 'Plan manager', pathway: 'Invoice to plan manager', issued: 'Invoice issued' }, agency: { payerType: 'NDIA', pathway: 'Claim via PRODA (myplace)', issued: 'Claim submitted · PRODA' }, self: { payerType: 'Participant', pathway: 'Invoice to participant', issued: 'Invoice issued' } };
+    const finBase = [
+      { id: 'CL-3412', who: 'Theo Rossi', trip: 'Day program · Regency Park · 15/07', tripId: 'TR-88190', payer: 'My Plan Manager', pw: 'plan', lines: [ { item: '04_590_0129_6_1', label: 'Specialised transport · WAV', amt: 41.80 }, { item: '01_799_0117_8_1', label: 'Non-labour travel · parking', amt: 2.40 } ], km: 8.6, stage: 2, issuedOn: '15/07', ageDays: 18, exception: null, timeline: ['15/07 5:02 pm · trip validated (2FA pickup, drop-off confirmed)', '15/07 5:02 pm · lines generated from trip evidence', '15/07 5:10 pm · invoice INV-7741 issued to My Plan Manager', '29/07 · auto-chase sent (14 days)', '02/08 · auto-chase sent (18 days)'] },
+      { id: 'CL-3409', who: 'Priya Bakshi', trip: 'Day program · Mile End · 14/07', tripId: 'TR-88171', payer: 'Leap in!', pw: 'plan', lines: [ { item: '04_590_0125_6_1', label: 'Activity based transport · 9.1 km', amt: 38.40 }, { item: '01_799_0117_8_1', label: 'Non-labour travel · parking', amt: 2.80 } ], km: 9.1, stage: 2, issuedOn: '14/07', ageDays: 15, exception: null, timeline: ['14/07 · trip validated', '14/07 · lines generated', '14/07 · invoice INV-7728 issued to Leap in!', '28/07 · auto-chase sent'] },
+      { id: 'CL-3398', who: 'Iris Kaur', trip: 'Hydrotherapy · Salisbury · 11/07', tripId: 'TR-88140', payer: 'Leap in!', pw: 'plan', lines: [ { item: '04_590_0125_6_1', label: 'Activity based transport · 14.2 km', amt: 45.50 }, { item: '01_799_0117_8_1', label: 'Non-labour travel · parking', amt: 2.40 } ], km: 14.2, stage: 2, issuedOn: '11/07', ageDays: 2, exception: { type: 'Rejected · wrong support item', detail: 'Plan manager rejected: a WAV hoist trip must be claimed under Specialised transport 04_590_0129_6_1, not Activity based transport. Regenerate lines with the vehicle actually dispatched (WAV-04) and resubmit.', owner: 'Fiona Reid', sla: 'Resubmit by 18/07', icon: 'fa-circle-xmark', fg: R }, timeline: ['11/07 · trip validated', '11/07 · lines generated', '11/07 · invoice INV-7702 issued', '14/07 · rejected by Leap in! (support item)'] },
+      { id: 'CL-3421', who: 'Maya Patel', trip: 'Physio · North Adelaide · 16/07', tripId: 'TR-88214', payer: 'Leap in!', pw: 'plan', lines: [ { item: '04_590_0125_6_1', label: 'Activity based transport · 12.4 km', amt: 35.30 }, { item: '01_799_0117_8_1', label: 'Non-labour travel · parking', amt: 3.20 } ], km: 12.4, stage: 2, issuedOn: '16/07', ageDays: 1, exception: null, timeline: ['16/07 2:43 pm · trip validated', '16/07 2:43 pm · lines generated', '16/07 3:00 pm · invoice INV-7756 issued to Leap in!'] },
+      { id: 'CL-3405', who: 'Aisha Bello', trip: 'Elizabeth shops · 13/07', tripId: 'TR-88160', payer: 'NDIA · PRODA', pw: 'agency', lines: [ { item: '04_590_0125_6_1', label: 'Activity based transport · 7.4 km', amt: 33.70 }, { item: '01_799_0117_8_1', label: 'Non-labour travel · parking', amt: 2.40 } ], km: 7.4, stage: 2, issuedOn: '13/07', ageDays: 4, exception: null, timeline: ['13/07 · trip validated', '13/07 · lines generated', '13/07 · bulk claim submitted via PRODA (batch B-2207)', '16/07 · PRODA status: processing'] },
+      { id: 'CL-3401', who: 'Priya Bakshi', trip: 'Day program · Mile End · 12/07', tripId: 'TR-88150', payer: 'Leap in!', pw: 'plan', lines: [ { item: '04_590_0125_6_1', label: 'Activity based transport · 9.1 km', amt: 38.40 }, { item: '01_799_0117_8_1', label: 'Non-labour travel · parking', amt: 2.80 } ], km: 9.1, stage: 3, issuedOn: '12/07', ageDays: 3, exception: { type: 'Remittance short · parking disputed', detail: 'Leap in! remittance R-2291 paid $38.40 against $41.20. The $2.80 parking line was not approved because the service agreement pass-through for parking was ticked after the trip date. Options: issue a credit note for $2.80 and reconcile, or dispute with the agreement version history.', owner: 'Fiona Reid', sla: 'Resolve by 20/07', icon: 'fa-scale-unbalanced', fg: YFG }, timeline: ['12/07 · trip validated', '12/07 · lines generated', '12/07 · invoice INV-7710 issued', '15/07 · remittance R-2291 received · short $2.80'] },
+      { id: 'CL-3377', who: 'Jordan Teague', trip: 'CBD · Rundle Mall · 09/07', tripId: 'TR-88165', payer: 'Jordan Teague', pw: 'self', lines: [ { item: '04_590_0125_6_1', label: 'Activity based transport · 11.8 km', amt: 31.80 } ], km: 11.8, stage: 4, issuedOn: '09/07', ageDays: 0, exception: null, timeline: ['09/07 · trip validated', '09/07 · lines generated', '09/07 · invoice INV-7688 issued to Jordan (self-managed)', '11/07 · paid by bank transfer', '11/07 · reconciled · posted to Xero'] },
+      { id: 'CL-3390', who: 'Theo Rossi', trip: 'Speech therapy · Prospect · 10/07', tripId: 'TR-88131', payer: 'My Plan Manager', pw: 'plan', lines: [ { item: '04_590_0129_6_1', label: 'Specialised transport · WAV', amt: 33.40 } ], km: 6.2, stage: 4, issuedOn: '10/07', ageDays: 0, exception: null, timeline: ['10/07 · trip validated', '10/07 · lines generated', '10/07 · invoice INV-7695 issued', '12/07 · remittance R-1180 matched', '12/07 · reconciled · posted to Xero'] },
+      { id: 'CL-3424', who: 'Kai Nguyen', trip: 'Rundle Mall · today', tripId: 'TR-88251', payer: 'Leap in!', pw: 'plan', lines: [ { item: '04_590_0125_6_1', label: 'Activity based transport · 4.8 km', amt: 28.70 } ], km: 4.8, stage: 1, issuedOn: '', ageDays: 0, exception: null, timeline: ['Today 3:12 pm · trip validated', 'Today 3:12 pm · lines generated · awaiting the 5 pm issue run'] },
     ];
-    const claims = [
-      { who: 'Theo Rossi', trip: 'Day program · 15/07', pm: 'My Plan Manager', age: '18 days', ageFg: YFG, ageFw: 700, state: 'Chase', stBg: Y, stFg: YFG },
-      { who: 'Priya Bakshi', trip: 'Day program · 14/07', pm: 'Leap in!', age: '15 days', ageFg: YFG, ageFw: 700, state: 'Chase', stBg: Y, stFg: YFG },
-      { who: 'Iris Kaur', trip: 'Hydrotherapy · 11/07', pm: 'Leap in!', age: '2 days', ageFg: '#4A4540', ageFw: 400, state: 'Rejected', stBg: RBG, stFg: R },
-      { who: 'Maya Patel', trip: 'Physio · 16/07', pm: 'Leap in!', age: '1 day', ageFg: '#4A4540', ageFw: 400, state: 'Submitted', stBg: SOFT, stFg: PD },
-      { who: 'Jordan Teague', trip: 'CBD · 09/07', pm: 'Self-managed', age: 'Paid', ageFg: G, ageFw: 700, state: 'Paid', stBg: GBG, stFg: G },
+    const money2 = n => '$' + n.toFixed(2);
+    const finAll = finBase.map(c => { const stage = S.clStage[c.id] !== undefined ? S.clStage[c.id] : c.stage; const pwd = pathwayDefs[c.pw]; const total = c.lines.reduce((n, l) => n + l.amt, 0); const exc = S.clStage[c.id] !== undefined ? null : c.exception;
+      const stageLabel = stage === 2 ? pwd.issued : finStageDefs[stage]; const overdue = stage === 2 && c.ageDays >= 14;
+      return { ...c, stageIdx: stage, stageLabel, exception: exc, total: money2(total), totalNum: total, pathway: pwd.pathway, chased: !!S.clChased[c.id],
+        stBg: exc ? RBG : (stage === 4 ? GBG : (stage === 3 ? SOFT : (overdue ? Y : '#F7F6F4'))), stFg: exc ? R : (stage === 4 ? G : (stage === 3 ? PD : (overdue ? YFG : '#4A4540'))),
+        age: stage === 4 ? 'Paid' : (stage === 1 ? 'Not issued' : (c.ageDays + ' days')), ageFg: overdue ? YFG : (stage === 4 ? G : '#4A4540'), ageFw: overdue || stage === 4 ? 700 : 400,
+        rowBg: drawerIs('claim', c.id) ? SOFT : 'transparent', onOpen: openDrawer('claim', c.id) }; });
+    const finF = S.clF;
+    const finRows = finAll.filter(c => finF === 'all' || c.pw === finF);
+    const finFilters = [ { k: 'all', label: 'All · ' + finAll.length }, { k: 'plan', label: 'Plan-managed · ' + finAll.filter(c => c.pw === 'plan').length }, { k: 'agency', label: 'NDIA · PRODA · ' + finAll.filter(c => c.pw === 'agency').length }, { k: 'self', label: 'Self-managed · ' + finAll.filter(c => c.pw === 'self').length } ]
+      .map(f => ({ ...f, bg: finF === f.k ? '#2D3748' : '#fff', fg: finF === f.k ? '#fff' : '#4A4540', border: finF === f.k ? '#2D3748' : '#E8E5E1', onPick: () => this.setState({ clF: f.k }) }));
+    const finStages = finStageDefs.map((label, n) => { const here = finAll.filter(c => c.stageIdx === n); const amt = here.reduce((x, c) => x + c.totalNum, 0);
+      return { label: label.toUpperCase(), count: String(here.length), color: n === 2 && here.some(c => c.ageDays >= 14) ? YFG : '#2D3748', sub: n === 4 ? money2(amt) + ' this week' : money2(amt), border: n === 0 ? '0' : '1px solid #F0EEEA' }; });
+    const outstanding = finAll.filter(c => c.stageIdx === 2 || c.stageIdx === 3).reduce((x, c) => x + c.totalNum, 0);
+    const finOutstanding = 'Outstanding ' + money2(outstanding) + ' · ' + finAll.filter(c => c.stageIdx === 2 && c.ageDays >= 14).length + ' overdue past 14 days';
+    const finExceptions = [
+      ...finAll.filter(c => c.exception).map(c => ({ type: c.exception.type, record: c.id + ' · ' + c.who + ' · ' + c.total, owner: c.exception.owner, sla: c.exception.sla, icon: c.exception.icon, fg: c.exception.fg, slaFg: YFG, slaFw: 700, rowBg: drawerIs('claim', c.id) ? SOFT : 'transparent', onOpen: openDrawer('claim', c.id) })),
+      { type: 'Service agreement renewal due', record: 'Iris Kaur · agreement expires 28/08 · transport paused at expiry', owner: 'Leo Marsh', sla: 'Renew by 21/08', icon: 'fa-file-signature', fg: YFG, slaFg: '#4A4540', slaFw: 400, rowBg: drawerIs('rider', '43 210 665 · Salisbury') ? SOFT : 'transparent', onOpen: openDrawer('rider', '43 210 665 · Salisbury') },
+      { type: 'Participant over budget', record: 'Iris Kaur · $250 remaining · bookings blocked until plan review', owner: 'Leo Marsh', sla: 'Plan review requested', icon: 'fa-gauge-high', fg: R, slaFg: '#4A4540', slaFw: 400, rowBg: 'transparent', onOpen: openDrawer('rider', '43 210 665 · Salisbury') },
+      { type: 'Duplicate trip check', record: 'TR-88171 and TR-88172 · same participant, 4 min apart · auto-held', owner: 'Fiona Reid', sla: 'Review by 17/07', icon: 'fa-clone', fg: YFG, slaFg: YFG, slaFw: 700, rowBg: 'transparent', onOpen: openDrawer('trip', 'TR-88231') },
+    ];
+    const exOpen = finExceptions.length;
+    const remittances = [
+      { payer: 'Leap in!', amt: '$3,912.00', sub: 'R-2291 · 15/07 · 12 lines · 11 matched, 1 short', status: '1 exception', stBg: Y, stFg: YFG, icon: 'fa-file-invoice', fg: YFG },
+      { payer: 'My Plan Manager', amt: '$864.10', sub: 'R-1180 · 12/07 · 4 lines · all matched', status: 'Reconciled', stBg: GBG, stFg: G, icon: 'fa-file-invoice', fg: G },
+      { payer: 'NDIA · PRODA', amt: '$1,204.60', sub: 'Batch B-2207 · 13/07 · 31 claims · processing', status: 'Pending', stBg: '#F7F6F4', stFg: '#4A4540', icon: 'fa-hourglass-half', fg: '#4A4540' },
+      { payer: 'Bank feed', amt: '$31.80', sub: 'Jordan Teague · 11/07 · matched to INV-7688', status: 'Reconciled', stBg: GBG, stFg: G, icon: 'fa-building-columns', fg: G },
     ];
 
     // --- incident management ---
@@ -1147,6 +1203,22 @@ class Component extends DCLogic {
       else if (DR.t === 'vehicle') { const r = vehicles.find(x => x.id === DR.k); if (r) dw = { icon: 'fa-van-shuttle', title: r.id, sub: r.rego, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: r.config, fields: [F('Capacity', r.cap), F('Next service', r.service)], note: 'Registration, insurance and inspection are tracked per vehicle. Equipment carried is listed under Equipment.', action: null }; }
       else if (DR.t === 'trip') { const r = tsRows.find(x => x.id === DR.k); if (r) { const linked = incAll.filter(i => i.trip === r.id); dw = { icon: 'fa-route', title: r.id, sub: r.when, status: { label: r.stLabel, bg: r.stBg, fg: r.stFg }, chips: [], fields: [F('Participant', r.who), F('Driver', r.driver), F('Route', r.route)], note: 'Every trip links to its participant, driver, vehicle, support items and claim status.', action: { label: 'Record incident from this trip', bg: R, go: wizOpenFor(r.id) },
         sections: linked.length ? [ { title: 'LINKED INCIDENTS', items: linked.map(i => ({ icon: 'fa-file-circle-exclamation', fg: R, text: i.id + ' · ' + i.title, meta: i.sev + ' · ' + i.stage })) } ] : [] }; } }
+      else if (DR.t === 'claim') { const c = finAll.find(x => x.id === DR.k); if (c) { const pwd = pathwayDefs[c.pw];
+        let action = null;
+        if (c.exception && c.exception.type.startsWith('Rejected')) action = { label: 'Regenerate lines and resubmit', bg: PURP, go: () => this.setState(s => ({ clStage: { ...s.clStage, [c.id]: 2 } })) };
+        else if (c.exception) action = { label: 'Issue credit note $2.80 and reconcile', bg: PURP, go: () => this.setState(s => ({ clStage: { ...s.clStage, [c.id]: 4 } })) };
+        else if (c.stageIdx === 1) action = { label: pwd.issued.replace('issued', 'now').replace('submitted', 'now'), bg: PURP, go: () => this.setState(s => ({ clStage: { ...s.clStage, [c.id]: 2 } })) };
+        else if (c.stageIdx === 2 && c.ageDays >= 14 && !c.chased) action = { label: 'Chase ' + c.payer + ' now', bg: PURP, go: () => this.setState(s => ({ clChased: { ...s.clChased, [c.id]: true } })) };
+        else if (c.stageIdx === 2) action = { label: 'Demo: remittance received', bg: '#2D3748', go: () => this.setState(s => ({ clStage: { ...s.clStage, [c.id]: 3 } })) };
+        else if (c.stageIdx === 3) action = { label: 'Reconcile and post to Xero', bg: PURP, go: () => this.setState(s => ({ clStage: { ...s.clStage, [c.id]: 4 } })) };
+        dw = { icon: 'fa-file-invoice-dollar', title: c.id, sub: c.who + ' · ' + c.trip, status: { label: c.exception ? c.exception.type : c.stageLabel, bg: c.stBg, fg: c.stFg }, chips: [pwd.payerType + ' · ' + c.payer, c.pathway, c.chased ? 'Chased today' : (c.stageIdx === 2 ? c.ageDays + ' days outstanding' : finStageDefs[c.stageIdx])],
+          fields: [F('Total', c.total), F('Trip', c.tripId), F('Distance', c.km.toFixed(1) + ' km · MMM 1'), F('Issued', c.issuedOn || 'Not yet'), F('Payer', c.payer)], note: c.exception ? c.exception.detail : 'Lines are generated from trip evidence, held to NDIS price limits, and issued through the pathway on the participant’s funding profile. Nothing posts to accounting until the remittance reconciles.',
+          sections: [
+            { title: 'LINES · ONE PER SUPPORT ITEM', items: c.lines.map(l => ({ icon: 'fa-list', fg: PD, text: l.label + ' · ' + money2(l.amt), meta: l.item })) },
+            { title: 'TRIP EVIDENCE', items: [ { icon: 'fa-satellite', fg: G, text: 'Telemetry ' + c.tripId + ' · ' + c.km.toFixed(1) + ' km · Adelaide metro (MMM 1)', meta: false }, { icon: 'fa-lock', fg: G, text: 'Pickup verified · 2FA code · drop-off confirmed', meta: false }, { icon: 'fa-file-signature', fg: G, text: 'Service agreement active on trip date · pass-through: parking', meta: false } ] },
+            { title: 'PIPELINE', items: finStageDefs.map((st, n) => ({ icon: n < c.stageIdx ? 'fa-circle-check' : (n === c.stageIdx ? 'fa-circle-dot' : 'fa-circle'), fg: n < c.stageIdx ? G : (n === c.stageIdx ? PD : '#CFCAC4'), text: n === 2 ? pwd.issued : st, meta: false })) },
+            { title: 'TIMELINE', items: c.timeline.concat(c.chased ? ['Today · chased by Priya Narayan'] : []).map(t => ({ icon: 'fa-clock', fg: '#4A4540', text: t, meta: false })) },
+          ], action }; } }
       else if (DR.t === 'complaint') { const c = cmpAll.find(x => x.id === DR.k); if (c) { const next = c.stageIdx < 4 ? cmpStages[c.stageIdx + 1] : null;
         dw = { icon: 'fa-comment-dots', title: c.id, sub: c.title, status: { label: c.stage, bg: c.stBg, fg: c.stFg }, chips: [c.kind, c.anon ? 'Anonymous' : 'Named', c.advocate !== 'None' ? 'Advocate named' : 'No advocate'],
           fields: [F('From', c.from), F('Channel', c.channel), F('About', c.about), F('Received', c.received), F('Advocate or support', c.advocate), F('Linked incident', c.incident || 'None')], note: c.desc,
@@ -1185,6 +1257,7 @@ class Component extends DCLogic {
     queue.forEach(q0 => recItem(q0.name, 'fa-user-plus', 'Applicant', 'onboarding', 'applicant', q0.k));
     incAll.forEach(i0 => recItem(i0.id + ' · ' + i0.title, 'fa-file-circle-exclamation', 'Incident', 'incidents', 'incident', i0.id));
     cmpAll.forEach(c0 => recItem(c0.id + ' · ' + c0.title, 'fa-comment-dots', 'Complaint', 'complaints', 'complaint', c0.id));
+    finAll.forEach(c0 => recItem(c0.id + ' · ' + c0.who + ' · ' + c0.total, 'fa-file-invoice-dollar', 'Claim', 'claims', 'claim', c0.id));
     const palQ = S.palQ.trim().toLowerCase();
     const fuzzy = (s) => { let i = 0; s = s.toLowerCase(); for (const ch of palQ) { i = s.indexOf(ch, i); if (i < 0) return false; i++; } return true; };
     const palMatches = palQ ? palAll.filter(i => (i.name + ' ' + i.area).toLowerCase().includes(palQ) || fuzzy(i.name)) : palAll.slice(0, 7);
@@ -1227,7 +1300,8 @@ class Component extends DCLogic {
       riderFilters, riders, intake,
       driverFilters, drivers,
       queue, reviewCount,
-      fleet, claimStats, claims, compliance, audits,
+      fleet, compliance, audits,
+      finStages, finFilters, finRows, finOutstanding, finExceptions, exOpenLabel: exOpen + ' open', exOpenBg: exOpen ? Y : GBG, exOpenFg: exOpen ? YFG : G, remittances,
       incidents, incKpis, incNew: wizOpenFor(null), cmpRows, cmpKpis,
       dSections: dw && dw.sections ? dw.sections : [],
       wizOpen: !!W, wizStep: W ? W.step : 1, wizStepLabel: W ? wizStepLabels[W.step - 1] : '', wizBars: [1, 2, 3, 4].map(n => ({ bg: W && n <= W.step ? PURP : '#E8E5E1' })),

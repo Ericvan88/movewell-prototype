@@ -132,12 +132,20 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <sc-for list="{{ cwClaimCols }}" as="col" hint-placeholder-count="4">
 <div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
 <div style="display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:2px solid {{ col.accent }}"><span style="font-size:12px;font-weight:700;letter-spacing:0.08em">{{ col.label }}</span><span style="margin-left:auto;min-width:22px;text-align:center;padding:2px 7px;border-radius:9999px;background:#F7F6F4;font-size:11px;font-weight:700">{{ col.count }}</span></div>
-<div style="padding:10px 14px;border-bottom:1px solid #F7F6F4"><div style="font-size:13px;font-weight:700">{{ col.aWho }}</div><div style="font-size:12px;color:#4A4540">{{ col.aWhat }}</div><div style="font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px">{{ col.aAmt }}</div></div>
-<div style="padding:10px 14px;border-bottom:1px solid #F7F6F4"><div style="font-size:13px;font-weight:700">{{ col.bWho }}</div><div style="font-size:12px;color:#4A4540">{{ col.bWhat }}</div><div style="font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px">{{ col.bAmt }}</div></div>
+<div onClick="{{ col.aOpen }}" style="padding:10px 14px;border-bottom:1px solid #F7F6F4;cursor:pointer" style-hover="background:#FFF5F5"><div style="font-size:13px;font-weight:700">{{ col.aWho }}</div><div style="font-size:12px;color:#4A4540">{{ col.aWhat }}</div><div style="font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px">{{ col.aAmt }}</div></div>
+<div onClick="{{ col.bOpen }}" style="padding:10px 14px;border-bottom:1px solid #F7F6F4;cursor:pointer" style-hover="background:#FFF5F5"><div style="font-size:13px;font-weight:700">{{ col.bWho }}</div><div style="font-size:12px;color:#4A4540">{{ col.bWhat }}</div><div style="font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px">{{ col.bAmt }}</div></div>
 </div>
 </sc-for>
 </div>
-<div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 16px;background:rgba(255,217,61,0.18);border:1px solid #FFD93D;border-radius:12px;font-size:13px"><i class="fa-solid fa-triangle-exclamation" style="color:#B8860B"></i>3 claims have been with plan managers for more than 14 days · chase from the invoice export screen.</div>
+<div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 16px;background:rgba(255,217,61,0.18);border:1px solid #FFD93D;border-radius:12px;font-size:13px"><i class="fa-solid fa-triangle-exclamation" style="color:#B8860B"></i>3 claims have been with plan managers for more than 14 days · chase from the invoice export screen. Tap any card to see its lines.</div>
+<sc-if value="{{ invOpen }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid #E8E5E1"><span style="width:36px;height:36px;border-radius:10px;background:#FFF5F5;color:#E85555;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-invoice"></i></span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ inv.title }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ inv.sub }}</span></span><span style="padding:4px 11px;border-radius:9999px;background:{{ inv.stBg }};color:{{ inv.stFg }};font-size:11px;font-weight:700">{{ inv.status }}</span><button onClick="{{ invClose }}" style="width:30px;height:30px;border:1px solid #E8E5E1;background:#fff;border-radius:9999px;color:#4A4540;font-family:inherit;font-size:12px;cursor:pointer"><i class="fa-solid fa-xmark"></i></button></div>
+<div style="display:grid;grid-template-columns:1.6fr 2fr 1.6fr 1fr 1.1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>PARTICIPANT</span><span>LINE</span><span>SUPPORT ITEM</span><span>AMOUNT</span><span>STATE</span></div>
+<sc-for list="{{ inv.lines }}" as="l" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:1.6fr 2fr 1.6fr 1fr 1.1fr;gap:0 12px;align-items:center;padding:9px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ l.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.label }}</span><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ l.item }}</span><span style="font-variant-numeric:tabular-nums">{{ l.amt }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ l.stBg }};color:{{ l.stFg }};font-size:11px;font-weight:700">{{ l.state }}</span></span></div></sc-for>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid #E8E5E1;font-size:13px"><span style="flex:1;color:#4A4540">{{ inv.note }}</span><strong style="font-variant-numeric:tabular-nums">Total {{ inv.total }}</strong></div>
+</div>
+</sc-if>
 </sc-if>
 
 <sc-if value="{{ isCwInvoices }}" hint-placeholder-val="{{ false }}">
@@ -153,17 +161,36 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <div style="display:flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;border:1px solid #E8E5E1;border-radius:10px"><i class="fa-solid fa-circle-check" style="color:#1F7A33"></i><span style="flex:1;font-size:13.5px">My Plan Manager · 3 participants · 11 line items</span><strong style="font-variant-numeric:tabular-nums">$864.10</strong></div>
 </div>
 <div style="display:flex;gap:10px">
-<button style="flex:1;height:48px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-file-csv" style="margin-right:8px"></i>Export CSV</button>
-<button style="flex:1;height:48px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-file-pdf" style="margin-right:8px"></i>Export PDF invoices</button>
+<button onClick="{{ exportCsv }}" style="flex:1;height:48px;border:0;border-radius:12px;background:#FF6B6B;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#E85555"><i class="fa-solid fa-file-csv" style="margin-right:8px"></i>Export CSV</button>
+<button onClick="{{ exportPdf }}" style="flex:1;height:48px;border:1px solid #FF6B6B;background:#fff;color:#E85555;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#FFF5F5"><i class="fa-solid fa-file-pdf" style="margin-right:8px"></i>Export PDF invoices</button>
 </div>
 <div style="font-size:12px;color:#4A4540">Each invoice separates transport support, non-labour travel (tolls and parking), and any support-worker time, with the NDIS support item and trip evidence on every line. No gap fees or surcharges. Amounts are held to NDIS price limits.</div>
 </div>
 <div style="flex:1;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
-<div style="padding:14px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">PAST EXPORTS</div>
-<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4;font-size:13px"><i class="fa-solid fa-file-arrow-down" style="color:#FF6B6B"></i><span style="flex:1">June 2026 · Leap in!</span><span style="color:#4A4540;font-size:12px">02/07</span></div>
-<div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4;font-size:13px"><i class="fa-solid fa-file-arrow-down" style="color:#FF6B6B"></i><span style="flex:1">June 2026 · My Plan Manager</span><span style="color:#4A4540;font-size:12px">02/07</span></div>
+<div style="padding:14px 18px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:#4A4540">PAST EXPORTS · TAP TO OPEN</div>
+<sc-for list="{{ pastExports }}" as="x" hint-placeholder-count="3">
+<div onClick="{{ x.onOpen }}" style="display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 18px;border-top:1px solid #F7F6F4;font-size:13px;background:{{ x.bg }};cursor:pointer" style-hover="background:#FFF5F5"><i class="fa-solid fa-file-arrow-down" style="color:#FF6B6B"></i><span style="flex:1">{{ x.label }}</span><span style="color:#4A4540;font-size:12px">{{ x.when }}</span></div>
+</sc-for>
+<sc-if value="{{ exportToast }}" hint-placeholder-val="{{ false }}">
+<div style="margin:10px 18px 14px;padding:10px 12px;background:rgba(45,167,72,0.1);border:1px solid rgba(45,167,72,0.3);border-radius:10px;font-size:12.5px;color:#1F7A33"><i class="fa-solid fa-circle-check" style="margin-right:7px"></i>{{ exportToast }}</div>
+</sc-if>
 </div>
 </div>
+<sc-if value="{{ invOpen }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:16px;background:#fff;border:1px solid #E8E5E1;border-radius:12px;overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid #E8E5E1">
+<span style="width:36px;height:36px;border-radius:10px;background:#FFF5F5;color:#E85555;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-file-invoice"></i></span>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:700">{{ inv.title }}</span><span style="display:block;font-size:12.5px;color:#4A4540">{{ inv.sub }}</span></span>
+<span style="padding:4px 11px;border-radius:9999px;background:{{ inv.stBg }};color:{{ inv.stFg }};font-size:11px;font-weight:700">{{ inv.status }}</span>
+<button onClick="{{ invClose }}" style="width:30px;height:30px;border:1px solid #E8E5E1;background:#fff;border-radius:9999px;color:#4A4540;font-family:inherit;font-size:12px;cursor:pointer"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div style="display:grid;grid-template-columns:1.6fr 2fr 1.6fr 1fr 1.1fr;gap:0 12px;padding:9px 18px;background:#F7F6F4;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#4A4540"><span>PARTICIPANT</span><span>LINE</span><span>SUPPORT ITEM</span><span>AMOUNT</span><span>STATE</span></div>
+<sc-for list="{{ inv.lines }}" as="l" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:1.6fr 2fr 1.6fr 1fr 1.1fr;gap:0 12px;align-items:center;padding:9px 18px;border-top:1px solid #F7F6F4;font-size:13px"><span style="font-weight:700">{{ l.who }}</span><span style="font-size:12.5px;color:#4A4540">{{ l.label }}</span><span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#4A4540">{{ l.item }}</span><span style="font-variant-numeric:tabular-nums">{{ l.amt }}</span><span><span style="padding:3px 9px;border-radius:9999px;background:{{ l.stBg }};color:{{ l.stFg }};font-size:11px;font-weight:700">{{ l.state }}</span></span></div>
+</sc-for>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid #E8E5E1;font-size:13px"><span style="flex:1;color:#4A4540">{{ inv.note }}</span><strong style="font-variant-numeric:tabular-nums">Total {{ inv.total }}</strong></div>
+</div>
+</sc-if>
 </sc-if>
 
 <sc-if value="{{ isCwCompliance }}" hint-placeholder-val="{{ false }}">
@@ -372,7 +399,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
     bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess',
-    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, agrPass: { tolls: true, parking: true, contrib: false }, agrSign: 'esign', addDone: false, referred: {}, cwSel: 'maya' };
+    addStep: 1, newPlan: 'plan', newSup: false, newProv: 'ngo', newRefer: true, newA11y: { Ambulatory: true }, newConsent: { book: true, trips: true, claims: true, track: false }, agrPass: { tolls: true, parking: true, contrib: false }, agrSign: 'esign', addDone: false, referred: {}, cwSel: 'maya', inv: null, exported: [], exportToast: '' };
   renderVals() {
     const S = this.state, P = this.props;
     const screen = S.screen ?? (P.startScreen ?? 'home');
@@ -519,12 +546,33 @@ class Component extends DCLogic {
       { init: 'JT', avBg: '#1F7A33', k: 'jordan', name: 'Jordan Teague', plan: 'Self-managed', providers: 'AccessGo', pct: '38%', barColor: '#FF6B6B', burn: '$980 of $2,580', claims: 'All clear', clBg: 'rgba(45,167,72,0.14)', clFg: '#1F7A33', clIcon: 'fa-circle-check', next: 'Fri 19/07 · 11:00 am' },
       { init: 'PB', avBg: '#8B7EEE', k: 'priya', name: 'Priya Bakshi', plan: 'Leap in!', providers: 'MoveWell', pct: '47%', barColor: '#FF6B6B', burn: '$1,210 of $2,580', claims: '4 pending', clBg: 'rgba(255,217,61,0.25)', clFg: '#8A6800', clIcon: 'fa-hourglass-half', next: 'Mon 21/07 · 9:00 am' },
     ].map(r => ({ ...r, onPick: () => this.setState({ cw: 'participant', cwSel: r.k }) }));
+    const G2 = '#1F7A33', GBG2 = 'rgba(45,167,72,0.14)', Y2 = 'rgba(255,217,61,0.25)', YFG2 = '#8A6800', R2 = '#C43F3F', RBG2 = 'rgba(232,85,85,0.12)';
+    const L = (who, label, item, amt, state) => ({ who, label, item, amt, state, stBg: state === 'Paid' ? GBG2 : (state === 'Rejected' ? RBG2 : (state === 'Draft' ? '#F7F6F4' : Y2)), stFg: state === 'Paid' ? G2 : (state === 'Rejected' ? R2 : (state === 'Draft' ? '#4A4540' : YFG2)) });
+    const invDefs = {
+      'jun-leapin': { title: 'June 2026 · Leap in!', sub: 'Invoice bundle INV-B-0612 · 5 participants · 23 line items · exported 02/07', status: 'Paid · remittance R-2210', stBg: GBG2, stFg: G2, total: '$1,846.20', note: 'Every line carries its NDIS support item, the trip ID and kilometres. Remittance matched in full on 09/07.', lines: [ L('Maya Patel', 'Activity based transport · 12.4 km · 25/06', '04_590_0125_6_1', '$35.30', 'Paid'), L('Maya Patel', 'Non-labour travel · parking · 25/06', '01_799_0117_8_1', '$3.20', 'Paid'), L('Iris Kaur', 'Specialised transport · WAV · 27/06', '04_590_0129_6_1', '$49.80', 'Paid'), L('Priya Bakshi', 'Activity based transport · 9.1 km · 30/06', '04_590_0125_6_1', '$38.40', 'Paid') ] },
+      'jun-mpm': { title: 'June 2026 · My Plan Manager', sub: 'Invoice bundle INV-B-0613 · 3 participants · 11 line items · exported 02/07', status: 'Paid · remittance R-1102', stBg: GBG2, stFg: G2, total: '$612.40', note: 'Matched in full on 07/07. One line was queried (support item) and corrected before payment.', lines: [ L('Theo Rossi', 'Specialised transport · WAV · 24/06', '04_590_0129_6_1', '$41.80', 'Paid'), L('Theo Rossi', 'Non-labour travel · parking · 24/06', '01_799_0117_8_1', '$2.40', 'Paid'), L('Theo Rossi', 'Specialised transport · WAV · 26/06', '04_590_0129_6_1', '$41.80', 'Paid') ] },
+      'jul-leapin': { title: 'July 2026 · Leap in!', sub: 'Invoice bundle INV-B-0701 · 5 participants · 23 line items · exported just now', status: 'Sent · awaiting remittance', stBg: Y2, stFg: YFG2, total: '$1,912.40', note: 'Sent to Leap in! by API. Auto-chase starts at 14 days.', lines: [ L('Maya Patel', 'Activity based transport · 12.4 km · 16/07', '04_590_0125_6_1', '$35.30', 'Sent'), L('Maya Patel', 'Non-labour travel · parking · 16/07', '01_799_0117_8_1', '$3.20', 'Sent'), L('Priya Bakshi', 'Activity based transport · 9.1 km · 14/07', '04_590_0125_6_1', '$38.40', 'Sent'), L('Iris Kaur', 'Specialised transport · WAV · 11/07 · resubmitted', '04_590_0129_6_1', '$45.50', 'Sent') ] },
+      'jul-mpm': { title: 'July 2026 · My Plan Manager', sub: 'Invoice bundle INV-B-0702 · 3 participants · 11 line items · exported just now', status: 'Sent · awaiting remittance', stBg: Y2, stFg: YFG2, total: '$864.10', note: 'Sent to My Plan Manager by API.', lines: [ L('Theo Rossi', 'Specialised transport · WAV · 15/07', '04_590_0129_6_1', '$41.80', 'Sent'), L('Theo Rossi', 'Non-labour travel · parking · 15/07', '01_799_0117_8_1', '$2.40', 'Sent') ] },
+      'cl-iris': { title: 'Iris Kaur · Hydrotherapy · 11/07', sub: 'Claim CL-3398 · Leap in! · rejected 14/07, resubmit as draft', status: 'Draft · resubmit', stBg: '#F7F6F4', stFg: '#4A4540', total: '$47.90', note: 'Rejected because a WAV hoist trip was claimed under Activity based transport. MoveWell regenerates the lines under Specialised transport and resubmits.', lines: [ L('Iris Kaur', 'Specialised transport · WAV · 14.2 km', '04_590_0129_6_1', '$45.50', 'Draft'), L('Iris Kaur', 'Non-labour travel · parking', '01_799_0117_8_1', '$2.40', 'Draft') ] },
+      'cl-theo-draft': { title: 'Theo Rossi · Day program · 15/07', sub: 'Claim CL-3412 · My Plan Manager', status: 'With plan manager · 18 days', stBg: Y2, stFg: YFG2, total: '$44.20', note: 'Auto-chased twice. Chase again from Invoice export or wait for the remittance.', lines: [ L('Theo Rossi', 'Specialised transport · WAV · 8.6 km', '04_590_0129_6_1', '$41.80', 'Sent'), L('Theo Rossi', 'Non-labour travel · parking', '01_799_0117_8_1', '$2.40', 'Sent') ] },
+      'cl-maya-sub': { title: 'Maya Patel · Hydrotherapy · AccessGo', sub: 'Claim by AccessGo Transport · Leap in! · submitted 11/07', status: 'Submitted', stBg: Y2, stFg: YFG2, total: '$47.90', note: 'Another provider’s claim, visible under Maya’s consent to coordinate. MoveWell cannot edit it.', lines: [ L('Maya Patel', 'Activity based transport · 9.1 km', '04_590_0125_6_1', '$45.10', 'Sent'), L('Maya Patel', 'Non-labour travel · parking', '01_799_0117_8_1', '$2.80', 'Sent') ] },
+      'cl-priya-sub': { title: 'Priya Bakshi · Day program · 14/07', sub: 'Claim CL-3409 · Leap in!', status: 'Submitted · 15 days', stBg: Y2, stFg: YFG2, total: '$41.20', note: 'Auto-chase sent 28/07.', lines: [ L('Priya Bakshi', 'Activity based transport · 9.1 km', '04_590_0125_6_1', '$38.40', 'Sent'), L('Priya Bakshi', 'Non-labour travel · parking', '01_799_0117_8_1', '$2.80', 'Sent') ] },
+      'cl-theo-pm': { title: 'Theo Rossi · 2 trips · with plan manager', sub: 'Claims CL-3412, CL-3390 · My Plan Manager · 18 days', status: 'Chase', stBg: Y2, stFg: YFG2, total: '$88.40', note: 'Two invoices outstanding past 14 days. Auto-chase has run; a phone follow-up is suggested.', lines: [ L('Theo Rossi', 'Specialised transport · WAV · 15/07', '04_590_0129_6_1', '$44.20', 'Sent'), L('Theo Rossi', 'Specialised transport · WAV · 10/07', '04_590_0129_6_1', '$44.20', 'Sent') ] },
+      'cl-priya-pm': { title: 'Priya Bakshi · 3 trips · with plan manager', sub: 'Claims CL-3409, CL-3401, CL-3388 · Leap in! · 15 days', status: 'Chase', stBg: Y2, stFg: YFG2, total: '$123.60', note: 'One remittance came back short ($2.80 parking); MoveWell finance is resolving it.', lines: [ L('Priya Bakshi', 'Activity based transport · 14/07', '04_590_0125_6_1', '$41.20', 'Sent'), L('Priya Bakshi', 'Activity based transport · 12/07', '04_590_0125_6_1', '$41.20', 'Sent'), L('Priya Bakshi', 'Activity based transport · 09/07', '04_590_0125_6_1', '$41.20', 'Sent') ] },
+      'cl-maya-paid': { title: 'Maya Patel · Physio · 16/07', sub: 'Claim CL-3421 · Leap in! · paid', status: 'Paid', stBg: GBG2, stFg: G2, total: '$38.50', note: 'Remittance matched. Posted to the plan manager statement.', lines: [ L('Maya Patel', 'Activity based transport · 12.4 km', '04_590_0125_6_1', '$35.30', 'Paid'), L('Maya Patel', 'Non-labour travel · parking', '01_799_0117_8_1', '$3.20', 'Paid') ] },
+      'cl-jordan-paid': { title: 'Jordan Teague · CBD · 09/07', sub: 'Invoice INV-7688 · self-managed · paid by bank transfer', status: 'Paid', stBg: GBG2, stFg: G2, total: '$31.80', note: 'Self-managed: invoiced to Jordan directly. Paid 11/07.', lines: [ L('Jordan Teague', 'Activity based transport · 11.8 km', '04_590_0125_6_1', '$31.80', 'Paid') ] },
+    };
+    const openInv = k => () => this.setState({ inv: k });
+    const inv = invDefs[S.inv] || invDefs['jun-leapin'];
+    const pastExports = [ ...S.exported.map(k => ({ k, label: invDefs[k].title, when: 'Just now' })), { k: 'jun-leapin', label: 'June 2026 · Leap in!', when: '02/07' }, { k: 'jun-mpm', label: 'June 2026 · My Plan Manager', when: '02/07' } ]
+      .map(x => ({ ...x, bg: S.inv === x.k ? '#FFF5F5' : 'transparent', onOpen: openInv(x.k) }));
+    const doExport = kind => () => this.setState(s => ({ exported: s.exported.includes('jul-leapin') ? s.exported : ['jul-leapin', 'jul-mpm', ...s.exported], exportToast: kind === 'csv' ? 'CSV exported · 34 lines · sent to Leap in! and My Plan Manager by API' : 'PDF invoices generated · 2 bundles · emailed to plan managers', inv: 'jul-leapin' }));
     const cwClaimCols = [
-      { label: 'DRAFT', accent: '#ADA8A2', count: 2, aWho: 'Iris Kaur', aWhat: 'Hydrotherapy · resubmit', aAmt: '$47.90', bWho: 'Theo Rossi', bWhat: 'Day program · 15/07', bAmt: '$44.20' },
-      { label: 'SUBMITTED', accent: '#B8860B', count: 3, aWho: 'Maya Patel', aWhat: 'Hydrotherapy · AccessGo', aAmt: '$47.90', bWho: 'Priya Bakshi', bWhat: 'Day program · 14/07', bAmt: '$41.20' },
-      { label: 'WITH PLAN MANAGER', accent: '#6C5CE7', count: 3, aWho: 'Theo Rossi', aWhat: '18 days · chase', aAmt: '$88.40', bWho: 'Priya Bakshi', bWhat: '15 days · chase', bAmt: '$123.60' },
-      { label: 'PAID', accent: '#1F7A33', count: 41, aWho: 'Maya Patel', aWhat: 'Physio · 16/07', aAmt: '$38.50', bWho: 'Jordan Teague', bWhat: 'CBD · 09/07', bAmt: '$31.80' },
-    ];
+      { label: 'DRAFT', accent: '#ADA8A2', count: 2, aWho: 'Iris Kaur', aWhat: 'Hydrotherapy · resubmit', aAmt: '$47.90', bWho: 'Theo Rossi', bWhat: 'Day program · 15/07', bAmt: '$44.20', aK: 'cl-iris', bK: 'cl-theo-draft' },
+      { label: 'SUBMITTED', accent: '#B8860B', count: 3, aWho: 'Maya Patel', aWhat: 'Hydrotherapy · AccessGo', aAmt: '$47.90', bWho: 'Priya Bakshi', bWhat: 'Day program · 14/07', bAmt: '$41.20', aK: 'cl-maya-sub', bK: 'cl-priya-sub' },
+      { label: 'WITH PLAN MANAGER', accent: '#6C5CE7', count: 3, aWho: 'Theo Rossi', aWhat: '18 days · chase', aAmt: '$88.40', bWho: 'Priya Bakshi', bWhat: '15 days · chase', bAmt: '$123.60', aK: 'cl-theo-pm', bK: 'cl-priya-pm' },
+      { label: 'PAID', accent: '#1F7A33', count: 41, aWho: 'Maya Patel', aWhat: 'Physio · 16/07', aAmt: '$38.50', bWho: 'Jordan Teague', bWhat: 'CBD · 09/07', bAmt: '$31.80', aK: 'cl-maya-paid', bK: 'cl-jordan-paid' },
+    ].map(c => ({ ...c, aOpen: openInv(c.aK), bOpen: openInv(c.bK) }));
     const cwBars = [ { label: 'Feb', val: '91%', h: '68%', color: '#F0BDBD' }, { label: 'Mar', val: '93%', h: '74%', color: '#F0BDBD' }, { label: 'Apr', val: '92%', h: '71%', color: '#F0BDBD' }, { label: 'May', val: '95%', h: '82%', color: '#FF9B9B' }, { label: 'Jun', val: '97%', h: '90%', color: '#FF8080' }, { label: 'Jul', val: '98%', h: '95%', color: '#FF6B6B' } ];
     const ahGo = t => () => this.setState({ ah: t });
     const ahTabs = [
@@ -536,6 +584,7 @@ class Component extends DCLogic {
       goBkPeople: bkGo('people'), goBkMaya: bkGo('maya'), goBkAlerts: bkGo('alerts'), goBkRoles: bkGo('roles'),
       bkMayaAlerts, bkNoop: () => {},
       cwNav, cwRows, cwClaimCols, cwBars,
+      pastExports, inv, invOpen: !!S.inv, invClose: () => this.setState({ inv: null }), exportCsv: doExport('csv'), exportPdf: doExport('pdf'), exportToast: S.exportToast || false,
       isCwDash: S.cw === 'dash', isCwParticipant: S.cw === 'participant', isCwRecurring: S.cw === 'recurring',
       isCwClaims: S.cw === 'claims', isCwInvoices: S.cw === 'invoices', isCwCompliance: S.cw === 'compliance',
       isCwOutcomes: S.cw === 'outcomes', isCwTeam: S.cw === 'team', isCwIntegrations: S.cw === 'integrations',
