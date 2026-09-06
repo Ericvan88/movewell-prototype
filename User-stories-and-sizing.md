@@ -168,11 +168,11 @@ driver (Lena), Support coordinator (Leo), Allied health OT (Amy), Operations lea
 
 ## Build sizing
 
-Counting the stories above by size (S 17, M 40, L 19, XL 5) at S 0.6, M 1.5, L 4, XL 7 engineer-weeks gives roughly **240 engineer-weeks** for the full product, before contingency. Two sensible cuts:
+Counting the 80 stories above by size (S 16, M 40, L 20, XL 4) at S 0.6, M 1.5, L 4, XL 7 engineer-weeks gives roughly **178 engineer-weeks** for the full product, before contingency; with the usual 30 percent contingency for integrations and compliance rework, plan on **230 engineer-weeks**. Two sensible cuts:
 
-**MVP, a registered platform provider serving plan-managed and self-managed participants in one metro (Adelaide)**: Epics 1 to 6 and 8 to 10 minus PRODA, minus live ops map, minus recurring trips, minus tiers, minus accounting posting. About **130 engineer-weeks**: a team of four engineers for eight months, plus a designer and a product owner. Mandatory registration (audit, worker screening, incident and complaints systems) is inside this cut, not after it.
+**MVP, a registered platform provider serving plan-managed and self-managed participants in one metro (Adelaide)**: Epics 1 to 6 and 8 to 10 minus PRODA, minus live ops map, minus recurring trips, minus tiers, minus accounting posting. About **125 engineer-weeks with contingency**: a team of four engineers for eight months, plus a designer and a product owner. Mandatory registration (audit, worker screening, incident and complaints systems) is inside this cut, not after it.
 
-**Full product** adds agency-managed claiming via PRODA, live operations, recurring trips, employed-driver rostering, driver tiers, accounting and clinic integrations, outcomes exports and effective-dated versioning: the remaining **110 engineer-weeks**, about another eight months for the same team.
+**Full product** adds agency-managed claiming via PRODA, live operations, recurring trips, employed-driver rostering, driver tiers, accounting and clinic integrations, outcomes exports and effective-dated versioning: the remaining **105 engineer-weeks with contingency**, about another seven months for the same team.
 
 Non-engineering costs to carry alongside: NDIS registration audit (Practice Standards, Module 2A, complaints rules), key personnel suitability, insurance (public liability, vehicle, professional indemnity), a 24/7 ops desk from day one of trips, and worker screening for every driver.
 
