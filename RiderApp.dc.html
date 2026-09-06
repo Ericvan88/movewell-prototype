@@ -32,6 +32,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 <h1 style="margin:0;font-size:26px;font-weight:700;line-height:1.15">Good afternoon, Maya.</h1>
 <p style="margin:4px 0 0;font-size:14px;color:#4A4540">Prospect, SA</p>
 </div>
+<button onClick="{{ goNotifs }}" style="position:relative;width:44px;height:44px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#6C5CE7;font-size:17px;cursor:pointer"><i class="fa-solid fa-bell"></i><sc-if value="{{ notifHasUnread }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:9999px;background:#FF6B6B;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ notifUnread }}</span></sc-if></button>
 <button onClick="{{ goA11y }}" style="width:44px;height:44px;border:1px solid #E8E5E1;background:#fff;border-radius:12px;color:#6C5CE7;font-size:17px;cursor:pointer"><i class="fa-solid fa-universal-access"></i></button>
 </div>
 <div style="display:flex;flex-direction:column;gap:16px;padding:16px 20px">
@@ -543,6 +544,24 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 </div>
 </sc-if>
 
+<sc-if value="{{ isNotifs }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
+<button onClick="{{ goHome }}" style="width:44px;height:44px;border:0;background:transparent;color:#2D3748;font-size:18px;cursor:pointer;border-radius:12px" style-hover="background:#F7F6F4"><i class="fa-solid fa-chevron-left"></i></button>
+<h2 style="margin:0;font-size:22px;font-weight:700">Notifications</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:12px 20px">
+<sc-for list="{{ notifs }}" as="n" hint-placeholder-count="6">
+<div style="display:flex;gap:12px;padding:14px 16px;background:#fff;border:1px solid {{ n.border }};border-radius:12px">
+<span style="width:38px;height:38px;border-radius:9999px;background:{{ n.iconBg }};color:{{ n.iconFg }};display:flex;align-items:center;justify-content:center;flex:none"><i class="fa-solid {{ n.icon }}"></i></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:14.5px;font-weight:{{ n.fw }};line-height:1.35">{{ n.text }}</span><span style="display:block;font-size:12px;color:#4A4540;margin-top:3px">{{ n.when }}</span><sc-if value="{{ n.hasAction }}" hint-placeholder-val="{{ false }}"><span onClick="{{ n.onAction }}" style="display:inline-block;margin-top:8px;padding:6px 12px;border-radius:9999px;border:1px solid #6C5CE7;color:#5647C9;font-size:12.5px;font-weight:700;cursor:pointer">{{ n.action }}</span></sc-if></span>
+</div>
+</sc-for>
+<div style="font-size:12.5px;color:#4A4540;line-height:1.5;padding:0 4px">Safety alerts always come through. Everything else can be turned off under Accessibility.</div>
+</div>
+</div>
+</sc-if>
+
 <sc-if value="{{ isProfEdit }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;display:flex;flex-direction:column;overflow-y:auto">
 <div style="display:flex;align-items:center;gap:8px;padding:12px 16px 4px">
@@ -602,7 +621,7 @@ a{color:#6C5CE7}a:hover{color:#5647C9}
 class Component extends DCLogic {
   state = { screen: null, dest: null, whenMode: 'now', tier: null, rating: 0, sos: false, comps: {}, a11y: { hc: false, lt: false, voice: false, sw: false }, consents: { anna: true, leo: false }, pickupQr: false,
     cmp: { step: 1, type: 'complaint', trip: null, mode: 'write', anon: false, adv: {}, evs: {} }, cmpCases: [], cmpEsc: {},
-    prof: { frame: true, radio: true, soft: true, address: 'Maya', support: 'solo' },
+    prof: { frame: true, radio: true, soft: true, address: 'Maya', support: 'solo' }, notifsRead: false,
     bk: 'people', bkAl: { pd: true, lt: true, sos: true }, cw: 'dash', ah: 'assess' };
   renderVals() {
     const S = this.state, P = this.props;
@@ -676,6 +695,19 @@ class Component extends DCLogic {
     if (PR.support === 'two') profChips.push({ icon: 'fa-user-group', label: '2:1 support' }); else if (PR.support === 'worker') profChips.push({ icon: 'fa-user-group', label: 'Support worker travels' });
     const profSupportLine = { solo: 'travels alone', worker: 'a support worker travels with me', two: 'needs 2:1 support' }[PR.support];
     const profImpact = (PR.wheel ? 'Wheelchair means only WAV vehicles are offered. ' : 'Standard sedans and sensory-calm vehicles can be offered. ') + (PR.support === 'two' ? '2:1 support adds a support-worker line to every claim and only drivers cleared for 2:1 are matched. ' : '') + (PR.radio || PR.nonverbal ? 'Sensory-calm drivers are suggested first.' : '');
+    // --- notifications inbox ---
+    const GN = '#1F7A33', GNBG = 'rgba(45,167,72,0.14)', YN = 'rgba(255,217,61,0.25)', YNFG = '#8A6800', RN = '#C43F3F', RNBG = 'rgba(232,85,85,0.12)';
+    const notifs = [
+      { text: 'Deb K. is running 6 minutes late for your 2:15 pm pickup. Your physio buffer still holds. Anna has been told.', when: 'Today · 2:03 pm', icon: 'fa-clock', iconBg: YN, iconFg: YNFG, border: '#FFD93D', fw: '700', action: 'Track Deb', onAction: go('tracking') },
+      { text: 'Your core transport budget is 54% used with 8 months to go. On track to plan end (03/2027).', when: 'Today · 8:00 am', icon: 'fa-gauge-high', iconBg: '#F5F3FF', iconFg: '#5647C9', border: '#8B7EEE', fw: '700', action: 'See my bookings', onAction: go('bookings') },
+      { text: 'Trip cancelled: Day program, Mon 14/07. Your driver was unavailable and no one was free in time. Nothing was charged to your plan. Rebooked with Jo T. for Wed 16/07.', when: 'Mon 14/07 · 7:40 am', icon: 'fa-calendar-xmark', iconBg: RNBG, iconFg: RN, border: '#E8E5E1', fw: '700', action: false },
+      { text: 'You arrived safely at Hydrotherapy · Adelaide Aquatic Centre. Anna got the message too.', when: 'Wed 09/07 · 10:32 am', icon: 'fa-location-dot', iconBg: GNBG, iconFg: GN, border: '#E8E5E1', fw: '400', action: false },
+      { text: 'Collected by Deb K. at 12 Olive St · 10:11 am. Code verified.', when: 'Wed 09/07 · 10:11 am', icon: 'fa-car', iconBg: '#F5F3FF', iconFg: '#5647C9', border: '#E8E5E1', fw: '400', action: false },
+      { text: 'We could not find you at 12 Olive St for the 9:00 am pickup on Mon 07/07. The trip was marked no-show. Nothing was charged to your plan. If this is wrong, tell us.', when: 'Mon 07/07 · 9:20 am', icon: 'fa-person-circle-question', iconBg: YN, iconFg: YNFG, border: '#E8E5E1', fw: '400', action: 'This is wrong', onAction: go('help') },
+      { text: "Leo Marsh's consent to coordinate your transport expires 01/2027. You will be asked to renew it in December.", when: 'Mon 01/07 · 6:40 pm', icon: 'fa-user-check', iconBg: '#F5F3FF', iconFg: '#5647C9', border: '#E8E5E1', fw: '400', action: 'Review who sees what', onAction: go('profile') },
+      { text: 'Your MoveWell service agreement renews on 12/01/2027. Nothing to do yet. We will send it to you to sign in December.', when: 'Mon 01/07 · 6:40 pm', icon: 'fa-file-signature', iconBg: '#F7F6F4', iconFg: '#4A4540', border: '#E8E5E1', fw: '400', action: false },
+    ].map(n => ({ ...n, hasAction: !!n.action }));
+    const notifUnread = S.notifsRead ? 0 : 2;
     const contacts = [
       { k: 'anna', name: 'Anna Patel', rel: 'Mum', desc: 'Sees trips live and gets pickup and drop-off messages' },
       { k: 'leo', name: 'Leo Marsh', rel: 'Support coordinator', desc: 'Can book for you and see upcoming bookings' },
@@ -786,7 +818,8 @@ class Component extends DCLogic {
       isTracking: is('tracking'), isPickup: is('pickup'), isInTrip: is('intrip'), isComplete: is('complete'),
       isReceipt: is('receipt'), isA11y: is('a11y'),
       isBookings: is('bookings'), isProfile: is('profile'), isHelp: is('help'),
-      isProfEdit: is('profedit'), goProfEdit: go('profedit'), profGroups, profChips, profAddress: PR.address, profSupportLine, profImpact,
+      isProfEdit: is('profedit'), goProfEdit: go('profedit'),
+      isNotifs: is('notifs'), goNotifs: () => this.setState({ screen: 'notifs', notifsRead: true }), notifs, notifUnread, notifHasUnread: notifUnread > 0, profGroups, profChips, profAddress: PR.address, profSupportLine, profImpact,
       ...cmpVals,
       goBookings: go('bookings'), goProfile: go('profile'), goHelp: go('help'),
       a11yModes, hcAttr: A.hc ? 'on' : 'off', ltAttr: A.lt ? 'on' : 'off', rootBg: A.hc ? '#FFFFFF' : '#FAFAF9',
